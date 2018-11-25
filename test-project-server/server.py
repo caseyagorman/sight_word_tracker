@@ -122,6 +122,20 @@ def add_word_to_student():
     return 'student word added!'
 
 
+@app.route("/api/details/<student>")
+@cross_origin()
+def student_detail(student):
+    """Show student detail"""
+    student = Student.query.filter_by(student_id=student).first()
+    student = {
+        'student_id': student.student_id,
+        'fname': student.fname,
+        'lname': student.lname,
+        'grade': student.grade
+    }
+    return jsonify(student)
+
+
 if __name__ == "__main__":
 
     app.debug = True
