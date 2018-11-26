@@ -103,13 +103,11 @@ def delete_word():
 @app.route("/api/add-word-to-student", methods=["POST"])
 @cross_origin()
 def add_word_to_student():
-    print("adding word")
     data = request.get_json()
     word = data.get('word')
     fname = data.get('fname')
     lname = data.get('lname')
-    student = Student.query.filter(
-        (fname == fname) & (lname == lname)).first()
+    student = Student.query.filter_by(fname=fname, lname=lname).first()
     word = Word.query.filter_by(word=word).first()
     # Is there an alternative to doing two queries here? I feel like it has to be
     # two since I haven't created anything yet and my understanding is a joinedload
@@ -126,14 +124,26 @@ def add_word_to_student():
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
-    student = Student.query.filter_by(student_id=student).first()
-    student = {
-        'student_id': student.student_id,
-        'fname': student.fname,
-        'lname': student.lname,
-        'grade': student.grade
+    student_object = Student.query.filter_by(student_id=student).first()
+    words = StudentWord.query.filter_by(
+        student_id=student).options(db.joinedload('words')).all()
+
+    word_list = []
+    for word in words:
+        word = {
+            'word_id': word.words.word_id,
+            'word': word.words.word
+        }
+        word_list.append(word)
+
+    student_object = {
+        'student_id': student_object.student_id,
+        'fname': student_object.fname,
+        'lname': student_object.lname,
+        'grade': student_object.grade
     }
-    return jsonify(student)
+
+    return jsonify([student_object, word_list])
 
 
 if __name__ == "__main__":

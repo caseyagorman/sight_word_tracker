@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
+import StudentDetailPage from "./StudentDetailPage";
 class StudentDetail extends React.Component {
   state = {
     student: null
   };
+
   componentDidMount() {
     const { id } = this.props.match.params;
 
@@ -11,8 +13,16 @@ class StudentDetail extends React.Component {
       this.setState(() => ({ student }));
     });
   }
+
+  displayStudent(student) {
+    if (!student) {
+      return <p>Loading student...</p>;
+    }
+    return StudentDetailPage(student);
+  }
+
   render() {
-    return <h2>hello </h2>;
+    return <div>{this.displayStudent(this.state.student)}</div>;
   }
 }
 

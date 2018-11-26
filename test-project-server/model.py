@@ -43,6 +43,8 @@ class Student(db.Model):
     lname = db.Column(db.String(64), nullable=False)
     grade = db.Column(db.String(64), nullable=False)
 
+    studentwords = db.relationship('StudentWord')
+
     def __repr__(self):
         return f"<Student student_id={self.student_id} first_name={self.fname} last_name={self.lname}>"
 
@@ -54,6 +56,8 @@ class Word(db.Model):
 
     word_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     word = db.Column(db.String(25), nullable=False)
+
+    studentwords = db.relationship('StudentWord')
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
@@ -70,6 +74,9 @@ class StudentWord(db.Model):
         'words.word_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
+
+    students = db.relationship('Student')
+    words = db.relationship('Word')
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"
