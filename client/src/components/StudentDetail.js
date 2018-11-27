@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import StudentPage from "./StudentPage";
+import StudentWordsPage from "./StudentWordsPage";
 class StudentDetail extends React.Component {
   state = {
     student: null
@@ -18,11 +19,14 @@ class StudentDetail extends React.Component {
     if (!student) {
       return <p>Loading student...</p>;
     }
-    console.log("displayStudent", student.data[0]);
+    return StudentPage(student);
   }
 
   displayStudentWords(student) {
-    console.log("displayStudentWords", student.data[1]);
+    if (!student) {
+      return <p>Loading student words...</p>;
+    }
+    return student.data[1].map(student => StudentWordsPage(student));
   }
 
   render() {
