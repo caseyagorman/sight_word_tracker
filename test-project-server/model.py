@@ -43,7 +43,8 @@ class Student(db.Model):
     lname = db.Column(db.String(64), nullable=False)
     grade = db.Column(db.String(64), nullable=False)
 
-    studentwords = db.relationship('StudentWord')
+    studentwords = db.relationship(
+        'StudentWord', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<Student student_id={self.student_id} first_name={self.fname} last_name={self.lname}>"

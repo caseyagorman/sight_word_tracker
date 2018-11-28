@@ -34,6 +34,25 @@ def get_students():
     return students
 
 
+@app.route("/api/get-student/")
+@cross_origin()
+def get_student():
+    data = request.get_json()
+    fname = data.get('fname')
+    student = Student.query.filter_by(fname=fname).first()
+    student = {
+        'student_id': student.student_id,
+        'fname': student.fname,
+        'lname': student.lname,
+        'grade': student.grade
+    }
+    student = jsonify(student)
+    if student:
+        return student
+    else:
+        return "student does not exist"
+
+
 @app.route("/api/add-student", methods=['POST'])
 @cross_origin()
 def add_student():
@@ -56,8 +75,14 @@ def delete_student():
     data = request.get_json()
     print(data)
     fname = data.get('fname')
-    student_to_delete = Student.query.filter_by(fname=fname).first()
-    db.session.delete(student_to_delete)
+
+    student = Student.query.filter_by(fname=fname).first()
+    print(student)
+
+    # student_to_delete = StudentWord.query.filter_by(
+    #     student_id=student.student_id).options(db.joinedload('students')).all()
+
+    db.session.delete(student)
     db.session.commit()
     return 'student deleted!'
 
