@@ -59,7 +59,7 @@ class Word(db.Model):
     word = db.Column(db.String(25), nullable=False)
 
     studentwords = db.relationship(
-        'StudentWord', cascade="save-update, merge, delete"up)
+        'StudentWord', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
