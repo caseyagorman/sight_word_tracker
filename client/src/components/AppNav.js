@@ -1,19 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+const divStyle = {
+  display: "inline"
+};
 const AppNav = () => {
   return (
     <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/students/">Students</Link>
-        </li>
-        <li>
-          <Link to="/words/">Words</Link>
-        </li>
-      </ul>
+      <div style={divStyle}>
+        <Link to="/">Home |</Link>
+      </div>
+      <div style={divStyle}>
+        <Link to="/students/">Students |</Link>
+      </div>
+      <div style={divStyle}>
+        <Link to="/words/">Words |</Link>
+      </div>
     </nav>
   );
 };

@@ -5,6 +5,9 @@ import AppNav from "./components/AppNav";
 import StudentsContainer from "./containers/StudentsContainer";
 import WordsContainer from "./containers/WordsContainer";
 import StudentDetail from "./components/StudentDetail";
+import WordDetail from "./components/WordDetail";
+import AddStudent from "./components/AddStudent";
+import TestStudent from "./components/TestStudent";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const AppRouter = () => (
@@ -12,8 +15,11 @@ const AppRouter = () => (
     <div>
       <AppNav />
       <Route path="/students/" component={StudentsContainer} />
+      <Route path="/add-student/" component={AddStudent} />
+      <Route path="/test-student/" component={TestStudent} />
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetail} />
+      <Route path="/word-detail/:id" component={WordDetail} />
     </div>
   </Router>
 );

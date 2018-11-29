@@ -1,8 +1,11 @@
 import React from "react";
 import axios from "axios";
 import Student from "./Student";
+import { Link } from "react-router-dom";
 const apiUrl = "http://localhost:5000/api/students";
-
+const divStyle = {
+  display: "inline"
+};
 class ViewStudents extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +28,14 @@ class ViewStudents extends React.Component {
     return (
       <div>
         <h2>Students</h2>
+        <div style={divStyle}>
+          <Link to={`/add-student`}> Add Student |</Link>
+        </div>
+
+        <div style={divStyle}>
+          {" "}
+          <Link to={`/test-student`}> Test Student |</Link>
+        </div>
         {this.displayStudents(this.state.students)}
       </div>
     );

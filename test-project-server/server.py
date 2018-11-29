@@ -171,6 +171,41 @@ def student_detail(student):
     return jsonify([student_object, word_list])
 
 
+@app.route("/api/word-detail/<word>")
+@cross_origin()
+def word_detail(word):
+    """Show word detail"""
+    word_object = Word.query.filter_by(word_id=word).first()
+    students = StudentWord.query.filter_by(
+        word_id=word).options(db.joinedload('students')).all()
+
+    student_list = []
+    for student in students:
+        student = {
+            'student_id': student.students.student_id,
+            'fname': student.students.fname,
+            'lname': student.students.lname
+
+        }
+        student_list.append(student)
+
+    word_object = {
+        'word_id': word_object.word_id,
+        'word': word_object.word,
+    }
+
+    return jsonify([word_object, student_list])
+
+
+@app.route("/api/test-student")
+@cross_origin()
+def test_student():
+    """Student test"""
+    # stump
+
+    return "to do"
+
+
 if __name__ == "__main__":
 
     app.debug = True
