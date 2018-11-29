@@ -35,7 +35,9 @@ class AddStudent extends Component {
   render() {
     return (
       <div>
-        <h2>Add student</h2>
+        <br />
+        <h1>Add student</h1>
+        <br />
         <form onSubmit={this.addStudent}>
           Add New Student
           <br />

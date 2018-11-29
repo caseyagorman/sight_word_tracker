@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import WordStudentsPage from "./WordStudentsPage";
 import WordPage from "./WordPage";
+import DeleteWord from "./DeleteWord";
 class WordDetail extends React.Component {
   state = {
     word: null
@@ -19,7 +20,6 @@ class WordDetail extends React.Component {
     if (!word) {
       return <p>Loading...</p>;
     }
-    console.log(word.data[0]);
     return WordPage(word);
   }
 
@@ -37,6 +37,10 @@ class WordDetail extends React.Component {
         <div>{this.displayWord(this.state.word)}</div>
         <br />
         <div>{this.displayWordStudents(this.state.word)}</div>
+        <br />
+        <div>
+          <DeleteWord />
+        </div>
       </div>
     );
   }

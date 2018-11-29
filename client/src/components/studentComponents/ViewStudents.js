@@ -27,14 +27,18 @@ class ViewStudents extends React.Component {
   render() {
     return (
       <div>
-        <h2>Students</h2>
+        <br />
+        <h1>Students</h1>
         <div style={divStyle}>
           <Link to={`/add-student`}> Add Student |</Link>
         </div>
 
         <div style={divStyle}>
           {" "}
-          <Link to={`/test-student`}> Test Student |</Link>
+          <Link to={`/test-student`}> Test Student </Link>
+        </div>
+        <div>
+          <br />
         </div>
         {this.displayStudents(this.state.students)}
       </div>
