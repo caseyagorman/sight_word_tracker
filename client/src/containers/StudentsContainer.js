@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import ViewStudents from "../components/ViewStudents";
-import DeleteStudent from "../components/DeleteStudent";
-import AddStudentWordForm from "../components/AddStudentWordForm";
+import ViewStudents from "../components/studentComponents/ViewStudents";
 class Students extends Component {
   render() {
     return (

@@ -1,5 +1,4 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 
 const StudentPage = props => (
   <div key={props.data.student_id}>

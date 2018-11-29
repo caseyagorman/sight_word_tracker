@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ViewWords from "../components/ViewWords";
-import AddWord from "../components/AddWord";
-import DeleteWord from "../components/DeleteWord";
+import ViewWords from "../components/wordComponents/ViewWords";
+import AddWord from "../components/wordComponents/AddWord";
+import DeleteWord from "../components/wordComponents/DeleteWord";
 
 class Words extends Component {
   render() {

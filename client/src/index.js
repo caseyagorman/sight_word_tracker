@@ -4,10 +4,10 @@ import * as serviceWorker from "./serviceWorker";
 import AppNav from "./components/AppNav";
 import StudentsContainer from "./containers/StudentsContainer";
 import WordsContainer from "./containers/WordsContainer";
-import StudentDetail from "./components/StudentDetail";
-import WordDetail from "./components/WordDetail";
-import AddStudent from "./components/AddStudent";
-import TestStudent from "./components/TestStudent";
+import StudentDetail from "./components/studentComponents/StudentDetail";
+import WordDetail from "./components/wordComponents/WordDetail";
+import AddStudent from "./components/studentComponents/AddStudent";
+import TestStudent from "./components/studentComponents/TestStudent";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
