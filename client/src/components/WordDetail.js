@@ -33,7 +33,9 @@ class WordDetail extends React.Component {
   render() {
     return (
       <div>
+        <br />
         <div>{this.displayWord(this.state.word)}</div>
+        <br />
         <div>{this.displayWordStudents(this.state.word)}</div>
       </div>
     );

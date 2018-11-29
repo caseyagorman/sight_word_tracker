@@ -39,7 +39,6 @@ class AddStudentWordForm extends Component {
   render() {
     return (
       <div>
-        <h2>Add student word</h2>
         <form onSubmit={this.addStudentWord}>
           Add New Student Word
           <br />

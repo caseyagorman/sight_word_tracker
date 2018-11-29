@@ -14,7 +14,7 @@ app.secret_key = "ABC"
 @app.route("/")
 @cross_origin()
 def index():
-    return render_template('index.html')
+    return "homepage"
 
 
 @app.route("/api/students/")

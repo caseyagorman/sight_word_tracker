@@ -33,12 +33,9 @@ class AddWord extends Component {
   render() {
     return (
       <div>
-        <h2>Add Word</h2>
         <form onSubmit={this.addWord}>
-          Add New Word
-          <br />
+          Add New Word:
           <label>
-            Word:
             <input
               id="wordForm"
               type="text"

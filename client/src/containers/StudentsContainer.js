@@ -7,8 +7,6 @@ class Students extends Component {
     return (
       <div>
         <ViewStudents />
-        <DeleteStudent />
-        <AddStudentWordForm />
       </div>
     );
   }

@@ -33,7 +33,6 @@ class DeleteStudent extends Component {
   render() {
     return (
       <div>
-        <h2>Delete student</h2>
         <form onSubmit={this.handleDeleteStudent}>
           Delete Student
           <br />

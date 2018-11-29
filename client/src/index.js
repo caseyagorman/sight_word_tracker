@@ -8,12 +8,14 @@ import StudentDetail from "./components/StudentDetail";
 import WordDetail from "./components/WordDetail";
 import AddStudent from "./components/AddStudent";
 import TestStudent from "./components/TestStudent";
+import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const AppRouter = () => (
   <Router>
     <div>
       <AppNav />
+      <Route path="//" component={Home} />
       <Route path="/students/" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudent} />
       <Route path="/test-student/" component={TestStudent} />

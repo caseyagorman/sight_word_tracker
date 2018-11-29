@@ -33,11 +33,9 @@ class DeleteWord extends Component {
   render() {
     return (
       <div>
-        <h2>Delete Word</h2>
         <form onSubmit={this.handleDeleteWord}>
-          <br />
+          Delete Word:
           <label>
-            Word:
             <input
               id="wordForm"
               type="text"

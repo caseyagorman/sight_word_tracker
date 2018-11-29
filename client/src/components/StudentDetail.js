@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
+import DeleteStudent from "./DeleteStudent";
+import AddStudentWordForm from "./AddStudentWordForm";
 class StudentDetail extends React.Component {
   state = {
     student: null
@@ -64,6 +66,14 @@ class StudentDetail extends React.Component {
       <div>
         <div>{this.displayStudent(this.state.student)}</div>
         <div>{this.displayStudentWords(this.state.student)}</div>
+        <br />
+        <div>
+          <DeleteStudent />
+        </div>
+        <br />
+        <div>
+          <AddStudentWordForm />
+        </div>
       </div>
     );
   }
