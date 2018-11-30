@@ -2,10 +2,10 @@ import React from "react";
 import axios from "axios";
 import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
-import DeleteStudent from "./DeleteStudent";
+// import DeleteStudent from "./DeleteStudent";
 import AddStudentWordForm from "./AddStudentWordForm";
 import TestStudentLink from "./TestStudentLink";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 class StudentDetail extends React.Component {
   state = {
     student: null
