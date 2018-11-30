@@ -4,6 +4,8 @@ import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
 import DeleteStudent from "./DeleteStudent";
 import AddStudentWordForm from "./AddStudentWordForm";
+import TestStudentLink from "./TestStudentLink";
+import { Link } from "react-router-dom";
 class StudentDetail extends React.Component {
   state = {
     student: null
@@ -18,6 +20,7 @@ class StudentDetail extends React.Component {
   }
 
   displayStudent(student) {
+    console.log(student);
     if (!student) {
       return <p>Loading student...</p>;
     }
@@ -25,12 +28,33 @@ class StudentDetail extends React.Component {
   }
 
   displayStudentWords(student) {
+    console.log(student);
     if (!student) {
       return <p>Loading student words...</p>;
     }
     return student.data[1].map(student => StudentWordsPage(student));
   }
 
+  getStudentTest(student) {
+    if (!student) {
+      return <p>Loading test...</p>;
+    }
+    return TestStudentLink(student);
+  }
+
+  getName(student) {
+    if (!student) {
+      return <p> Loading... </p>;
+    }
+    return student.data[0].fname;
+  }
+
+  getLastName(student) {
+    if (!student) {
+      return <p> Loading... </p>;
+    }
+    return student.data[0].lname;
+  }
   render() {
     return (
       <div>
@@ -39,12 +63,13 @@ class StudentDetail extends React.Component {
         <br />
         <div>{this.displayStudentWords(this.state.student)}</div>
         <br />
-        <div>
-          <DeleteStudent />
-        </div>
+        <div>{this.getStudentTest(this.state.student)}</div>
         <br />
         <div>
-          <AddStudentWordForm />
+          <AddStudentWordForm
+            fname={this.getName(this.state.student)}
+            lname={this.getLastName(this.state.student)}
+          />
         </div>
       </div>
     );

@@ -10,8 +10,8 @@ class AddStudentWordForm extends Component {
   addStudentWord(event) {
     event.preventDefault();
     let newStudentWord = {
-      fname: this.fnameInput.value,
-      lname: this.lnameInput.value,
+      fname: this.props.fname,
+      lname: this.props.lname,
       word: this.wordInput.value
     };
 
@@ -42,24 +42,8 @@ class AddStudentWordForm extends Component {
         <form onSubmit={this.addStudentWord}>
           Add New Student Word
           <br />
-          <label>
-            First Name:
-            <input
-              id="nameForm"
-              type="text"
-              ref={fnameInput => (this.fnameInput = fnameInput)}
-            />
-          </label>
-          <br />
-          <label>
-            Last Name:
-            <input ref={lnameInput => (this.lnameInput = lnameInput)} />
-          </label>
-          <br />
-          <label>
-            Word:
-            <input ref={wordInput => (this.wordInput = wordInput)} />
-          </label>
+          Word:
+          <input ref={wordInput => (this.wordInput = wordInput)} />
           <input type="submit" />
         </form>
       </div>

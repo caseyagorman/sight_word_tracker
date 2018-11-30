@@ -1,5 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -57,7 +58,8 @@ class Word(db.Model):
 
     word_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     word = db.Column(db.String(25), nullable=False)
-
+    date_added = db.Column(db.DateTime, nullable=False,
+                           default=datetime.today)
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
 
@@ -76,7 +78,8 @@ class StudentWord(db.Model):
         'words.word_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
-
+    added_to_student = db.Column(
+        db.DateTime, nullable=False, default=datetime.today)
     students = db.relationship('Student')
     words = db.relationship('Word')
 

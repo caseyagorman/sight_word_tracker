@@ -20,7 +20,7 @@ const AppRouter = () => (
       <Route path="/students/" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudent} />
       <Route path="/add-word/" component={AddWord} />
-      <Route path="/test-student/" component={TestStudent} />
+      <Route path="/test-student/:id" component={TestStudent} />
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetail} />
       <Route path="/word-detail/:id" component={WordDetail} />

@@ -129,6 +129,7 @@ def delete_word():
 @cross_origin()
 def add_word_to_student():
     data = request.get_json()
+    print(data)
     word = data.get('word')
     fname = data.get('fname')
     lname = data.get('lname')
@@ -157,7 +158,7 @@ def student_detail(student):
     for word in words:
         word = {
             'word_id': word.words.word_id,
-            'word': word.words.word
+            'word': word.words.word,
         }
         word_list.append(word)
 
@@ -192,18 +193,11 @@ def word_detail(word):
     word_object = {
         'word_id': word_object.word_id,
         'word': word_object.word,
+        'date': word_object.date_added
     }
+    print(word_object)
 
     return jsonify([word_object, student_list])
-
-
-@app.route("/api/test-student")
-@cross_origin()
-def test_student():
-    """Student test"""
-    # stump
-
-    return "to do"
 
 
 if __name__ == "__main__":
