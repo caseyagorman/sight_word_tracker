@@ -17,6 +17,7 @@ class StudentDetail extends React.Component {
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
       this.setState(() => ({ student }));
     });
+    console.log("bye!");
   }
 
   displayStudent(student) {

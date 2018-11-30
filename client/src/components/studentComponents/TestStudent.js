@@ -7,6 +7,7 @@ class TestStudent extends React.Component {
   };
 
   componentDidMount() {
+    console.log("mount!");
     const { id } = this.props.match.params;
 
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
@@ -18,7 +19,8 @@ class TestStudent extends React.Component {
       return <p> Loading... </p>;
     }
     let words = this.turnIntoArray(student.data[1]);
-    return words;
+    console.log("the", words);
+    return <StudentWordsTestPage words={words} />;
   }
 
   turnIntoArray(obj) {
@@ -34,11 +36,7 @@ class TestStudent extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <StudentWordsTestPage words={this.getWords(this.state.student)} />
-      </div>
-    );
+    return <div>{this.getWords(this.state.student)}</div>;
   }
 }
 

@@ -5,6 +5,7 @@ class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
     this.addStudentWord = this.addStudentWord.bind(this);
+    console.log("hello!");
   }
 
   addStudentWord(event) {
