@@ -20,7 +20,6 @@ class StudentDetail extends React.Component {
   }
 
   displayStudent(student) {
-    console.log(student);
     if (!student) {
       return <p>Loading student...</p>;
     }
@@ -28,7 +27,6 @@ class StudentDetail extends React.Component {
   }
 
   displayStudentWords(student) {
-    console.log(student);
     if (!student) {
       return <p>Loading student words...</p>;
     }
