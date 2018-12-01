@@ -8,7 +8,7 @@ class StudentWordsTestPage extends React.Component {
 
   displayWord(words) {
     if (!words) {
-      return <div>loading...</div>;
+      return <div>Test Complete!</div>;
     }
     return <div>{words}</div>;
   }
@@ -16,11 +16,11 @@ class StudentWordsTestPage extends React.Component {
   incrementIdx(idx) {
     let new_idx = idx + 1;
     this.setState({ idx: new_idx });
-    console.log("yes!");
   }
 
-  stub(e, word) {
+  handleTestClick(e, word, idx) {
     e.preventDefault();
+    this.incrementIdx(idx);
     console.log(word, e.target.value);
   }
   render() {
@@ -29,17 +29,18 @@ class StudentWordsTestPage extends React.Component {
     return (
       <div>
         <div>{this.displayWord(words[idx])}</div>
-        <button onClick={e => this.stub(e, words[idx])} value="yes">
+        <button
+          onClick={e => this.handleTestClick(e, words[idx], idx)}
+          value="yes"
+        >
           Yes
         </button>
-        <button onClick={e => this.stub(e, words[idx])} value="no">
+        <button
+          onClick={e => this.handleTestClick(e, words[idx], idx)}
+          value="no"
+        >
           No
         </button>
-        <br />
-        <div>
-          <br />
-          <button onClick={() => this.incrementIdx(idx)}>Next</button>
-        </div>
       </div>
     );
   }

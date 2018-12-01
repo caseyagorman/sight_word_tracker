@@ -30,13 +30,9 @@ class ViewStudents extends React.Component {
         <br />
         <h1>Students</h1>
         <div style={divStyle}>
-          <Link to={`/add-student`}> Add Student |</Link>
+          <Link to={`/add-student`}> Add Student</Link>
         </div>
 
-        <div style={divStyle}>
-          {" "}
-          <Link to={`/test-student`}> Test Student </Link>
-        </div>
         <div>
           <br />
         </div>

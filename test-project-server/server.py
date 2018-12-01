@@ -200,6 +200,36 @@ def word_detail(word):
     return jsonify([word_object, student_list])
 
 
+@cross_origin()
+@app.route("/api/delete-student-word", methods=["POST"])
+def delete_student_word():
+    """Show student detail"""
+    data = request.get_json()
+    word = data.get('word')
+    fname = data.get('fname')
+    lname = data.get('lname')
+    student = Student.query.filter_by(fname=fname, lname=lname).first()
+    word = Word.query.filter_by(word=word).first()
+    studentword = StudentWord.query.filter_by(
+        student_id=student.student_id, word_id=word.word_id).first()
+    db.session.delete(studentword)
+    db.session.commit()
+    # word_list = []
+    # for word in words:
+    #     word = {
+    #         'word_id': word.words.word_id,
+    #         'word': word.words.word,
+    #     }
+    #     word_list.append(word)
+
+    # student_word_object = {
+    #     'student_id': studentword.student_id,
+    # }
+
+    # return jsonify(student_word_object)
+    return "hello!"
+
+
 if __name__ == "__main__":
 
     app.debug = True
