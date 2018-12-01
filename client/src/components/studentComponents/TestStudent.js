@@ -20,7 +20,12 @@ class TestStudent extends React.Component {
     }
     let words = this.turnIntoArray(student.data[1]);
     console.log("the", words);
-    return <StudentWordsTestPage words={words} />;
+    return (
+      <StudentWordsTestPage
+        words={words}
+        student={student.data[0].student_id}
+      />
+    );
   }
 
   turnIntoArray(obj) {

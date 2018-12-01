@@ -4,6 +4,7 @@ class StudentWordsTestPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { words: this.props.words, idx: 0 };
+    console.log(props);
   }
 
   displayWord(words) {
@@ -23,6 +24,27 @@ class StudentWordsTestPage extends React.Component {
     this.incrementIdx(idx);
     console.log(word, e.target.value);
   }
+  // const config = {
+  //   headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
+  //   axios
+  //     .post(
+  //       "http://localhost:5000/api/add-word-to-student",
+  //       newStudentWord,
+  //       config
+  //     )
+  //     .then(res => {
+  //       console.log(res.data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  //   }
+
+  // }
   render() {
     const words = this.state.words;
     const idx = this.state.idx;
