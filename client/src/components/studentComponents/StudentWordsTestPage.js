@@ -5,25 +5,26 @@ class StudentWordsTestPage extends React.Component {
     super(props);
     this.state = { words: this.props.words, showing: true };
   }
-
-  render() {
-    const showing = this.state.showing;
+  displayTest(word) {
+    if (!word) {
+      return <div>loading...</div>;
+    }
+    console.log(word);
+    const showing = word.showing;
     return (
       <div>
-        <div>
-          {showing ? <div>{this.state.words[0]}</div> : null}
-          <button onClick={() => this.setState({ showing: !showing })}>
-            Yes
-          </button>
-        </div>
-        <div>
-          {showing ? <div>{this.state.words[1]}</div> : null}
-          <button onClick={() => this.setState({ showing: !showing })}>
-            toggle
-          </button>
-        </div>
+        {showing ? <div>{word}</div> : null}
+        <button onClick={() => this.setState({ showing: !showing })}>
+          toggle
+        </button>
       </div>
     );
+  }
+  render() {
+    const words = this.state.words;
+    return words.map(word => this.displayTest(word));
+
+    // return <div> {this.state.words.map(word => this.DisplayTest(word))} </div>;
   }
 }
 
