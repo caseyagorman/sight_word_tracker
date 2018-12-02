@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
@@ -23,28 +24,32 @@ class StudentWordsTestPage extends React.Component {
     e.preventDefault();
     this.incrementIdx(idx);
     console.log(word, e.target.value);
+    if (e.target.value === "yes") {
+      let wordToDelete = {
+        student: this.props.student,
+        word: word
+      };
+      const config = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      };
+      axios
+        .post(
+          "http://localhost:5000/api/delete-student-word",
+          wordToDelete,
+          config
+        )
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
-  // const config = {
-  //   headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json"
-  //     }
-  //   };
-  //   axios
-  //     .post(
-  //       "http://localhost:5000/api/add-word-to-student",
-  //       newStudentWord,
-  //       config
-  //     )
-  //     .then(res => {
-  //       console.log(res.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  //   }
 
-  // }
   render() {
     const words = this.state.words;
     const idx = this.state.idx;
