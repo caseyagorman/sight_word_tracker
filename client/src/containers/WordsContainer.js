@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ViewWords from "../components/wordComponents/ViewWords";
+import ViewWords from "../components/wordComponents/WordDetail/ViewWords";
 
 class Words extends Component {
   render() {

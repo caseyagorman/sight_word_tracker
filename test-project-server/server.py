@@ -129,12 +129,12 @@ def delete_word():
 @cross_origin()
 def add_word_to_student():
     data = request.get_json()
-    print(data)
     word = data.get('word')
     fname = data.get('fname')
     lname = data.get('lname')
     student = Student.query.filter_by(fname=fname, lname=lname).first()
     word = Word.query.filter_by(word=word).first()
+
     # Is there an alternative to doing two queries here? I feel like it has to be
     # two since I haven't created anything yet and my understanding is a joinedload
     # is for querying an existing record?

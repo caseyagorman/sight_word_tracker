@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Student from "./Student";
+import Student from "../studentComponents/StudentDetail/Student";
 import { Link } from "react-router-dom";
 const apiUrl = "http://localhost:5000/api/students";
 const divStyle = {

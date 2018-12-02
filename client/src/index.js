@@ -4,11 +4,11 @@ import * as serviceWorker from "./serviceWorker";
 import AppNav from "./components/AppNav";
 import StudentsContainer from "./containers/StudentsContainer";
 import WordsContainer from "./containers/WordsContainer";
-import StudentDetail from "./components/studentComponents/StudentDetail";
-import WordDetail from "./components/wordComponents/WordDetail";
-import AddStudent from "./components/studentComponents/AddStudent";
-import AddWord from "./components/wordComponents/AddWord";
-import TestStudent from "./components/studentComponents/TestStudent";
+import StudentDetail from "./components/studentComponents/StudentDetail/StudentDetail";
+import WordDetail from "./components/wordComponents/WordDetail/WordDetail";
+import AddStudent from "./components/studentComponents/Forms/AddStudent";
+import AddWord from "./components/wordComponents/Forms/AddWord";
+import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
