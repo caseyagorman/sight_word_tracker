@@ -125,25 +125,26 @@ def delete_word():
     return 'word deleted!'
 
 
-@app.route("/api/add-word-to-student", methods=["POST"])
+@app.route('/api/add-word-to-student', methods=['POST'])
 @cross_origin()
 def add_word_to_student():
     data = request.get_json()
-    word = data.get('word')
+    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
+    words = data.get('words')
+    words = words.split()
+    print(fname, lname, words)
     student = Student.query.filter_by(fname=fname, lname=lname).first()
-    word = Word.query.filter_by(word=word).first()
+    word_list = Word.query.filter(Word.word.in_(words)).all()
+    print(word_list)
+    for word in word_list:
+        new_student_word = StudentWord(
+            word_id=word.word_id, student_id=student.student_id)
+        db.session.add(new_student_word)
+        db.session.commit()
 
-    # Is there an alternative to doing two queries here? I feel like it has to be
-    # two since I haven't created anything yet and my understanding is a joinedload
-    # is for querying an existing record?
-    new_student_word = StudentWord(
-        word_id=word.word_id, student_id=student.student_id)
-    db.session.add(new_student_word)
-    db.session.commit()
-
-    return 'student word added!'
+    return 'student words added!'
 
 
 @app.route("/api/details/<student>")
