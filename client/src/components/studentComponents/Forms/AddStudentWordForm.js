@@ -5,8 +5,8 @@ const apiUrl = "http://localhost:5000/api/words";
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { words: null, selected: "" };
-    this.addStudentWord = this.addStudentWord.bind(this);
+    this.state = { words: null, value: [] };
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     axios.get(apiUrl).then(response => {
       this.setState({
@@ -15,7 +15,15 @@ class AddStudentWordForm extends Component {
     });
   }
   handleChange(e) {
-    this.setState({ selected: e.target.value });
+    console.log(e.target.options);
+    const options = e.target.options;
+    let value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({ value: value });
   }
 
   turnIntoArray(obj) {
@@ -37,9 +45,13 @@ class AddStudentWordForm extends Component {
     let wordList = this.turnIntoArray(words);
     return (
       <div>
-        <form onSubmit={this.addStudentWord}>
+        <form onSubmit={this.handleSubmit}>
           <label>
-            <select onChange={this.handleChange}>
+            <select
+              multiple={true}
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
               {wordList.map(word => (
                 <option key={word}>{word}</option>
               ))}
@@ -50,26 +62,16 @@ class AddStudentWordForm extends Component {
       </div>
     );
   }
-  async addStudentWord(event) {
-    event.preventDefault();
-    console.log("click");
-    console.log("this", this);
-    console.log(this.state.selected);
 
-    // // const options = event.target.options;
-    // // let value = [];
-    // // for (let i = 0, l = options.length; i < l; i++) {
-    // //   if (options[i].selected) {
-    // //     value.push(options[i].value);
-    // //   }
-    // // }
-    // // this.setState({ value: value });
+  async handleSubmit(event) {
+    event.preventDefault();
 
     let newStudentWord = {
       fname: this.props.fname,
       lname: this.props.lname,
-      words: this.state.selected
+      words: this.state.value
     };
+    console.log(newStudentWord);
 
     newStudentWord = JSON.stringify(newStudentWord);
     const config = {

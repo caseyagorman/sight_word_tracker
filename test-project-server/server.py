@@ -133,7 +133,6 @@ def add_word_to_student():
     fname = data.get('fname')
     lname = data.get('lname')
     words = data.get('words')
-    words = words.split()
     print(fname, lname, words)
     student = Student.query.filter_by(fname=fname, lname=lname).first()
     word_list = Word.query.filter(Word.word.in_(words)).all()
