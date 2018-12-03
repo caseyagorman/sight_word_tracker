@@ -102,6 +102,26 @@ def get_words():
     return words
 
 
+@app.route("/api/unknown_words/<student>")
+@cross_origin()
+def get_unknown_words(student):
+    words = StudentWord.query.filter_by(
+        student_id=student).options(db.joinedload('words')).all()
+    word_ids = []
+    for word in words:
+        word_ids.append(word.word_id)
+    unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
+    json_word_list = []
+    for word in unknown_words:
+        word = {
+            'word_id': word.word_id,
+            'word': word.word
+        }
+        json_word_list.append(word)
+    words = jsonify(json_word_list)
+    return words
+
+
 @app.route("/api/add-word", methods=['POST'])
 @cross_origin()
 def add_word():

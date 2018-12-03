@@ -51,6 +51,13 @@ class StudentDetail extends React.Component {
     }
     return student.data[0].lname;
   }
+  getStudentId(student) {
+    if (!student) {
+      return <p> Loading... </p>;
+    }
+    return student.data[0].student_id;
+  }
+
   render() {
     return (
       <div>
@@ -65,6 +72,7 @@ class StudentDetail extends React.Component {
           <AddStudentWordForm
             fname={this.getName(this.state.student)}
             lname={this.getLastName(this.state.student)}
+            student_id={this.getStudentId(this.state.student)}
           />
         </div>
       </div>

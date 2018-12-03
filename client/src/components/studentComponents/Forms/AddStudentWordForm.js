@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-const apiUrl = "http://localhost:5000/api/words";
 
 class AddStudentWordForm extends Component {
   constructor(props) {
@@ -8,12 +7,18 @@ class AddStudentWordForm extends Component {
     this.state = { words: null, value: [] };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    axios.get(apiUrl).then(response => {
+    console.log("1", this.props);
+  }
+  componentDidMount() {
+    console.log("2", this.props);
+    // const { id } = this.props.match.params.student_id;
+    axios.get(`http://localhost:5000/api/words/`).then(response => {
       this.setState({
         words: response.data
       });
     });
   }
+
   handleChange(e) {
     console.log(e.target.options);
     const options = e.target.options;
@@ -42,6 +47,7 @@ class AddStudentWordForm extends Component {
     if (!words) {
       return <p>Loading...</p>;
     }
+    console.log("3", this.props);
     let wordList = this.turnIntoArray(words);
     return (
       <div>
@@ -65,6 +71,7 @@ class AddStudentWordForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log("4", this.props);
 
     let newStudentWord = {
       fname: this.props.fname,
@@ -77,12 +84,12 @@ class AddStudentWordForm extends Component {
     const config = {
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/jso n"
       }
     };
     try {
       let d = await axios.post(
-        "http://localhost:5000/api/add-word-to-student",
+        "http://localhost:5000/api/api/add-word-to-student",
         newStudentWord,
         config
       );
@@ -94,6 +101,7 @@ class AddStudentWordForm extends Component {
   }
 
   render() {
+    console.log("5", this.props);
     return <div>{this.getOptions(this.state.words)}</div>;
   }
 }
