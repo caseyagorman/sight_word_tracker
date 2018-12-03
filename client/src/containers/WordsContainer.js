@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import ViewWords from "../components/wordComponents/WordDetail/ViewWords";
+import ViewWordsFunctional from "../components/wordComponents/WordDetail/ViewWordsFunctional";
 
 class Words extends Component {
   render() {
     return (
       <div>
-        <ViewWords />
+        <ViewWordsFunctional />
       </div>
     );
   }

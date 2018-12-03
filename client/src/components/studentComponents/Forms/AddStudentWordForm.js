@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import axios from "axios";
+import GetWordOptions from "./GetWordOptions";
 
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { value: null };
     this.addStudentWord = this.addStudentWord.bind(this);
-    console.log(props.fname, props.lname);
   }
 
-  addStudentWord(event) {
+  async addStudentWord(event) {
     event.preventDefault();
-    console.log(this.props.fname, this.props.lname);
+
+    const options = event.target.options;
+    let value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({ value: value });
     let newStudentWord = {
       fname: this.props.fname,
       lname: this.props.lname,
@@ -18,36 +27,31 @@ class AddStudentWordForm extends Component {
     };
 
     newStudentWord = JSON.stringify(newStudentWord);
-    console.log(newStudentWord);
     const config = {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
     };
-    axios
-      .post(
+    try {
+      let d = await axios.post(
         "http://localhost:5000/api/add-word-to-student",
         newStudentWord,
         config
-      )
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    console.log(newStudentWord);
+      );
+
+      console.log(d);
+    } catch (e) {
+      console.log(e);
+    }
   }
   render() {
     return (
       <div>
-        <form onSubmit={this.addStudentWord}>
-          Add New Student Word
-          <br />
-          Word:
-          <input ref={wordInput => (this.wordInput = wordInput)} />
-          <input type="submit" />
+        <form>
+          <label>
+            <GetWordOptions />
+          </label>
         </form>
       </div>
     );

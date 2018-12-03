@@ -19,7 +19,6 @@ class TestStudent extends React.Component {
       return <p> Loading... </p>;
     }
     let words = this.turnIntoArray(student.data[1]);
-    console.log("the", words);
     return (
       <StudentWordsTestPage
         words={words}
