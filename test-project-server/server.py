@@ -102,7 +102,7 @@ def get_words():
     return words
 
 
-@app.route("/api/unknown_words/<student>")
+@app.route("/api/unknown-words/<student>")
 @cross_origin()
 def get_unknown_words(student):
     words = StudentWord.query.filter_by(
@@ -170,6 +170,7 @@ def add_word_to_student():
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
+    print("student detail")
     student_object = Student.query.filter_by(student_id=student).first()
     words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()

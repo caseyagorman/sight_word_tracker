@@ -4,23 +4,13 @@ import axios from "axios";
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { words: null, value: [] };
+    this.state = { value: [] };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    console.log("1", this.props);
-  }
-  componentDidMount() {
-    console.log("2", this.props);
-    // const { id } = this.props.match.params.student_id;
-    axios.get(`http://localhost:5000/api/words/`).then(response => {
-      this.setState({
-        words: response.data
-      });
-    });
+    this.getOptions = this.getOptions.bind(this);
   }
 
   handleChange(e) {
-    console.log(e.target.options);
     const options = e.target.options;
     let value = [];
     for (let i = 0, l = options.length; i < l; i++) {
@@ -30,25 +20,14 @@ class AddStudentWordForm extends Component {
     }
     this.setState({ value: value });
   }
-
-  turnIntoArray(obj) {
-    if (!obj) {
-      return <p>Loading...</p>;
-    }
-    let wordList = [];
-    for (let key in obj) {
-      let wordObj = obj[key];
-      wordList.push(wordObj.word);
-    }
-    return wordList;
-  }
+  componentWillReceiveProps() {}
 
   getOptions(words) {
     if (!words) {
-      return <p>Loading...</p>;
+      return <div>Loading...</div>;
     }
-    console.log("3", this.props);
-    let wordList = this.turnIntoArray(words);
+    let wordList = words;
+    console.log("wordlist", wordList);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -71,15 +50,11 @@ class AddStudentWordForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log("4", this.props);
-
     let newStudentWord = {
       fname: this.props.fname,
       lname: this.props.lname,
       words: this.state.value
     };
-    console.log(newStudentWord);
-
     newStudentWord = JSON.stringify(newStudentWord);
     const config = {
       headers: {
@@ -101,9 +76,7 @@ class AddStudentWordForm extends Component {
   }
 
   render() {
-    console.log("5", this.props);
-    return <div>{this.getOptions(this.state.words)}</div>;
+    return <div>{this.getOptions(this.props.words)}</div>;
   }
 }
-
 export default AddStudentWordForm;

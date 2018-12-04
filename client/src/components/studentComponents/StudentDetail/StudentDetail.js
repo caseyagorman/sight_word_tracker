@@ -5,15 +5,23 @@ import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../StudentTest/TestStudentLink";
 class StudentDetail extends React.Component {
-  state = {
-    student: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      student: null,
+      words: null
+    };
+  }
 
   componentDidMount() {
+    console.log("mount!");
     const { id } = this.props.match.params;
 
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
-      this.setState(() => ({ student }));
+      this.setState({ student: student });
+    });
+    axios.get(`http://localhost:5000/api/unknown-words/${id}`).then(words => {
+      this.setState({ words: words });
     });
   }
 
@@ -51,11 +59,25 @@ class StudentDetail extends React.Component {
     }
     return student.data[0].lname;
   }
-  getStudentId(student) {
-    if (!student) {
+  turnIntoArray(obj) {
+    if (!obj) {
+      return <p>Loading...</p>;
+    }
+    console.log("object", obj);
+    let wordList = [];
+    for (let key in obj) {
+      let wordObj = obj[key];
+      wordList.push(wordObj.word);
+    }
+    return wordList;
+  }
+  getWords(words) {
+    if (!words) {
       return <p> Loading... </p>;
     }
-    return student.data[0].student_id;
+    let wordList = this.turnIntoArray(words.data);
+    console.log(wordList);
+    return wordList;
   }
 
   render() {
@@ -72,7 +94,7 @@ class StudentDetail extends React.Component {
           <AddStudentWordForm
             fname={this.getName(this.state.student)}
             lname={this.getLastName(this.state.student)}
-            student_id={this.getStudentId(this.state.student)}
+            words={this.getWords(this.state.words)}
           />
         </div>
       </div>
