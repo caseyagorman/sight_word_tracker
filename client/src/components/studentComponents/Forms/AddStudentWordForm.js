@@ -20,14 +20,12 @@ class AddStudentWordForm extends Component {
     }
     this.setState({ value: value });
   }
-  componentWillReceiveProps() {}
 
-  getOptions(words) {
-    if (!words) {
-      return <div>Loading...</div>;
+  getOptions() {
+    if (this.props.words.keys == null) {
+      return <div>Loading</div>;
     }
-    let wordList = words;
-    console.log("wordlist", wordList);
+    let wordList = this.props.words;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -50,21 +48,23 @@ class AddStudentWordForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log(this.state.value);
     let newStudentWord = {
       fname: this.props.fname,
       lname: this.props.lname,
       words: this.state.value
     };
     newStudentWord = JSON.stringify(newStudentWord);
+    console.log(newStudentWord);
     const config = {
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/jso n"
+        "Content-Type": "application/json"
       }
     };
     try {
       let d = await axios.post(
-        "http://localhost:5000/api/api/add-word-to-student",
+        "http://localhost:5000/api/add-word-to-student",
         newStudentWord,
         config
       );
@@ -76,7 +76,8 @@ class AddStudentWordForm extends Component {
   }
 
   render() {
-    return <div>{this.getOptions(this.props.words)}</div>;
+    return <div>{this.getOptions()}</div>;
   }
 }
+
 export default AddStudentWordForm;
