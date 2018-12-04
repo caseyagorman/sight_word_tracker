@@ -166,6 +166,27 @@ def add_word_to_student():
     return 'student words added!'
 
 
+@app.route('/api/add-word-to-all-students', methods=['POST'])
+@cross_origin()
+def add_word_to_all_student():
+    data = request.get_json()
+    print(data)
+    word = data.get('word')
+    print(word)
+    print("hello")
+    students = StudentWord.query.all()
+    print("students", students)
+    word = Word.query.filter_by(word=word).first()
+    print("word", word)
+    for student in students:
+        new_student_word = StudentWord(
+            word_id=word.word_id, student_id=student.student_id)
+        db.session.add(new_student_word)
+        db.session.commit()
+
+    return 'student word added!'
+
+
 @app.route("/api/details/<student>")
 @cross_origin()
 def student_detail(student):
