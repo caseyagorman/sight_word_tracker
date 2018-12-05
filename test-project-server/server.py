@@ -126,11 +126,20 @@ def get_unknown_words(student):
 @cross_origin()
 def add_word():
     data = request.get_json()
-    word = data.get('word')
-    new_word = Word(word=word)
-    db.session.add(new_word)
-    db.session.commit()
-    return 'word added!'
+    new_word = data.get('word')
+    print(new_word)
+    words = Word.query.all()
+    for word in words:
+        print(word)
+    for word in words:
+        if new_word == word.word:
+            print("no")
+            return "already in database"
+        else:
+            new_word = Word(word=word)
+            db.session.add(new_word)
+            db.session.commit()
+            return 'word added!'
 
 
 @app.route("/api/delete-word", methods=['POST'])
@@ -164,6 +173,7 @@ def add_word_to_student():
         StudentWord.word_id.in_(word_ids)).all()
     for word in word_list:
         if word.word_id in word_ids:
+            print("no")
         else:
             new_student_word = StudentWord(
                 word_id=word.word_id, student_id=student.student_id)
