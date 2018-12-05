@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { withRouter } from "react-router";
 
 class AddStudent extends Component {
   constructor(props) {

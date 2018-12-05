@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { withRouter } from "react-router";
 
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class StudentWordsTestPage extends React.Component {
 
   displayWord(words) {
     if (!words) {
-      return <div>Test Complete!</div>;
+      this.props.history.push("/students");
     }
     return <div>{words}</div>;
   }
@@ -62,4 +63,5 @@ class StudentWordsTestPage extends React.Component {
   }
 }
 
-export default StudentWordsTestPage;
+const StudentWordsTestPageWrapped = withRouter(StudentWordsTestPage);
+export default StudentWordsTestPageWrapped;

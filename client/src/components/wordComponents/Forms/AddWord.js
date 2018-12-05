@@ -23,8 +23,8 @@ class AddWord extends Component {
     };
     axios
       .post("http://localhost:5000/api/add-word", newWord, config)
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
+        this.props.history.push("/words");
       })
       .catch(err => {
         console.log(err);
