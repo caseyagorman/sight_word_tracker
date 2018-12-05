@@ -155,15 +155,20 @@ def add_word_to_student():
     fname = data.get('fname')
     lname = data.get('lname')
     words = data.get('words')
-    print(fname, lname, words)
     student = Student.query.filter_by(fname=fname, lname=lname).first()
     word_list = Word.query.filter(Word.word.in_(words)).all()
-    print(word_list)
+    word_ids = []
     for word in word_list:
-        new_student_word = StudentWord(
-            word_id=word.word_id, student_id=student.student_id)
-        db.session.add(new_student_word)
-        db.session.commit()
+        word_ids.append(word.word_id)
+    student_word_list = StudentWord.query.filter(
+        StudentWord.word_id.in_(word_ids)).all()
+    for word in word_list:
+        if word.word_id in word_ids:
+        else:
+            new_student_word = StudentWord(
+                word_id=word.word_id, student_id=student.student_id)
+            db.session.add(new_student_word)
+            db.session.commit()
 
     return 'student words added!'
 
