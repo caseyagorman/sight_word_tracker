@@ -139,6 +139,8 @@ def delete_word():
     print("goodbye!")
     data = request.get_json()
     word = data.get('word')
+    word = word.get('word')
+    print(word)
     word_to_delete = Word.query.filter_by(word=word).first()
     db.session.delete(word_to_delete)
     db.session.commit()
@@ -172,12 +174,8 @@ def add_word_to_all_student():
     data = request.get_json()
     print(data)
     word = data.get('word')
-    print(word)
-    print("hello")
     students = StudentWord.query.all()
-    print("students", students)
     word = Word.query.filter_by(word=word).first()
-    print("word", word)
     for student in students:
         new_student_word = StudentWord(
             word_id=word.word_id, student_id=student.student_id)

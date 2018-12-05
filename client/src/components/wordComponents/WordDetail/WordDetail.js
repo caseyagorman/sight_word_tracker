@@ -20,8 +20,14 @@ class WordDetail extends React.Component {
     if (!word) {
       return <p>Loading...</p>;
     }
-    console.log(word.data[0]);
     return WordPage(word);
+  }
+
+  getWord(word) {
+    if (!word) {
+      return <p>Loading...</p>;
+    }
+    return word.data[0];
   }
 
   displayWordStudents(word) {
@@ -40,7 +46,7 @@ class WordDetail extends React.Component {
         <div>{this.displayWordStudents(this.state.word)}</div>
         <br />
         <div>
-          <DeleteWord />
+          <DeleteWord word={this.getWord(this.state.word)} />
         </div>
       </div>
     );

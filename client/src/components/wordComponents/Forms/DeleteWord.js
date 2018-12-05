@@ -4,13 +4,33 @@ import axios from "axios";
 class DeleteWord extends Component {
   constructor(props) {
     super(props);
-    this.handleDeleteWord = this.handleDeleteWord.bind(this);
+    this.state = { value: null };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    console.log(this.props.word);
+    this.setState({ value: this.props.word });
+    console.log(this.state);
+  }
+  getOptions() {
+    if (this.props.word.key == undefined) {
+      console.log("yo!", this.state.value);
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              <button type="submit"> Delete?</button>
+            </label>
+          </form>
+        </div>
+      );
+    }
   }
 
-  handleDeleteWord(event) {
+  handleSubmit(event) {
     event.preventDefault();
     let deleteWord = {
-      word: this.wordInput.value
+      word: this.props.word
     };
 
     deleteWord = JSON.stringify(deleteWord);
@@ -34,17 +54,7 @@ class DeleteWord extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleDeleteWord}>
-          Delete Word:
-          <label>
-            <input
-              id="wordForm"
-              type="text"
-              ref={wordInput => (this.wordInput = wordInput)}
-            />
-          </label>
-          <input type="submit" />
-        </form>
+        <div>{this.getOptions()}</div>
       </div>
     );
   }
