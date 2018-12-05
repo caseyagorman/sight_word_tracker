@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 class DeleteWord extends Component {
   constructor(props) {
@@ -17,9 +19,9 @@ class DeleteWord extends Component {
       console.log("yo!", this.state.value);
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <label>
-              <button type="submit"> Delete?</button>
+              <button onClick={this.submit}>Delete</button>
             </label>
           </form>
         </div>
@@ -27,8 +29,7 @@ class DeleteWord extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
     let deleteWord = {
       word: this.props.word
     };
@@ -51,6 +52,24 @@ class DeleteWord extends Component {
         console.log(err);
       });
   }
+  submit = event => {
+    event.preventDefault();
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure to do this.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: event => this.handleSubmit()
+        },
+        {
+          label: "No",
+          onClick: () => console.log("no")
+        }
+      ]
+    });
+  };
+
   render() {
     return (
       <div>
