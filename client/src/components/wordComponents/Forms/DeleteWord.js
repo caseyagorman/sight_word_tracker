@@ -47,7 +47,6 @@ class DeleteWord extends Component {
     axios
       .post("http://localhost:5000/api/delete-word", deleteWord, config)
       .then(() => {
-        console.log(this.props.history);
         this.props.history.push("/words");
       })
       .catch(err => {

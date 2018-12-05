@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { withRouter } from "react-router";
 
 class AddStudent extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class AddStudent extends Component {
         newStudent,
         config
       );
-      console.log(d);
+      this.props.history.push("/students");
     } catch (e) {
       console.log(e);
     }
