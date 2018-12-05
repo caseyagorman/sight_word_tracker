@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { withRouter } from "react-router";
 
 class DeleteWord extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class DeleteWord extends Component {
     console.log(this.state);
   }
   getOptions() {
-    if (this.props.word.key == undefined) {
+    if (this.props.word.key === undefined) {
       console.log("yo!", this.state.value);
       return (
         <div>
@@ -45,8 +46,9 @@ class DeleteWord extends Component {
 
     axios
       .post("http://localhost:5000/api/delete-word", deleteWord, config)
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
+        console.log(this.props.history);
+        this.props.history.push("/words");
       })
       .catch(err => {
         console.log(err);
@@ -78,5 +80,5 @@ class DeleteWord extends Component {
     );
   }
 }
-
-export default DeleteWord;
+const DeleteWordWrapped = withRouter(DeleteWord);
+export default DeleteWordWrapped;
