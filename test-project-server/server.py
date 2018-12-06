@@ -161,27 +161,26 @@ def delete_word():
 @cross_origin()
 def add_word_to_student():
     data = request.get_json()
-    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
     words = data.get('words')
     student = Student.query.filter_by(fname=fname, lname=lname).first()
     word_list = Word.query.filter(Word.word.in_(words)).all()
-    # word_ids = []
-    # for word in word_list:
-    #     word_ids.append(word.word_id)
-    # student_word_list = StudentWord.query.filter(
-    #     StudentWord.word_id.in_(word_ids)).all()
+    word_ids = []
     for word in word_list:
-        # if word.word_id in word_ids:
-        #     print("no")
-        # else:
+        word_ids.append(word.word_id)
+    student_word_list = StudentWord.query.filter(
+        StudentWord.word_id.in_(word_ids)).all()
+
+    if student_word_list == []:
         new_student_word = StudentWord(
             word_id=word.word_id, student_id=student.student_id)
         db.session.add(new_student_word)
         db.session.commit()
+        return 'student words added!'
 
-    return 'student words added!'
+    else:
+        return "already in database"
 
 
 @app.route('/api/add-word-to-all-students', methods=['POST'])

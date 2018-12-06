@@ -40,7 +40,10 @@ class AddStudentWordForm extends Component {
               ))}
             </select>
           </label>
-          <button type="submit"> Submit</button>
+          <div>
+            <br />
+            <button type="submit"> Submit</button>
+          </div>
         </form>
       </div>
     );
