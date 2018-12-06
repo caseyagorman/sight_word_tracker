@@ -1,16 +1,39 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { withRouter } from "react-router";
 
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
-    this.handleDeleteStudent = this.handleDeleteStudent.bind(this);
+    this.state = { fname: null, lname: null };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    console.log(this.props.fname);
+    this.setState({ fname: this.props.fname, lname: this.props.lname });
+    console.log(this.state);
+  }
+  getOptions() {
+    if (this.props.fname.key === undefined) {
+      console.log(this.state.fname);
+      return (
+        <div>
+          <form>
+            <label>
+              <button onClick={this.submit}>Delete</button>
+            </label>
+          </form>
+        </div>
+      );
+    }
   }
 
-  async handleDeleteStudent(event) {
-    event.preventDefault();
+  handleSubmit() {
     let deleteStudent = {
-      fname: this.fnameInput.value
+      fname: this.props.fname,
+      lname: this.props.lname
     };
 
     deleteStudent = JSON.stringify(deleteStudent);
@@ -20,36 +43,42 @@ class DeleteStudent extends Component {
         "Content-Type": "application/json"
       }
     };
-    try {
-      let d = await axios.post(
-        "http://localhost:5000/api/delete-student",
-        deleteStudent,
-        config
-      );
-      console.log(d);
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(deleteStudent);
+
+    axios
+      .post("http://localhost:5000/api/delete-student", deleteStudent, config)
+      .then(() => {
+        this.props.history.push("/students");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
+  submit = event => {
+    event.preventDefault();
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure to do this.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: event => this.handleSubmit()
+        },
+        {
+          label: "No",
+          onClick: () => console.log("no")
+        }
+      ]
+    });
+  };
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleDeleteStudent}>
-          Delete Student
-          <br />
-          <label>
-            First Name:
-            <input
-              id="nameForm"
-              type="text"
-              ref={fnameInput => (this.fnameInput = fnameInput)}
-            />
-          </label>
-          <input type="submit" />
-        </form>
+        <div>{this.getOptions()}</div>
       </div>
     );
   }
 }
-
-export default DeleteStudent;
+const DeleteStudentWrapped = withRouter(DeleteStudent);
+export default DeleteStudentWrapped;

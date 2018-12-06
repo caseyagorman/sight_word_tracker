@@ -75,7 +75,7 @@ def delete_student():
     data = request.get_json()
     print(data)
     fname = data.get('fname')
-
+    lname = data.get('lname')
     student = Student.query.filter_by(fname=fname).first()
     print(student)
 

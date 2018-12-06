@@ -8,7 +8,6 @@ const StudentPage = props => (
       </h1>
       <br />
     </div>
-    {props.data[0].fname} is learning:
   </div>
 );
 

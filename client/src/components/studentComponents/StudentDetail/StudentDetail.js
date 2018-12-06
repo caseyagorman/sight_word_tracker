@@ -4,6 +4,7 @@ import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../StudentTest/TestStudentLink";
+import DeleteStudent from "../Forms/DeleteStudent";
 class StudentDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -84,7 +85,13 @@ class StudentDetail extends React.Component {
     return (
       <div>
         <br />
-        <div>{this.displayStudent(this.state.student)}</div>
+        <div>
+          {this.displayStudent(this.state.student)}
+          <DeleteStudent
+            fname={this.getName(this.state.student)}
+            lname={this.getLastName(this.state.student)}
+          />
+        </div>
         <br />
         <div>{this.displayStudentWords(this.state.student)}</div>
         <br />
