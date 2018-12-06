@@ -129,17 +129,18 @@ def add_word():
     new_word = data.get('word')
     print(new_word)
     words = Word.query.all()
-    for word in words:
-        print(word)
-    for word in words:
-        if new_word == word.word:
-            print("no")
+    words = list(words)
+    for w in words:
+        print(w.word)
+        if new_word == w.word:
+            print("already in database")
             return "already in database"
-        else:
-            new_word = Word(word=word)
-            db.session.add(new_word)
-            db.session.commit()
-            return 'word added!'
+
+    print("not in list")
+    word = Word(word=new_word)
+    db.session.add(word)
+    db.session.commit()
+    return 'word added!'
 
 
 @app.route("/api/delete-word", methods=['POST'])
@@ -166,19 +167,19 @@ def add_word_to_student():
     words = data.get('words')
     student = Student.query.filter_by(fname=fname, lname=lname).first()
     word_list = Word.query.filter(Word.word.in_(words)).all()
-    word_ids = []
+    # word_ids = []
+    # for word in word_list:
+    #     word_ids.append(word.word_id)
+    # student_word_list = StudentWord.query.filter(
+    #     StudentWord.word_id.in_(word_ids)).all()
     for word in word_list:
-        word_ids.append(word.word_id)
-    student_word_list = StudentWord.query.filter(
-        StudentWord.word_id.in_(word_ids)).all()
-    for word in word_list:
-        if word.word_id in word_ids:
-            print("no")
-        else:
-            new_student_word = StudentWord(
-                word_id=word.word_id, student_id=student.student_id)
-            db.session.add(new_student_word)
-            db.session.commit()
+        # if word.word_id in word_ids:
+        #     print("no")
+        # else:
+        new_student_word = StudentWord(
+            word_id=word.word_id, student_id=student.student_id)
+        db.session.add(new_student_word)
+        db.session.commit()
 
     return 'student words added!'
 
