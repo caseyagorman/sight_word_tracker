@@ -169,18 +169,18 @@ def add_word_to_student():
     word_ids = []
     for word in word_list:
         word_ids.append(word.word_id)
-    student_word_list = StudentWord.query.filter(
+    student_word_list = StudentWord.query.options(db.joinedload('students')).filter(Student.student_id == student.student_id).filter(
         StudentWord.word_id.in_(word_ids)).all()
-
-    if student_word_list == []:
+    for word in student_word_list:
+        if word.students.student_id == student.student_id:
+            return "already in database"
+    for word in word_list:
         new_student_word = StudentWord(
             word_id=word.word_id, student_id=student.student_id)
         db.session.add(new_student_word)
         db.session.commit()
-        return 'student words added!'
 
-    else:
-        return "already in database"
+    return "student words added!"
 
 
 @app.route('/api/add-word-to-all-students', methods=['POST'])
@@ -204,11 +204,8 @@ def add_word_to_all_student():
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
-    print("student detail")
-    student_object = Student.query.filter_by(student_id=student).first()
-    words = StudentWord.query.filter_by(
-        student_id=student).options(db.joinedload('words')).all()
-
+    words = StudentWord.query.filter(
+        StudentWord.student_id==student).options(db.joinedload('students')).filter(Student.student_id == student).options(db.joinedload('words')).all()
     word_list = []
     for word in words:
         word = {
@@ -218,11 +215,19 @@ def student_detail(student):
         word_list.append(word)
 
     student_object = {
-        'student_id': student_object.student_id,
-        'fname': student_object.fname,
-        'lname': student_object.lname,
-        'grade': student_object.grade
-    }
+    'student_id': words.students.student_id,
+    'fname': words.students.fname,
+    'lname': word.students.lname,
+    'grade': word.students.grade
+}
+        
+
+    # student_object = {
+    #     'student_id': words.students.student_id,
+    #     'fname': words.students.fname,
+    #     'lname': words.students.lname,
+    #     'grade': words.students.grade
+    # }
 
     return jsonify([student_object, word_list])
 
