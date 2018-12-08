@@ -273,6 +273,17 @@ def delete_student_word():
     return "student word deleted!"
 
 
+@cross_origin()
+@app.route("/api/-create-student-test", methods=["POST"])
+def create_student_test():
+    pass
+    # words = get(words)
+    # connection.execute(
+    #     StudentTestResult.insert(),
+    #     data=[words]
+    # )
+
+
 if __name__ == "__main__":
 
     app.debug = True

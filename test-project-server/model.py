@@ -87,17 +87,19 @@ class StudentWord(db.Model):
         return f"<StudentWord student_word_id={self.student_word_id}>"
 
 
-class StudentTest(db.Model):
+class StudentTestResult(db.Model):
     """table of student tests"""
 
-    __tablename__ = "studenttests"
+    __tablename__ = "studenttestresults"
 
     student_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
+    score = db.Column(db.Integer)
+    wordtest_id = db.Column(db.Integer, db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True)
-    num_correct = db.Column(db.Integer, nullable=True)
+    words = db.Column(db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
 
     def __repr__(self):
         return f"<StudentTest student_test_id={self.student_test_id}>"
@@ -108,7 +110,7 @@ class WordTest(db.Model):
 
     __tablename__ = "wordtests"
 
-    word_test_id = db.Column(
+    wordtest_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     word_id = db.Column(db.Integer, db.ForeignKey(
         'words.word_id'), nullable=False)
