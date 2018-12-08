@@ -16,7 +16,6 @@ class AddStudent extends Component {
     };
 
     newStudent = JSON.stringify(newStudent);
-    console.log(newStudent);
     const config = {
       headers: {
         Accept: "application/json",
@@ -30,6 +29,7 @@ class AddStudent extends Component {
         config
       );
       this.props.history.push("/students");
+      console.log(d);
     } catch (e) {
       console.log(e);
     }

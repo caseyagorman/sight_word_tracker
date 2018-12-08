@@ -51,14 +51,12 @@ class AddStudentWordForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.value);
     let newStudentWord = {
       fname: this.props.fname,
       lname: this.props.lname,
       words: this.state.value
     };
     newStudentWord = JSON.stringify(newStudentWord);
-    console.log(newStudentWord);
     const config = {
       headers: {
         Accept: "application/json",

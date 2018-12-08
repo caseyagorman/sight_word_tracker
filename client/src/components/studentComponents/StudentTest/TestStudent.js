@@ -7,7 +7,6 @@ class TestStudent extends React.Component {
   };
 
   componentDidMount() {
-    console.log("mount!");
     const { id } = this.props.match.params;
 
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {

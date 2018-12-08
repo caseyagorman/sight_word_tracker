@@ -9,13 +9,11 @@ class AddWord extends Component {
 
   addWord(event) {
     event.preventDefault();
-    console.log(newWord);
     let newWord = {
       word: this.wordInput.value
     };
 
     newWord = JSON.stringify(newWord);
-    console.log(newWord);
     const config = {
       headers: {
         Accept: "application/json",

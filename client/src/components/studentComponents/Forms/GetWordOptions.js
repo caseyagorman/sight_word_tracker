@@ -45,7 +45,6 @@ class GetWordOptions extends React.Component {
   }
 
   render() {
-    console.log();
     return <div>{this.getOptions(this.state.words)}</div>;
   }
 }

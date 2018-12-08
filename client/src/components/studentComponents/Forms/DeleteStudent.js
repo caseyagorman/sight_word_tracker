@@ -11,14 +11,10 @@ class DeleteStudent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    console.log(this.props.fname);
     this.setState({ fname: this.props.fname, lname: this.props.lname });
-    console.log(this.state);
   }
   getOptions() {
-    console.log(this.props.fname);
     if (this.props.fname === undefined) {
-      console.log(this.state.fname);
     } else {
       return (
         <div>
@@ -45,7 +41,6 @@ class DeleteStudent extends Component {
         "Content-Type": "application/json"
       }
     };
-    console.log(deleteStudent);
 
     axios
       .post("http://localhost:5000/api/delete-student", deleteStudent, config)

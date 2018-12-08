@@ -15,7 +15,6 @@ class StudentDetail extends React.Component {
   }
 
   componentDidMount() {
-    console.log("mount!");
     const { id } = this.props.match.params;
 
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
@@ -28,10 +27,8 @@ class StudentDetail extends React.Component {
 
   displayStudent(student) {
     if (!student) {
-      console.log("no student");
       return <p>Loading student...</p>;
     }
-    console.log("student", student.data);
     return StudentPage(student);
   }
 
@@ -66,7 +63,6 @@ class StudentDetail extends React.Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    console.log("object", obj);
     let wordList = [];
     for (let key in obj) {
       let wordObj = obj[key];
@@ -79,7 +75,6 @@ class StudentDetail extends React.Component {
       return <p> Loading... </p>;
     }
     let wordList = this.turnIntoArray(words.data);
-    console.log(wordList);
     return wordList;
   }
 

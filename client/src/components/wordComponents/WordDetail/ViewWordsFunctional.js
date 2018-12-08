@@ -2,9 +2,6 @@ import React from "react";
 import axios from "axios";
 import Word from "./Word";
 import ViewWordsPresentation from "./ViewWordsPresentation";
-const divStyle = {
-  display: "inline"
-};
 const apiUrl = "http://localhost:5000/api/words";
 
 class ViewWordsFunctional extends React.Component {
