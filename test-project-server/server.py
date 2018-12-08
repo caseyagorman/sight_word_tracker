@@ -297,6 +297,7 @@ def get_student_test():
         student_test_object = {
             'student_id': student.student_test_id,
             'score': student.score,
+            'test_date': student.test_date,
             'words': student.words
         }
         student_test_list.append(student_test_object)

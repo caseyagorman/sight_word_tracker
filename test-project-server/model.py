@@ -98,7 +98,7 @@ class StudentTestResult(db.Model):
         'students.student_id'), nullable=False)
     score = db.Column(db.Integer)
     wordtest_id = db.Column(db.Integer, db.ForeignKey('wordtests.wordtest_id'))
-    test_date = db.Column(db.DateTime, nullable=True)
+    test_date = db.Column(db.DateTime, nullable=True, default=datetime.today)
     words = db.Column(db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
 
     def __repr__(self):
