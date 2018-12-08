@@ -205,7 +205,9 @@ def add_word_to_all_student():
 def student_detail(student):
     """Show student detail"""
     words = StudentWord.query.filter(
-        StudentWord.student_id==student).options(db.joinedload('students')).filter(Student.student_id == student).options(db.joinedload('words')).all()
+        StudentWord.student_id == student).options(db.joinedload('students')).filter(
+            Student.student_id == student).options(db.joinedload('words')).all()
+
     word_list = []
     for word in words:
         word = {
@@ -213,23 +215,14 @@ def student_detail(student):
             'word': word.words.word,
         }
         word_list.append(word)
-
-    student_object = {
-    'student_id': words.students.student_id,
-    'fname': words.students.fname,
-    'lname': word.students.lname,
-    'grade': word.students.grade
-}
-        
-
-    # student_object = {
-    #     'student_id': words.students.student_id,
-    #     'fname': words.students.fname,
-    #     'lname': words.students.lname,
-    #     'grade': words.students.grade
-    # }
-
-    return jsonify([student_object, word_list])
+    for student in words:
+        student = {
+            'student_id': student.students.student_id,
+            'fname': student.students.fname,
+            'lname': student.students.lname,
+        }
+        break
+    return jsonify([student, word_list])
 
 
 @app.route("/api/word-detail/<word>")
