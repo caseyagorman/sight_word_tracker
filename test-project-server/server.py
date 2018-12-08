@@ -233,11 +233,12 @@ def student_detail(student):
 @cross_origin()
 def word_detail(word):
     """Show word detail"""
-    students = StudentWord.query.filter_by(
-        word_id=word).options(db.joinedload('words')).options(db.joinedload('students')).all()
+    word_object = Word.query.filter_by(word_id=word).first()
+    student_words = StudentWord.query.filter_by(
+        word_id=word).options(db.joinedload('students')).all()
 
     student_list = []
-    for student in students:
+    for student in student_words:
         student = {
             'student_id': student.students.student_id,
             'fname': student.students.fname,
@@ -246,15 +247,13 @@ def word_detail(word):
         }
         student_list.append(student)
 
-    for student in students:
-        word = {
-            'word_id': student.words.word_id,
-            'word': student.words.word,
-            'date': student.words.date_added,
-        }
-        break
+    word_object = {
+        'word_id': word_object.word_id,
+        'word': word_object.word,
+        'date': word_object.date_added,
+    }
 
-    return jsonify([word, student_list])
+    return jsonify([word_object, student_list])
 
 
 @cross_origin()
