@@ -205,20 +205,21 @@ def add_word_to_all_student():
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
-    words = StudentWord.query.filter(
-        StudentWord.student_id == student).options(db.joinedload('students')).filter(
-            Student.student_id == student).options(db.joinedload('words')).all()
-    print(words)
-    print(words[0].students.student_id)
+    student_object = Student.query.filter(
+        Student.student_id == student).first()
+    student_words = StudentWord.query.filter_by(
+        student_id=student).options(db.joinedload('words')).all()
+    print(student_words)
+    print(student_object)
 
     student_object = {
-        'student_id': words[0].students.student_id,
-        'fname': words[0].students.fname,
-        'lname': words[0].students.lname
+        'student_id': student_object.student_id,
+        'fname': student_object.fname,
+        'lname': student_object.lname
     }
-
+    print(student_object)
     word_list = []
-    for word in words:
+    for word in student_words:
         word = {
             'word_id': word.words.word_id,
             'word': word.words.word,
