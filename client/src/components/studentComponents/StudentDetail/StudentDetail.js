@@ -28,8 +28,10 @@ class StudentDetail extends React.Component {
 
   displayStudent(student) {
     if (!student) {
+      console.log("no student");
       return <p>Loading student...</p>;
     }
+    console.log("student", student.data);
     return StudentPage(student);
   }
 

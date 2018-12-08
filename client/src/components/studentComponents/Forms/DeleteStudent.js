@@ -16,8 +16,10 @@ class DeleteStudent extends Component {
     console.log(this.state);
   }
   getOptions() {
-    if (this.props.fname.key === undefined) {
+    console.log(this.props.fname);
+    if (this.props.fname === undefined) {
       console.log(this.state.fname);
+    } else {
       return (
         <div>
           <form>
