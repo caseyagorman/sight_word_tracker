@@ -2,7 +2,7 @@ import os
 from jinja2 import StrictUndefined
 from flask import (Flask, jsonify, render_template, redirect, request)
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, StudentWord, connect_to_db, db
+from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -274,14 +274,33 @@ def delete_student_word():
 
 
 @cross_origin()
-@app.route("/api/-create-student-test", methods=["POST"])
+@app.route("/api/create-student-test", methods=["POST"])
 def create_student_test():
-    pass
-    # words = get(words)
-    # connection.execute(
-    #     StudentTestResult.insert(),
-    #     data=[words]
-    # )
+    data = request.get_json()
+    student_id = data.get('student_id')
+    score = data.get('score')
+    words = data.get('words')
+    db.session.add(
+        StudentTestResult(student_id=student_id, score=score, words=words))
+    db.session.commit()
+    return 'student test added'
+
+
+@cross_origin()
+@app.route("/api/get-student-test")
+def get_student_test():
+    student_test = StudentTestResult.query.all()
+    print(student_test)
+    student_test_list = []
+    for student in student_test:
+        print(student.student_test_id)
+        student_test_object = {
+            'student_id': student.student_test_id,
+            'score': student.score,
+            'words': student.words
+        }
+        student_test_list.append(student_test_object)
+    return jsonify(student_test_list)
 
 
 if __name__ == "__main__":
