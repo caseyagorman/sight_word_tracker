@@ -63,11 +63,14 @@ class StudentDetail extends React.Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
+    console.log("object", obj);
     let wordList = [];
     for (let key in obj) {
       let wordObj = obj[key];
+      console.log(wordObj);
       wordList.push(wordObj.word);
     }
+    console.log(wordList);
     return wordList;
   }
   getWords(words) {

@@ -13,6 +13,7 @@ class TestStudent extends React.Component {
       this.setState(() => ({ student }));
     });
   }
+
   getWords(student) {
     if (!student) {
       return <p> Loading... </p>;

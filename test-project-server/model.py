@@ -80,8 +80,11 @@ class StudentWord(db.Model):
         'students.student_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
-    students = db.relationship('Student')
-    words = db.relationship('Word')
+
+    students = db.relationship(
+        'Student')
+    words = db.relationship(
+        'Word')
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"
@@ -96,10 +99,18 @@ class StudentTestResult(db.Model):
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
-    score = db.Column(db.Integer)
+    score = db.Column(db.Float)
     wordtest_id = db.Column(db.Integer, db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True, default=datetime.today)
-    words = db.Column(db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
+    correct_words = db.Column(
+        db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
+    incorrect_words = db.Column(
+        db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
+
+    # wordtests = db.relationship(
+    #     'WordTest')
+    # words = db.relationship(
+    #     'Word')
 
     def __repr__(self):
         return f"<StudentTest student_test_id={self.student_test_id}>"

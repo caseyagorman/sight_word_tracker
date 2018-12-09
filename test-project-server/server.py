@@ -273,17 +273,38 @@ def delete_student_word():
     return "student word deleted!"
 
 
+def calculate_score(known_words, unknown_words):
+    score = len(known_words) / (len(known_words) + len(unknown_words))
+    return score * 100
+
+
 @cross_origin()
 @app.route("/api/create-student-test", methods=["POST"])
 def create_student_test():
     data = request.get_json()
     student_id = data.get('student_id')
-    score = data.get('score')
-    words = data.get('words')
+    correct_words = data.get('correct_words')
+    incorrect_words = data.get('incorrect_words')
+    correct_words = Word.query.filter(
+        Word.word.in_(correct_words)).all()
+    correct_word_ids = []
+    for word in correct_words:
+        correct_word_ids.append(word.word_id)
+    print(correct_word_ids)
+    incorrect_words = Word.query.filter(
+        Word.word.in_(incorrect_words)).all()
+    incorrect_word_ids = []
+    for word in incorrect_words:
+        incorrect_word_ids.append(word.word_id)
+    print(incorrect_word_ids)
+    score = calculate_score(correct_words, incorrect_words)
+    print(score)
+
     db.session.add(
-        StudentTestResult(student_id=student_id, score=score, words=words))
+        StudentTestResult(student_id=student_id, score=score,
+                          correct_words=correct_word_ids, incorrect_words=incorrect_word_ids))
     db.session.commit()
-    return 'student test added'
+    return 'wooo'
 
 
 @cross_origin()
@@ -295,10 +316,11 @@ def get_student_test():
     for student in student_test:
         print(student.student_test_id)
         student_test_object = {
-            'student_id': student.student_test_id,
+            'student_id': student.student_id,
             'score': student.score,
             'test_date': student.test_date,
-            'words': student.words
+            'correct_words': student.correct_words,
+            'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
     return jsonify(student_test_list)

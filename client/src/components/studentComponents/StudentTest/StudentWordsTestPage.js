@@ -5,13 +5,22 @@ import { withRouter } from "react-router";
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { words: this.props.words, idx: 0 };
+    this.state = {
+      words: this.props.words,
+      idx: 0,
+      known_words: [],
+      unknown_words: []
+    };
   }
 
   displayWord(words) {
     if (!words) {
-      this.props.history.push("/students");
+      // create a new test object
+      console.log(this.state.unknown_words, this.state.known_words);
+      console.log("test complete!");
+      return this.props.history.push("/students");
     }
+
     return <div>{words}</div>;
   }
 
@@ -20,28 +29,19 @@ class StudentWordsTestPage extends React.Component {
     this.setState({ idx: new_idx });
   }
 
-  async handleTestClick(e, word, idx) {
+  handleTestClick(e, word, idx) {
     e.preventDefault();
     this.incrementIdx(idx);
     if (e.target.value === "yes") {
-      let wordToDelete = {
-        student: this.props.student,
-        word: word
-      };
-      try {
-        let d = await axios.post(
-          "http://localhost:5000/api/delete-student-word",
-          wordToDelete
-        );
-        console.log(d);
-      } catch (e) {
-        console.log(e);
-      }
+      this.setState({ known_words: this.state.known_words.concat([word]) });
+    } else if (e.target.value === "no") {
+      this.setState({ unknown_words: this.state.unknown_words.concat([word]) });
     }
   }
 
   render() {
     const words = this.state.words;
+    // console.log(words);
     const idx = this.state.idx;
     return (
       <div>
