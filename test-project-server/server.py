@@ -290,16 +290,12 @@ def create_student_test():
     correct_word_ids = []
     for word in correct_words:
         correct_word_ids.append(word.word_id)
-    print(correct_word_ids)
     incorrect_words = Word.query.filter(
         Word.word.in_(incorrect_words)).all()
     incorrect_word_ids = []
     for word in incorrect_words:
         incorrect_word_ids.append(word.word_id)
-    print(incorrect_word_ids)
     score = calculate_score(correct_words, incorrect_words)
-    print(score)
-
     db.session.add(
         StudentTestResult(student_id=student_id, score=score,
                           correct_words=correct_word_ids, incorrect_words=incorrect_word_ids))

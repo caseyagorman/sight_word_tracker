@@ -10,15 +10,15 @@ class TestStudent extends React.Component {
     const { id } = this.props.match.params;
 
     axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
-      this.setState(() => ({ student }));
+      this.setState({ student: student });
     });
   }
-
   getWords(student) {
     if (!student) {
       return <p> Loading... </p>;
     }
     let words = this.turnIntoArray(student.data[1]);
+    console.log(words, typeof words);
     return (
       <StudentWordsTestPage
         words={words}
