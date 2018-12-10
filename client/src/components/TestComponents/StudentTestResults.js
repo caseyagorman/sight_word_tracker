@@ -1,45 +1,40 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
+import ViewStudentTestResults from "./ViewStudentTestResults";
+class StudentTestResults extends React.Component {
+  state = {
+    test: null
+  };
 
-class StudentTestResult extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { id: null };
-    this.getStudentTestResults = this.getStudentTestResults.bind(this);
-  }
-  componentDidMount() {
-    console.log("props", this.props);
-    const id = this.props.id;
-    this.setState({ id: id });
-  }
-
-  getStudentTestResults(id) {
-    console.log(this.props);
-    console.log(this.props.id);
-    if (!id) {
-      return <div>loading</div>;
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+    console.log(id);
+    try {
+      let d = await axios
+        .get(`http://localhost:5000/api/get-student-test/${id}`)
+        .then(test => {
+          this.setState({ test: test });
+        });
+      console.log(d);
+    } catch (e) {
+      console.log(e);
     }
-    console.log(this.props.id);
-    console.log(this.state.id);
-    return <div>Yay!</div>;
   }
-  // async getStudentTestResults(id) {
-  //   if (!id) {
-  //     return <div>loading...</div>;
-  //   }
-  //   try {
-  //     let d = await axios.get(
-  //       `http://localhost:5000/api/get-student-test/${id}`
-  //     );
-  //     console.log(d);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
 
+  viewStudentTestResults(test) {
+    if (!test) {
+      return <p>loading...</p>;
+    }
+    return ViewStudentTestResults(test);
+  }
   render() {
-    return <div>{this.getStudentTestResults(this.state.id)}</div>;
+    return (
+      <div>
+        <div>hello</div>
+        <div>{this.viewStudentTestResults(this.state.test)}</div>
+      </div>
+    );
   }
 }
 
-export default StudentTestResult;
+export default StudentTestResults;
