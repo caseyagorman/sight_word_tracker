@@ -276,17 +276,19 @@ def calculate_score(known_words, unknown_words):
     return score * 100
 
 
-def get_correct_word_counts(student_id):
-    correct_word_counts = StudentWord.query.filter_by(
+def get_word_counts(student_id):
+    word_counts = StudentWord.query.filter_by(
         student_id=student_id).options(db.joinedload('words')).all()
-    correct_words = []
-    for student_word in correct_word_counts:
-        correct_count = {
+    words = []
+    for student_word in word_counts:
+        # print(student_word.incorrect_count, student_word.correct_count)
+        count = {
             "word": student_word.words.word,
-            "count": student_word.correct_count
+            "correct_count": student_word.correct_count,
+            "incorrect_count": student_word.incorrect_count
         }
-        correct_words.append(correct_count)
-    return correct_words
+        words.append(count)
+    return words
 
 
 def update_correct_words(student_id, correct_words):
@@ -297,6 +299,7 @@ def update_correct_words(student_id, correct_words):
         id = word.studentwords[0].student_word_id
         student_word = StudentWord.query.filter_by(student_word_id=id).first()
         student_word.correct_count = StudentWord.correct_count + 1
+        print(student_word.correct_count)
         db.session.commit()
     return "correct words"
 
@@ -310,6 +313,7 @@ def update_incorrect_words(student_id, incorrect_words):
         student_word = StudentWord.query.filter_by(
             student_word_id=id).first()
         student_word.incorrect_count = StudentWord.incorrect_count + 1
+        print(student_word.incorrect_count)
         db.session.commit()
     return "incorrect words"
 
@@ -334,8 +338,7 @@ def create_student_test():
 @cross_origin()
 @app.route("/api/get-student-test/<student>")
 def get_student_test(student):
-    word_counts = get_correct_word_counts(student)
-    print("word counts", word_counts)
+    word_counts = get_word_counts(student)
     student_test = StudentTestResult.query.filter_by(
         student_id=student).all()
     student_test_list = []
@@ -349,7 +352,6 @@ def get_student_test(student):
             'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
-    print("student test list", student_test_list)
     return jsonify([student_test_list, word_counts])
 
 
