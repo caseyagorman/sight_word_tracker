@@ -5,6 +5,7 @@ import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../StudentTest/TestStudentLink";
 import DeleteStudent from "../Forms/DeleteStudent";
+import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink";
 class StudentDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -39,12 +40,19 @@ class StudentDetail extends React.Component {
     return student.data[1].map(student => StudentWordsPage(student));
   }
 
-  getStudentTest(student) {
+  getStudentTestLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
     }
 
     return TestStudentLink(student);
+  }
+  getStudentTestResultsLink(student) {
+    if (!student) {
+      return <p>Loading test...</p>;
+    }
+
+    return StudentTestResultsLink(student);
   }
 
   getName(student) {
@@ -93,7 +101,9 @@ class StudentDetail extends React.Component {
         <br />
         <div>{this.displayStudentWords(this.state.student)}</div>
         <br />
-        <div>{this.getStudentTest(this.state.student)}</div>
+        <div>{this.getStudentTestLink(this.state.student)}</div>
+        <br />
+        <div>{this.getStudentTestResultsLink(this.state.student)}</div>
         <br />
         <div>
           <AddStudentWordForm

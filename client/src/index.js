@@ -9,6 +9,7 @@ import WordDetail from "./components/wordComponents/WordDetail/WordDetail";
 import AddStudent from "./components/studentComponents/Forms/AddStudent";
 import AddWord from "./components/wordComponents/Forms/AddWord";
 import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
+import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -24,6 +25,7 @@ const AppRouter = () => (
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetail} />
       <Route path="/word-detail/:id" component={WordDetail} />
+      <Route path="/get-test-result/:id" component={StudentTestResults} />
     </div>
   </Router>
 );
