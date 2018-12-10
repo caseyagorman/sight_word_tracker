@@ -224,7 +224,7 @@ def student_detail(student):
             'word': word.words.word,
         }
         word_list.append(word)
-
+    get_word_counts(1)
     return jsonify([student_object, word_list])
 
 
@@ -275,6 +275,14 @@ def delete_student_word():
 def calculate_score(known_words, unknown_words):
     score = len(known_words) / (len(known_words) + len(unknown_words))
     return score * 100
+
+
+def get_word_counts(student_id):
+    correct_word_counts = StudentWord.query.filter_by(
+        student_id=student_id).all()
+    for student_word in correct_word_counts:
+        print(student_word.student_word_id, student_word.correct_count)
+    print(correct_word_counts)
 
 
 def update_correct_words(student_id, correct_words):

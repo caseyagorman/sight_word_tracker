@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../studentComponents/StudentDetail/Student";
+import WordCounts from "./WordCounts";
 class StudentTestResults extends React.Component {
   state = {
     test: null,
@@ -34,7 +35,6 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let test = studentTest.data;
-    console.log(test);
     return test.map(test => ViewStudentTestResults(test));
   }
 
@@ -42,14 +42,22 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    console.log("student", student);
     return Student(student.data[0]);
+  }
+
+  getWordCounts(student) {
+    if (!student) {
+      return <p>loading...</p>;
+    }
+    console.log("word counts", student);
+    return WordCounts(student);
   }
   render() {
     return (
       <div>
         <br />
         <div>{this.displayStudentLink(this.state.student)}</div>
+        <div>{this.getWordCounts(this.state.student)}</div>
         <div>{this.viewStudentTestResults(this.state.test)}</div>
       </div>
     );

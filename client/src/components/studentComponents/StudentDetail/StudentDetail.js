@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
-import WordCounts from "./WordCounts";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../StudentTest/TestStudentLink";
 import DeleteStudent from "../Forms/DeleteStudent";
@@ -41,12 +40,6 @@ class StudentDetail extends React.Component {
     return student.data[1].map(student => StudentWordsPage(student));
   }
 
-  displayWordCounts(words) {
-    if (!words) {
-      return <p>Loading student words...</p>;
-    }
-    return WordCounts(words);
-  }
   getStudentTestLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
@@ -106,10 +99,7 @@ class StudentDetail extends React.Component {
           />
         </div>
         <br />
-        <div>
-          {this.displayStudentWords(this.state.student)}{" "}
-          {this.displayWordCounts(this.state.words)}
-        </div>
+        <div>{this.displayStudentWords(this.state.student)} </div>
         <br />
         <div>{this.getStudentTestLink(this.state.student)}</div>
         <br />
