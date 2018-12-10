@@ -224,7 +224,6 @@ def student_detail(student):
             'word': word.words.word,
         }
         word_list.append(word)
-    get_word_counts(1)
     return jsonify([student_object, word_list])
 
 
@@ -277,12 +276,18 @@ def calculate_score(known_words, unknown_words):
     return score * 100
 
 
-def get_word_counts(student_id):
+def get_correct_word_counts(student_id):
+    print(student_id)
     correct_word_counts = StudentWord.query.filter_by(
-        student_id=student_id).all()
+        student_id=student_id).options(db.joinedload('words')).all()
+    correct_words = []
     for student_word in correct_word_counts:
-        print(student_word.student_word_id, student_word.correct_count)
-    print(correct_word_counts)
+        correct_count = {
+            "word": student_word.words.word,
+            "count": student_word.correct_count
+        }
+        correct_words.append(correct_count)
+    return jsonify(correct_words)
 
 
 def update_correct_words(student_id, correct_words):
@@ -343,7 +348,7 @@ def get_student_test(student):
             'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
-    print(student_test_list)
+    get_correct_word_counts(1)
     return jsonify(student_test_list)
 
 

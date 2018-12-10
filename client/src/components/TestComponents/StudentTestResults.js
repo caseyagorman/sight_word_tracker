@@ -49,8 +49,7 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    console.log("word counts", student);
-    return WordCounts(student);
+    return <WordCounts id={this.state.student.data[0].student_id} />;
   }
   render() {
     return (
