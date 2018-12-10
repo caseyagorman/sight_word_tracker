@@ -277,6 +277,26 @@ def calculate_score(known_words, unknown_words):
     return score * 100
 
 
+def update_correct_words(student_id, correct_words):
+    student_word_list = Word.query.options(db.joinedload('studentwords')).filter(
+        Word.word.in_(correct_words)).filter(
+        StudentWord.student_id == student_id).all()
+    for word in student_word_list:
+        id = word.studentwords[0].student_word_id
+        student_word = StudentWord.query.filter_by(student_word_id=id).first()
+        student_word.correct_count = StudentWord.correct_count + 1
+        db.session.commit()
+    new_list = StudentWord.query.all()
+    for student in new_list:
+        print(student.student_word_id, student.correct_count)
+    return "correct words"
+
+
+def update_incorrect_words(student_id, incorrect_words):
+    print(student_id, incorrect_words)
+    return "incorrect words"
+
+
 @cross_origin()
 @app.route("/api/create-student-test", methods=["POST"])
 def create_student_test():
@@ -285,12 +305,14 @@ def create_student_test():
     correct_words = data.get('correct_words')
     incorrect_words = data.get('incorrect_words')
     score = calculate_score(correct_words, incorrect_words)
+    update_correct_words(student_id, correct_words)
+    update_incorrect_words(student_id, incorrect_words)
     db.session.add(
         StudentTestResult(student_id=student_id, score=score,
                           correct_words=correct_words, incorrect_words=incorrect_words))
     db.session.commit()
     return 'wooo'
-    
+
 
 @cross_origin()
 @app.route("/api/get-student-test/<student>")
