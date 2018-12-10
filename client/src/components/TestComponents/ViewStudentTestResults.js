@@ -3,8 +3,11 @@ const testResults = props => {
   console.log(props);
   return (
     <div>
-      <div>{props.data[0].test_date}</div>
-      correct words: {props.data[0].correct_words}
+      <br />
+      <div>test taken: {props.test_date}</div>
+      <div>correct words: {props.correct_words}</div>
+      <div>incorrect words: {props.incorrect_words}</div>
+      <br />
     </div>
   );
 };
