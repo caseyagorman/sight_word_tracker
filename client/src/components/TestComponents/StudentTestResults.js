@@ -34,7 +34,7 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentTest.data;
+    let test = studentTest.data[0];
     return test.map(test => ViewStudentTestResults(test));
   }
 
@@ -45,18 +45,19 @@ class StudentTestResults extends React.Component {
     return Student(student.data[0]);
   }
 
-  getWordCounts(student) {
-    if (!student) {
+  getWordCounts(studentTest) {
+    if (!studentTest) {
       return <p>loading...</p>;
     }
-    return <WordCounts id={this.state.student.data[0].student_id} />;
+    let test = studentTest.data[1];
+    return test.map(test => WordCounts(test));
   }
   render() {
     return (
       <div>
         <br />
         <div>{this.displayStudentLink(this.state.student)}</div>
-        <div>{this.getWordCounts(this.state.student)}</div>
+        <div>{this.getWordCounts(this.state.test)}</div>
         <div>{this.viewStudentTestResults(this.state.test)}</div>
       </div>
     );

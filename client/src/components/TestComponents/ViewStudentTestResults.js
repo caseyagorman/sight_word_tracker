@@ -1,7 +1,7 @@
 import React from "react";
 import DisplayWords from "./DisplayWordList";
 const testResults = props => {
-  console.log(props);
+  console.log("PROPS", props);
   return (
     <div>
       <br />

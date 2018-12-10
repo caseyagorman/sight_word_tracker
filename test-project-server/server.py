@@ -277,7 +277,6 @@ def calculate_score(known_words, unknown_words):
 
 
 def get_correct_word_counts(student_id):
-    print(student_id)
     correct_word_counts = StudentWord.query.filter_by(
         student_id=student_id).options(db.joinedload('words')).all()
     correct_words = []
@@ -287,7 +286,7 @@ def get_correct_word_counts(student_id):
             "count": student_word.correct_count
         }
         correct_words.append(correct_count)
-    return jsonify(correct_words)
+    return correct_words
 
 
 def update_correct_words(student_id, correct_words):
@@ -335,6 +334,8 @@ def create_student_test():
 @cross_origin()
 @app.route("/api/get-student-test/<student>")
 def get_student_test(student):
+    word_counts = get_correct_word_counts(student)
+    print("word counts", word_counts)
     student_test = StudentTestResult.query.filter_by(
         student_id=student).all()
     student_test_list = []
@@ -348,8 +349,8 @@ def get_student_test(student):
             'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
-    get_correct_word_counts(1)
-    return jsonify(student_test_list)
+    print("student test list", student_test_list)
+    return jsonify([student_test_list, word_counts])
 
 
 if __name__ == "__main__":
