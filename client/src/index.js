@@ -25,7 +25,7 @@ const AppRouter = () => (
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetail} />
       <Route path="/word-detail/:id" component={WordDetail} />
-      <Route path="/get-test-result/:id" component={StudentTestResults} />
+      <Route path="/student-test-results/:id" component={StudentTestResults} />
     </div>
   </Router>
 );
