@@ -286,14 +286,19 @@ def update_correct_words(student_id, correct_words):
         student_word = StudentWord.query.filter_by(student_word_id=id).first()
         student_word.correct_count = StudentWord.correct_count + 1
         db.session.commit()
-    new_list = StudentWord.query.all()
-    for student in new_list:
-        print(student.student_word_id, student.correct_count)
     return "correct words"
 
 
 def update_incorrect_words(student_id, incorrect_words):
-    print(student_id, incorrect_words)
+    student_word_list = Word.query.options(db.joinedload('studentwords')).filter(
+        Word.word.in_(incorrect_words)).filter(
+        StudentWord.student_id == student_id).all()
+    for word in student_word_list:
+        id = word.studentwords[0].student_word_id
+        student_word = StudentWord.query.filter_by(
+            student_word_id=id).first()
+        student_word.incorrect_count = StudentWord.incorrect_count + 1
+        db.session.commit()
     return "incorrect words"
 
 
