@@ -149,7 +149,6 @@ def delete_word():
     print("goodbye!")
     data = request.get_json()
     word = data.get('word')
-    word = word.get('word')
     print(word)
     word_to_delete = Word.query.filter_by(word=word).first()
     db.session.delete(word_to_delete)

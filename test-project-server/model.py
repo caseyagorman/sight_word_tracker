@@ -45,9 +45,9 @@ class Student(db.Model):
     grade = db.Column(db.String(64), nullable=False)
 
     studentwords = db.relationship(
-        'StudentWord')
+        'StudentWord', cascade="save-update, merge, delete")
     studenttestresults = db.relationship(
-        'StudentTestResult')
+        'StudentTestResult', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<Student student_id={self.student_id} first_name={self.fname} last_name={self.lname}>"
@@ -63,7 +63,7 @@ class Word(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     studentwords = db.relationship(
-        'StudentWord')
+        'StudentWord', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
@@ -84,9 +84,9 @@ class StudentWord(db.Model):
         db.DateTime, nullable=False, default=datetime.today)
 
     students = db.relationship(
-        'Student', cascade="save-update, merge, delete")
+        'Student')
     words = db.relationship(
-        'Word', cascade="save-update, merge, delete")
+        'Word')
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"

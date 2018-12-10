@@ -31,8 +31,9 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
+    console.log("word", this.props.word);
     let deleteWord = {
-      word: this.props.word
+      word: this.props.word.word
     };
 
     deleteWord = JSON.stringify(deleteWord);
