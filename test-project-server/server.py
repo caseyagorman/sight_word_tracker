@@ -304,13 +304,14 @@ def create_student_test():
 
 
 @cross_origin()
-@app.route("/api/get-student-test")
-def get_student_test():
-    student_test = StudentTestResult.query.all()
-    print(student_test)
+@app.route("/api/get-student-test/<student>")
+def get_student_test(student):
+    student_test = StudentTestResult.query.filter_by(
+        student_id=student).all()
+    print("hello", student_test)
     student_test_list = []
     for student in student_test:
-        print(student.student_test_id)
+        print("yay", student.student_test_id)
         student_test_object = {
             'student_id': student.student_id,
             'score': student.score,

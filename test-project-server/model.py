@@ -45,7 +45,9 @@ class Student(db.Model):
     grade = db.Column(db.String(64), nullable=False)
 
     studentwords = db.relationship(
-        'StudentWord', cascade="save-update, merge, delete")
+        'StudentWord')
+    studenttestresults = db.relationship(
+        'StudentTestResult')
 
     def __repr__(self):
         return f"<Student student_id={self.student_id} first_name={self.fname} last_name={self.lname}>"
@@ -61,7 +63,7 @@ class Word(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     studentwords = db.relationship(
-        'StudentWord', cascade="save-update, merge, delete")
+        'StudentWord')
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
@@ -82,9 +84,9 @@ class StudentWord(db.Model):
         db.DateTime, nullable=False, default=datetime.today)
 
     students = db.relationship(
-        'Student')
+        'Student', cascade="save-update, merge, delete")
     words = db.relationship(
-        'Word')
+        'Word', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"
@@ -100,17 +102,15 @@ class StudentTestResult(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
     score = db.Column(db.Float)
-    wordtest_id = db.Column(db.Integer, db.ForeignKey('wordtests.wordtest_id'))
+    wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True, default=datetime.today)
     correct_words = db.Column(
-        db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
+        db.ARRAY(db.Integer))
     incorrect_words = db.Column(
-        db.ARRAY(db.Integer, db.ForeignKey('words.word_id')))
+        db.ARRAY(db.Integer))
 
-    # wordtests = db.relationship(
-    #     'WordTest')
-    # words = db.relationship(
-    #     'Word')
+    students = db.relationship(
+        'Student', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<StudentTest student_test_id={self.student_test_id}>"
