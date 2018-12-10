@@ -15,6 +15,7 @@ class StudentWordsTestPage extends React.Component {
 
   displayWord(words) {
     if (!words) {
+      console.log("create test");
       this.createTestObject();
       // console.log(this.state.unknown_words, this.state.known_words);
       // console.log("test complete!");
@@ -29,6 +30,7 @@ class StudentWordsTestPage extends React.Component {
       correct_words: this.state.known_words,
       incorrect_words: this.state.unknown_words
     };
+    console.log("results", results);
     results = JSON.stringify(results);
     const config = {
       headers: {

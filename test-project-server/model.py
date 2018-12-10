@@ -105,9 +105,9 @@ class StudentTestResult(db.Model):
     wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True, default=datetime.today)
     correct_words = db.Column(
-        db.ARRAY(db.Integer))
+        db.ARRAY(db.String(25)))
     incorrect_words = db.Column(
-        db.ARRAY(db.Integer))
+        db.ARRAY(db.String(25)))
 
     students = db.relationship(
         'Student', cascade="save-update, merge, delete")

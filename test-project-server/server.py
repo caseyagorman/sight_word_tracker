@@ -284,41 +284,31 @@ def create_student_test():
     student_id = data.get('student_id')
     correct_words = data.get('correct_words')
     incorrect_words = data.get('incorrect_words')
-    correct_words = Word.query.filter(
-        Word.word.in_(correct_words)).all()
-    correct_word_ids = []
-    for word in correct_words:
-        correct_word_ids.append(word.word_id)
-    incorrect_words = Word.query.filter(
-        Word.word.in_(incorrect_words)).all()
-    incorrect_word_ids = []
-    for word in incorrect_words:
-        incorrect_word_ids.append(word.word_id)
     score = calculate_score(correct_words, incorrect_words)
     db.session.add(
         StudentTestResult(student_id=student_id, score=score,
-                          correct_words=correct_word_ids, incorrect_words=incorrect_word_ids))
+                          correct_words=correct_words, incorrect_words=incorrect_words))
     db.session.commit()
     return 'wooo'
-
+    
 
 @cross_origin()
 @app.route("/api/get-student-test/<student>")
 def get_student_test(student):
     student_test = StudentTestResult.query.filter_by(
         student_id=student).all()
-    print("hello", student_test)
     student_test_list = []
     for student in student_test:
-        print("yay", student.student_test_id)
+        test_date = student.test_date.strftime('%m-%d-%Y')
         student_test_object = {
             'student_id': student.student_id,
             'score': student.score,
-            'test_date': student.test_date,
+            'test_date': test_date,
             'correct_words': student.correct_words,
             'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
+    print(student_test_list)
     return jsonify(student_test_list)
 
 
