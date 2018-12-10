@@ -5,7 +5,7 @@ const StudentTestResultsLink = props => {
   return (
     <div>
       <Link to={`/student-test-results/${props.data[0].student_id}`}>
-        View Past Test Results
+        View {props.data[0].fname}'s Test Results
       </Link>
     </div>
   );

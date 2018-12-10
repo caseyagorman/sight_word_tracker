@@ -82,7 +82,8 @@ class StudentWord(db.Model):
         'students.student_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
-
+    correct_count = db.Column(db.Integer, default=0, nullable=True)
+    incorrect_count = db.Column(db.Integer, default=0, nullable=True)
     students = db.relationship(
         'Student')
     words = db.relationship(
