@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ViewStudentTestResults from "./ViewStudentTestResults";
-import StudentPage from "../studentComponents/StudentDetail/StudentPage";
+import Student from "../studentComponents/StudentDetail/Student";
 class StudentTestResults extends React.Component {
   state = {
     test: null,
@@ -38,19 +38,18 @@ class StudentTestResults extends React.Component {
     return test.map(test => ViewStudentTestResults(test));
   }
 
-  // test.map(test => ViewStudentTestResults(test))
-  //
-
-  displayStudentName(student) {
+  displayStudentLink(student) {
     if (!student) {
       return <p>loading...</p>;
     }
-    return StudentPage(student);
+    console.log("student", student);
+    return Student(student.data[0]);
   }
   render() {
     return (
       <div>
-        <div>{this.displayStudentName(this.state.student)}</div>
+        <br />
+        <div>{this.displayStudentLink(this.state.student)}</div>
         <div>{this.viewStudentTestResults(this.state.test)}</div>
       </div>
     );
