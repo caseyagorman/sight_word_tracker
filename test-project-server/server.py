@@ -269,13 +269,17 @@ def get_all_student_word_counts():
     print(words)
     word_counts = {}
     for word in words:
-        if word.Learned == False:
+        if word.Learned == True:
+            if word.words.word not in word_counts:
+                word_counts[word.words.word] = 0
+            else:
+                word_counts[word.words.word] += 0
+        else:
             if word.words.word not in word_counts:
                 word_counts[word.words.word] = 1
             else:
                 word_counts[word.words.word] += 1
-        else:
-            pass
+
     return word_counts
 
 

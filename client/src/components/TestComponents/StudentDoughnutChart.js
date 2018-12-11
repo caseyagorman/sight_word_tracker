@@ -12,6 +12,8 @@ class StudentDoughnutChart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
+    const divStyle = { height: "25px", align: "center" };
+
     console.log(dataResults);
     let correct_count = this.state.data.correct_count;
     let incorrect_count = this.state.data.incorrect_count;
@@ -26,16 +28,16 @@ class StudentDoughnutChart extends Component {
         }
       ]
     };
-    return <Doughnut data={data} />;
-  }
-
-  render() {
     return (
-      <div>
+      <div style={divStyle}>
         <h2>Learned Words</h2>
-        {this.displayChart(this.state.data)}
+        <Doughnut data={data} />
       </div>
     );
+  }
+  d;
+  render() {
+    return <div>{this.displayChart(this.state.data)}</div>;
   }
 }
 
