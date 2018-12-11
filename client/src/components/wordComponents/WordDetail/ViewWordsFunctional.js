@@ -29,7 +29,7 @@ class ViewWordsFunctional extends React.Component {
       return <p>loading...</p>;
     }
     console.log(words[1]);
-    return <WordBarChart data={words} />;
+    return <WordBarChart data={words[1]} />;
   }
 
   render() {
