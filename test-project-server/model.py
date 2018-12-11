@@ -59,7 +59,7 @@ class Word(db.Model):
     __tablename__ = "words"
 
     word_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    word = db.Column(db.String(25), nullable=False)
+    word = db.Column(db.String(25), nullable=False, unique=True)
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     studentwords = db.relationship(

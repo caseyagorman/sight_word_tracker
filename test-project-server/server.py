@@ -120,15 +120,15 @@ def get_unknown_words(student):
 @cross_origin()
 def add_word():
     data = request.get_json()
-    new_word = data.get('word')
-    words = Word.query.all()
-    words = list(words)
-    for w in words:
-        if new_word == w.word:
-            return "already in database"
-    word = Word(word=new_word)
-    db.session.add(word)
-    db.session.commit()
+    new_words = data.get('word')
+    new_words = new_words.split()
+    print(new_words)
+    for word in new_words:
+        print("word", word)
+        word = Word(word=word)
+        db.session.add(word)
+        db.session.commit()
+
     return 'word added!'
 
 

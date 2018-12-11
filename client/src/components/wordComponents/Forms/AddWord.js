@@ -33,10 +33,11 @@ class AddWord extends Component {
     return (
       <div>
         <br />
-        <h1>Add Word</h1>
+        <h1>Add Words</h1>
         <br />
         <form onSubmit={this.addWord}>
-          Add New Word:
+          <p>You may add multiple words separated by space</p>
+          Add New Words:
           <label>
             <input
               id="wordForm"
