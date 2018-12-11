@@ -291,6 +291,28 @@ def get_word_counts(student_id):
     return words
 
 
+def get_percentage_of_words_learned(student_id):
+
+    word_counts = get_word_counts(student_id)
+    correct_words = []
+    incorrect_words = []
+    correct_count = 0
+    incorrect_count = 0
+    total_count = len(word_counts)
+    for item in word_counts:
+        if item['correct_count'] > 2:
+            correct_words.append(item['word'])
+            correct_count += 1
+        else:
+            incorrect_words.append(item['word'])
+            incorrect_count += 1
+
+    print(correct_words, incorrect_words, correct_count, incorrect_count)
+    count_data = {"correct_words": correct_words, "incorrect_words": incorrect_words,
+                  "correct_count": correct_count, "incorrect_count": incorrect_count}
+    return count_data
+
+
 def update_correct_words(student_id, correct_words):
     student_word_list = Word.query.options(db.joinedload('studentwords')).filter(
         Word.word.in_(correct_words)).filter(
@@ -338,6 +360,7 @@ def create_student_test():
 @cross_origin()
 @app.route("/api/get-student-test/<student>")
 def get_student_test(student):
+    word_count_data = get_percentage_of_words_learned(student)
     word_counts = get_word_counts(student)
     student_test = StudentTestResult.query.filter_by(
         student_id=student).all()
@@ -352,7 +375,7 @@ def get_student_test(student):
             'incorrect_words': student.incorrect_words
         }
         student_test_list.append(student_test_object)
-    return jsonify([student_test_list, word_counts])
+    return jsonify([student_test_list, word_counts, word_count_data])
 
 
 if __name__ == "__main__":

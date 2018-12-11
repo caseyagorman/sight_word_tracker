@@ -6,6 +6,7 @@ import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../StudentTest/TestStudentLink";
 import DeleteStudent from "../Forms/DeleteStudent";
 import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink";
+import Chart from "../../TestComponents/Chart";
 class StudentDetail extends React.Component {
   constructor(props) {
     super(props);

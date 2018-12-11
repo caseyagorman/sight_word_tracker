@@ -3,6 +3,7 @@ import axios from "axios";
 import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../studentComponents/StudentDetail/Student";
 import WordCounts from "./WordCounts";
+import Chart from "./Chart";
 class StudentTestResults extends React.Component {
   state = {
     test: null,
@@ -58,6 +59,7 @@ class StudentTestResults extends React.Component {
         <br />
         <div>{this.displayStudentLink(this.state.student)}</div>
         <div>{this.getWordCounts(this.state.test)}</div>
+        <Chart />
         <div>{this.viewStudentTestResults(this.state.test)}</div>
       </div>
     );
