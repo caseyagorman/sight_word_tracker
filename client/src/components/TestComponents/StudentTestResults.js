@@ -46,6 +46,15 @@ class StudentTestResults extends React.Component {
     return Student(student.data[0]);
   }
 
+  displayChart(studentTest) {
+    if (!studentTest) {
+      return <p>loading...</p>;
+    }
+    console.log("data results", studentTest.data[2]);
+    let test = studentTest.data[2];
+    return <Chart data={test} />;
+  }
+
   getWordCounts(studentTest) {
     if (!studentTest) {
       return <p>loading...</p>;
@@ -59,7 +68,7 @@ class StudentTestResults extends React.Component {
         <br />
         <div>{this.displayStudentLink(this.state.student)}</div>
         <div>{this.getWordCounts(this.state.test)}</div>
-        <Chart />
+        <div>{this.displayChart(this.state.test)}</div>
         <div>{this.viewStudentTestResults(this.state.test)}</div>
       </div>
     );

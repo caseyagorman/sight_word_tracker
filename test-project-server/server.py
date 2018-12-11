@@ -309,7 +309,8 @@ def get_percentage_of_words_learned(student_id):
 
     print(correct_words, incorrect_words, correct_count, incorrect_count)
     count_data = {"correct_words": correct_words, "incorrect_words": incorrect_words,
-                  "correct_count": correct_count, "incorrect_count": incorrect_count}
+                  "correct_count": correct_count, "incorrect_count": incorrect_count,
+                  "total_count": total_count}
     return count_data
 
 
