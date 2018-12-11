@@ -49,7 +49,7 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentTest.data[2];
+    let test = studentTest.data[3];
     return <Chart data={test} />;
   }
 

@@ -12,16 +12,17 @@ class Chart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-
+    console.log(dataResults);
     let correct_count = this.state.data.correct_count;
     let incorrect_count = this.state.data.incorrect_count;
+    let learning_count = this.state.data.learning_count;
     const data = {
-      labels: ["Learned Words", "Unlearned Words"],
+      labels: ["Learned Words", "Unlearned Words", "Learning"],
       datasets: [
         {
-          data: [correct_count, incorrect_count],
-          backgroundColor: ["#36A2EB", "#FF6384"],
-          hoverBackgroundColor: ["#36A2EB", "#FF6384"]
+          data: [correct_count, incorrect_count, learning_count],
+          backgroundColor: ["#229954", "#E74C3C", "#2E86C1"],
+          hoverBackgroundColor: ["#229954", "#E74C3C", "#2E86C1"]
         }
       ]
     };
