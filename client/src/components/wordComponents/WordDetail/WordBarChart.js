@@ -26,7 +26,6 @@ class WordBarChart extends Component {
     }
     let wordList = this.turnIntoArray(dataResults)[0];
     let wordCounts = this.turnIntoArray(dataResults)[1];
-    console.log("get", wordCounts);
     const data = {
       labels: wordList,
       datasets: [

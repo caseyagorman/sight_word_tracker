@@ -67,6 +67,7 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let test = studentTest.data[1];
+    console.log("get word counts data", test);
     return test.map(test => WordCounts(test));
   }
   render() {

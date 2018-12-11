@@ -207,6 +207,8 @@ def student_detail(student):
                 'word': word.words.word,
             }
             word_list.append(word)
+        else:
+            pass
     return jsonify([student_object, word_list])
 
 
@@ -220,13 +222,16 @@ def word_detail(word):
 
     student_list = []
     for student in student_words:
-        student = {
-            'student_id': student.students.student_id,
-            'fname': student.students.fname,
-            'lname': student.students.lname
+        if student.Learned == False:
+            student = {
+                'student_id': student.students.student_id,
+                'fname': student.students.fname,
+                'lname': student.students.lname
 
-        }
-        student_list.append(student)
+            }
+            student_list.append(student)
+        else:
+            pass
 
     word_object = {
         'word_id': word_object.word_id,
@@ -338,18 +343,14 @@ def get_student_chart_data(student_id):
 
 
 def update_correct_words(student_id, correct_words):
-    print(correct_words)
+    print("correct_words", correct_words)
     student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
         Word.word.in_(correct_words)).all()
     for word in student_word_list:
         if word.words.word in correct_words:
-            print(word.words.word)
-            if word.correct_count >= 2:
+            if word.correct_count >= 3:
                 word.Learned = True
-            student_id = word.student_id
-            student_word = StudentWord.query.filter_by(
-                student_id=student_id).first()
-            student_word.correct_count = StudentWord.correct_count + 1
+            word.correct_count = StudentWord.correct_count + 1
             db.session.commit()
         else:
             pass
@@ -357,15 +358,14 @@ def update_correct_words(student_id, correct_words):
 
 
 def update_incorrect_words(student_id, incorrect_words):
-    student_word_list = Word.query.options(db.joinedload('studentwords')).filter(
-        Word.word.in_(incorrect_words)).filter(
-        StudentWord.student_id == student_id).all()
+    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
+        Word.word.in_(incorrect_words)).all()
     for word in student_word_list:
-        id = word.studentwords[0].student_word_id
-        student_word = StudentWord.query.filter_by(
-            student_word_id=id).first()
-        student_word.incorrect_count = StudentWord.incorrect_count + 1
-        db.session.commit()
+        if word.words.word in incorrect_words:
+            word.incorrect_count = StudentWord.incorrect_count + 1
+            db.session.commit()
+        else:
+            pass
     return "incorrect words"
 
 
