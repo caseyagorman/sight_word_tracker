@@ -90,9 +90,8 @@ def get_words():
             'word': word.word
         }
         word_list.append(word)
-    get_all_student_word_counts()
-    words = jsonify(word_list)
-    return words
+    chart_words = get_all_student_word_counts()
+    return jsonify([word_list, chart_words])
 
 
 @app.route("/api/unknown-words/<student>")
@@ -272,7 +271,7 @@ def get_all_student_word_counts():
                 word_counts[word.words.word] += 1
         else:
             pass
-    print(word_counts)
+    return word_counts
 
 
 def get_word_counts(student_id):

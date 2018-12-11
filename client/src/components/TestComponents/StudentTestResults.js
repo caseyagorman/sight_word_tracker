@@ -4,7 +4,7 @@ import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../studentComponents/StudentDetail/Student";
 import StudentPage from "../studentComponents/StudentDetail/StudentPage";
 import WordCounts from "./WordCounts";
-import Chart from "./Chart";
+import StudentDoughnutChart from "./StudentDoughnutChart";
 class StudentTestResults extends React.Component {
   state = {
     test: null,
@@ -19,13 +19,13 @@ class StudentTestResults extends React.Component {
         .then(test => {
           this.setState({ test: test });
         });
-      console.log(f);
+      console.log(d);
       let f = await axios
         .get(`http://localhost:5000/api/details/${id}`)
         .then(student => {
           this.setState({ student: student });
         });
-      console.log(d);
+      console.log(f);
     } catch (e) {
       console.log(e);
     }
@@ -59,7 +59,7 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let test = studentTest.data[3];
-    return <Chart data={test} />;
+    return <StudentDoughnutChart data={test} />;
   }
 
   getWordCounts(studentTest) {

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Word from "./Word";
 import ViewWordsPresentation from "./ViewWordsPresentation";
+import WordBarChart from "./WordBarChart";
 const apiUrl = "http://localhost:5000/api/words";
 
 class ViewWordsFunctional extends React.Component {
@@ -19,16 +20,28 @@ class ViewWordsFunctional extends React.Component {
     if (!words) {
       return <p>Loading words...</p>;
     }
-    return words.map(word => Word(word));
+    let wordList = words[0];
+    return wordList.map(word => Word(word));
+  }
+
+  displayChart(words) {
+    if (!words) {
+      return <p>loading...</p>;
+    }
+    console.log(words[1]);
+    return <WordBarChart data={words} />;
   }
 
   render() {
     return (
       <div>
-        <ViewWordsPresentation
-          style={this.divStyle}
-          words={this.displayWords(this.state.words)}
-        />
+        <div>
+          <ViewWordsPresentation
+            style={this.divStyle}
+            words={this.displayWords(this.state.words)}
+          />
+        </div>
+        {this.displayChart(this.state.words)}
       </div>
     );
   }
