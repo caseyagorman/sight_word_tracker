@@ -12,7 +12,6 @@ class StudentTestResults extends React.Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(id);
     try {
       let d = await axios
         .get(`http://localhost:5000/api/get-student-test/${id}`)
@@ -50,7 +49,6 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    console.log("data results", studentTest.data[2]);
     let test = studentTest.data[2];
     return <Chart data={test} />;
   }

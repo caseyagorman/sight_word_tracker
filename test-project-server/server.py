@@ -56,9 +56,7 @@ def get_student():
 @app.route("/api/add-student", methods=['POST'])
 @cross_origin()
 def add_student():
-    print("hello!")
     data = request.get_json()
-    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
     grade = data.get('grade')
@@ -71,13 +69,10 @@ def add_student():
 @app.route("/api/delete-student", methods=['POST'])
 @cross_origin()
 def delete_student():
-    print("goodbye!")
     data = request.get_json()
-    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
     student = Student.query.filter_by(fname=fname).first()
-    print(student)
 
     # student_to_delete = StudentWord.query.filter_by(
     #     student_id=student.student_id).options(db.joinedload('students')).all()
@@ -127,16 +122,11 @@ def get_unknown_words(student):
 def add_word():
     data = request.get_json()
     new_word = data.get('word')
-    print(new_word)
     words = Word.query.all()
     words = list(words)
     for w in words:
-        print(w.word)
         if new_word == w.word:
-            print("already in database")
             return "already in database"
-
-    print("not in list")
     word = Word(word=new_word)
     db.session.add(word)
     db.session.commit()
@@ -146,10 +136,8 @@ def add_word():
 @app.route("/api/delete-word", methods=['POST'])
 @cross_origin()
 def delete_word():
-    print("goodbye!")
     data = request.get_json()
     word = data.get('word')
-    print(word)
     word_to_delete = Word.query.filter_by(word=word).first()
     db.session.delete(word_to_delete)
     db.session.commit()
@@ -187,7 +175,6 @@ def add_word_to_student():
 @cross_origin()
 def add_word_to_all_student():
     data = request.get_json()
-    print(data)
     word = data.get('word')
     students = StudentWord.query.all()
     word = Word.query.filter_by(word=word).first()
@@ -208,15 +195,11 @@ def student_detail(student):
         Student.student_id == student).first()
     student_words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
-    print(student_words)
-    print(student_object)
-
     student_object = {
         'student_id': student_object.student_id,
         'fname': student_object.fname,
         'lname': student_object.lname
     }
-    print(student_object)
     word_list = []
     for word in student_words:
         word = {
@@ -281,7 +264,6 @@ def get_word_counts(student_id):
         student_id=student_id).options(db.joinedload('words')).all()
     words = []
     for student_word in word_counts:
-        # print(student_word.incorrect_count, student_word.correct_count)
         count = {
             "word": student_word.words.word,
             "correct_count": student_word.correct_count,
@@ -306,8 +288,6 @@ def get_percentage_of_words_learned(student_id):
         else:
             incorrect_words.append(item['word'])
             incorrect_count += 1
-
-    print(correct_words, incorrect_words, correct_count, incorrect_count)
     count_data = {"correct_words": correct_words, "incorrect_words": incorrect_words,
                   "correct_count": correct_count, "incorrect_count": incorrect_count,
                   "total_count": total_count}
@@ -315,15 +295,18 @@ def get_percentage_of_words_learned(student_id):
 
 
 def update_correct_words(student_id, correct_words):
-    student_word_list = Word.query.options(db.joinedload('studentwords')).filter(
-        Word.word.in_(correct_words)).filter(
-        StudentWord.student_id == student_id).all()
+    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
+        Word.word.in_(correct_words)).all()
+    print(student_word_list)
     for word in student_word_list:
-        id = word.studentwords[0].student_word_id
-        student_word = StudentWord.query.filter_by(student_word_id=id).first()
+        if word.correct_count >= 1:
+            word.Learned = True
+        student_id = word.student_id
+        student_word = StudentWord.query.filter_by(
+            student_id=student_id).first()
         student_word.correct_count = StudentWord.correct_count + 1
-        print(student_word.correct_count)
         db.session.commit()
+        print(word.Learned)
     return "correct words"
 
 
@@ -336,7 +319,6 @@ def update_incorrect_words(student_id, incorrect_words):
         student_word = StudentWord.query.filter_by(
             student_word_id=id).first()
         student_word.incorrect_count = StudentWord.incorrect_count + 1
-        print(student_word.incorrect_count)
         db.session.commit()
     return "incorrect words"
 

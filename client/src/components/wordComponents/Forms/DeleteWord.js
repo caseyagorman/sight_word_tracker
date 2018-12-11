@@ -11,13 +11,10 @@ class DeleteWord extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    console.log(this.props.word);
     this.setState({ value: this.props.word });
-    console.log(this.state);
   }
   getOptions() {
     if (this.props.word.key === undefined) {
-      console.log("yo!", this.state.value);
       return (
         <div>
           <form>
@@ -31,7 +28,6 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
-    console.log("word", this.props.word);
     let deleteWord = {
       word: this.props.word.word
     };
@@ -43,7 +39,6 @@ class DeleteWord extends Component {
         "Content-Type": "application/json"
       }
     };
-    console.log(deleteWord);
 
     axios
       .post("http://localhost:5000/api/delete-word", deleteWord, config)
