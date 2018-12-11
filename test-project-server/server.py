@@ -90,6 +90,7 @@ def get_words():
             'word': word.word
         }
         word_list.append(word)
+    get_all_student_word_counts()
     words = jsonify(word_list)
     return words
 
@@ -259,6 +260,21 @@ def calculate_score(known_words, unknown_words):
     return score * 100
 
 
+def get_all_student_word_counts():
+    words = StudentWord.query.options(db.joinedload('words')).all()
+    print(words)
+    word_counts = {}
+    for word in words:
+        if word.Learned == False:
+            if word.words.word not in word_counts:
+                word_counts[word.words.word] = 1
+            else:
+                word_counts[word.words.word] += 1
+        else:
+            pass
+    print(word_counts)
+
+
 def get_word_counts(student_id):
     word_counts = StudentWord.query.filter_by(
         student_id=student_id).options(db.joinedload('words')).all()
@@ -278,17 +294,10 @@ def get_percentage_of_words_learned(student_id):
     word_counts = get_word_counts(student_id)
     correct_words = []
     incorrect_words = []
-    # learning_words = []
     correct_count = 0
-    # learning_count = 0
     incorrect_count = 0
     total_count = len(word_counts)
     for item in word_counts:
-        # if item['correct_count'] > 0 and item['correct_count'] < 3:
-        #     learning_words.append(item['word'])
-        #     learning_count += 1
-        #     print(learning_count)
-
         if item['correct_count'] >= 3:
             correct_words.append(item['word'])
             correct_count += 1
@@ -336,7 +345,7 @@ def update_correct_words(student_id, correct_words):
     for word in student_word_list:
         if word.words.word in correct_words:
             print(word.words.word)
-            if word.correct_count >= 3:
+            if word.correct_count >= 2:
                 word.Learned = True
             student_id = word.student_id
             student_word = StudentWord.query.filter_by(

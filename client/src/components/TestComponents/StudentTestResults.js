@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../studentComponents/StudentDetail/Student";
+import StudentPage from "../studentComponents/StudentDetail/StudentPage";
 import WordCounts from "./WordCounts";
 import Chart from "./Chart";
 class StudentTestResults extends React.Component {
@@ -38,6 +39,14 @@ class StudentTestResults extends React.Component {
     return test.map(test => ViewStudentTestResults(test));
   }
 
+  displayStudentPage(student) {
+    if (!student) {
+      return <p>loading...</p>;
+    }
+    console.log(student);
+    return StudentPage(student);
+  }
+
   displayStudentLink(student) {
     if (!student) {
       return <p>loading...</p>;
@@ -64,6 +73,7 @@ class StudentTestResults extends React.Component {
     return (
       <div>
         <br />
+        <div>{this.displayStudentPage(this.state.student)}</div>
         <div>{this.displayStudentLink(this.state.student)}</div>
         <div>{this.getWordCounts(this.state.test)}</div>
         <div>{this.displayChart(this.state.test)}</div>
