@@ -15,11 +15,7 @@ class StudentWordsTestPage extends React.Component {
 
   displayWord(words) {
     if (!words) {
-      console.log("create test");
       this.createTestObject();
-      // console.log(this.state.unknown_words, this.state.known_words);
-      // console.log("test complete!");
-      // return this.props.history.push("/students");
     }
 
     return <div>{words}</div>;
@@ -67,7 +63,6 @@ class StudentWordsTestPage extends React.Component {
 
   render() {
     const words = this.state.words;
-    // console.log(words);
     const idx = this.state.idx;
     return (
       <div>

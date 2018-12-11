@@ -74,9 +74,6 @@ def delete_student():
     lname = data.get('lname')
     student = Student.query.filter_by(fname=fname).first()
 
-    # student_to_delete = StudentWord.query.filter_by(
-    #     student_id=student.student_id).options(db.joinedload('students')).all()
-
     db.session.delete(student)
     db.session.commit()
     return 'student deleted!'
@@ -104,7 +101,10 @@ def get_unknown_words(student):
         student_id=student).options(db.joinedload('words')).all()
     word_ids = []
     for word in words:
-        word_ids.append(word.word_id)
+        if word.Learned == True:
+            word_ids.append(word.word_id)
+        else:
+            pass
     unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
     json_word_list = []
     for word in unknown_words:
@@ -202,11 +202,12 @@ def student_detail(student):
     }
     word_list = []
     for word in student_words:
-        word = {
-            'word_id': word.words.word_id,
-            'word': word.words.word,
-        }
-        word_list.append(word)
+        if word.Learned == False:
+            word = {
+                'word_id': word.words.word_id,
+                'word': word.words.word,
+            }
+            word_list.append(word)
     return jsonify([student_object, word_list])
 
 
