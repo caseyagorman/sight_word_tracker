@@ -266,7 +266,6 @@ def calculate_score(known_words, unknown_words):
 
 def get_all_student_word_counts():
     words = StudentWord.query.options(db.joinedload('words')).all()
-    print(words)
     word_counts = {}
     for word in words:
         if word.Learned == True:
