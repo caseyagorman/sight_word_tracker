@@ -13,7 +13,11 @@ import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import SignUpFormPage from "./components/userComponents/SignUpFormPage";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
 
+const store = createStore((state = {}) => state, applyMiddleware(thunk));
 const AppRouter = () => (
   <Router>
     <div>
@@ -34,6 +38,11 @@ const AppRouter = () => (
 
 export default AppRouter;
 
-ReactDOM.render(<AppRouter />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <AppRouter />,{" "}
+  </Provider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
