@@ -283,6 +283,21 @@ def get_all_student_word_counts():
     return word_counts
 
 
+@cross_origin()
+@app.route("/api/get-learned-words")
+def get_all_learned_words():
+    student_words = StudentWord.query.all()
+    learned_count = 0
+    unlearned_count = 0
+    for word in student_words:
+        if word.Learned == True:
+            learned_count += 1
+        else:
+            unlearned_count += 1
+    result = {"learned": learned_count, "unlearned": unlearned_count}
+    return jsonify(result)
+
+
 def get_word_counts(student_id):
     word_counts = StudentWord.query.filter_by(
         student_id=student_id).options(db.joinedload('words')).all()
@@ -294,6 +309,7 @@ def get_word_counts(student_id):
             "incorrect_count": student_word.incorrect_count
         }
         words.append(count)
+
     return words
 
 
