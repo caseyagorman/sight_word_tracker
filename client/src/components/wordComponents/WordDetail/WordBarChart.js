@@ -50,7 +50,18 @@ class WordBarChart extends Component {
           tooltips: {
             mode: "label"
           },
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
+          aspectRatio: 5,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  min: 0
+                }
+              }
+            ]
+          }
         }}
       />
     );
