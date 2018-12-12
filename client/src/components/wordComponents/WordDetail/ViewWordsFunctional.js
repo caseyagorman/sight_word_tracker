@@ -21,6 +21,7 @@ class ViewWordsFunctional extends React.Component {
       return <p>Loading words...</p>;
     }
     let wordList = words[0];
+    console.log(wordList);
     return wordList.map(word => Word(word));
   }
 
@@ -29,7 +30,7 @@ class ViewWordsFunctional extends React.Component {
       return <p>loading...</p>;
     }
     console.log(words[1]);
-    return <WordBarChart data={words[1]} />;
+    return <WordBarChart data={words[1]} word_id={words[0]} />;
   }
 
   render() {

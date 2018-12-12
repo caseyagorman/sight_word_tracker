@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 
 class WordBarChart extends Component {
-  state = { data: null };
+  state = { data: null, showTooltip: false };
 
   componentDidMount() {
+    console.log(this.props.data);
     this.setState({ data: this.props.data });
   }
 
@@ -20,10 +21,31 @@ class WordBarChart extends Component {
     }
     return [wordList, wordCounts];
   }
+
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
+    let options = {
+      tooltips: {
+        enabled: false,
+        custom: ""
+      },
+      responsive: true,
+
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              min: 0
+            }
+          }
+        ]
+      }
+    };
     let wordList = this.turnIntoArray(dataResults)[0];
     let wordCounts = this.turnIntoArray(dataResults)[1];
     const data = {
@@ -40,31 +62,7 @@ class WordBarChart extends Component {
         }
       ]
     };
-    return (
-      <Bar
-        data={data}
-        width={100}
-        height={100}
-        options={{
-          responsive: true,
-          tooltips: {
-            mode: "label"
-          },
-          maintainAspectRatio: false,
-          aspectRatio: 5,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                  min: 0
-                }
-              }
-            ]
-          }
-        }}
-      />
-    );
+    return <Bar data={data} width={100} height={100} options={options} />;
   }
   render() {
     return (
