@@ -12,7 +12,7 @@ class SignUpPage extends Component {
   }
   onSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    this.props.userSignupRequest(this.state);
   }
   render() {
     return (
