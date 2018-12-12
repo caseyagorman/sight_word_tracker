@@ -14,10 +14,8 @@ class StudentDoughnutChart extends Component {
     }
     const divStyle = { height: "25px", align: "center" };
 
-    console.log("1", "data", dataResults);
     let learned = dataResults.dataResults.learned;
     let unlearned = dataResults.dataResults.unlearned;
-    console.log(learned, unlearned);
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [

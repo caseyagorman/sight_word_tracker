@@ -46,6 +46,10 @@ class WordBarChart extends Component {
         width={100}
         height={100}
         options={{
+          responsive: true,
+          tooltips: {
+            mode: "label"
+          },
           maintainAspectRatio: false
         }}
       />

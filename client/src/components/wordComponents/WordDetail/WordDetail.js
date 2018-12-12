@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import WordStudentsPage from "./WordStudentsPage";
 import WordPage from "./WordPage";
-import WordBarChart from "./WordBarChart";
+
 import DeleteWord from "../Forms/DeleteWord";
 class WordDetail extends React.Component {
   state = {
@@ -36,13 +36,6 @@ class WordDetail extends React.Component {
       return <p>Loading ...</p>;
     }
     return word.data[1].map(word => WordStudentsPage(word));
-  }
-
-  displayChart(words) {
-    if (!words) {
-      return <p>loading...</p>;
-    }
-    return <WordBarChart data={test} />;
   }
 
   render() {
