@@ -12,6 +12,8 @@ import TestStudent from "./components/studentComponents/StudentTest/TestStudent"
 import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 const AppRouter = () => (
   <Router>
@@ -32,6 +34,11 @@ const AppRouter = () => (
 
 export default AppRouter;
 
-ReactDOM.render(<AppRouter />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
