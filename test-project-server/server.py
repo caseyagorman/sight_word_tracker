@@ -20,6 +20,7 @@ def index():
 @app.route("/api/students/")
 @cross_origin()
 def get_students():
+    print('hello!')
     students = Student.query.all()
     student_list = []
     for student in students:

@@ -1,37 +1,30 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../redux/actions/studentActions";
+import PropTypes from "prop-types";
 import axios from "axios";
 import Student from "../studentComponents/StudentDetail/Student";
 import { Link } from "react-router-dom";
 import StudentDoughnutChart from "./StudentDoughnutChart";
-const studentApiUrl = "http://localhost:5000/api/students";
 const studentWordApiUrl = "http://localhost:5000/api/get-learned-words";
 const divStyle = {
   display: "inline"
 };
 class ViewStudents extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { students: null, studentWords: null };
-  }
-
   async componentDidMount() {
-    try {
-      let d = await axios.get(studentApiUrl).then(response => {
-        this.setState({ students: response.data });
-      });
-      console.log(d);
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      let f = await axios.get(studentWordApiUrl).then(response => {
-        this.setState({ studentWords: response.data });
-        console.log(response.data);
-      });
-      console.log(f);
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(this.props);
+    this.props.studentActions.fetchStudents();
+
+    // try {
+    //   let f = await axios.get(studentWordApiUrl).then(response => {
+    //     this.setState({ studentWords: response.data });
+    //     console.log(response.data);
+    //   });
+    //   console.log(f);
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 
   displayStudents(students) {
@@ -42,12 +35,12 @@ class ViewStudents extends React.Component {
     return students.map(student => Student(student));
   }
 
-  displayChart(studentWords) {
-    if (!studentWords) {
-      return <p> loading...</p>;
-    }
-    return <StudentDoughnutChart dataResults={studentWords} />;
-  }
+  // displayChart(studentWords) {
+  //   if (!studentWords) {
+  //     return <p> loading...</p>;
+  //   }
+  //   return <StudentDoughnutChart dataResults={studentWords} />;
+  // }
 
   render() {
     return (
@@ -60,11 +53,31 @@ class ViewStudents extends React.Component {
         <div>
           <br />
         </div>
-        <div>{this.displayStudents(this.state.students)}</div>
-        <div>{this.displayChart(this.state.studentWords)}</div>
+        <div>{this.displayStudents(this.props.students)}</div>
+        {/* <div>{this.displayChart(this.state.studentWords)}</div> */}
       </div>
     );
   }
 }
 
-export default ViewStudents;
+ViewStudents.propTypes = {
+  studentActions: PropTypes.object,
+  students: PropTypes.object
+};
+
+function mapStateToProps(state) {
+  return {
+    students: state.students
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ViewStudents);
