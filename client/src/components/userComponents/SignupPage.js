@@ -3,14 +3,22 @@ import SignupForm from "./SignupForm";
 
 class SignupPage extends Component {
   render() {
+    const { userSignupRequest } = this.props;
     return (
       <div>
         <div>
-          <SignupForm />
+          <SignupForm userSignupRequest={userSignupRequest} />
         </div>
       </div>
     );
   }
 }
-
-export default SignupPage;
+SignupPage.propTypes = {
+  userSignupRequest: React.PropTypes.func.isRequired
+};
+export default connect(
+  state => {
+    return {};
+  },
+  { userSignupRequest }
+)(SignupPage);
