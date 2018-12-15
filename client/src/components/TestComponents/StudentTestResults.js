@@ -5,10 +5,12 @@ import Student from "../studentComponents/StudentDetail/Student";
 import StudentPage from "../studentComponents/StudentDetail/StudentPage";
 import WordCounts from "./WordCounts";
 import StudentDoughnutChart from "./StudentDoughnutChart";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../redux/actions/studentActions";
 class StudentTestResults extends React.Component {
   state = {
-    test: null,
-    student: null
+    test: null
   };
 
   async componentDidMount() {
@@ -20,15 +22,11 @@ class StudentTestResults extends React.Component {
           this.setState({ test: test });
         });
       console.log(d);
-      let f = await axios
-        .get(`http://localhost:5000/api/details/${id}`)
-        .then(student => {
-          this.setState({ student: student });
-        });
-      console.log(f);
     } catch (e) {
       console.log(e);
     }
+
+    this.props.studentActions.fetchStudent({ id: id });
   }
 
   viewStudentTestResults(studentTest) {
@@ -43,7 +41,7 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    console.log(student);
+    console.log("studentPage", student);
     return StudentPage(student);
   }
 
@@ -51,7 +49,8 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    return Student(student.data[0]);
+    console.log("display link", student);
+    return Student(student[0]);
   }
 
   displayChart(studentTest) {
@@ -74,8 +73,8 @@ class StudentTestResults extends React.Component {
     return (
       <div>
         <br />
-        <div>{this.displayStudentPage(this.state.student)}</div>
-        <div>{this.displayStudentLink(this.state.student)}</div>
+        <div>{this.displayStudentPage(this.props.student)}</div>
+        <div>{this.displayStudentLink(this.props.student)}</div>
         <div>{this.getWordCounts(this.state.test)}</div>
         <div>{this.displayChart(this.state.test)}</div>
         <div>{this.viewStudentTestResults(this.state.test)}</div>
@@ -84,4 +83,19 @@ class StudentTestResults extends React.Component {
   }
 }
 
-export default StudentTestResults;
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    student: state.student
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StudentTestResults);

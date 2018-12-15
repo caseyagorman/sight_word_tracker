@@ -1,37 +1,31 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router";
 
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
-    this.state = { fname: null, lname: null };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    this.setState({ fname: this.props.fname, lname: this.props.lname });
-  }
+
   getOptions() {
-    if (this.props.fname === undefined) {
-    } else {
-      return (
-        <div>
-          <form>
-            <label>
-              <button onClick={this.submit}>Delete</button>
-            </label>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div>
+        <form>
+          <label>
+            <button onClick={this.submit}>Delete</button>
+          </label>
+        </form>
+      </div>
+    );
   }
 
   handleSubmit() {
     let deleteStudent = {
-      fname: this.props.fname,
-      lname: this.props.lname
+      fname: this.props.student[0].fname,
+      lname: this.props.student[0].lname
     };
 
     deleteStudent = JSON.stringify(deleteStudent);

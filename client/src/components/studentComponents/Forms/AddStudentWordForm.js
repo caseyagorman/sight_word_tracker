@@ -9,7 +9,9 @@ class AddStudentWordForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.getOptions = this.getOptions.bind(this);
   }
-
+  componentDidMount() {
+    console.log("Add student word form", this.props.student[0]);
+  }
   handleChange(e) {
     const options = e.target.options;
     let value = [];
@@ -22,7 +24,7 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
-    if (this.props.words.keys == null) {
+    if (!this.props.words) {
       return <div>Loading</div>;
     }
     let wordList = this.props.words;
@@ -52,8 +54,8 @@ class AddStudentWordForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     let newStudentWord = {
-      fname: this.props.fname,
-      lname: this.props.lname,
+      fname: this.props[0].fname,
+      lname: this.props[0].lname,
       words: this.state.value
     };
     newStudentWord = JSON.stringify(newStudentWord);

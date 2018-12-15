@@ -13,8 +13,7 @@ class TestStudent extends React.Component {
     if (!student) {
       return <p> Loading... </p>;
     }
-    let words = this.turnIntoArray(student.data[1]);
-    console.log(words, typeof words);
+    let words = this.turnIntoArray(student[1]);
     return (
       <StudentWordsTestPage words={words} student={student[0].student_id} />
     );
