@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as studentActions from "../../redux/actions/studentActions";
-import PropTypes from "prop-types";
+import * as studentsActions from "../../redux/actions/studentsActions";
 import Student from "../studentComponents/StudentDetail/Student";
 import { Link } from "react-router-dom";
 import ViewClassChart from "./ViewClassChart";
@@ -11,7 +10,7 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    this.props.studentActions.fetchStudents();
+    this.props.studentsActions.fetchStudents();
   }
 
   displayStudents(students) {
@@ -41,11 +40,6 @@ class ViewStudents extends React.Component {
   }
 }
 
-ViewStudents.propTypes = {
-  studentActions: PropTypes.object,
-  students: PropTypes.object
-};
-
 function mapStateToProps(state) {
   return {
     students: state.students
@@ -54,7 +48,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentActions: bindActionCreators(studentActions, dispatch)
+    studentsActions: bindActionCreators(studentsActions, dispatch)
   };
 }
 

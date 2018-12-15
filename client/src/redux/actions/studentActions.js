@@ -1,24 +1,26 @@
 import * as types from "./actionTypes";
+import axios from "axios";
 
-function api() {
-  return "http://localhost:5000/api/students/";
+function addStudentApi() {
+  return "http://localhost:5000/api/add-student/";
 }
 
-export function receiveStudents(json) {
-  return { type: types.RECEIVE_STUDENTS, students: json };
+export function newStudent(json) {
+  return { type: types.ADD_STUDENT, student: json };
 }
 
-export function fetchStudents() {
+export function addStudent() {
   return dispatch => {
-    return fetch(api(), {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
+    return axios
+      .post(addStudentApi(), {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
       .then(response => response.json())
-      .then(json => dispatch(receiveStudents(json)));
+      .then(json => dispatch(addStudent(json)));
   };
 }

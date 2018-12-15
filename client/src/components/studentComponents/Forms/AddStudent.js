@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../../redux/actions/studentActions";
 
 class AddStudent extends Component {
   constructor(props) {
@@ -68,4 +71,19 @@ class AddStudent extends Component {
   }
 }
 
-export default AddStudent;
+function mapStateToProps(state) {
+  return {
+    student: state.student
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddStudent);
