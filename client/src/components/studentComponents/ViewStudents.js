@@ -12,7 +12,7 @@ const divStyle = {
   display: "inline"
 };
 class ViewStudents extends React.Component {
-  async componentDidMount() {
+  componentDidMount() {
     console.log(this.props);
     this.props.studentActions.fetchStudents();
 

@@ -1,2 +1,4 @@
 export const FETCH_STUDENTS = "FETCH_STUDENTS";
 export const RECEIVE_STUDENTS = "RECEIVE_STUDENTS";
+export const FETCH_WORDS = "FETCH_WORDS";
+export const RECEIVE_WORDS = "RECEIVE_WORDS";

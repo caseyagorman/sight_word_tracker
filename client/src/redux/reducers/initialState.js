@@ -1,3 +1,4 @@
 export default {
-  students: null
+  students: "",
+  words: ""
 };
