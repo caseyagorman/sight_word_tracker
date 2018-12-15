@@ -12,11 +12,6 @@ class WordDetail extends React.Component {
     this.props.wordActions.fetchWord({ id: id });
   }
 
-  //   axios.get(`http://localhost:5000/api/word-detail/${id}`).then(word => {
-  //     this.setState(() => ({ word }));
-  //   });
-  // }
-
   displayWord(word) {
     if (!word) {
       return <p>Loading...</p>;

@@ -1,18 +1,14 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../../redux/actions/studentActions";
 import StudentWordsTestPage from "./StudentWordsTestPage";
 class TestStudent extends React.Component {
-  state = {
-    student: null
-  };
-
   componentDidMount() {
     const { id } = this.props.match.params;
-
-    axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
-      this.setState({ student: student });
-    });
+    this.props.studentActions.fetchStudent({ id: id });
   }
+
   getWords(student) {
     if (!student) {
       return <p> Loading... </p>;
@@ -20,10 +16,7 @@ class TestStudent extends React.Component {
     let words = this.turnIntoArray(student.data[1]);
     console.log(words, typeof words);
     return (
-      <StudentWordsTestPage
-        words={words}
-        student={student.data[0].student_id}
-      />
+      <StudentWordsTestPage words={words} student={student[0].student_id} />
     );
   }
 
@@ -40,8 +33,23 @@ class TestStudent extends React.Component {
   }
 
   render() {
-    return <div>{this.getWords(this.state.student)}</div>;
+    return <div>{this.getWords(this.props.student)}</div>;
   }
 }
 
-export default TestStudent;
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    student: state.student
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TestStudent);
