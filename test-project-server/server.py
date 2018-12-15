@@ -191,6 +191,7 @@ def add_word_to_all_student():
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
+    print("student", student)
     student_object = Student.query.filter(
         Student.student_id == student).first()
     student_words = StudentWord.query.filter_by(

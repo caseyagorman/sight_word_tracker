@@ -1,5 +1,8 @@
 import React from "react";
-import axios from "axios";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../../redux/actions/studentActions";
 import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
@@ -7,23 +10,13 @@ import TestStudentLink from "../StudentTest/TestStudentLink";
 import DeleteStudent from "../Forms/DeleteStudent";
 import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink";
 class StudentDetail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      student: null,
-      words: null
-    };
-  }
-
   componentDidMount() {
     const { id } = this.props.match.params;
+    this.props.studentActions.fetchStudent({ id: id });
 
-    axios.get(`http://localhost:5000/api/details/${id}`).then(student => {
-      this.setState({ student: student });
-    });
-    axios.get(`http://localhost:5000/api/unknown-words/${id}`).then(words => {
-      this.setState({ words: words });
-    });
+    // axios.get(`http://localhost:5000/api/unknown-words/${id}`).then(words => {
+    //   this.setState({ words: words });
+    // });
   }
 
   displayStudent(student) {
@@ -37,7 +30,7 @@ class StudentDetail extends React.Component {
     if (!student) {
       return <p>Loading student words...</p>;
     }
-    return student.data[1].map(student => StudentWordsPage(student));
+    return student[1].map(student => StudentWordsPage(student));
   }
 
   getStudentTestLink(student) {
@@ -59,14 +52,14 @@ class StudentDetail extends React.Component {
     if (!student) {
       return <p> Loading... </p>;
     }
-    return student.data[0].fname;
+    return student[0].fname;
   }
 
   getLastName(student) {
     if (!student) {
       return <p> Loading... </p>;
     }
-    return student.data[0].lname;
+    return student[0].lname;
   }
   turnIntoArray(obj) {
     if (!obj) {
@@ -90,45 +83,42 @@ class StudentDetail extends React.Component {
   render() {
     return (
       <div>
+        <div>{this.displayStudent(this.props.student)} </div>
+        <DeleteStudent
+          fname={this.getName(this.props.student)}
+          lname={this.getLastName(this.props.student)}
+        />
+        <div>{this.displayStudentWords(this.props.student)} </div>
         <br />
-        <div>
-          {this.displayStudent(this.state.student)}
-          <DeleteStudent
-            fname={this.getName(this.state.student)}
-            lname={this.getLastName(this.state.student)}
-          />
-        </div>
+        {/* <div>{this.getStudentTestLink(this.props.student)}</div> */}
         <br />
-        <div>{this.displayStudentWords(this.state.student)} </div>
-        <br />
-        <div>{this.getStudentTestLink(this.state.student)}</div>
-        <br />
-        <div>{this.getStudentTestResultsLink(this.state.student)}</div>
+        {/* <div>{this.getStudentTestResultsLink(this.props.student)}</div> */}
         <br />
         <div>
           <AddStudentWordForm
-            fname={this.getName(this.state.student)}
-            lname={this.getLastName(this.state.student)}
-            words={this.getWords(this.state.words)}
+            fname={this.getName(this.props.student)}
+            lname={this.getLastName(this.props.student)}
+            words={this.getWords(this.props.words)}
           />
         </div>
       </div>
     );
   }
 }
-export default StudentDetail;
-// function mapStateToProps(state, ownProps) {
-//   return {
-//     studentId: ownProps.match.params.number,
-//     studentDetails: getStudentDetails(state)
-//   };
-// }
-// const mapDispatchToProps = dispatch => ({
-//   loadStudentDetails: studentId =>
-//     dispatch(loadStudentDetailsActionCreator(studentId))
-// });
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(StudentDetail);
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    student: state.student
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StudentDetail);
