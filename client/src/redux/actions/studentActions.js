@@ -5,7 +5,7 @@ function addStudentApi() {
   return "http://localhost:5000/api/add-student/";
 }
 
-export function newStudent(student) {
+export function createStudent(student) {
   return { type: types.CREATE_STUDENT, student: student };
 }
 

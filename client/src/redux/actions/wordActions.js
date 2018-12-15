@@ -18,7 +18,7 @@ export function fetchWords() {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.words())
+      .then(response => response.json())
       .then(words => dispatch(receiveWords(words)));
   };
 }

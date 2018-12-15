@@ -116,5 +116,19 @@ class StudentDetail extends React.Component {
     );
   }
 }
-
 export default StudentDetail;
+// function mapStateToProps(state, ownProps) {
+//   return {
+//     studentId: ownProps.match.params.number,
+//     studentDetails: getStudentDetails(state)
+//   };
+// }
+// const mapDispatchToProps = dispatch => ({
+//   loadStudentDetails: studentId =>
+//     dispatch(loadStudentDetailsActionCreator(studentId))
+// });
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(StudentDetail);

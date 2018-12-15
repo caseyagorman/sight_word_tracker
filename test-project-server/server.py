@@ -58,10 +58,10 @@ def get_student():
 @cross_origin()
 def add_student():
     data = request.get_json()
+    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
-    grade = data.get('grade')
-    new_student = Student(fname=fname,  lname=lname, grade=grade)
+    new_student = Student(fname=fname,  lname=lname)
     db.session.add(new_student)
     db.session.commit()
     return 'student added!'

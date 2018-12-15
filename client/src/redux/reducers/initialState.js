@@ -2,5 +2,6 @@ export default {
   students: "",
   student: "",
   words: "",
-  studentWords: ""
+  studentWords: "",
+  studentDetails: ""
 };

@@ -1,6 +1,10 @@
+// React imports
+
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+// Component imports
 import AppNav from "./components/AppNav";
 import StudentsContainer from "./containers/StudentsContainer";
 import WordsContainer from "./containers/WordsContainer";
@@ -11,10 +15,10 @@ import AddWord from "./components/wordComponents/Forms/AddWord";
 import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
 import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+// redux imports
 import { Provider } from "react-redux";
 import configureStore from "./redux/store/configureStore";
-
+import { reducer as formReducer } from "redux-form";
 const initialState = {};
 const store = configureStore(initialState);
 
