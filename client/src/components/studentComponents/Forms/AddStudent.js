@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as studentActions from "../../../redux/actions/studentActions";
+import * as studentActions from "../../../redux/actions/studentsActions";
 
 class AddStudent extends Component {
   constructor(props) {

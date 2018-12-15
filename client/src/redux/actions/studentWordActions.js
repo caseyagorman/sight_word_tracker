@@ -4,8 +4,8 @@ function api() {
   return "http://localhost:5000/api/get-learned-words";
 }
 
-export function receiveStudentWords(json) {
-  return { type: types.RECEIVE_STUDENT_WORDS, studentWords: json };
+export function receiveStudentWords(studentWords) {
+  return { type: types.RECEIVE_STUDENT_WORDS, studentWords: studentWords };
 }
 
 export function fetchStudentWords() {
@@ -19,6 +19,6 @@ export function fetchStudentWords() {
       }
     })
       .then(response => response.json())
-      .then(json => dispatch(receiveStudentWords(json)));
+      .then(studentWords => dispatch(receiveStudentWords(studentWords)));
   };
 }

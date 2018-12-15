@@ -5,8 +5,8 @@ function addStudentApi() {
   return "http://localhost:5000/api/add-student/";
 }
 
-export function newStudent(json) {
-  return { type: types.ADD_STUDENT, student: json };
+export function newStudent(student) {
+  return { type: types.CREATE_STUDENT, student: student };
 }
 
 export function addStudent() {
@@ -20,7 +20,7 @@ export function addStudent() {
           "Content-Type": "application/json"
         }
       })
-      .then(response => response.json())
-      .then(json => dispatch(addStudent(json)));
+      .then(response => response.student())
+      .then(student => dispatch(addStudent(student)));
   };
 }

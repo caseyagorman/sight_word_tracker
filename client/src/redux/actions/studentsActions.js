@@ -3,8 +3,8 @@ function getStudentsApi() {
   return "http://localhost:5000/api/students/";
 }
 
-export function receiveStudents(json) {
-  return { type: types.RECEIVE_STUDENTS, students: json };
+export function receiveStudents(students) {
+  return { type: types.RECEIVE_STUDENTS, students: students };
 }
 
 export function fetchStudents() {
@@ -18,6 +18,6 @@ export function fetchStudents() {
       }
     })
       .then(response => response.json())
-      .then(json => dispatch(receiveStudents(json)));
+      .then(students => dispatch(receiveStudents(students)));
   };
 }

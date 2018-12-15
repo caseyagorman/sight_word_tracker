@@ -4,8 +4,8 @@ function api() {
   return "http://localhost:5000/api/words/";
 }
 
-export function receiveWords(json) {
-  return { type: types.RECEIVE_WORDS, words: json };
+export function receiveWords(words) {
+  return { type: types.RECEIVE_WORDS, words: words };
 }
 
 export function fetchWords() {
@@ -18,7 +18,7 @@ export function fetchWords() {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(json => dispatch(receiveWords(json)));
+      .then(response => response.words())
+      .then(words => dispatch(receiveWords(words)));
   };
 }
