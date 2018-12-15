@@ -92,7 +92,7 @@ class StudentDetail extends React.Component {
         <br />
         {/* <div>{this.getStudentTestLink(this.props.student)}</div> */}
         <br />
-        {/* <div>{this.getStudentTestResultsLink(this.props.student)}</div> */}
+        <div>{this.getStudentTestResultsLink(this.props.student)}</div>
         <br />
         <div>
           <AddStudentWordForm
