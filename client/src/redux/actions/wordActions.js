@@ -1,16 +1,20 @@
 import * as types from "./actionTypes";
 
-function api() {
-  return "http://localhost:5000/api/words/";
+function getWordApi(id) {
+  return `http://localhost:5000/api/word-detail/${id}`;
 }
 
-export function receiveWords(words) {
-  return { type: types.RECEIVE_WORDS, words: words };
+export function receiveWord(word) {
+  console.log("word", word);
+  return { type: types.RECEIVE_WORD, word: word };
 }
 
-export function fetchWords() {
+export function fetchWord(id) {
+  console.log("fetch id", id);
+  let wordId = id.id;
+  console.log("word Id", wordId);
   return dispatch => {
-    return fetch(api(), {
+    return fetch(getWordApi(wordId), {
       method: "GET",
       mode: "cors",
       headers: {
@@ -19,6 +23,6 @@ export function fetchWords() {
       }
     })
       .then(response => response.json())
-      .then(words => dispatch(receiveWords(words)));
+      .then(word => dispatch(receiveWord(word)));
   };
 }

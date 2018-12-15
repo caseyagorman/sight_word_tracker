@@ -8,3 +8,5 @@ export const CREATE_STUDENT = "CREATE_STUDENT";
 export const ADD_STUDENT = "ADD_STUDENT";
 export const FETCH_STUDENT = "FETCH_STUDENT";
 export const RECEIVE_STUDENT = "RECEIVE_STUDENT";
+export const FETCH_WORD = "FETCH_WORD";
+export const RECEIVE_WORD = "RECEIVE_WORD";

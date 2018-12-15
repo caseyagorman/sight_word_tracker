@@ -18,7 +18,7 @@ import Home from "./components/Home";
 // redux imports
 import { Provider } from "react-redux";
 import configureStore from "./redux/store/configureStore";
-import { reducer as formReducer } from "redux-form";
+
 const initialState = {};
 const store = configureStore(initialState);
 

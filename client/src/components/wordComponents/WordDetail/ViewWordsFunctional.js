@@ -3,14 +3,14 @@ import Word from "./Word";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as wordActions from "../../../redux/actions/wordActions";
+import * as wordsActions from "../../../redux/actions/wordsActions";
 import ViewWordsPresentation from "./ViewWordsPresentation";
 import WordBarChart from "./WordBarChart";
 
 class ViewWordsFunctional extends React.Component {
   componentDidMount() {
     console.log(this.props);
-    this.props.wordActions.fetchWords();
+    this.props.wordsActions.fetchWords();
   }
   displayWords(words) {
     if (!words) {
@@ -45,7 +45,7 @@ class ViewWordsFunctional extends React.Component {
 }
 
 ViewWordsFunctional.propTypes = {
-  wordActions: PropTypes.object,
+  wordsActions: PropTypes.object,
   words: PropTypes.object
 };
 
@@ -57,7 +57,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordActions: bindActionCreators(wordActions, dispatch)
+    wordsActions: bindActionCreators(wordsActions, dispatch)
   };
 }
 

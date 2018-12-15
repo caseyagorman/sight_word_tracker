@@ -3,6 +3,7 @@ export default {
   student: "",
   words: "",
   studentWords: "",
-  studentDetails: ""
+  studentDetails: "",
+  word: ""
   //   test
 };

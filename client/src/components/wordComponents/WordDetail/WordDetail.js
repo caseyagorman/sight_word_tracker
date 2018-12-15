@@ -1,21 +1,21 @@
 import React from "react";
-import axios from "axios";
 import WordStudentsPage from "./WordStudentsPage";
 import WordPage from "./WordPage";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as wordActions from "../../../redux/actions/wordActions";
 
 import DeleteWord from "../Forms/DeleteWord";
 class WordDetail extends React.Component {
-  state = {
-    word: null
-  };
-
   componentDidMount() {
     const { id } = this.props.match.params;
-
-    axios.get(`http://localhost:5000/api/word-detail/${id}`).then(word => {
-      this.setState(() => ({ word }));
-    });
+    this.props.wordActions.fetchWord({ id: id });
   }
+
+  //   axios.get(`http://localhost:5000/api/word-detail/${id}`).then(word => {
+  //     this.setState(() => ({ word }));
+  //   });
+  // }
 
   displayWord(word) {
     if (!word) {
@@ -28,30 +28,45 @@ class WordDetail extends React.Component {
     if (!word) {
       return <p>Loading...</p>;
     }
-    return word.data[0];
+    return word[0];
   }
 
   displayWordStudents(word) {
     if (!word) {
       return <p>Loading ...</p>;
     }
-    return word.data[1].map(word => WordStudentsPage(word));
+    return word[1].map(word => WordStudentsPage(word));
   }
 
   render() {
     return (
       <div>
         <br />
-        <div>{this.displayWord(this.state.word)}</div>
+        <div>{this.displayWord(this.props.word)}</div>
         <br />
-        <div>{this.displayWordStudents(this.state.word)}</div>
+        <div>{this.displayWordStudents(this.props.word)}</div>
         <br />
         <div>
-          <DeleteWord word={this.getWord(this.state.word)} />
+          <DeleteWord word={this.getWord(this.props.word)} />
         </div>
       </div>
     );
   }
 }
 
-export default WordDetail;
+function mapDispatchToProps(dispatch) {
+  return {
+    wordActions: bindActionCreators(wordActions, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    word: state.word
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WordDetail);

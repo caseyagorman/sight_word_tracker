@@ -3,11 +3,11 @@ import React from "react";
 const WordPage = props => {
   return (
     <div>
-      <div key={props.data.word_id}>
-        <h1>{props.data[0].word}</h1>
+      <div key={props.word_id}>
+        <h1>{props[0].word}</h1>
         <br />
       </div>
-      These students are learning <b>{props.data[0].word}</b>
+      These students are learning <b>{props[0].word}</b>
     </div>
   );
 };
