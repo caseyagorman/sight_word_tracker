@@ -6,11 +6,27 @@ function addStudentApi() {
 function getStudentApi(id) {
   return `http://localhost:5000/api/details/${id}`;
 }
+function deleteStudentApi() {
+  return "http://localhost:5000/api/delete-student";
+}
 
 export function addStudent(student) {
-  console.log("student", student);
   return dispatch => {
     return fetch(addStudentApi(), {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(student)
+    }).then(response => console.log(response));
+  };
+}
+
+export function deleteStudent(student) {
+  return dispatch => {
+    return fetch(deleteStudentApi(), {
       method: "POST",
       mode: "cors",
       headers: {

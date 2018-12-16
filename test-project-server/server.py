@@ -72,10 +72,10 @@ def add_student():
 @cross_origin()
 def delete_student():
     data = request.get_json()
+    print(data)
     fname = data.get('fname')
     lname = data.get('lname')
-    student = Student.query.filter_by(fname=fname).first()
-
+    student = Student.query.filter_by(fname=fname, lname=lname).first()
     db.session.delete(student)
     db.session.commit()
     return 'student deleted!'

@@ -3,7 +3,7 @@ import {
   ADD_STUDENT,
   FETCH_STUDENT,
   RECEIVE_STUDENT,
-  ADD_STUDENT_WORDS
+  DELETE_STUDENT
 } from "../actions/actionTypes";
 
 export default function student(state = initialState.student, action) {
@@ -13,13 +13,13 @@ export default function student(state = initialState.student, action) {
       newState = action.student;
       console.log("ADD_STUDENT Action");
       return newState;
+    case DELETE_STUDENT:
+      newState = action.student;
+      console.log("DELETE_STUDENT Action");
+      return newState;
     case FETCH_STUDENT:
       console.log("FETCH_STUDENT Action");
       return action;
-    case ADD_STUDENT_WORDS:
-      newState = action.student;
-      console.log("ADD_STUDENT_WORDS Action");
-      return newState;
     case RECEIVE_STUDENT:
       newState = action.student;
       console.log("RECEIVE_STUDENT Action");

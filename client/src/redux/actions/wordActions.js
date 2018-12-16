@@ -4,15 +4,21 @@ function getWordApi(id) {
   return `http://localhost:5000/api/word-detail/${id}`;
 }
 
+function addWordApi(id) {
+  return "http://localhost:5000/api/add-word/";
+}
+
+function deleteWordApi(id) {
+  return "http://localhost:5000/api/delete-word/";
+}
+
 export function receiveWord(word) {
   console.log("word", word);
   return { type: types.RECEIVE_WORD, word: word };
 }
 
 export function fetchWord(id) {
-  console.log("fetch id", id);
   let wordId = id.id;
-  console.log("word Id", wordId);
   return dispatch => {
     return fetch(getWordApi(wordId), {
       method: "GET",
@@ -24,5 +30,36 @@ export function fetchWord(id) {
     })
       .then(response => response.json())
       .then(word => dispatch(receiveWord(word)));
+  };
+}
+export function deleteWord(word) {
+  return dispatch => {
+    return fetch(deleteWordApi(), {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(word)
+    })
+      .then(response => console.log(response))
+      .then(() => {
+        this.props.history.push("/words");
+      });
+  };
+}
+
+export function addWord(word) {
+  return dispatch => {
+    return fetch(addWordApi(), {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(word)
+    }).then(response => console.log(response));
   };
 }

@@ -10,6 +10,7 @@ class DeleteStudent extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    console.log("DELETE", this.props);
   }
 
   getOptions() {
@@ -29,24 +30,11 @@ class DeleteStudent extends Component {
       fname: this.props.student[0].fname,
       lname: this.props.student[0].lname
     };
-
-    deleteStudent = JSON.stringify(deleteStudent);
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    };
-
-    axios
-      .post("http://localhost:5000/api/delete-student", deleteStudent, config)
-      .then(() => {
-        this.props.history.push("/students");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    console.log(this.props.studentActions);
+    console.log(deleteStudent);
+    this.props.studentActions.deleteStudent(deleteStudent);
   }
+
   submit = event => {
     event.preventDefault();
     confirmAlert({
