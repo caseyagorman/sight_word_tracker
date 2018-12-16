@@ -7,10 +7,6 @@ function getStudentApi(id) {
   return `http://localhost:5000/api/details/${id}`;
 }
 
-export function createStudent(student) {
-  return { type: types.CREATE_STUDENT, student: student };
-}
-
 export function addStudent(student) {
   console.log("student", student);
   return dispatch => {
@@ -23,8 +19,6 @@ export function addStudent(student) {
       },
       body: JSON.stringify(student)
     }).then(response => console.log(response));
-    // .then(response => response.json());
-    // .then(studentResponse => dispatch(createStudent(studentResponse)));
   };
 }
 
@@ -38,18 +32,15 @@ export function fetchStudent(id) {
   let studentId = id.id;
   console.log("student Id", studentId);
   return dispatch => {
-    return (
-      fetch(getStudentApi(studentId), {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      })
-        .then(response => response.json())
-        // .then(student => console.log(student));
-        .then(student => dispatch(receiveStudent(student)))
-    );
+    return fetch(getStudentApi(studentId), {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(student => dispatch(receiveStudent(student)));
   };
 }
