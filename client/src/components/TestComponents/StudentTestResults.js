@@ -8,25 +8,12 @@ import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";
+import * as studentTestResultsActions from "../../redux/actions/studentTestResultsActions";
 class StudentTestResults extends React.Component {
-  state = {
-    test: null
-  };
-
-  async componentDidMount() {
+  componentDidMount() {
     const { id } = this.props.match.params;
-    try {
-      let d = await axios
-        .get(`http://localhost:5000/api/get-student-test/${id}`)
-        .then(test => {
-          this.setState({ test: test });
-        });
-      console.log(d);
-    } catch (e) {
-      console.log(e);
-    }
-
-    this.props.studentActions.fetchStudent({ id: id });
+    this.props.studentTestResultsActions.fetchStudentTest({ id: id });
+    console.log("STUDENT TEST RESULT", this.props);
   }
 
   viewStudentTestResults(studentTest) {
@@ -65,19 +52,21 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
+    console.log("studentTest", studentTest);
     let test = studentTest.data[1];
     console.log("get word counts data", test);
     return test.map(test => WordCounts(test));
   }
   render() {
+    console.log("PROPS", this.props);
     return (
       <div>
         <br />
         <div>{this.displayStudentPage(this.props.student)}</div>
         <div>{this.displayStudentLink(this.props.student)}</div>
-        <div>{this.getWordCounts(this.state.test)}</div>
-        <div>{this.displayChart(this.state.test)}</div>
-        <div>{this.viewStudentTestResults(this.state.test)}</div>
+        <div>{this.getWordCounts(this.props.test)}</div>
+        <div>{this.displayChart(this.props.test)}</div>
+        <div>{this.viewStudentTestResults(this.props.test)}</div>
       </div>
     );
   }
@@ -85,13 +74,18 @@ class StudentTestResults extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentActions: bindActionCreators(studentActions, dispatch)
+    studentActions: bindActionCreators(studentActions, dispatch),
+    studentTestResultsActions: bindActionCreators(
+      studentTestResultsActions,
+      dispatch
+    )
   };
 }
 
 function mapStateToProps(state) {
   return {
-    student: state.student
+    student: state.student,
+    studentTestResults: state.studentTestResults
   };
 }
 
