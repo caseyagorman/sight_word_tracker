@@ -30,26 +30,7 @@ class StudentWordsTestPage extends React.Component {
     };
     this.props.testActions.addTest(results);
   }
-  //   console.log("results", results);
-  //   results = JSON.stringify(results);
-  //   const config = {
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json"
-  //     }
-  //   };
-  //   try {
-  //     let d = await axios.post(
-  //       "http://localhost:5000/api/create-student-test",
-  //       results,
-  //       config
-  //     );
-  //     this.props.history.push("/students");
-  //     console.log(d);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+
   incrementIdx(idx) {
     let new_idx = idx + 1;
     this.setState({ idx: new_idx });

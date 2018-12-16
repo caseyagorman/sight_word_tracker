@@ -48,7 +48,6 @@ class StudentDetail extends React.Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    console.log("turn into array", obj);
     let wordList = [];
     for (let key in obj) {
       let wordObj = obj[key];
@@ -60,7 +59,6 @@ class StudentDetail extends React.Component {
     if (!words) {
       return <p> Loading... </p>;
     }
-    console.log("words", words);
     let wordList = this.turnIntoArray(words);
     return wordList;
   }

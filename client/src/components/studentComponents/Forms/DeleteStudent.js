@@ -9,7 +9,6 @@ class DeleteStudent extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log("DELETE", this.props);
   }
 
   getOptions() {
@@ -29,8 +28,6 @@ class DeleteStudent extends Component {
       fname: this.props.student[0].fname,
       lname: this.props.student[0].lname
     };
-    console.log(this.props.studentActions);
-    console.log(deleteStudent);
     this.props.studentActions.deleteStudent(deleteStudent);
   }
 
