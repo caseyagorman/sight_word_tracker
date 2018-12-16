@@ -63,10 +63,7 @@ class StudentTestResults extends React.Component {
         <div>{this.displayStudentLink(this.props.student)}</div>
         <div>{this.getWordCounts(this.props.studentTestResults)}</div>
         <div>{this.displayChart(this.props.studentTestResults)}</div>
-        <div>
-          {this.viewStudentTestResults(this.props.studentTestResults)}
-        </div>{" "}
-        */}
+        <div>{this.viewStudentTestResults(this.props.studentTestResults)}</div>
       </div>
     );
   }

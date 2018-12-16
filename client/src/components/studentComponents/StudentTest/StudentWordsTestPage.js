@@ -1,6 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as testActions from "../../../redux/actions/testActions";
 
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
@@ -26,26 +28,28 @@ class StudentWordsTestPage extends React.Component {
       correct_words: this.state.known_words,
       incorrect_words: this.state.unknown_words
     };
-    console.log("results", results);
-    results = JSON.stringify(results);
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    };
-    try {
-      let d = await axios.post(
-        "http://localhost:5000/api/create-student-test",
-        results,
-        config
-      );
-      this.props.history.push("/students");
-      console.log(d);
-    } catch (e) {
-      console.log(e);
-    }
+    this.props.testActions.addTest(results);
   }
+  //   console.log("results", results);
+  //   results = JSON.stringify(results);
+  //   const config = {
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
+  //   try {
+  //     let d = await axios.post(
+  //       "http://localhost:5000/api/create-student-test",
+  //       results,
+  //       config
+  //     );
+  //     this.props.history.push("/students");
+  //     console.log(d);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
   incrementIdx(idx) {
     let new_idx = idx + 1;
     this.setState({ idx: new_idx });
@@ -85,4 +89,20 @@ class StudentWordsTestPage extends React.Component {
 }
 
 const StudentWordsTestPageWrapped = withRouter(StudentWordsTestPage);
-export default StudentWordsTestPageWrapped;
+
+function mapStateToProps(state) {
+  return {
+    test: state.test
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    testActions: bindActionCreators(testActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StudentWordsTestPageWrapped);

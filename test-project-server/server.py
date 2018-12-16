@@ -123,6 +123,7 @@ def get_unknown_words(student):
 @cross_origin()
 def add_word():
     data = request.get_json()
+    print(data)
     new_words = data.get('word')
     new_words = new_words.split()
     print(new_words)

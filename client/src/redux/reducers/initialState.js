@@ -6,5 +6,6 @@ export default {
   studentDetails: "",
   word: "",
   unknownWords: "",
-  studentTestResults: ""
+  studentTestResults: "",
+  test: ""
 };

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router";
