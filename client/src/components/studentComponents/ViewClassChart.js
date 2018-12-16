@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import * as studentWordActions from "../../redux/actions/studentWordActions";
+import * as studentWordsActions from "../../redux/actions/studentWordsActions";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 
 class ViewStudentChart extends Component {
   componentDidMount() {
     console.log(this.props);
-    this.props.studentWordActions.fetchStudentWords();
+    this.props.studentWordsActions.fetchStudentWords();
   }
 
   displayChart(studentWords) {
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentWordActions: bindActionCreators(studentWordActions, dispatch)
+    studentWordsActions: bindActionCreators(studentWordsActions, dispatch)
   };
 }
 

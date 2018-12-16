@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
 import * as unknownWordsActions from "../../../redux/actions/unknownWordsActions";
 import axios from "axios";
 class AddStudentWordForm extends Component {
@@ -13,12 +14,21 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
-    console.log("props", this.props);
     const id = this.props.student[0].student_id;
     this.props.unknownWordsActions.fetchUnknownWords({
       id: id
     });
-    console.log("add student word form props", this.props.unknownWords);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let newStudentWords = {
+      fname: this.props.student[0].fname,
+      lname: this.props.student[0].lname,
+      words: this.state.value
+    };
+    console.log("studentWordsActions", this.props.studentWordsActions);
+    this.props.studentWordsActions.addStudentWords(newStudentWords);
   }
 
   handleChange(e) {
@@ -72,33 +82,6 @@ class AddStudentWordForm extends Component {
     );
   }
 
-  async handleSubmit(event) {
-    event.preventDefault();
-    let newStudentWord = {
-      fname: this.props[0].fname,
-      lname: this.props[0].lname,
-      words: this.state.value
-    };
-    newStudentWord = JSON.stringify(newStudentWord);
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    };
-    try {
-      let d = await axios.post(
-        "http://localhost:5000/api/add-word-to-student",
-        newStudentWord,
-        config
-      );
-
-      console.log(d);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   render() {
     return <div>{this.getOptions()}</div>;
   }
@@ -106,13 +89,15 @@ class AddStudentWordForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    unknownWordsActions: bindActionCreators(unknownWordsActions, dispatch)
+    unknownWordsActions: bindActionCreators(unknownWordsActions, dispatch),
+    studentWordsActions: bindActionCreators(studentWordsActions, dispatch)
   };
 }
 
 function mapStateToProps(state) {
   return {
-    unknownWords: state.unknownWords
+    unknownWords: state.unknownWords,
+    studentWords: state.studentWords
   };
 }
 
