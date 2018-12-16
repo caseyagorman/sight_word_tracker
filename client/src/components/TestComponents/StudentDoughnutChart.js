@@ -14,7 +14,6 @@ class StudentDoughnutChart extends Component {
     }
     const divStyle = { height: "25px", align: "center" };
 
-    console.log(dataResults);
     let correct_count = this.state.data.correct_count;
     let incorrect_count = this.state.data.incorrect_count;
     let learning_count = this.state.data.learning_count;

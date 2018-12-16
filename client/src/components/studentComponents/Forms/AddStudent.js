@@ -1,93 +1,52 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as studentActions from "../../../redux/actions/studentsActions";
-import { reduxForm, Field } from "redux-form";
+import * as studentActions from "../../../redux/actions/studentActions";
 class AddStudent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { fname: "", lname: "" };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let newStudent = {
+      fname: this.state.fname,
+      lname: this.state.lname
+    };
+    console.log("props", this.props);
+    console.log("studentActions", this.props.studentActions);
+    this.props.studentActions.addStudent(newStudent);
+  }
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
     return (
-      <form>
-        <div>
-          <label className="label">First Name</label>
-          <Field className="input" name="fname" component="input" type="text" />
-        </div>
-        <div>
-          <label>Last Name</label>
-          <Field className="input" name="lname" component="input" type="text" />
-        </div>
-        <div>
-          <button>Submit</button>
-        </div>
+      <form onSubmit={this.handleSubmit}>
+        <label>First name</label>
+        <input
+          name="fname"
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+        <label>Last name</label>
+        <input
+          name="lname"
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+
+        <button>Add student</button>
       </form>
     );
   }
 }
-
-// constructor(props) {
-//   super(props);
-// this.addStudent = this.addStudent.bind(this);
-// }
-
-// async addStudent(event) {
-// event.preventDefault();
-// let newStudent = {
-//   fname: this.fnameInput.value,
-//   lname: this.lnameInput.value,
-//   grade: this.gradeInput.value
-// };
-// newStudent = JSON.stringify(newStudent);
-// const config = {
-//   headers: {
-//     Accept: "application/json",
-//     "Content-Type": "application/json"
-//   }
-// }
-//   try {
-//     let d = await axios.post(
-//       "http://localhost:5000/api/add-student",
-//       newStudent,
-//       config
-//     );
-//     this.props.history.push("/students");
-//     console.log(d);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-//   render() {
-//     return (
-//       <div>
-//         <br />
-//         <h1>Add student</h1>
-//         <br />
-//         <form onSubmit={this.props}>
-//           Add New Student
-//           <br />
-//           <label>
-//             First Name:
-//             <input
-//               id="nameForm"
-//               type="text"
-//               ref={fnameInput => (this.fnameInput = fnameInput)}
-//             />
-//           </label>
-//           <br />
-//           <label>
-//             Last Name:
-//             <input ref={lnameInput => (this.lnameInput = lnameInput)} />
-//           </label>
-//           <br />
-//           <label>
-//             Grade:
-//             <input ref={gradeInput => (this.gradeInput = gradeInput)} />
-//           </label>
-//           <input type="submit" />
-//         </form>
-//       </div>
-//     );
-//   }
-// }
 
 function mapStateToProps(state) {
   return {
@@ -101,4 +60,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default reduxForm(mapStateToProps, mapDispatchToProps)(AddStudent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddStudent);

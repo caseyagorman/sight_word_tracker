@@ -4,6 +4,7 @@ export default {
   words: "",
   studentWords: "",
   studentDetails: "",
-  word: ""
+  word: "",
+  unknownWords: ""
   //   test
 };

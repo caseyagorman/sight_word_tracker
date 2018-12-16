@@ -57,11 +57,12 @@ def get_student():
 @app.route("/api/add-student", methods=['POST'])
 @cross_origin()
 def add_student():
+    print("trying to add student")
     data = request.get_json()
     print(data)
     fname = data.get('fname')
     lname = data.get('lname')
-    new_student = Student(fname=fname,  lname=lname)
+    new_student = Student(fname=fname, lname=lname, grade="K")
     db.session.add(new_student)
     db.session.commit()
     return 'student added!'
@@ -98,6 +99,7 @@ def get_words():
 @app.route("/api/unknown-words/<student>")
 @cross_origin()
 def get_unknown_words(student):
+    print("student!", student)
     words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
     word_ids = []
@@ -345,11 +347,11 @@ def get_student_chart_data(student_id):
     learning_count = 0
     incorrect_count = 0
     for item in word_counts:
-        if item['correct_count'] > 0 and item['correct_count'] < 3:
+        if item['correct_count'] > 0 and item['correct_count'] <= 3:
             learning_words.append(item['word'])
             learning_count += 1
 
-        elif item['correct_count'] >= 3:
+        elif item['correct_count'] >= 4:
             correct_words.append(item['word'])
             correct_count += 1
 

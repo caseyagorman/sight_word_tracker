@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as unknownWordsActions from "../../../redux/actions/unknownWordsActions";
 import axios from "axios";
-
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
@@ -9,9 +11,15 @@ class AddStudentWordForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.getOptions = this.getOptions.bind(this);
   }
+
   componentDidMount() {
-    console.log("Add student word form", this.props.student[0]);
+    console.log("props", this.props);
+    const id = this.props.student[0].student_id;
+    this.props.unknownWordsActions.fetchUnknownWords({
+      id: id
+    });
   }
+
   handleChange(e) {
     const options = e.target.options;
     let value = [];
@@ -24,10 +32,12 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
-    if (!this.props.words) {
-      return <div>Loading</div>;
+    console.log(this.props);
+    if (!this.props.unknownWords) {
+      return <div>Loading!</div>;
     }
-    let wordList = this.props.words;
+    let wordList = this.props.unknownWords;
+    console.log(wordList);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -83,4 +93,19 @@ class AddStudentWordForm extends Component {
   }
 }
 
-export default AddStudentWordForm;
+function mapDispatchToProps(dispatch) {
+  return {
+    unknownWordsActions: bindActionCreators(unknownWordsActions, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    unknownWords: state.unknownWords
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddStudentWordForm);

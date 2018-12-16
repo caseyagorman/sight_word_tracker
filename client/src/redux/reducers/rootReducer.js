@@ -4,13 +4,15 @@ import student from "./studentReducer";
 import words from "./wordsReducer";
 import studentWords from "./studentWordsReducer";
 import word from "./wordReducer";
+import unknownWords from "./unknownWordsReducer";
 
 const rootReducer = combineReducers({
   students,
   words,
   studentWords,
   student,
-  word
+  word,
+  unknownWords
 });
 
 export default rootReducer;
