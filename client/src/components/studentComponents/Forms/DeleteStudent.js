@@ -3,7 +3,9 @@ import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router";
-
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as studentActions from "../../../redux/actions/studentActions";
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
@@ -71,5 +73,20 @@ class DeleteStudent extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    student: state.student
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    studentActions: bindActionCreators(studentActions, dispatch)
+  };
+}
 const DeleteStudentWrapped = withRouter(DeleteStudent);
-export default DeleteStudentWrapped;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteStudentWrapped);

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
 import * as unknownWordsActions from "../../../redux/actions/unknownWordsActions";
-import axios from "axios";
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,6 @@ class AddStudentWordForm extends Component {
       lname: this.props.student[0].lname,
       words: this.state.value
     };
-    console.log("studentWordsActions", this.props.studentWordsActions);
     this.props.studentWordsActions.addStudentWords(newStudentWords);
   }
 
