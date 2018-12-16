@@ -16,8 +16,7 @@ class AddStudent extends Component {
       fname: this.state.fname,
       lname: this.state.lname
     };
-    console.log("props", this.props);
-    console.log("studentActions", this.props.studentActions);
+
     this.props.studentActions.addStudent(newStudent);
   }
   handleChange(event) {

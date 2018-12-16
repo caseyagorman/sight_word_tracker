@@ -18,6 +18,7 @@ class AddStudentWordForm extends Component {
     this.props.unknownWordsActions.fetchUnknownWords({
       id: id
     });
+    console.log("add student word form props", this.props.unknownWords);
   }
 
   handleChange(e) {
@@ -31,13 +32,23 @@ class AddStudentWordForm extends Component {
     this.setState({ value: value });
   }
 
+  turnIntoArray(obj) {
+    if (!obj) {
+      return <p>Loading...</p>;
+    }
+    let wordList = [];
+    for (let key in obj) {
+      let wordObj = obj[key];
+      wordList.push(wordObj.word);
+    }
+    return wordList;
+  }
+
   getOptions() {
-    console.log(this.props);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }
-    let wordList = this.props.unknownWords;
-    console.log(wordList);
+    let wordList = this.turnIntoArray(this.props.unknownWords);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
