@@ -20,7 +20,6 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let testResults = studentTestResults[0];
-    // let test = studentTest.data[0];
     return testResults.map(testResults => ViewStudentTestResults(testResults));
   }
 
@@ -44,7 +43,7 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentTest.data[3];
+    let test = studentTest[3];
     return <StudentDoughnutChart data={test} />;
   }
 
@@ -52,9 +51,7 @@ class StudentTestResults extends React.Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    console.log("studentTest", studentTest);
     let test = studentTest[1];
-    console.log("get word counts data", test);
     return test.map(test => WordCounts(test));
   }
   render() {
@@ -63,9 +60,9 @@ class StudentTestResults extends React.Component {
       <div>
         <br />
         <div>{this.displayStudentPage(this.props.student)}</div>
-        {/* {/* <div>{this.displayStudentLink(this.props.student)}</div> */}
-        {/* <div>{this.getWordCounts(this.props.studentTestResults)}</div> */}
-        {/* <div>{this.displayChart(this.props.studentTestResults)}</div> */}
+        <div>{this.displayStudentLink(this.props.student)}</div>
+        <div>{this.getWordCounts(this.props.studentTestResults)}</div>
+        <div>{this.displayChart(this.props.studentTestResults)}</div>
         <div>
           {this.viewStudentTestResults(this.props.studentTestResults)}
         </div>{" "}
