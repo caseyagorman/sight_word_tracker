@@ -1,55 +1,58 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as wordActions from "../../../redux/actions/wordActions";
 
 class AddWord extends Component {
   constructor(props) {
     super(props);
-    this.addWord = this.addWord.bind(this);
+    this.state = { newWord: "" };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  addWord(event) {
+  handleSubmit(event) {
     event.preventDefault();
     let newWord = {
-      word: this.wordInput.value
+      word: this.state.newWord
     };
 
-    newWord = JSON.stringify(newWord);
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    };
-    axios
-      .post("http://localhost:5000/api/add-word", newWord, config)
-      .then(() => {
-        this.props.history.push("/words");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.wordActions.addWord(newWord);
   }
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
     return (
-      <div>
-        <br />
-        <h1>Add Words</h1>
-        <br />
-        <form onSubmit={this.addWord}>
-          <p>You may add multiple words separated by space</p>
-          Add New Words:
-          <label>
-            <input
-              id="wordForm"
-              type="text"
-              ref={wordInput => (this.wordInput = wordInput)}
-            />
-          </label>
-          <input type="submit" />
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <p>You may add multiple words separated by space</p>
+        Add New Words:
+        <input
+          name="newWord"
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+        <button>Add Word</button>
+      </form>
     );
   }
 }
 
-export default AddWord;
+function mapStateToProps(state) {
+  return {
+    word: state.word
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    wordActions: bindActionCreators(wordActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddWord);

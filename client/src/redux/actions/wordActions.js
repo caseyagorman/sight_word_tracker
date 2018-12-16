@@ -4,12 +4,12 @@ function getWordApi(id) {
   return `http://localhost:5000/api/word-detail/${id}`;
 }
 
-function addWordApi(id) {
-  return "http://localhost:5000/api/add-word/";
+function addWordApi() {
+  return "http://localhost:5000/api/add-word";
 }
 
-function deleteWordApi(id) {
-  return "http://localhost:5000/api/delete-word/";
+function deleteWordApi() {
+  return "http://localhost:5000/api/delete-word";
 }
 
 export function receiveWord(word) {
@@ -42,15 +42,15 @@ export function deleteWord(word) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(word)
-    })
-      .then(response => console.log(response))
-      .then(() => {
-        this.props.history.push("/words");
-      });
+    }).then(response => console.log(response));
+    // .then(() => {
+    //   this.props.history.push("/words");
+    // });
   };
 }
 
 export function addWord(word) {
+  console.log("add word", word);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",

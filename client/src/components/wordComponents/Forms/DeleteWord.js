@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router";
-
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as wordActions from "../../../redux/actions/wordActions";
 class DeleteWord extends Component {
   constructor(props) {
     super(props);
@@ -28,27 +29,14 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
+    console.log("PROPS", this.props);
     let deleteWord = {
-      word: this.props.word.word
+      word: this.props.word[0].word
     };
-
-    deleteWord = JSON.stringify(deleteWord);
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    };
-
-    axios
-      .post("http://localhost:5000/api/delete-word", deleteWord, config)
-      .then(() => {
-        this.props.history.push("/words");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    console.log("DELETEWORD", deleteWord);
+    this.props.wordActions.deleteWord(deleteWord);
   }
+
   submit = event => {
     event.preventDefault();
     confirmAlert({
@@ -75,5 +63,22 @@ class DeleteWord extends Component {
     );
   }
 }
+
 const DeleteWordWrapped = withRouter(DeleteWord);
-export default DeleteWordWrapped;
+
+function mapStateToProps(state) {
+  return {
+    word: state.word
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    wordActions: bindActionCreators(wordActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteWordWrapped);
