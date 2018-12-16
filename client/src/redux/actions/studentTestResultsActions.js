@@ -1,20 +1,20 @@
 import * as types from "./actionTypes";
-function getStudentTestApi(id) {
+function getStudentTestResultsApi(id) {
   return `http://localhost:5000/api/get-student-test/${id}`;
 }
 
-export function receiveStudentTest(studentTestResults) {
+export function receiveStudentTestResults(studentTestResults) {
+  console.log(studentTestResults);
   return {
-    type: types.RECEIVE_STUDENT_TEST,
+    type: types.RECEIVE_STUDENT_TEST_RESULTS,
     studentTestResults: studentTestResults
   };
 }
 
-export function fetchStudentTest(id) {
-  console.log("fetch id", id);
+export function fetchStudentTestResults(id) {
   let studentId = id.id;
   return dispatch => {
-    return fetch(getStudentTestApi(studentId), {
+    return fetch(getStudentTestResultsApi(studentId), {
       method: "GET",
       mode: "cors",
       headers: {
@@ -24,7 +24,7 @@ export function fetchStudentTest(id) {
     })
       .then(response => response.json())
       .then(studentTestResults =>
-        dispatch(receiveStudentTest(studentTestResults))
+        dispatch(receiveStudentTestResults(studentTestResults))
       );
   };
 }

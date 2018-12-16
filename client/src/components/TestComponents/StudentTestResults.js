@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../studentComponents/StudentDetail/Student";
 import StudentPage from "../studentComponents/StudentDetail/StudentPage";
@@ -12,16 +11,17 @@ import * as studentTestResultsActions from "../../redux/actions/studentTestResul
 class StudentTestResults extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.studentTestResultsActions.fetchStudentTest({ id: id });
-    console.log("STUDENT TEST RESULT", this.props);
+    this.props.studentTestResultsActions.fetchStudentTestResults({ id: id });
+    this.props.studentActions.fetchStudent({ id: id });
   }
 
-  viewStudentTestResults(studentTest) {
-    if (!studentTest) {
+  viewStudentTestResults(studentTestResults) {
+    if (!studentTestResults) {
       return <p>loading...</p>;
     }
-    let test = studentTest.data[0];
-    return test.map(test => ViewStudentTestResults(test));
+    let testResults = studentTestResults[0];
+    // let test = studentTest.data[0];
+    return testResults.map(testResults => ViewStudentTestResults(testResults));
   }
 
   displayStudentPage(student) {
@@ -53,7 +53,7 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     console.log("studentTest", studentTest);
-    let test = studentTest.data[1];
+    let test = studentTest[1];
     console.log("get word counts data", test);
     return test.map(test => WordCounts(test));
   }
@@ -63,10 +63,13 @@ class StudentTestResults extends React.Component {
       <div>
         <br />
         <div>{this.displayStudentPage(this.props.student)}</div>
-        <div>{this.displayStudentLink(this.props.student)}</div>
-        <div>{this.getWordCounts(this.props.test)}</div>
-        <div>{this.displayChart(this.props.test)}</div>
-        <div>{this.viewStudentTestResults(this.props.test)}</div>
+        {/* {/* <div>{this.displayStudentLink(this.props.student)}</div> */}
+        {/* <div>{this.getWordCounts(this.props.studentTestResults)}</div> */}
+        {/* <div>{this.displayChart(this.props.studentTestResults)}</div> */}
+        <div>
+          {this.viewStudentTestResults(this.props.studentTestResults)}
+        </div>{" "}
+        */}
       </div>
     );
   }
@@ -74,18 +77,18 @@ class StudentTestResults extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentActions: bindActionCreators(studentActions, dispatch),
     studentTestResultsActions: bindActionCreators(
       studentTestResultsActions,
       dispatch
-    )
+    ),
+    studentActions: bindActionCreators(studentActions, dispatch)
   };
 }
 
 function mapStateToProps(state) {
   return {
-    student: state.student,
-    studentTestResults: state.studentTestResults
+    studentTestResults: state.studentTestResults,
+    student: state.student
   };
 }
 

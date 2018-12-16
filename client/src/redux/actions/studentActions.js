@@ -23,7 +23,6 @@ export function addStudent(student) {
 }
 
 export function receiveStudent(student) {
-  console.log("student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 
