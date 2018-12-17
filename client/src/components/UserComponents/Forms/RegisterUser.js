@@ -21,9 +21,7 @@ class RegisterUser extends Component {
       confirmPassword: this.state.confirmPassword
     };
 
-    this.props.userActions.addUser(newUser).then(() => {
-      return <Redirect to="/" />;
-    });
+    this.props.userActions.addUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });

@@ -11,6 +11,7 @@ function deleteStudentApi() {
 }
 
 export function addStudent(student) {
+  console.log(student);
   return dispatch => {
     return fetch(addStudentApi(), {
       method: "POST",

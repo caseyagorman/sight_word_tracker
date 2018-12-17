@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as authActions from "../../../redux/actions/authActions";
+import * as userActions from "../../../redux/actions/userActions";
+import { Redirect } from "react-router";
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ class SignIn extends Component {
       username: this.state.username,
       password: this.state.password
     };
+    this.props.userActions.loginUser(authUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -45,9 +47,6 @@ class SignIn extends Component {
   }
 }
 
-AddUser.propTypes = {
-  router: React.PropTypes.object.isRequired
-};
 function mapStateToProps(state) {
   return {
     user: state.loggIn
@@ -56,7 +55,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    userActions: bindActionCreators(authActions, dispatch)
+    userActions: bindActionCreators(userActions, dispatch)
   };
 }
 
