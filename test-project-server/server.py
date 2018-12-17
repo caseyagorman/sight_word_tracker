@@ -20,7 +20,6 @@ def index():
 @app.route("/api/add-user", methods=['POST'])
 @cross_origin()
 def add_user():
-    print("trying to add user")
     data = request.get_json()
     print(data)
     first_name = data.get('first_name')
@@ -37,9 +36,7 @@ def add_user():
 @app.route("/api/add-classroom", methods=['POST'])
 @cross_origin()
 def add_classroom():
-    print("trying to add classroom")
     data = request.get_json()
-    print(data)
     user_id = data.get("user_id")
     name = data.get("name")
     new_classroom = Classroom(name=name, user_id=user_id)

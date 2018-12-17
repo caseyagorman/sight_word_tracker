@@ -7,6 +7,7 @@ import word from "./wordReducer";
 import unknownWords from "./unknownWordsReducer";
 import studentTestResults from "./studentTestResultsReducer";
 import test from "./testReducer";
+import user from "./userReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   word,
   unknownWords,
   studentTestResults,
-  test
+  test,
+  user
 });
 
 export default rootReducer;

@@ -14,6 +14,7 @@ import AddStudent from "./components/studentComponents/Forms/AddStudent";
 import AddWord from "./components/wordComponents/Forms/AddWord";
 import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
 import StudentTestResults from "./components/TestComponents/StudentTestResults";
+import AddUser from "./components/UserComponents/Forms/AddUser";
 import Home from "./components/Home";
 // redux imports
 import { Provider } from "react-redux";
@@ -27,6 +28,7 @@ const AppRouter = () => (
     <div>
       <AppNav />
       <Route path="//" component={Home} />
+      <Route path="/add-user" component={AddUser} />
       <Route path="/students/" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudent} />
       <Route path="/add-word/" component={AddWord} />

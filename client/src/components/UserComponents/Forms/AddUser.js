@@ -5,7 +5,7 @@ import * as userActions from "../../../redux/actions/userActions";
 class AddUser extends Component {
   constructor(props) {
     super(props);
-    this.state = { fname: "", lname: "" };
+    this.state = { first_name: "", last_name: "", email: "", password: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -13,13 +13,13 @@ class AddUser extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let newUser = {
-      fname: this.state.fname,
-      lname: this.state.lname,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
       email: this.state.email,
-      password: this.state.classroom
+      password: this.state.password
     };
 
-    this.props.studentActions.addUser(newUser);
+    this.props.userActions.addUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -30,22 +30,22 @@ class AddUser extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>First name</label>
         <input
-          name="fname"
+          name="first_name"
           type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
         <label>Last name</label>
         <input
-          name="lname"
+          name="last_name"
           type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
         <label>email</label>
         <input
-          name="lname"
-          type="email"
+          name="email"
+          type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
