@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 // Component imports
 import AppNav from "./components/AppNav";
@@ -16,6 +16,7 @@ import TestStudent from "./components/studentComponents/StudentTest/TestStudent"
 import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import Home from "./components/Home";
 import RegisterPage from "./components/UserComponents/RegisterPage";
+import history from "./history";
 // redux imports
 import { Provider } from "react-redux";
 import configureStore from "./redux/store/configureStore";
@@ -24,7 +25,7 @@ const initialState = {};
 const store = configureStore(initialState);
 
 const AppRouter = () => (
-  <Router>
+  <Router history={history}>
     <div>
       <AppNav />
       <Route path="/register/" component={RegisterPage} />

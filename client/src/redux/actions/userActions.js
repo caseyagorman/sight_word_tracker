@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-
+import history from "../../history";
 function addUserApi() {
   return "http://localhost:5000/api/add-user";
 }
@@ -15,6 +15,6 @@ export function addUser(user) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
-    }).then(response => console.log(response));
+    }).then(() => history.push("/"));
   };
 }

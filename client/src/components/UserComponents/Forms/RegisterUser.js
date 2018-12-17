@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as userActions from "../../../redux/actions/userActions";
+import PropTypes from "prop-types";
+import { Route, Redirect } from "react-router";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,9 @@ class RegisterUser extends Component {
       confirmPassword: this.state.confirmPassword
     };
 
-    this.props.userActions.addUser(newUser);
+    this.props.userActions.addUser(newUser).then(() => {
+      return <Redirect to="/" />;
+    });
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -83,7 +87,9 @@ function mapDispatchToProps(dispatch) {
     userActions: bindActionCreators(userActions, dispatch)
   };
 }
-
+// RegisterUser.contextTypes = {
+//   context: PropTypes.object.isRequired
+// };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
