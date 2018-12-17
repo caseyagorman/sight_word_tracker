@@ -13,7 +13,6 @@ function deleteWordApi() {
 }
 
 export function receiveWord(word) {
-  console.log("word", word);
   return { type: types.RECEIVE_WORD, word: word };
 }
 
@@ -50,7 +49,6 @@ export function deleteWord(word) {
 }
 
 export function addWord(word) {
-  console.log("add word", word);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",

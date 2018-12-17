@@ -9,7 +9,6 @@ export default function studentTestResults(
   action
 ) {
   let newState;
-  console.log(newState);
   switch (action.type) {
     case FETCH_STUDENT_TEST_RESULTS:
       console.log("FETCH_STUDENT_TEST_RESULTS Action");

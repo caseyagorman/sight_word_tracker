@@ -27,7 +27,6 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    console.log("studentPage", student);
     return StudentPage(student);
   }
 
@@ -35,7 +34,6 @@ class StudentTestResults extends React.Component {
     if (!student) {
       return <p>loading...</p>;
     }
-    console.log("display link", student);
     return Student(student[0]);
   }
 
@@ -55,7 +53,6 @@ class StudentTestResults extends React.Component {
     return test.map(test => WordCounts(test));
   }
   render() {
-    console.log("PROPS", this.props);
     return (
       <div>
         <br />

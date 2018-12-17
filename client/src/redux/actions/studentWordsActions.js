@@ -9,7 +9,6 @@ function addStudentWordsApi(studentWords) {
 }
 
 export function addStudentWords(studentWords) {
-  console.log("studentWords", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",

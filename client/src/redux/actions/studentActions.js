@@ -43,9 +43,7 @@ export function receiveStudent(student) {
 }
 
 export function fetchStudent(id) {
-  console.log("fetch id", id);
   let studentId = id.id;
-  console.log("student Id", studentId);
   return dispatch => {
     return fetch(getStudentApi(studentId), {
       method: "GET",

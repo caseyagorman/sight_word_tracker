@@ -5,7 +5,6 @@ class WordBarChart extends Component {
   state = { data: null, showTooltip: false };
 
   componentDidMount() {
-    console.log(this.props.data);
     this.setState({ data: this.props.data });
   }
 

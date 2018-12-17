@@ -2,7 +2,7 @@ import os
 from jinja2 import StrictUndefined
 from flask import (Flask, jsonify, render_template, redirect, request)
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db
+from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User, Classroom
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -15,6 +15,23 @@ app.secret_key = "ABC"
 @cross_origin()
 def index():
     return "homepage"
+
+
+@app.route("/api/add-user", methods=['POST'])
+@cross_origin()
+def add_user():
+    print("trying to add user")
+    data = request.get_json()
+    print(data)
+    first_name = data.get('fname')
+    last_name = data.get('lname')
+    email = data.get('email')
+    password = data.get('password')
+    new_user = User(first_name=first_name, last_name=last_name,
+                    email=email, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return 'user added!'
 
 
 @app.route("/api/students/")
