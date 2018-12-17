@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-
+import history from "../../history";
 function addStudentApi() {
   return "http://localhost:5000/api/add-student";
 }
@@ -34,7 +34,7 @@ export function deleteStudent(student) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(student)
-    }).then(response => console.log(response));
+    }).then(() => history.push("/students"));
   };
 }
 

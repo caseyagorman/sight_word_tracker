@@ -80,9 +80,11 @@ def add_student():
     print("trying to add student")
     data = request.get_json()
     print(data)
+    user_id = data.get('user_id')
     fname = data.get('fname')
     lname = data.get('lname')
-    new_student = Student(fname=fname, lname=lname, grade="K")
+    user_id = data.get('user_id')
+    new_student = Student(user_id=user_id, fname=fname, lname=lname, grade="K")
     db.session.add(new_student)
     db.session.commit()
     return 'student added!'

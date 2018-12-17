@@ -1,5 +1,5 @@
 // import * as types from "./actionTypes";
-
+import history from "../../history";
 function addTestApi() {
   return "http://localhost:5000/api/create-student-test";
 }
@@ -14,6 +14,6 @@ export function addTest(result) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(result)
-    }).then(response => console.log(response));
+    }).then(() => history.push("/students"));
   };
 }

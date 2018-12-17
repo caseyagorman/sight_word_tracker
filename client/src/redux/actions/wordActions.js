@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-
+import history from "../../history";
 function getWordApi(id) {
   return `http://localhost:5000/api/word-detail/${id}`;
 }
@@ -41,10 +41,7 @@ export function deleteWord(word) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(word)
-    }).then(response => console.log(response));
-    // .then(() => {
-    //   this.props.history.push("/words");
-    // });
+    }).then(() => history.push("/words"));
   };
 }
 
