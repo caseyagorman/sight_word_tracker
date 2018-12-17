@@ -22,15 +22,19 @@ def index():
 def add_user():
     data = request.get_json()
     print(data)
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
+    username = data.get('username')
     email = data.get('email')
     password = data.get('password')
-    new_user = User(first_name=first_name, last_name=last_name,
-                    email=email, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return 'user added!'
+    confirm_password = data.get('confirmPassword')
+    print(password, confirm_password)
+    if password == confirm_password:
+        new_user = User(username=username,
+                        email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return 'user added!'
+    else:
+        return "passwords don't match"
 
 
 @app.route("/api/students/")

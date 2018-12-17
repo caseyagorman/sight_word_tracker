@@ -5,7 +5,7 @@ import * as userActions from "../../../redux/actions/userActions";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
-    this.state = { first_name: "", last_name: "", email: "", password: "" };
+    this.state = { username: "", email: "", password: "", confirmPassword: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -13,10 +13,10 @@ class RegisterUser extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword
     };
 
     this.props.userActions.addUser(newUser);
@@ -30,44 +30,42 @@ class RegisterUser extends Component {
       <div>
         <div className="form-group" />
         <form onSubmit={this.handleSubmit}>
-          <div className="form-control">
-            <label className="control-label">First name</label>
-            <input
-              name="first_name"
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
+          <label className="control-label">Username</label>
+          <input
+            className="form-control"
+            name="username"
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          ß<label>email</label>
+          <input
+            className="form-control"
+            name="email"
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <label>Password</label>
+          <input
+            className="form-control"
+            name="password"
+            type="password"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <label>Confirm password</label>
+          <input
+            className="form-control"
+            name="confirmPassword"
+            type="password"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <div>
+            <br />
           </div>
-          <div className="form-control">
-            <label>Last name</label>
-            <input
-              name="last_name"
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-control">
-            <label>email</label>
-            <input
-              name="email"
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-control">
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <button>Register</button>
+          <button className="btn btn-primary btn-lg">Register</button>
         </form>
       </div>
     );
