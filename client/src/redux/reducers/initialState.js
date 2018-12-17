@@ -8,5 +8,6 @@ export default {
   unknownWords: "",
   studentTestResults: "",
   test: "",
-  user: ""
+  user: "",
+  loggedIn: false
 };

@@ -4,7 +4,6 @@ function getStudentTestResultsApi(id) {
 }
 
 export function receiveStudentTestResults(studentTestResults) {
-  console.log(studentTestResults);
   return {
     type: types.RECEIVE_STUDENT_TEST_RESULTS,
     studentTestResults: studentTestResults

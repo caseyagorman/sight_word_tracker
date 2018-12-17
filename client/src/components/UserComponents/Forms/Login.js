@@ -1,25 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as userActions from "../../../redux/actions/userActions";
-class AddUser extends Component {
+import * as authActions from "../../../redux/actions/authActions";
+class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = { first_name: "", last_name: "", email: "", password: "" };
+    this.state = { username: "", password: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
+    let authUser = {
+      username: this.state.username,
       password: this.state.password
     };
-
-    this.props.userActions.addUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -28,54 +24,43 @@ class AddUser extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>First name</label>
+        <label>Username</label>
         <input
           name="first_name"
           type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
-        <label>Last name</label>
+        <label>Password</label>
         <input
           name="last_name"
           type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
-        <label>email</label>
-        <input
-          name="email"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <label>Password</label>
-        <input
-          name="password"
-          type="password"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
 
-        <button>Register</button>
+        <button>SignIn</button>
       </form>
     );
   }
 }
 
+AddUser.propTypes = {
+  router: React.PropTypes.object.isRequired
+};
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.loggIn
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    userActions: bindActionCreators(userActions, dispatch)
+    userActions: bindActionCreators(authActions, dispatch)
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddUser);
+)(SignIn);

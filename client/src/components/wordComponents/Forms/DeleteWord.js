@@ -29,11 +29,9 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
-    console.log("PROPS", this.props);
     let deleteWord = {
       word: this.props.word[0].word
     };
-    console.log("DELETEWORD", deleteWord);
     this.props.wordActions.deleteWord(deleteWord);
   }
 
