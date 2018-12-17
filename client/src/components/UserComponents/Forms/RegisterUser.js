@@ -27,38 +27,49 @@ class RegisterUser extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>First name</label>
-        <input
-          name="first_name"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <label>Last name</label>
-        <input
-          name="last_name"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <label>email</label>
-        <input
-          name="email"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <label>Password</label>
-        <input
-          name="password"
-          type="password"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
+      <div>
+        <div className="form-group" />
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-control">
+            <label className="control-label">First name</label>
+            <input
+              name="first_name"
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label>Last name</label>
+            <input
+              name="last_name"
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label>email</label>
+            <input
+              name="email"
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
 
-        <button>Register</button>
-      </form>
+          <button>Register</button>
+        </form>
+      </div>
     );
   }
 }
