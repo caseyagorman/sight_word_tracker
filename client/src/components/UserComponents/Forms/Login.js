@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as userActions from "../../../redux/actions/userActions";
+import * as authActions from "../../../redux/actions/authActions";
 import { Redirect } from "react-router";
 class SignIn extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class SignIn extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    this.props.userActions.loginUser(authUser);
+    this.props.authActions.loginUser(authUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -49,13 +49,13 @@ class SignIn extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.loggIn
+    auth: state.loggedIn
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    userActions: bindActionCreators(userActions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch)
   };
 }
 

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as userActions from "../../../redux/actions/userActions";
-import PropTypes from "prop-types";
-import { Route, Redirect } from "react-router";
+
 class RegisterUser extends Component {
   constructor(props) {
     super(props);

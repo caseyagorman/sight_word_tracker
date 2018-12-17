@@ -22,22 +22,22 @@ def index():
 def add_user():
     data = request.get_json()
     print(data)
-    # username = data.get('username')
-    # email = data.get('email')
-    # password = data.get('password')
-    # confirm_password = data.get('confirmPassword')
-    # print(password, confirm_password)
-    # if password == confirm_password:
-    #     new_user = User(username=username,
-    #                     email=email, password=password)
-    #     db.session.add(new_user)
-    #     db.session.commit()
-    #     return 'user added!'
-    # else:
-    return "hello!"
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+    confirm_password = data.get('confirmPassword')
+    print(password, confirm_password)
+    if password == confirm_password:
+        new_user = User(username=username,
+                        email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return 'user added!'
+    else:
+        return "hello!"
 
 
-@app.route("/api/students/")
+@app.route("/api/students")
 @cross_origin()
 def get_students():
     print('hello!')
@@ -55,7 +55,30 @@ def get_students():
     return students
 
 
-@app.route("/api/get-student/")
+@app.route("/api/get-user")
+@cross_origin()
+def get_user():
+    print('hello!')
+    data = request.get_json()
+    print(data)
+    username = data.get('username')
+    password = data.get('password')
+    user = User.query.filter_by(username=username).first()
+    if user:
+        if password == user.password:
+            print("success!", user)
+            user = {
+                "username":  user.username,
+                "email": user.email
+            }
+            return jsonify(user)
+        else:
+            return "incorrect password"
+    else:
+        return "User does not exist"
+
+
+@app.route("/api/get-student")
 @cross_origin()
 def get_student():
     data = request.get_json()
