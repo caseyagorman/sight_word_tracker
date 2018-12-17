@@ -23,8 +23,8 @@ def add_user():
     print("trying to add user")
     data = request.get_json()
     print(data)
-    first_name = data.get('fname')
-    last_name = data.get('lname')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
     email = data.get('email')
     password = data.get('password')
     new_user = User(first_name=first_name, last_name=last_name,
@@ -32,6 +32,20 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return 'user added!'
+
+
+@app.route("/api/add-classroom", methods=['POST'])
+@cross_origin()
+def add_classroom():
+    print("trying to add classroom")
+    data = request.get_json()
+    print(data)
+    user_id = data.get("user_id")
+    name = data.get("name")
+    new_classroom = Classroom(name=name, user_id=user_id)
+    db.session.add(new_classroom)
+    db.session.commit()
+    return 'classroom added!'
 
 
 @app.route("/api/students/")

@@ -16,6 +16,9 @@ class User(db.Model):
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
 
+    classrooms = db.relationship(
+        'Classroom')
+
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
 
@@ -26,6 +29,7 @@ class Classroom(db.Model):
     __tablename__ = "classrooms"
 
     classroom_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(
         'users.user_id'), nullable=False)
 
