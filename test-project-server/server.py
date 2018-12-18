@@ -58,27 +58,21 @@ def get_students():
 @app.route("/api/get-user", methods=['POST'])
 @cross_origin()
 def get_user():
-    print('hello!')
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    print(username)
     auth_user = User.query.filter_by(username=username).first()
-    print(auth_user)
     if auth_user:
         if password == auth_user.password:
-            print("success!", auth_user)
             user = {
                 "username":  auth_user.username,
                 "email": auth_user.email
             }
             return jsonify(user)
         else:
-            print("incorrect password")
             return "incorrect password"
     else:
-        print("User does not exist")
-    return "User does not exist"
+        return "User does not exist"
 
 
 @app.route("/api/get-student")

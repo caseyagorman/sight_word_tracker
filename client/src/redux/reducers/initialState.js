@@ -9,5 +9,6 @@ export default {
   studentTestResults: "",
   test: "",
   user: "",
+  authUser: "",
   loggedIn: false
 };
