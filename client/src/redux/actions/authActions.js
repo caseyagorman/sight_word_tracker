@@ -6,7 +6,6 @@ function getUserApi() {
 }
 
 export function setUser(user) {
-  console.log("set user", user);
   return { type: types.SET_USER, user: user };
 }
 
@@ -22,6 +21,7 @@ export function loginUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json())
-      .then(user => dispatch(setUser(user)));
+      .then(user => dispatch(setUser(user)))
+      .then(() => history.push("/"));
   };
 }
