@@ -1,13 +1,19 @@
 import initialState from "./initialState";
-import { VERIFY_USER } from "../actions/actionTypes";
+import { SET_USER, LOGOUT_USER } from "../actions/actionTypes";
 
 export default function auth(state = initialState.isAuthenticated, action) {
   switch (action.type) {
-    case VERIFY_USER:
+    case SET_USER:
       return {
         ...state,
         user: action.user,
         isAuthenticated: true
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: undefined,
+        isAuthenticated: false
       };
     default:
       return state;

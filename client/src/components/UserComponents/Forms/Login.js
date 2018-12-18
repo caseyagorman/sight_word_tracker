@@ -18,7 +18,6 @@ class Login extends Component {
       password: this.state.password
     };
     console.log("handle submit", user);
-    // user = JSON.stringify(user);
     this.props.authActions.loginUser(user);
   }
   handleChange(event) {

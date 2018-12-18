@@ -1,13 +1,13 @@
 import * as types from "./actionTypes";
 import history from "../../history";
-function addUserApi() {
+function registerUserApi() {
   return "http://localhost:5000/api/add-user";
 }
 
-export function addUser(user) {
+export function registerUser(user) {
   console.log("USER", user);
   return dispatch => {
-    return fetch(addUserApi(), {
+    return fetch(registerUserApi(), {
       method: "POST",
       mode: "cors",
       headers: {

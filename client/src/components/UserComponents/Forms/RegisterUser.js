@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as userActions from "../../../redux/actions/userActions";
+import * as registrationActions from "../../../redux/actions/registrationActions";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ class RegisterUser extends Component {
     };
     console.log(newUser);
 
-    this.props.userActions.addUser(newUser);
+    this.props.registrationActions.registerUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -75,21 +75,10 @@ class RegisterUser extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
   return {
-    user: state.user
+    registrationActions: bindActionCreators(registrationActions, dispatch)
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    userActions: bindActionCreators(userActions, dispatch)
-  };
-}
-// RegisterUser.contextTypes = {
-//   context: PropTypes.object.isRequired
-// };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegisterUser);
+export default connect(mapDispatchToProps)(RegisterUser);

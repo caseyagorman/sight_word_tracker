@@ -5,9 +5,9 @@ function getUserApi() {
   return "http://localhost:5000/api/get-user";
 }
 
-export function verifyUser(authUser) {
-  console.log("verify user", authUser);
-  return { type: types.VERIFY_USER, authUser: authUser };
+export function setUser(user) {
+  console.log("set user", user);
+  return { type: types.SET_USER, user: user };
 }
 
 export function loginUser(user) {
@@ -22,6 +22,6 @@ export function loginUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json())
-      .then(authUser => dispatch(verifyUser(authUser)));
+      .then(user => dispatch(setUser(user)));
   };
 }
