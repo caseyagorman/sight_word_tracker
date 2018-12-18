@@ -8,7 +8,6 @@ export default {
   unknownWords: "",
   studentTestResults: "",
   test: "",
-  user: "",
-  authUser: "",
-  loggedIn: false
+  user: {},
+  isAuthenticated: false
 };

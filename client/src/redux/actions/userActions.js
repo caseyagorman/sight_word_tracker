@@ -18,17 +18,3 @@ export function addUser(user) {
     }).then(() => history.push("/login"));
   };
 }
-
-// export function loginUser(user) {
-//   return dispatch => {
-//     return console.log(user);
-//     // return fetch(addUserApi(), {
-//     //   method: "POST",
-//     //   mode: "cors",
-//     //   headers: {
-//     //     Accept: "application/json",
-//     //     "Content-Type": "application/json"
-//     // },
-//     // body: JSON.stringify(user)
-//   }.then(()=> history.push("/"))
-// }
