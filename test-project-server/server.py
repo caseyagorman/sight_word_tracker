@@ -65,8 +65,7 @@ def get_user():
     if auth_user:
         if password == auth_user.password:
             user = {
-                "username":  auth_user.username,
-                "email": auth_user.email
+                "user_id": auth_user.user_id
             }
             return jsonify(user)
         else:

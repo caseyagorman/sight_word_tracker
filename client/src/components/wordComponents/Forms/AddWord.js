@@ -13,6 +13,7 @@ class AddWord extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    console.log(this.props);
     let newWord = {
       word: this.state.newWord
     };

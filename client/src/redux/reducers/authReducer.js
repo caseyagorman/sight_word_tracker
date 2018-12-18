@@ -4,6 +4,7 @@ import { SET_USER, LOGOUT_USER } from "../actions/actionTypes";
 export default function auth(state = initialState.isAuthenticated, action) {
   switch (action.type) {
     case SET_USER:
+      console.log("USER", action.user);
       return {
         ...state,
         user: action.user,

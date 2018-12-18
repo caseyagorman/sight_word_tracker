@@ -74,11 +74,19 @@ class RegisterUser extends Component {
     );
   }
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     registrationActions: bindActionCreators(registrationActions, dispatch)
   };
 }
 
-export default connect(mapDispatchToProps)(RegisterUser);
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterUser);
