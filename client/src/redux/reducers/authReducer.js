@@ -1,17 +1,15 @@
 import initialState from "./initialState";
-import { AUTH_LOGIN, AUTH_LOGOUT } from "../actions/actionTypes";
+import { VERIFY_USER } from "../actions/actionTypes";
 
-const authReducer = (state = initialState, action) => {
+export default function user(state = initialState.loggedIn, action) {
   switch (action.type) {
-    case AUTH_LOGIN:
+    case VERIFY_USER:
       return {
         ...state,
-        username: action.username,
+        user: action.user,
         isLoggedIn: true
       };
-    case AUTH_LOGOUT:
-      return initialState;
     default:
       return state;
   }
-};
+}

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as userActions from "../../../redux/actions/userActions";
-
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
@@ -19,11 +18,14 @@ class RegisterUser extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
+    console.log(newUser);
 
     this.props.userActions.addUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(event.target.value);
+    console.log(this.state.username);
   }
 
   render() {
