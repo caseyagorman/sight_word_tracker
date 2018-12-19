@@ -6,7 +6,6 @@ from model import Student, Word, StudentWord, StudentTestResult, WordTest, conne
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 

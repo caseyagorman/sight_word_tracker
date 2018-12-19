@@ -6,7 +6,6 @@ Flask-SQLAlchemy==2.3.2
 itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
-pkg-resources==0.0.0
 psycopg2==2.7.6.1
 pytz==2018.7
 six==1.11.0
@@ -15,3 +14,4 @@ Werkzeug==0.14.1
 PyJWT==1.7.1 
 flask-jwt-extended==3.14.0
 passlib==1.7.1
+flask-login==0.4.1
