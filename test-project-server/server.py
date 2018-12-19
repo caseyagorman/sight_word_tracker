@@ -4,7 +4,7 @@ from flask import (Flask, jsonify, render_template, redirect, request)
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
-
+from flask_login import current_user, login_user
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
