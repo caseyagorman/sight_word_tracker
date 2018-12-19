@@ -4,7 +4,9 @@ from flask import (Flask, jsonify, render_template, redirect, request)
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
@@ -65,6 +67,7 @@ def get_user():
     if auth_user:
         if password == auth_user.password:
             user = {
+
                 "user_id": auth_user.user_id
             }
             return jsonify(user)
