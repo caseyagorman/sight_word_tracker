@@ -1,4 +1,3 @@
-
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -19,6 +18,20 @@ class User(db.Model):
     students = db.relationship(
         'Student', cascade="save-update, merge, delete")
     words = db.relationship('Word', cascade="save-update, merge, delete")
+
+    def __init__(self, name, id, active=True):
+        self.name = name
+        self.id = id
+        self.active = active
+
+    def is_active(self):
+        return self.active
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return True
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
