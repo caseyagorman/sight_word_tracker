@@ -1,6 +1,6 @@
 import os
 from jinja2 import StrictUndefined
-from flask import (Flask, jsonify, render_template, redirect, request)
+from flask import (Flask, jsonify, render_template, redirect, request, flash)
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
@@ -16,6 +16,20 @@ app.secret_key = "ABC"
 @cross_origin()
 def index():
     return "homepage"
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('/'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('/'))
+    return "logged in"
 
 
 @app.route("/api/add-user", methods=['POST'])
