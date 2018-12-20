@@ -1,7 +1,7 @@
 import * as types from "./actionTypes";
 import history from "../../history";
 function registerUserApi() {
-  return "http://localhost:5000/api/add-user";
+  return "http://localhost:5000/api/register";
 }
 
 export function registerUser(user) {

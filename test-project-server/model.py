@@ -13,31 +13,22 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(64), nullable=False, unique=True)
     email = db.Column(db.String(64), nullable=False, unique=True)
-    password_hash = db.Column(db.String(128))
+    password = db.Column(db.String(128))
 
     students = db.relationship(
         'Student', cascade="save-update, merge, delete")
     words = db.relationship('Word', cascade="save-update, merge, delete")
 
-    def __init__(self, name, id, active=True):
-        self.name = name
-        self.id = id
-        self.active = active
-
-    def is_active(self):
-        return self.active
-
-    def is_anonymous(self):
-        return False
-
-    def is_authenticated(self):
-        return True
+    def __init__(self, username, email, password):
+        self.username = username,
+        self.email = email,
+        self.set_password(password)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.pw_hash, password)
 
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
@@ -48,7 +39,8 @@ class Student(db.Model):
 
     __tablename__ = "students"
 
-    student_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    student_id = db.Column(
+        db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
         'users.user_id'), nullable=False)
     fname = db.Column(db.String(64), nullable=False)
@@ -122,7 +114,8 @@ class StudentTestResult(db.Model):
         'students.student_id'), nullable=False)
     score = db.Column(db.Float)
     wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
-    test_date = db.Column(db.DateTime, nullable=True, default=datetime.today)
+    test_date = db.Column(db.DateTime, nullable=True,
+                          default=datetime.today)
     correct_words = db.Column(
         db.ARRAY(db.String(25)))
     incorrect_words = db.Column(

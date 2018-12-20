@@ -2,7 +2,7 @@ import * as types from "./actionTypes";
 import history from "../../history";
 
 function getUserApi() {
-  return "http://localhost:5000/api/get-user";
+  return "http://localhost:5000/api/login";
 }
 
 export function setUser(user) {

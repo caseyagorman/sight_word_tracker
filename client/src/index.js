@@ -22,8 +22,8 @@ import history from "./history";
 import { Provider } from "react-redux";
 import configureStore from "./redux/store/configureStore";
 
-// const initialState = {};
-const store = configureStore();
+const initialState = {};
+const store = configureStore(initialState);
 
 const AppRouter = () => (
   <Router history={history}>

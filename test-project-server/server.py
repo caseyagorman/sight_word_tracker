@@ -1,10 +1,10 @@
 import os
 from jinja2 import StrictUndefined
-from flask import (Flask, jsonify, render_template, redirect, request, flash)
+from flask import (Flask, jsonify, render_template,
+                   redirect, request, flash, abort,)
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
-from flask_login import current_user, login_user
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
@@ -18,21 +18,7 @@ def index():
     return "homepage"
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('/'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('/'))
-    return "logged in"
-
-
-@app.route("/api/add-user", methods=['POST'])
+@app.route("/api/register", methods=['POST'])
 @cross_origin()
 def add_user():
     data = request.get_json()
@@ -41,15 +27,21 @@ def add_user():
     email = data.get('email')
     password = data.get('password')
     confirm_password = data.get('confirmPassword')
-    print(password, confirm_password)
+    # duplicate_user = User.query.filter_by(username=username).all()
+    # if duplicate_user:
+    #     print(duplicate_user)
+    #     return abort(401)
+    # else:
     if password == confirm_password:
-        new_user = User(username=username,
-                        email=email, password=password)
+
+        new_user = User(username=username, email=email,
+                        password=password)
         db.session.add(new_user)
         db.session.commit()
+        print('user added')
         return 'user added!'
     else:
-        return "hello!"
+        return abort(401)
 
 
 @app.route("/api/students")
@@ -70,24 +62,29 @@ def get_students():
     return students
 
 
-@app.route("/api/get-user", methods=['POST'])
+@app.route("/api/login", methods=['POST'])
 @cross_origin()
-def get_user():
+def login():
+    print("login")
     data = request.get_json()
+    print(data)
     username = data.get('username')
+    print(username)
     password = data.get('password')
+    print(password)
     auth_user = User.query.filter_by(username=username).first()
     if auth_user:
-        if password == auth_user.password:
+        print(auth_user)
+        if User.check_password_hash(password, auth_user.password):
             user = {
-
                 "user_id": auth_user.user_id
             }
             return jsonify(user)
         else:
-            return "incorrect password"
+            return abort(401)
     else:
-        return "User does not exist"
+        print("no user")
+        return abort(401)
 
 
 @app.route("/api/get-student")
