@@ -22,6 +22,7 @@ export function loginUser(user) {
     })
       .then(response => response.json())
       .then(user => dispatch(setUser(user)))
-      .then(() => history.push("/"));
+      .then(() => history.push("/"))
+      .catch(err => console.error(err));
   };
 }

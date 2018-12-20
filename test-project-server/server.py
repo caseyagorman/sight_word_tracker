@@ -27,11 +27,6 @@ def add_user():
     email = data.get('email')
     password = data.get('password')
     confirm_password = data.get('confirmPassword')
-    # duplicate_user = User.query.filter_by(username=username).all()
-    # if duplicate_user:
-    #     print(duplicate_user)
-    #     return abort(401)
-    # else:
     if password == confirm_password:
 
         new_user = User(username=username, email=email,
@@ -70,10 +65,12 @@ def login():
     username = data.get('username')
     password = data.get('password')
     auth_user = User.query.filter_by(username=username).first()
+    print(auth_user)
     if auth_user:
-        if auth_user.check_password(password) == True:
+        if auth_user.check_password(password):
             user = {
-                "user_id": auth_user.user_id
+                "user_id": auth_user.user_id,
+                "username": auth_user.username
             }
             return jsonify(user)
         else:

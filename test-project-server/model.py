@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from secrets import token_hex
 
 db = SQLAlchemy()
 
@@ -10,7 +11,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(64), nullable=False, unique=True)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128))
@@ -20,8 +21,11 @@ class User(db.Model):
     words = db.relationship('Word', cascade="save-update, merge, delete")
 
     def __init__(self, username, email, password):
-        self.username = username,
-        self.email = email,
+        print("I'm setting this thing")
+        self.user_id = token_hex(32)
+        print(self.user_id)
+        self.username = username
+        self.email = email
         self.set_password(password)
 
     def set_password(self, password):
@@ -41,7 +45,7 @@ class Student(db.Model):
 
     student_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
+    user_id = db.Column(db.String(64), db.ForeignKey(
         'users.user_id'), nullable=False)
     fname = db.Column(db.String(64), nullable=False)
     lname = db.Column(db.String(64), nullable=False)
@@ -67,7 +71,7 @@ class Word(db.Model):
     word = db.Column(db.String(25), nullable=False, unique=True)
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
-    user_id = db.Column(db.Integer, db.ForeignKey(
+    user_id = db.Column(db.String(64), db.ForeignKey(
         'users.user_id'), nullable=False)
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
