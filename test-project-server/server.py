@@ -67,20 +67,17 @@ def get_students():
 def login():
     print("login")
     data = request.get_json()
-    print(data)
     username = data.get('username')
-    print(username)
     password = data.get('password')
-    print(password)
     auth_user = User.query.filter_by(username=username).first()
     if auth_user:
-        print(auth_user)
-        if User.check_password_hash(password, auth_user.password):
+        if auth_user.check_password(password) == True:
             user = {
                 "user_id": auth_user.user_id
             }
             return jsonify(user)
         else:
+            print("incorrect password")
             return abort(401)
     else:
         print("no user")
