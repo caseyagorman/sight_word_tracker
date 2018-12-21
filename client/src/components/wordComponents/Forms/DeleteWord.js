@@ -29,8 +29,10 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
+    const userId = this.props.auth.user.user_id;
     let deleteWord = {
-      word: this.props.word[0].word
+      word: this.props.word[0].word,
+      user_id: userId
     };
     this.props.wordActions.deleteWord(deleteWord);
   }
@@ -66,7 +68,8 @@ const DeleteWordWrapped = withRouter(DeleteWord);
 
 function mapStateToProps(state) {
   return {
-    word: state.word
+    word: state.word,
+    auth: state.auth
   };
 }
 

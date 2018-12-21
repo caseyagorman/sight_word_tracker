@@ -194,7 +194,9 @@ def add_word():
 def delete_word():
     data = request.get_json()
     word = data.get('word')
-    word_to_delete = Word.query.filter_by(word=word).first()
+    user_id = data.get('user_id')
+    word_to_delete = Word.query.filter(
+        Word.word == word, Word.user_id == user_id).first()
     db.session.delete(word_to_delete)
     db.session.commit()
     return 'word deleted!'
