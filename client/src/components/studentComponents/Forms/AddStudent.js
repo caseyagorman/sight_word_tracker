@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
+
 class AddStudent extends Component {
   constructor(props) {
     super(props);
@@ -10,13 +11,18 @@ class AddStudent extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     let newStudent = {
       fname: this.state.fname,
-      lname: this.state.lname
+      lname: this.state.lname,
+      user_id: this.props.auth.user.user_id
     };
-
+    console.log(newStudent);
     this.props.studentActions.addStudent(newStudent);
   }
   handleChange(event) {
@@ -49,7 +55,8 @@ class AddStudent extends Component {
 
 function mapStateToProps(state) {
   return {
-    student: state.student
+    student: state.student,
+    auth: state.auth
   };
 }
 
