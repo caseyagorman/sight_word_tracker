@@ -10,7 +10,10 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    this.props.studentsActions.fetchStudents();
+    const user = this.props.auth.user.user_id;
+    console.log("user", user);
+    console.log(this.props.studentsActions);
+    this.props.studentsActions.fetchStudents(user);
   }
 
   displayStudents(students) {
@@ -43,7 +46,8 @@ class ViewStudents extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    students: state.students
+    students: state.students,
+    auth: state.auth
   };
 }
 

@@ -39,11 +39,13 @@ def add_user():
         return abort(401)
 
 
-@app.route("/api/students")
+@app.route("/api/students", methods=['POST'])
 @cross_origin()
 def get_students():
     print('hello!')
-    students = Student.query.all()
+    user_id = request.get_json()
+    print(user_id)
+    students = Student.query.filter_by(user_id=user_id)
     student_list = []
     for student in students:
         student = {
