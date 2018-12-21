@@ -131,10 +131,12 @@ def delete_student():
     return 'student deleted!'
 
 
-@app.route("/api/words/")
+@app.route("/api/words/", methods=['POST'])
 @cross_origin()
 def get_words():
-    words = Word.query.all()
+    user_id = request.get_json()
+    print(user_id)
+    words = Word.query.filter_by(user_id=user_id).all()
     word_list = []
     for word in words:
         word = {
@@ -174,12 +176,13 @@ def get_unknown_words(student):
 def add_word():
     data = request.get_json()
     print(data)
+    user_id = data.get('user_id')
     new_words = data.get('word')
     new_words = new_words.split()
     print(new_words)
     for word in new_words:
         print("word", word)
-        word = Word(word=word)
+        word = Word(word=word, user_id=user_id)
         db.session.add(word)
         db.session.commit()
 

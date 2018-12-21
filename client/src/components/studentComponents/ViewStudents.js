@@ -43,7 +43,6 @@ class ViewStudents extends React.Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   return {
     students: state.students,
@@ -53,7 +52,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentsActions: bindActionCreators(studentsActions, dispatch)
+    wordsActions: bindActionCreators(studentsActions, dispatch)
   };
 }
 

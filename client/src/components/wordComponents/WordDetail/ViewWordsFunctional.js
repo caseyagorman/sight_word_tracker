@@ -8,9 +8,9 @@ import WordBarChart from "./WordBarChart";
 
 class ViewWordsFunctional extends React.Component {
   componentDidMount() {
-    this.props.wordsActions.fetchWords();
+    const user = this.props.auth.user.user_id;
+    this.props.wordsActions.fetchWords(user);
   }
-
   displayWords(words) {
     if (!words) {
       return <p>Loading words...</p>;
@@ -43,7 +43,8 @@ class ViewWordsFunctional extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    words: state.words
+    words: state.words,
+    auth: state.auth
   };
 }
 

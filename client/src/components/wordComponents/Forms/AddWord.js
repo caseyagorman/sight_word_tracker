@@ -13,9 +13,11 @@ class AddWord extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props);
+    const userId = this.props.auth.user.user_id;
+    console.log("add word", userId);
     let newWord = {
-      word: this.state.newWord
+      word: this.state.newWord,
+      user_id: userId
     };
 
     this.props.wordActions.addWord(newWord);
@@ -43,7 +45,8 @@ class AddWord extends Component {
 
 function mapStateToProps(state) {
   return {
-    word: state.word
+    word: state.word,
+    auth: state.auth
   };
 }
 

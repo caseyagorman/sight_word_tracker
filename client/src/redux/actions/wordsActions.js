@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 
-function api() {
+function api(user) {
   return "http://localhost:5000/api/words/";
 }
 
@@ -8,15 +8,16 @@ export function receiveWords(words) {
   return { type: types.RECEIVE_WORDS, words: words };
 }
 
-export function fetchWords() {
+export function fetchWords(user) {
   return dispatch => {
-    return fetch(api(), {
-      method: "GET",
+    return fetch(api(user), {
+      method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(user)
     })
       .then(response => response.json())
       .then(words => dispatch(receiveWords(words)));
