@@ -20,6 +20,15 @@ class Login extends Component {
     console.log("handle submit", user);
     this.props.authActions.loginUser(user);
   }
+  handleGetUser() {
+    if (!this.props.user.user) {
+      console.log("not authenticated");
+    }
+    if (this.props.user.user) {
+      console.log("USER", this.props.user.user);
+    }
+  }
+
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
     console.log(event.target.value);
@@ -54,6 +63,7 @@ class Login extends Component {
           </div>
           <button className="btn btn-primary btn-lg">Register</button>
         </form>
+        {/* <div>{this.handleGetUser()}</div> */}
       </div>
     );
   }

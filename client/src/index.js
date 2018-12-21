@@ -24,7 +24,7 @@ import configureStore from "./redux/store/configureStore";
 
 const initialState = {};
 const store = configureStore(initialState);
-
+// const history = createBrowserHistory();
 const AppRouter = () => (
   <Router history={history}>
     <div>

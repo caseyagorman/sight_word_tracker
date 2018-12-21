@@ -17,6 +17,7 @@ class ViewStudents extends React.Component {
     if (!students) {
       return <p>Loading student...</p>;
     }
+    console.log("student props", this.props);
     return students.map(student => Student(student));
   }
 
