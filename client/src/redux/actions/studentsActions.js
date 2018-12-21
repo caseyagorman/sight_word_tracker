@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 function getStudentsApi() {
-  return "http://localhost:5000/api/students/";
+  return "http://localhost:5000/api/students";
 }
 
 export function receiveStudents(students) {
