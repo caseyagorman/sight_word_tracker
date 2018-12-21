@@ -14,20 +14,18 @@ export function setUser(auth) {
 
 export function loginUser(user) {
   return dispatch => {
-    return (
-      fetch(getUserApi(), {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-      })
-        .then(response => response.json())
-        // .then(user => console.log("USER", user))
-        .then(user => dispatch(setUser(user)))
-        .catch(err => console.error(err))
-    );
+    return fetch(getUserApi(), {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+
+      .then(user => dispatch(setUser(user)))
+      .catch(err => console.error(err));
   };
 }

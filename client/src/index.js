@@ -32,6 +32,7 @@ const AppRouter = () => (
       <Route path="/register/" component={RegisterPage} />
       <Route path="/login/" component={Login} />
       <Route path="//" component={Home} />
+
       <Route path="/students/" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudent} />
       <Route path="/add-word/" component={AddWord} />
