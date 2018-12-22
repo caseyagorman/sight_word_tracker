@@ -14,12 +14,22 @@ class Words extends Component {
     }
   }
 
-  render() {
+  displayWords() {
+    if (!this.props.auth.isAuthenticated) {
+      return <div>loading...</div>;
+    }
     return (
       <div>
-        <ViewWordsFunctional />
+        <ViewWordsFunctional
+          userId={this.props.auth.user.userId}
+          username={this.props.auth.user.username}
+        />
       </div>
     );
+  }
+
+  render() {
+    return <div>{this.displayWords()}</div>;
   }
 }
 

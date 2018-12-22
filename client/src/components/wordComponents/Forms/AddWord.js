@@ -13,7 +13,7 @@ class AddWord extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const userId = this.props.auth.user.user_id;
+    const userId = this.props.auth.user.userId;
     console.log("add word", userId);
     let newWord = {
       word: this.state.newWord,

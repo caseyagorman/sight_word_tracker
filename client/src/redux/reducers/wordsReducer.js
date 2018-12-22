@@ -2,15 +2,14 @@ import initialState from "./initialState";
 import { FETCH_WORDS, RECEIVE_WORDS } from "../actions/actionTypes";
 
 export default function words(state = initialState.words, action) {
-  let newState;
   switch (action.type) {
     case FETCH_WORDS:
       console.log("FETCH_WORDS Action");
       return action;
     case RECEIVE_WORDS:
-      newState = action.words;
-      console.log("RECEIVE_WORDS Action");
-      return newState;
+      return Object.assign({}, state, {
+        words: action.words
+      });
     default:
       return state;
   }

@@ -46,6 +46,7 @@ export function deleteWord(word) {
 }
 
 export function addWord(word) {
+  console.log("ADD WORD", word);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",

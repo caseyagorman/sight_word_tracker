@@ -9,23 +9,10 @@ import WordBarChart from "./WordBarChart";
 
 class ViewWordsFunctional extends React.Component {
   componentDidMount() {
-    console.log("Words container");
-    if (sessionStorage.length > 0) {
-      this.props.authActions.setUser(sessionStorage);
-    } else {
-      alert("Please log in");
-      this.props.history.push("/login");
-    }
-  }
-  getWords() {
     if (!this.props.auth.isAuthenticated) {
-      console.log("get words");
-      return <div />;
+      return this.props.history.push("/login");
     } else {
-      console.log("we set the user", this.props);
-      // const user = this.props.auth.user.user_id;
-      // console.log("user", user);
-      // this.props.wordsActions.fetchWords(user);
+      this.props.wordsActions.fetchWords(this.props.userId);
     }
   }
 
@@ -33,27 +20,25 @@ class ViewWordsFunctional extends React.Component {
     if (!words) {
       return <p>Loading words...</p>;
     }
-    let wordList = words[0];
-    return wordList.map(word => Word(word));
+    let wordsList = words.words[0];
+    return wordsList.map(word => Word(word));
   }
 
   displayChart(words) {
     if (!words) {
       return <p>loading...</p>;
     }
+    console.log(words);
     return <WordBarChart data={words[1]} word_id={words[0]} />;
   }
 
   render() {
     return (
       <div>
-        <div>{this.getWords()}</div>
         <div>
-          <ViewWordsPresentation
-            style={this.divStyle}
-            words={this.displayWords(this.props.words)}
-          />
+          <ViewWordsPresentation words={this.props.words[0]} />
         </div>
+        <div>{this.displayWords(this.props.words)}</div>
         {this.displayChart(this.props.words)}
       </div>
     );
