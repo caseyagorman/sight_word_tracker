@@ -14,7 +14,7 @@ class Home extends Component {
     }
   }
   render() {
-    console.log(localStorage);
+    console.log(sessionStorage);
     return (
       <div>
         <div>{this.checkAuthentication(this.props.auth)}</div>

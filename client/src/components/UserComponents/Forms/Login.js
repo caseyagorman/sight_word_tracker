@@ -12,18 +12,19 @@ class Login extends Component {
   }
 
   updateInput(key, value) {
-    localStorage.setItem(key, value);
-    console.log(localStorage);
+    sessionStorage.setItem(key, value);
+    console.log(sessionStorage);
     this.props.history.push("/");
   }
 
   handleLogin() {
-    console.log(localStorage);
+    console.log(sessionStorage);
     if (!this.props.auth.isAuthenticated) {
       return <div />;
     }
     if (this.props.auth.isAuthenticated) {
       this.updateInput("userId", this.props.auth.user.user_id);
+      this.updateInput("username", this.props.auth.user.username);
     }
   }
   handleSubmit(event) {
