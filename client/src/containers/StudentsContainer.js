@@ -12,17 +12,27 @@ class Students extends Component {
       this.props.history.push("/login");
     }
   }
-  render() {
+
+  displayStudents() {
+    if (!this.props.auth.isAuthenticated) {
+      return <div>loading...</div>;
+    }
     return (
       <div>
         <ViewStudents
           userId={this.props.auth.user.userId}
           username={this.props.auth.user.username}
+          id={this.props.match.params.id}
         />
       </div>
     );
   }
+
+  render() {
+    return <div>{this.displayStudents()}</div>;
+  }
 }
+
 function mapDispatchToProps(dispatch) {
   return {
     authActions: bindActionCreators(authActions, dispatch)

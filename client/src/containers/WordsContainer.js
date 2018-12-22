@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ViewWordsFunctional from "../components/wordComponents/WordDetail/ViewWordsFunctional";
+import ViewWords from "../components/wordComponents/ViewWords";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
@@ -20,7 +20,7 @@ class Words extends Component {
     }
     return (
       <div>
-        <ViewWordsFunctional
+        <ViewWords
           userId={this.props.auth.user.userId}
           username={this.props.auth.user.username}
         />

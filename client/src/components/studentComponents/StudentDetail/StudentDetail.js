@@ -14,10 +14,8 @@ class StudentDetail extends React.Component {
     if (!this.props.id || !this.props.userId) {
       return <div> loading...</div>;
     }
-    console.log("student detail props", this.props);
     const id = this.props.id;
     const userId = this.props.userId;
-    // console.log(id);
     this.props.studentActions.fetchStudent(id, userId);
   }
 

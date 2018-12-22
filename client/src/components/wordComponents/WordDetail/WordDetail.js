@@ -4,12 +4,16 @@ import WordPage from "./WordPage";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
-
 import DeleteWord from "../Forms/DeleteWord";
 class WordDetail extends React.Component {
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.wordActions.fetchWord({ id: id });
+    console.log("Word detail", this.props);
+    if (!this.props.id || !this.props.userId) {
+      return <div> loading...</div>;
+    }
+    const id = this.props.id;
+    const userId = this.props.userId;
+    this.props.wordActions.fetchWord(id, userId);
   }
 
   displayWord(word) {
@@ -57,7 +61,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    word: state.word
+    word: state.word,
+    auth: state.auth
   };
 }
 

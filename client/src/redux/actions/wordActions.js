@@ -16,16 +16,17 @@ export function receiveWord(word) {
   return { type: types.RECEIVE_WORD, word: word };
 }
 
-export function fetchWord(id) {
-  let wordId = id.id;
+export function fetchWord(id, user) {
+  console.log("student action", id, user);
   return dispatch => {
-    return fetch(getWordApi(wordId), {
-      method: "GET",
+    return fetch(getWordApi(id), {
+      method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(user)
     })
       .then(response => response.json())
       .then(word => dispatch(receiveWord(word)));

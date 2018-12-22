@@ -274,14 +274,16 @@ def student_detail(student):
         else:
             pass
     return jsonify([student_object, word_list])
-    return "student detail!"
 
 
-@app.route("/api/word-detail/<word>")
+@app.route("/api/word-detail/<word>", methods=['POST'])
 @cross_origin()
 def word_detail(word):
     """Show word detail"""
-    word_object = Word.query.filter_by(word_id=word).first()
+    print("word", word)
+    user = request.get_json()
+    print("user", user)
+    word_object = Word.query.filter_by(word_id=word, user_id=user).first()
     student_words = StudentWord.query.filter_by(
         word_id=word).options(db.joinedload('students')).all()
 
