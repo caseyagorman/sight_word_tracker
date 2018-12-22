@@ -10,7 +10,7 @@ export default function auth(state = initialState.auth, action) {
         return Object.assign({}, state, {
           user: {
             username: sessionStorage.username,
-            userId: sessionStorage.user_id
+            userId: sessionStorage.userId
           },
           isAuthenticated: true
         });
