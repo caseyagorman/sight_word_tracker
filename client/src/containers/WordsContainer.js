@@ -7,7 +7,7 @@ class Words extends Component {
   componentDidMount() {
     console.log("Words container");
     if (sessionStorage.length > 0) {
-      this.props.authActions.setUser(sessionStorage);
+      this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");
       this.props.history.push("/login");
