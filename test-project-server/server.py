@@ -1,7 +1,7 @@
 import os
 from jinja2 import StrictUndefined
 from flask import (Flask, jsonify, render_template,
-                   redirect, request, flash, abort,)
+                   redirect, request, flash, abort, session)
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
@@ -74,6 +74,7 @@ def login():
                 "user_id": auth_user.user_id,
                 "username": auth_user.username
             }
+
             return jsonify(user)
         else:
             print("incorrect password")
@@ -255,7 +256,7 @@ def student_detail(student):
     user = request.get_json()
     print(user)
     # student_object = Student.query.filter(
-    #     Student.student_id == student).first()
+    #     Student.student_id == student, Student.user_id == user).first()
     # student_words = StudentWord.query.filter_by(
     #     student_id=student).options(db.joinedload('words')).all()
     # student_object = {

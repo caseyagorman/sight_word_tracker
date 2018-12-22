@@ -10,13 +10,20 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  updateInput(key, value) {
+    localStorage.setItem(key, value);
+    console.log(localStorage);
+    this.props.history.push("/");
+  }
+
   handleLogin() {
+    console.log(localStorage);
     if (!this.props.auth.isAuthenticated) {
-      return <div>Login</div>;
+      return <div />;
     }
     if (this.props.auth.isAuthenticated) {
-      alert(`Welcome ${this.props.auth.user.username}`);
-      this.props.history.push("/");
+      this.updateInput("userId", this.props.auth.user.user_id);
     }
   }
   handleSubmit(event) {
@@ -72,6 +79,7 @@ class Login extends Component {
           <button className="btn btn-primary btn-lg">Register</button>
         </form>
         <div>{this.handleGetUser()}</div>
+        <div>{this.handleLogin()}</div>
       </div>
     );
   }

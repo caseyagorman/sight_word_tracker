@@ -24,7 +24,6 @@ export function loginUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json())
-
       .then(user => dispatch(setUser(user)))
       .catch(err => console.error(err));
   };
