@@ -10,6 +10,7 @@ export default {
   test: "",
   auth: {
     user: "",
-    isAuthenticated: false
+    isAuthenticated: false,
+    loginErrors: ""
   }
 };

@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as registrationActions from "../../../redux/actions/registrationActions";
+import * as authActions from "../../../redux/actions/authActions";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
     this.state = { username: "", email: "", password: "", confirmPassword: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.authActions.clearErrors();
   }
 
   handleSubmit(event) {
@@ -19,8 +24,8 @@ class RegisterUser extends Component {
       confirmPassword: this.state.confirmPassword
     };
     console.log(newUser);
-
-    this.props.registrationActions.registerUser(newUser);
+    // console.log("PROPS", this.props);
+    // this.props.registrationActions.registerUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -76,13 +81,15 @@ class RegisterUser extends Component {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    registrationActions: bindActionCreators(registrationActions, dispatch)
+    registrationActions: bindActionCreators(registrationActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
   };
 }
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    auth: state.auth
   };
 }
 

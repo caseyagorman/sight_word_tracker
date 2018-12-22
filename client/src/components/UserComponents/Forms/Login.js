@@ -18,13 +18,14 @@ class Login extends Component {
   }
 
   handleLogin() {
-    console.log(sessionStorage);
+    if (this.props.auth.loginErrors.error) {
+      alert(this.props.auth.loginErrors.error);
+      this.props.history.push("/register/");
+    }
     if (!this.props.auth.isAuthenticated) {
       return <div />;
     }
     if (this.props.auth.isAuthenticated) {
-      console.log(this.props.auth);
-      console.log("userId", this.props.auth.user.userId);
       this.updateInput("userId", this.props.auth.user.userId);
       this.updateInput("username", this.props.auth.user.username);
     }
@@ -49,8 +50,6 @@ class Login extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(event.target.value);
-    console.log(this.state.username);
   }
 
   render() {

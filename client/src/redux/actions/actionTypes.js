@@ -20,4 +20,7 @@ export const RECEIVE_STUDENT_TEST_RESULTS = "RECEIVE_STUDENT_TEST_RESULTS";
 export const ADD_TEST = "ADD_TEST";
 export const REGISTER_USER = "REGISTER_USER";
 export const SET_USER = "SET_USER";
+export const CHECK_USER = "CHECK_USER";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOGOUT_USER = "AUTH_LOGOUT";

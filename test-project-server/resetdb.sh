@@ -13,4 +13,4 @@ createdb students
 createdb studenttestresults
 createdb studentwords
 
-python3 -i model.py 
+start-server.sh

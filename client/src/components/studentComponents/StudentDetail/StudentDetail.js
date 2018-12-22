@@ -11,6 +11,7 @@ import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink"
 
 class StudentDetail extends React.Component {
   componentDidMount() {
+    console.log("student detail", this.props);
     if (!this.props.id || !this.props.userId) {
       return <div> loading...</div>;
     }

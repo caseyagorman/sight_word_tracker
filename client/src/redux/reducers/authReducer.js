@@ -1,5 +1,5 @@
 import initialState from "./initialState";
-import { SET_USER } from "../actions/actionTypes";
+import { SET_USER, LOGIN_ERROR, CLEAR_ERRORS } from "../actions/actionTypes";
 
 export default function auth(state = initialState.auth, action) {
   switch (action.type) {
@@ -18,6 +18,27 @@ export default function auth(state = initialState.auth, action) {
           isAuthenticated: true
         });
       }
+    case LOGIN_ERROR:
+      console.log("LOGIN ERROR", action.auth);
+      return Object.assign({}, state, {
+        user: {
+          username: "",
+          userId: ""
+        },
+        isAuthenticated: false,
+        loginErrors: action.auth
+      });
+    case CLEAR_ERRORS:
+      console.log("CLEAR ERRORS");
+      return Object.assign({}, state, {
+        user: {
+          username: "",
+          userId: ""
+        },
+        isAuthenticated: false,
+        loginErrors: ""
+      });
+
     default:
       return state;
   }

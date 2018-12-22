@@ -7,9 +7,26 @@ function getUserApi() {
   return "http://localhost:5000/api/login";
 }
 
-export function setUser(auth) {
-  console.log("setting user", auth);
+// export function setUser(auth) {
+//   console.log("set user", auth);
+//   return { type: types.SET_USER, auth: auth };
+// }
+
+// export function loginError(auth) {
+//   console.log("login error", auth);
+//   return { type: types.LOGIN_ERROR, auth: auth };
+// }
+
+export function checkUser(auth) {
+  console.log("check user", auth);
+  if (auth.error) {
+    return { type: types.LOGIN_ERROR, auth: auth };
+  }
   return { type: types.SET_USER, auth: auth };
+}
+
+export function clearErrors() {
+  return { type: types.CLEAR_ERRORS };
 }
 
 export function loginUser(user) {
@@ -24,7 +41,7 @@ export function loginUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => response.json())
-      .then(user => dispatch(setUser(user)))
+      .then(user => dispatch(checkUser(user)))
       .catch(err => console.error(err));
   };
 }

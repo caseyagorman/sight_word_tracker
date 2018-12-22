@@ -67,7 +67,11 @@ def login():
     username = data.get('username')
     password = data.get('password')
     auth_user = User.query.filter_by(username=username).first()
-    print(auth_user)
+    if auth_user == None:
+        error = {
+            "error": "user does not exist"
+        }
+        return jsonify(error)
     if auth_user:
         if auth_user.check_password(password):
             user = {
@@ -256,6 +260,7 @@ def student_detail(student):
     print("user", user)
     student_object = Student.query.filter_by(
         student_id=student, user_id=user).first()
+    print(student_object)
     student_words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
     student_object = {
