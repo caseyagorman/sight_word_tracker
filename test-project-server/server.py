@@ -253,11 +253,11 @@ def student_detail(student):
     """Show student detail"""
     print("student", student)
     user = request.get_json()
-    print(user)
+    print("user", user)
     student_object = Student.query.filter_by(
         student_id=student, user_id=user).first()
     student_words = StudentWord.query.filter_by(
-        student_id=student).options(db.joinedload('words').filter_by(user_id=user)).all()
+        student_id=student).options(db.joinedload('words')).all()
     student_object = {
         'student_id': student_object.student_id,
         'fname': student_object.fname,

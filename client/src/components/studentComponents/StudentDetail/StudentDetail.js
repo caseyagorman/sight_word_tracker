@@ -11,10 +11,14 @@ import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink"
 
 class StudentDetail extends React.Component {
   componentDidMount() {
+    if (!this.props.id || !this.props.userId) {
+      return <div> loading...</div>;
+    }
     console.log("student detail props", this.props);
-    // const { id } = this.props.match.params;
-    const { user } = this.props.auth.user;
-    // this.props.studentActions.fetchStudent({ id: id, user: user });
+    const id = this.props.id;
+    const userId = this.props.userId;
+    // console.log(id);
+    this.props.studentActions.fetchStudent(id, userId);
   }
 
   displayStudent(student) {

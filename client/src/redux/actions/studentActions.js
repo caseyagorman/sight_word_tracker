@@ -44,9 +44,9 @@ export function receiveStudent(student) {
 }
 
 export function fetchStudent(id, user) {
-  let studentId = id.id;
+  console.log("student action", id, user);
   return dispatch => {
-    return fetch(getStudentApi(studentId, user), {
+    return fetch(getStudentApi(id), {
       method: "POST",
       mode: "cors",
       headers: {
@@ -54,9 +54,8 @@ export function fetchStudent(id, user) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
-    });
-
-    // .then(response => response.json())
-    // .then(student => dispatch(receiveStudent(student)));
+    })
+      .then(response => response.json())
+      .then(student => dispatch(receiveStudent(student)));
   };
 }
