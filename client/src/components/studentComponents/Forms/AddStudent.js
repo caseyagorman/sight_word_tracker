@@ -20,7 +20,7 @@ class AddStudent extends Component {
     let newStudent = {
       fname: this.state.fname,
       lname: this.state.lname,
-      user_id: this.props.auth.user.user_id
+      userId: this.props.auth.user.userId
     };
     console.log(newStudent);
     this.props.studentActions.addStudent(newStudent);

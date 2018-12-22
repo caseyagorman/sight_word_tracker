@@ -11,9 +11,10 @@ import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink"
 
 class StudentDetail extends React.Component {
   componentDidMount() {
-    const { id } = this.props.match.params;
+    console.log("student detail props", this.props);
+    // const { id } = this.props.match.params;
     const { user } = this.props.auth.user;
-    this.props.studentActions.fetchStudent({ id: id, user: user });
+    // this.props.studentActions.fetchStudent({ id: id, user: user });
   }
 
   displayStudent(student) {

@@ -12,11 +12,12 @@ export default function auth(state = initialState.auth, action) {
           },
           isAuthenticated: true
         });
+      } else {
+        return Object.assign({}, state, {
+          user: action.auth,
+          isAuthenticated: true
+        });
       }
-      return Object.assign({}, state, {
-        user: action.auth,
-        isAuthenticated: true
-      });
     default:
       return state;
   }

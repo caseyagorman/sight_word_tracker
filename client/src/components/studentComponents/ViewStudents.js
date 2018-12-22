@@ -11,9 +11,7 @@ const divStyle = {
 class ViewStudents extends React.Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      const user = this.props.auth.user.user_id;
-      console.log("user", user);
-      console.log(this.props.studentsActions);
+      const user = this.props.userId;
       this.props.studentsActions.fetchStudents(user);
     }
   }

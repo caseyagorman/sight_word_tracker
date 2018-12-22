@@ -23,7 +23,9 @@ class Login extends Component {
       return <div />;
     }
     if (this.props.auth.isAuthenticated) {
-      this.updateInput("userId", this.props.auth.user.user_id);
+      console.log(this.props.auth);
+      console.log("userId", this.props.auth.user.userId);
+      this.updateInput("userId", this.props.auth.user.userId);
       this.updateInput("username", this.props.auth.user.username);
     }
   }

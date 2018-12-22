@@ -71,7 +71,7 @@ def login():
     if auth_user:
         if auth_user.check_password(password):
             user = {
-                "user_id": auth_user.user_id,
+                "userId": auth_user.user_id,
                 "username": auth_user.username
             }
 
@@ -109,10 +109,9 @@ def add_student():
     print("trying to add student")
     data = request.get_json()
     print(data)
-    user_id = data.get('user_id')
+    user_id = data.get('userId')
     fname = data.get('fname')
     lname = data.get('lname')
-    user_id = data.get('user_id')
     new_student = Student(user_id=user_id, fname=fname, lname=lname, grade="K")
     db.session.add(new_student)
     db.session.commit()
@@ -255,26 +254,26 @@ def student_detail(student):
     print("student", student)
     user = request.get_json()
     print(user)
-    # student_object = Student.query.filter(
-    #     Student.student_id == student, Student.user_id == user).first()
-    # student_words = StudentWord.query.filter_by(
-    #     student_id=student).options(db.joinedload('words')).all()
-    # student_object = {
-    #     'student_id': student_object.student_id,
-    #     'fname': student_object.fname,
-    #     'lname': student_object.lname
-    # }
-    # word_list = []
-    # for word in student_words:
-    #     if word.Learned == False:
-    #         word = {
-    #             'word_id': word.words.word_id,
-    #             'word': word.words.word,
-    #         }
-    #         word_list.append(word)
-    #     else:
-    #         pass
-    # return jsonify([student_object, word_list])
+    student_object = Student.query.filter_by(
+        student_id=student, user_id=user).first()
+    student_words = StudentWord.query.filter_by(
+        student_id=student).options(db.joinedload('words').filter_by(user_id=user)).all()
+    student_object = {
+        'student_id': student_object.student_id,
+        'fname': student_object.fname,
+        'lname': student_object.lname
+    }
+    word_list = []
+    for word in student_words:
+        if word.Learned == False:
+            word = {
+                'word_id': word.words.word_id,
+                'word': word.words.word,
+            }
+            word_list.append(word)
+        else:
+            pass
+    return jsonify([student_object, word_list])
     return "student detail!"
 
 

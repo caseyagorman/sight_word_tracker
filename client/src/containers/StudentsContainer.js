@@ -15,7 +15,10 @@ class Students extends Component {
   render() {
     return (
       <div>
-        <ViewStudents />
+        <ViewStudents
+          userId={this.props.auth.user.userId}
+          username={this.props.auth.user.username}
+        />
       </div>
     );
   }
