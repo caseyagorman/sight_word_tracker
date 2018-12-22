@@ -21,6 +21,7 @@ def index():
 @app.route("/api/register", methods=['POST'])
 @cross_origin()
 def add_user():
+    print('register!')
     data = request.get_json()
     print(data)
     username = data.get('username')
@@ -64,6 +65,7 @@ def get_students():
 def login():
     print("login")
     data = request.get_json()
+    print(data)
     username = data.get('username')
     password = data.get('password')
     auth_user = User.query.filter_by(username=username).first()
@@ -73,6 +75,7 @@ def login():
         }
         return jsonify(error)
     if auth_user:
+        print(auth_user)
         if auth_user.check_password(password):
             user = {
                 "userId": auth_user.user_id,

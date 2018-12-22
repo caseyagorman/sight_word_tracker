@@ -29,7 +29,7 @@ const AppRouter = () => (
   <Router history={history}>
     <div>
       <AppNav />
-      <Route path="/register/" component={RegisterPage} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/login/" component={Login} />
       <Route path="//" component={Home} />
 

@@ -25,7 +25,7 @@ class RegisterUser extends Component {
     };
     console.log(newUser);
     // console.log("PROPS", this.props);
-    // this.props.registrationActions.registerUser(newUser);
+    this.props.registrationActions.registerUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
