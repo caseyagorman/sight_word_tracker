@@ -1,24 +1,10 @@
 import * as types from "./actionTypes";
-import history from "../../history";
-import React from "react";
-import { Redirect } from "react-router";
 
 function getUserApi() {
   return "http://localhost:5000/api/login";
 }
 
-// export function setUser(auth) {
-//   console.log("set user", auth);
-//   return { type: types.SET_USER, auth: auth };
-// }
-
-// export function loginError(auth) {
-//   console.log("login error", auth);
-//   return { type: types.LOGIN_ERROR, auth: auth };
-// }
-
 export function checkUser(auth) {
-  console.log("check user", auth);
   if (auth.error) {
     return { type: types.LOGIN_ERROR, auth: auth };
   }

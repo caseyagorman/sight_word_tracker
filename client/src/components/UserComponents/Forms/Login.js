@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../../../redux/actions/authActions";
-import { Redirect } from "react-router";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +13,6 @@ class Login extends Component {
 
   updateInput(key, value) {
     sessionStorage.setItem(key, value);
-    console.log(sessionStorage);
     this.props.history.push("/");
   }
 
@@ -36,15 +35,13 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log("handle submit", user);
+
     this.props.authActions.loginUser(user);
   }
   handleGetUser() {
     if (!this.props.auth) {
-      console.log("not authenticated");
     }
     if (this.props.auth) {
-      console.log("USER", this.props.auth);
     }
   }
 
