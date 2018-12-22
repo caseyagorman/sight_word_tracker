@@ -11,7 +11,6 @@ function deleteStudentApi() {
 }
 
 export function addStudent(student) {
-  console.log(student);
   return dispatch => {
     return fetch(addStudentApi(), {
       method: "POST",
@@ -44,7 +43,6 @@ export function receiveStudent(student) {
 }
 
 export function fetchStudent(id, user) {
-  console.log("student action", id, user);
   return dispatch => {
     return fetch(getStudentApi(id), {
       method: "POST",
