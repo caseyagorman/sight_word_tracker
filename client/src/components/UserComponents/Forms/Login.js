@@ -10,7 +10,15 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
+  handleLogin() {
+    if (!this.props.auth.isAuthenticated) {
+      return <div>Login</div>;
+    }
+    if (this.props.auth.isAuthenticated) {
+      alert(`Welcome ${this.props.auth.user.username}`);
+      this.props.history.push("/");
+    }
+  }
   handleSubmit(event) {
     event.preventDefault();
     let user = {
@@ -80,9 +88,7 @@ function mapDispatchToProps(dispatch) {
     authActions: bindActionCreators(authActions, dispatch)
   };
 }
-// RegisterUser.contextTypes = {
-//   context: PropTypes.object.isRequired
-// };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

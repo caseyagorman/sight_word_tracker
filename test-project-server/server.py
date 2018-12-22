@@ -125,7 +125,9 @@ def delete_student():
     print(data)
     fname = data.get('fname')
     lname = data.get('lname')
-    student = Student.query.filter_by(fname=fname, lname=lname).first()
+    user_id = data.get('user_id')
+    student = Student.query.filter_by(
+        fname=fname, lname=lname, user_id=user_id).first()
     db.session.delete(student)
     db.session.commit()
     return 'student deleted!'
@@ -245,31 +247,34 @@ def add_word_to_all_student():
     return 'student word added!'
 
 
-@app.route("/api/details/<student>")
+@app.route("/api/details/<student>", methods=['POST'])
 @cross_origin()
 def student_detail(student):
     """Show student detail"""
     print("student", student)
-    student_object = Student.query.filter(
-        Student.student_id == student).first()
-    student_words = StudentWord.query.filter_by(
-        student_id=student).options(db.joinedload('words')).all()
-    student_object = {
-        'student_id': student_object.student_id,
-        'fname': student_object.fname,
-        'lname': student_object.lname
-    }
-    word_list = []
-    for word in student_words:
-        if word.Learned == False:
-            word = {
-                'word_id': word.words.word_id,
-                'word': word.words.word,
-            }
-            word_list.append(word)
-        else:
-            pass
-    return jsonify([student_object, word_list])
+    user = request.get_json()
+    print(user)
+    # student_object = Student.query.filter(
+    #     Student.student_id == student).first()
+    # student_words = StudentWord.query.filter_by(
+    #     student_id=student).options(db.joinedload('words')).all()
+    # student_object = {
+    #     'student_id': student_object.student_id,
+    #     'fname': student_object.fname,
+    #     'lname': student_object.lname
+    # }
+    # word_list = []
+    # for word in student_words:
+    #     if word.Learned == False:
+    #         word = {
+    #             'word_id': word.words.word_id,
+    #             'word': word.words.word,
+    #         }
+    #         word_list.append(word)
+    #     else:
+    #         pass
+    # return jsonify([student_object, word_list])
+    return "student detail!"
 
 
 @app.route("/api/word-detail/<word>")

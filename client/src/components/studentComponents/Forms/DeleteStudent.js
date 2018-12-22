@@ -24,9 +24,11 @@ class DeleteStudent extends Component {
   }
 
   handleSubmit() {
+    const userId = this.props.auth.user.user_id;
     let deleteStudent = {
       fname: this.props.student[0].fname,
-      lname: this.props.student[0].lname
+      lname: this.props.student[0].lname,
+      user_id: userId
     };
     this.props.studentActions.deleteStudent(deleteStudent);
   }
@@ -60,7 +62,8 @@ class DeleteStudent extends Component {
 
 function mapStateToProps(state) {
   return {
-    student: state.student
+    student: state.student,
+    auth: state.auth
   };
 }
 

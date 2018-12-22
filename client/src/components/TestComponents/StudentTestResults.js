@@ -10,6 +10,7 @@ import * as studentActions from "../../redux/actions/studentActions";
 import * as studentTestResultsActions from "../../redux/actions/studentTestResultsActions";
 class StudentTestResults extends React.Component {
   componentDidMount() {
+    const user = this.props.auth.user.user_id;
     const { id } = this.props.match.params;
     this.props.studentTestResultsActions.fetchStudentTestResults({ id: id });
     this.props.studentActions.fetchStudent({ id: id });
@@ -79,7 +80,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     studentTestResults: state.studentTestResults,
-    student: state.student
+    student: state.student,
+    auth: state.auth
   };
 }
 

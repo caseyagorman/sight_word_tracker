@@ -12,7 +12,8 @@ import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink"
 class StudentDetail extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.studentActions.fetchStudent({ id: id });
+    const { user } = this.props.auth.user;
+    this.props.studentActions.fetchStudent({ id: id, user: user });
   }
 
   displayStudent(student) {
@@ -103,7 +104,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    student: state.student
+    student: state.student,
+    auth: state.auth
   };
 }
 

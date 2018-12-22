@@ -10,12 +10,13 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    const user = this.props.auth.user.user_id;
-    console.log("user", user);
-    console.log(this.props.studentsActions);
-    this.props.studentsActions.fetchStudents(user);
+    if (this.props.auth.isAuthenticated) {
+      const user = this.props.auth.user.user_id;
+      console.log("user", user);
+      console.log(this.props.studentsActions);
+      this.props.studentsActions.fetchStudents(user);
+    }
   }
-
   displayStudents(students) {
     if (!students) {
       return <p>Loading student...</p>;
@@ -52,7 +53,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordsActions: bindActionCreators(studentsActions, dispatch)
+    studentsActions: bindActionCreators(studentsActions, dispatch)
   };
 }
 

@@ -43,18 +43,20 @@ export function receiveStudent(student) {
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 
-export function fetchStudent(id) {
+export function fetchStudent(id, user) {
   let studentId = id.id;
   return dispatch => {
-    return fetch(getStudentApi(studentId), {
-      method: "GET",
+    return fetch(getStudentApi(studentId, user), {
+      method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(student => dispatch(receiveStudent(student)));
+      },
+      body: JSON.stringify(user)
+    });
+
+    // .then(response => response.json())
+    // .then(student => dispatch(receiveStudent(student)));
   };
 }
