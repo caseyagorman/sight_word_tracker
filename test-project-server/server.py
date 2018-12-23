@@ -187,13 +187,22 @@ def get_unknown_words(student,):
 @cross_origin()
 def add_word():
     data = request.get_json()
-    print(data)
     user_id = data.get('user_id')
     new_words = data.get('word')
     new_words = new_words.split()
-    print(new_words)
-    for word in new_words:
-        print("word", word)
+    user_words = Word.query.filter_by(user_id=user_id).all()
+    duplicates = []
+    words_to_add = []
+    for word in user_words:
+        if word.word in new_words:
+            print(word.word, "already here!")
+            duplicates.append(word)
+        else:
+            words_to_add.append(word.word)
+    print(duplicates)
+    print(words_to_add)
+
+    for word in words_to_add:
         word = Word(word=word, user_id=user_id)
         db.session.add(word)
         db.session.commit()
@@ -206,9 +215,10 @@ def add_word():
 def delete_word():
     data = request.get_json()
     word = data.get('word')
-    user_id = data.get('user_id')
-    word_to_delete = Word.query.filter(
-        Word.word == word, Word.user_id == user_id).first()
+    user_id = data.get('userId')
+    print(data)
+    word_to_delete = Word.query.filter_by(
+        word=word, user_id=user_id).first()
     db.session.delete(word_to_delete)
     db.session.commit()
     return 'word deleted!'

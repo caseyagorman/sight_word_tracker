@@ -22,11 +22,11 @@ class AddWord extends Component {
     // }
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.word) {
-      this.props.history.push("/words");
-    }
-  }
+  // componentWillReceiveProps(newProps) {
+  //   if (newProps.word) {
+  //     this.props.history.push("/words");
+  //   }
+  // }
 
   handleSubmit(event) {
     event.preventDefault();
