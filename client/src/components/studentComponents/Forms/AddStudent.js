@@ -12,7 +12,6 @@ class AddStudent extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log("add student form", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

@@ -24,7 +24,8 @@ export function addStudent(student) {
   };
 }
 
-export function deleteStudent(student) {
+export function deleteStudent(studentDelete) {
+  console.log("delete student", studentDelete);
   return dispatch => {
     return fetch(deleteStudentApi(), {
       method: "POST",
@@ -33,7 +34,7 @@ export function deleteStudent(student) {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(student)
+      body: JSON.stringify(studentDelete)
     }).then(() => history.push("/students"));
   };
 }

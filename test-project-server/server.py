@@ -130,11 +130,10 @@ def add_student():
 def delete_student():
     data = request.get_json()
     print(data)
-    fname = data.get('fname')
-    lname = data.get('lname')
-    user_id = data.get('user_id')
+    student_id = data.get('studentId')
+    user_id = data.get('userId')
     student = Student.query.filter_by(
-        fname=fname, lname=lname, user_id=user_id).first()
+        student_id=student_id, user_id=user_id).first()
     db.session.delete(student)
     db.session.commit()
     return 'student deleted!'
@@ -372,12 +371,17 @@ def get_all_learned_words():
     print(user_id)
     student_words = StudentWord.query.filter_by(user_id=user_id).all()
     learned_count = 0
+    learned_words = []
     unlearned_count = 0
+    unlearned_words = []
     for word in student_words:
         if word.Learned == True:
+            learned_words.append(word)
             learned_count += 1
         else:
             unlearned_count += 1
+            unlearned_words.append(word)
+    print("learned and unlearned", learned_words, unlearned_words)
     result = {"learned": learned_count, "unlearned": unlearned_count}
     return jsonify(result)
 
@@ -480,7 +484,9 @@ def create_student_test():
     student_id = data.get('student_id')
     user_id = data.get('userId')
     correct_words = data.get('correct_words')
+    print("correct words", correct_words)
     incorrect_words = data.get('incorrect_words')
+    print("incorrect words", incorrect_words)
     score = calculate_score(correct_words, incorrect_words)
     update_correct_words(student_id, correct_words)
     update_incorrect_words(student_id, incorrect_words)

@@ -12,6 +12,7 @@ class StudentDoughnutChart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
+    console.log("dataResults", dataResults);
     const divStyle = { height: "25px", align: "center" };
 
     let learned = dataResults.dataResults.learned;

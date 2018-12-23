@@ -13,7 +13,6 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
-    console.log("ADD STUDENT WORDS PROPS", this.props);
     const id = this.props.student[0].student_id;
     const userId = this.props.auth.user.userId;
     this.props.unknownWordsActions.fetchUnknownWords(id, userId);

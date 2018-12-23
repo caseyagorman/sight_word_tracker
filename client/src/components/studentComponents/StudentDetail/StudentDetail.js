@@ -6,7 +6,7 @@ import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
-import DeleteStudent from "../Forms/DeleteStudent";
+import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import StudentTestResultsLink from "../../StudentTestResultsComponents/StudentTestResultsLink";
 
 class StudentDetail extends React.Component {
@@ -75,18 +75,19 @@ class StudentDetail extends React.Component {
     return <AddStudentWordForm student={student} />;
   }
 
-  displayDeleteStudentButton(student) {
-    if (!student) {
+  displayDeleteStudentButton(studentId) {
+    if (!studentId) {
       return <div>loading...</div>;
     }
-    return <DeleteStudent student={student} />;
+    console.log("display delete button", studentId);
+    return <DeleteStudentFormContainer studentId={studentId} />;
   }
   render() {
     return (
       <div>
         <div>{this.displayStudent(this.props.student)} </div>
 
-        <div>{this.displayDeleteStudentButton(this.props.student)}</div>
+        <div>{this.displayDeleteStudentButton(this.props.id)}</div>
 
         <div>{this.displayStudentWords(this.props.student)} </div>
         <br />
