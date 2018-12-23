@@ -190,24 +190,15 @@ def add_word():
     user_id = data.get('user_id')
     new_words = data.get('word')
     new_words = new_words.split()
+    print("new words", new_words)
     user_words = Word.query.filter_by(user_id=user_id).all()
-    duplicates = []
-    words_to_add = []
-    for word in user_words:
-        if word.word in new_words:
-            print(word.word, "already here!")
-            duplicates.append(word)
-        else:
-            words_to_add.append(word.word)
-    print(duplicates)
-    print(words_to_add)
-
-    for word in words_to_add:
+    print("user words", user_words)
+    for word in new_words:
         word = Word(word=word, user_id=user_id)
         db.session.add(word)
         db.session.commit()
 
-    return 'word added!'
+    return 'words added'
 
 
 @app.route("/api/delete-word", methods=['POST'])
