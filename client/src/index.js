@@ -13,7 +13,7 @@ import WordDetailContainer from "./containers/WordDetailContainer";
 import AddStudentFormContainer from "./containers/AddStudentFormContainer";
 import AddWordFormContainer from "./containers/AddWordFormContainer";
 import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
-import StudentTestResults from "./components/TestComponents/StudentTestResults";
+import StudentTestResultsContainer from "./containers/StudentTestResultsContainer";
 import Home from "./components/Home";
 import RegisterPage from "./components/UserComponents/RegisterPage";
 import Login from "./components/UserComponents/Forms/Login";
@@ -40,7 +40,10 @@ const AppRouter = () => (
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetailContainer} />
       <Route path="/word-detail/:id" component={WordDetailContainer} />
-      <Route path="/student-test-results/:id" component={StudentTestResults} />
+      <Route
+        path="/student-test-results/:id"
+        component={StudentTestResultsContainer}
+      />
     </div>
   </Router>
 );
