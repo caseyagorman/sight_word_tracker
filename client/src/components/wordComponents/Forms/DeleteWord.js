@@ -29,13 +29,11 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
-    console.log("delete word props", this.props);
     const userId = this.props.auth.user.userId;
     let deleteWord = {
       word: this.props.word[0].word,
       userId: userId
     };
-    console.log("deleteWord", deleteWord);
     this.props.wordActions.deleteWord(deleteWord);
   }
 

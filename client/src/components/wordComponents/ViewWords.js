@@ -28,7 +28,6 @@ class ViewWords extends React.Component {
     if (!words) {
       return <p>loading...</p>;
     }
-    console.log(words);
     return <WordBarChart data={words[1]} word_id={words[0]} />;
   }
 

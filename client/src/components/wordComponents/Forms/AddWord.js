@@ -12,7 +12,6 @@ class AddWord extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log("add word form container", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

@@ -7,7 +7,6 @@ import * as wordActions from "../../../redux/actions/wordActions";
 import DeleteWord from "../Forms/DeleteWord";
 class WordDetail extends React.Component {
   componentDidMount() {
-    console.log("Word detail", this.props);
     if (!this.props.id || !this.props.userId) {
       return <div> loading...</div>;
     }

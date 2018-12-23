@@ -11,7 +11,6 @@ export function receiveStudentTestResults(studentTestResults) {
 }
 
 export function fetchStudentTestResults(id, userId) {
-  console.log("fetchStudentTestResults", id, userId);
   let studentId = id;
   return dispatch => {
     return fetch(getStudentTestResultsApi(studentId), {

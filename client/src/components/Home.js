@@ -11,14 +11,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log(sessionStorage);
-    return (
-      <div>
-        <div>
-          <h1>Welcome {this.props.auth.user.username}</h1>
-        </div>
-      </div>
-    );
+    return <div />;
   }
 }
 

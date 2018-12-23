@@ -23,14 +23,10 @@ class RegisterUser extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
-    console.log(newUser);
-    // console.log("PROPS", this.props);
     this.props.registrationActions.registerUser(newUser);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(event.target.value);
-    console.log(this.state.username);
   }
 
   render() {

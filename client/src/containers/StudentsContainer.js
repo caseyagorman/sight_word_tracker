@@ -5,9 +5,7 @@ import * as authActions from "../redux/actions/authActions";
 import ViewStudents from "../components/StudentComponents/ViewStudents";
 class StudentsContainer extends Component {
   componentDidMount() {
-    console.log("students container", this.props);
     if (sessionStorage.length > 0) {
-      console.log("PROPS", this.props);
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

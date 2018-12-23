@@ -1,6 +1,5 @@
 import * as types from "./actionTypes";
 function getStudentsApi(user) {
-  console.log("making request", user);
   return "http://localhost:5000/api/students";
 }
 
@@ -9,7 +8,6 @@ export function receiveStudents(students) {
 }
 
 export function fetchStudents(user) {
-  console.log("fetching students", user);
   return dispatch => {
     return fetch(getStudentsApi(user), {
       method: "POST",

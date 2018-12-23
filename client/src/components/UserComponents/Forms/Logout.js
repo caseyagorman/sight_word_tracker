@@ -12,7 +12,6 @@ class Logout extends Component {
   handleLogout() {
     if (!this.props.auth.isAuthenticated) {
       sessionStorage.clear();
-      console.log(sessionStorage);
       this.props.history.push("/login/");
     }
   }

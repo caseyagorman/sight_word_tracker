@@ -5,7 +5,6 @@ function registerUserApi() {
 }
 
 export function registerUser(user) {
-  console.log("USER", user);
   return dispatch => {
     return fetch(registerUserApi(), {
       method: "POST",

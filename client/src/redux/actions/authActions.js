@@ -12,7 +12,6 @@ export function checkUser(auth) {
 }
 
 export function logoutUser(auth) {
-  console.log("logout action", auth);
   sessionStorage.clear();
   return { type: types.LOGOUT_USER, auth: auth };
 }

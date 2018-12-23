@@ -5,7 +5,6 @@ import * as authActions from "../redux/actions/authActions";
 import WordDetail from "../components/WordComponents/WordDetail/WordDetail";
 class WordDetailContainer extends Component {
   componentDidMount() {
-    console.log("auth props", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -15,7 +14,6 @@ class WordDetailContainer extends Component {
   }
 
   displayWord() {
-    console.log("auth props inside", this.props);
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }

@@ -12,7 +12,6 @@ class Login extends Component {
   }
   componentWillReceiveProps(newProps) {
     if (newProps.auth.loginErrors === "") {
-      console.log("newProps", newProps);
     }
 
     if (newProps.auth.isAuthenticated) {

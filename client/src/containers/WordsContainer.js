@@ -5,7 +5,6 @@ import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
 class Words extends Component {
   componentDidMount() {
-    console.log("Words container");
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

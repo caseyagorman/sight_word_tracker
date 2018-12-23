@@ -6,7 +6,6 @@ import TestStudent from "../components/StudentComponents/TestStudent/TestStudent
 class TestStudentContainer extends Component {
   componentDidMount() {
     if (sessionStorage.length > 0) {
-      console.log("PROPS", this.props);
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

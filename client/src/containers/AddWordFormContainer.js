@@ -5,7 +5,6 @@ import * as authActions from "../redux/actions/authActions";
 import AddWord from "../components/WordComponents/Forms/AddWord";
 class AddWordFormContainer extends Component {
   componentDidMount() {
-    console.log("add word form container", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

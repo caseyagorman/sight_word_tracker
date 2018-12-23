@@ -5,7 +5,6 @@ import * as authActions from "../redux/actions/authActions";
 import AddStudent from "../components/StudentComponents/Forms/AddStudent";
 class AddStudentFormContainer extends Component {
   componentDidMount() {
-    console.log("add student form container", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

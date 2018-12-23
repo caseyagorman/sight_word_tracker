@@ -10,7 +10,6 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    console.log("view students", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.userId;
       this.props.studentsActions.fetchStudents(user);
@@ -20,7 +19,6 @@ class ViewStudents extends React.Component {
     if (!students) {
       return <p>Loading student...</p>;
     }
-    console.log("student props", this.props);
     return students.map(student => Student(student));
   }
 

@@ -15,10 +15,6 @@ class StudentWordsTestPage extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log("student words test page", this.props);
-  }
-
   displayWord(words) {
     if (!words) {
       this.createTestObject();
