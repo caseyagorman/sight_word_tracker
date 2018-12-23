@@ -191,12 +191,25 @@ def add_word():
     new_words = data.get('word')
     new_words = new_words.split()
     print("new words", new_words)
+    word_dict = {}
     user_words = Word.query.filter_by(user_id=user_id).all()
-    print("user words", user_words)
+    for word in user_words:
+        print(word.word)
+        if word.word not in word_dict.keys():
+            word_dict[word.word] = 1
+        else:
+            word_dict[word.word] += 1
+    print("word_dict", word_dict)
     for word in new_words:
-        word = Word(word=word, user_id=user_id)
-        db.session.add(word)
-        db.session.commit()
+        if word in word_dict.keys():
+            print(word, "word already in database")
+            continue
+        if word not in word_dict.keys():
+            print(word, "going to add")
+
+            word = Word(word=word, user_id=user_id)
+            db.session.add(word)
+            db.session.commit()
 
     return 'words added'
 
