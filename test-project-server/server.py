@@ -380,9 +380,9 @@ def get_all_learned_words():
     return jsonify(result)
 
 
-def get_word_counts(student_id):
+def get_word_counts(student_id, user_id):
     word_counts = StudentWord.query.filter_by(
-        student_id=student_id).options(db.joinedload('words')).all()
+        student_id=student_id, user_id=user_id).options(db.joinedload('words')).all()
     words = []
     for student_word in word_counts:
         count = {
@@ -395,9 +395,9 @@ def get_word_counts(student_id):
     return words
 
 
-def get_percentage_of_words_learned(student_id):
+def get_percentage_of_words_learned(student_id, user_id):
 
-    word_counts = get_word_counts(student_id)
+    word_counts = get_word_counts(student_id, user_id)
     correct_words = []
     incorrect_words = []
     correct_count = 0
@@ -416,9 +416,9 @@ def get_percentage_of_words_learned(student_id):
     return count_data
 
 
-def get_student_chart_data(student_id):
+def get_student_chart_data(student_id, user_id):
 
-    word_counts = get_word_counts(student_id)
+    word_counts = get_word_counts(student_id, user_id)
     correct_words = []
     incorrect_words = []
     learning_words = []
@@ -489,13 +489,16 @@ def create_student_test():
 
 
 @cross_origin()
-@app.route("/api/get-student-test/<student>")
+@app.route("/api/get-student-test/<student>", methods=["POST"])
 def get_student_test(student):
-    word_count_data = get_percentage_of_words_learned(student)
-    word_counts = get_word_counts(student)
-    chart_data = get_student_chart_data(student)
+    print(student)
+    user_id = request.get_json()
+    print(user_id)
+    word_count_data = get_percentage_of_words_learned(student, user_id)
+    word_counts = get_word_counts(student, user_id)
+    chart_data = get_student_chart_data(student, user_id)
     student_test = StudentTestResult.query.filter_by(
-        student_id=student).all()
+        student_id=student, user_id=user_id).all()
     student_test_list = []
     for student in student_test:
         test_date = student.test_date.strftime('%m-%d-%Y')

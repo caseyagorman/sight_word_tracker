@@ -122,6 +122,8 @@ class StudentTestResult(db.Model):
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
+    user_id = db.Column(db.String(64), db.ForeignKey(
+        'users.user_id'), nullable=False)
     score = db.Column(db.Float)
     wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True,
@@ -133,6 +135,8 @@ class StudentTestResult(db.Model):
 
     students = db.relationship(
         'Student', cascade="save-update, merge, delete")
+    sers = db.relationship(
+        'User')
 
     def __repr__(self):
         return f"<StudentTest student_test_id={self.student_test_id}>"

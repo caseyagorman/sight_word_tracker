@@ -13,8 +13,8 @@ class StudentTestResults extends React.Component {
     console.log(this.props);
     const userId = this.props.userId;
     const id = this.props.id;
-    this.props.studentTestResultsActions.fetchStudentTestResults(id);
-    this.props.studentActions.fetchStudent(id);
+    this.props.studentTestResultsActions.fetchStudentTestResults(id, userId);
+    // this.props.studentActions.fetchStudent(id);
   }
 
   // viewStudentTestResults(studentTestResults) {

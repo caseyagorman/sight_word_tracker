@@ -10,16 +10,18 @@ export function receiveStudentTestResults(studentTestResults) {
   };
 }
 
-export function fetchStudentTestResults(id) {
-  let studentId = id.id;
+export function fetchStudentTestResults(id, userId) {
+  console.log("fetchStudentTestResults", id, userId);
+  let studentId = id;
   return dispatch => {
     return fetch(getStudentTestResultsApi(studentId), {
-      method: "GET",
+      method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(userId)
     })
       .then(response => response.json())
       .then(studentTestResults =>
