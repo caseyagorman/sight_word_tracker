@@ -12,7 +12,7 @@ import StudentDetailContainer from "./containers/StudentDetailContainer";
 import WordDetailContainer from "./containers/WordDetailContainer";
 import AddStudentFormContainer from "./containers/AddStudentFormContainer";
 import AddWordFormContainer from "./containers/AddWordFormContainer";
-import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
+import TestStudent from "./components/StudentComponents/TestStudent/TestStudent";
 import StudentTestResultsContainer from "./containers/StudentTestResultsContainer";
 import Home from "./components/Home";
 import RegisterPage from "./components/UserComponents/RegisterPage";

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import AddStudent from "../components/studentComponents/Forms/AddStudent";
+import AddStudent from "../components/StudentComponents/Forms/AddStudent";
 class AddStudentFormContainer extends Component {
   componentDidMount() {
     console.log("add student form container", this.props);

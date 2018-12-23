@@ -5,9 +5,9 @@ import * as studentActions from "../../../redux/actions/studentActions";
 import StudentPage from "./StudentPage";
 import StudentWordsPage from "./StudentWordsPage";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
-import TestStudentLink from "../StudentTest/TestStudentLink";
+import TestStudentLink from "../TestStudent/TestStudentLink";
 import DeleteStudent from "../Forms/DeleteStudent";
-import StudentTestResultsLink from "../../TestComponents/StudentTestResultsLink";
+import StudentTestResultsLink from "../../StudentTestResultsComponents/StudentTestResultsLink";
 
 class StudentDetail extends React.Component {
   componentDidMount() {

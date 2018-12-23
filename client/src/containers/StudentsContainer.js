@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import ViewStudents from "../components/studentComponents/ViewStudents";
-class Students extends Component {
+import ViewStudents from "../components/StudentComponents/ViewStudents";
+class StudentsContainer extends Component {
   componentDidMount() {
+    console.log("students container", this.props);
     if (sessionStorage.length > 0) {
       console.log("PROPS", this.props);
       this.props.authActions.checkUser(sessionStorage);
@@ -48,4 +49,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Students);
+)(StudentsContainer);

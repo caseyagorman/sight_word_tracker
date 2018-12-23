@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import ViewWords from "../components/WordComponents/ViewWords";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-class Words extends Component {
+import StudentTestResults from "../components/StudentTestResultsComponents/StudentTestResults";
+class StudentTestResultsContainer extends Component {
   componentDidMount() {
-    console.log("Words container");
     if (sessionStorage.length > 0) {
+      console.log("PROPS", this.props);
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");
@@ -14,22 +14,23 @@ class Words extends Component {
     }
   }
 
-  displayWords() {
+  displayStudentTestResults() {
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }
     return (
       <div>
-        <ViewWords
+        <StudentTestResults
           userId={this.props.auth.user.userId}
           username={this.props.auth.user.username}
+          id={this.props.match.params.id}
         />
       </div>
     );
   }
 
   render() {
-    return <div>{this.displayWords()}</div>;
+    return <div>{this.displayStudentTestResults()}</div>;
   }
 }
 
@@ -47,4 +48,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Words);
+)(StudentTestResultsContainer);

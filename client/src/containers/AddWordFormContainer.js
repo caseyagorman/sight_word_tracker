@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import AddWord from "../components/wordComponents/Forms/AddWord";
+import AddWord from "../components/WordComponents/Forms/AddWord";
 class AddWordFormContainer extends Component {
   componentDidMount() {
     console.log("add word form container", this.props);

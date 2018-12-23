@@ -1,7 +1,7 @@
 import React from "react";
 import ViewStudentTestResults from "./ViewStudentTestResults";
-import Student from "../studentComponents/StudentDetail/Student";
-import StudentPage from "../studentComponents/StudentDetail/StudentPage";
+import Student from "../StudentComponents/StudentDetail/Student";
+import StudentPage from "../StudentComponents/StudentDetail/StudentPage";
 import WordCounts from "./WordCounts";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";

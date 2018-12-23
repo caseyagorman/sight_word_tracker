@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import WordDetail from "../components/wordComponents/WordDetail/WordDetail";
+import WordDetail from "../components/WordComponents/WordDetail/WordDetail";
 class WordDetailContainer extends Component {
   componentDidMount() {
     console.log("auth props", this.props);

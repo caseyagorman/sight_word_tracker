@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import StudentDetail from "../components/studentComponents/StudentDetail/StudentDetail";
+import StudentDetail from "../components/StudentComponents/StudentDetail/StudentDetail";
 class StudentDetailContainer extends Component {
   componentDidMount() {
     console.log("student detail container", this.props);
