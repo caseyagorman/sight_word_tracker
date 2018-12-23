@@ -190,22 +190,17 @@ def add_word():
     user_id = data.get('user_id')
     new_words = data.get('word')
     new_words = new_words.split()
-    print("new words", new_words)
     word_dict = {}
     user_words = Word.query.filter_by(user_id=user_id).all()
     for word in user_words:
-        print(word.word)
         if word.word not in word_dict.keys():
             word_dict[word.word] = 1
         else:
             word_dict[word.word] += 1
-    print("word_dict", word_dict)
     for word in new_words:
         if word in word_dict.keys():
-            print(word, "word already in database")
             continue
         if word not in word_dict.keys():
-            print(word, "going to add")
 
             word = Word(word=word, user_id=user_id)
             db.session.add(word)
@@ -231,24 +226,20 @@ def delete_word():
 @app.route('/api/add-word-to-student', methods=['POST'])
 @cross_origin()
 def add_word_to_student():
+    print("adding word to students")
     data = request.get_json()
-    fname = data.get('fname')
-    lname = data.get('lname')
+    print("data", data)
+    student_id = data.get("studentId")
     words = data.get('words')
-    student = Student.query.filter_by(fname=fname, lname=lname).first()
-    word_list = Word.query.filter(Word.word.in_(words)).all()
+    user_id = data.get('userId')
+    word_list = Word.query.filter(
+        (Word.word.in_(words))).filter(Word.user_id == user_id).all()
     word_ids = []
     for word in word_list:
         word_ids.append(word.word_id)
-    student_word_list = StudentWord.query.options(db.joinedload('students')).filter(
-        Student.student_id == student.student_id).filter(
-        StudentWord.word_id.in_(word_ids)).all()
-    for word in student_word_list:
-        if word.students.student_id == student.student_id:
-            return "already in database"
-    for word in word_list:
+    for word_id in word_ids:
         new_student_word = StudentWord(
-            word_id=word.word_id, student_id=student.student_id)
+            word_id=word_id, student_id=student_id, user_id=user_id)
         db.session.add(new_student_word)
         db.session.commit()
 

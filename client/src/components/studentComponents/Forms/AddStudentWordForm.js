@@ -22,9 +22,9 @@ class AddStudentWordForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let newStudentWords = {
-      fname: this.props.student[0].fname,
-      lname: this.props.student[0].lname,
-      words: this.state.value
+      studentId: this.props.student[0].student_id,
+      words: this.state.value,
+      userId: this.props.auth.user.userId
     };
     this.props.studentWordsActions.addStudentWords(newStudentWords);
   }

@@ -12,6 +12,7 @@ export const FETCH_WORD = "FETCH_WORD";
 export const ADD_WORD = "ADD_WORD";
 export const RECEIVE_WORD = "RECEIVE_WORD";
 export const DELETE_WORD = "DELETE_WORD";
+export const WORD_ERROR = "WORD_ERROR";
 export const FETCH_UNKNOWN_WORDS = "FETCH_UNKNOWN_WORDS";
 export const RECEIVE_UNKNOWN_WORDS = "RECEIVE_UNKNOWN_WORDS";
 export const ADD_STUDENT_WORDS = "ADD_STUDENT_WORDS";

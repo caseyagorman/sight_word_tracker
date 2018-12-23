@@ -11,6 +11,6 @@ export default {
   auth: {
     user: "",
     isAuthenticated: false,
-    loginErrors: ""
+    loginError: ""
   }
 };
