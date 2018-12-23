@@ -13,4 +13,4 @@ createdb students
 createdb studenttestresults
 createdb studentwords
 
-start-server.sh
+# start-server.sh

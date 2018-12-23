@@ -1,23 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-  }
-  checkAuthentication(user) {
-    if (!user.isAuthenticated) {
+  componentDidMount() {
+    if (!this.props.auth.isAuthenticated) {
       alert("Please login");
       return this.props.history.push("/login");
     } else {
-      return <h1>Welcome {user.user.username}</h1>;
+      return <h1>Welcome {this.props.auth.user.username}</h1>;
     }
   }
+
   render() {
     console.log(sessionStorage);
     return (
       <div>
-        <div>{this.checkAuthentication(this.props.auth)}</div>
+        <div>
+          <h1>Welcome {this.props.auth.user.username}</h1>
+        </div>
       </div>
     );
   }

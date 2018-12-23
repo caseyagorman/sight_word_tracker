@@ -10,25 +10,22 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  componentWillReceiveProps(newProps) {
+    if (newProps.auth.loginErrors.error) {
+      alert(newProps.auth.loginErrors.error);
+      newProps.history.push("/register/");
+    }
+    if (newProps.auth.isAuthenticated) {
+      this.updateInput("userId", newProps.auth.user.userId);
+      this.updateInput("username", newProps.auth.user.username);
+      this.props.history.push("/");
+    }
+  }
 
   updateInput(key, value) {
     sessionStorage.setItem(key, value);
-    this.props.history.push("/");
   }
 
-  handleLogin() {
-    if (this.props.auth.loginErrors.error) {
-      alert(this.props.auth.loginErrors.error);
-      this.props.history.push("/register/");
-    }
-    if (!this.props.auth.isAuthenticated) {
-      return <div />;
-    }
-    if (this.props.auth.isAuthenticated) {
-      this.updateInput("userId", this.props.auth.user.userId);
-      this.updateInput("username", this.props.auth.user.username);
-    }
-  }
   handleSubmit(event) {
     event.preventDefault();
     let user = {
@@ -37,12 +34,6 @@ class Login extends Component {
     };
 
     this.props.authActions.loginUser(user);
-  }
-  handleGetUser() {
-    if (!this.props.auth) {
-    }
-    if (this.props.auth) {
-    }
   }
 
   handleChange(event) {
@@ -75,10 +66,8 @@ class Login extends Component {
           <div>
             <br />
           </div>
-          <button className="btn btn-primary btn-lg">Register</button>
+          <button className="btn btn-primary btn-lg">Login</button>
         </form>
-        <div>{this.handleGetUser()}</div>
-        <div>{this.handleLogin()}</div>
       </div>
     );
   }

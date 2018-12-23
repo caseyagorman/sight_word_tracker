@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "./UserComponents/Forms/Logout";
 const divStyle = {
   display: "inline"
 };
@@ -14,6 +15,9 @@ const AppNav = () => {
       </div>
       <div style={divStyle}>
         <Link to="/words/">Words |</Link>
+      </div>
+      <div style={divStyle}>
+        <Logout />
       </div>
     </nav>
   );

@@ -157,12 +157,15 @@ def get_words():
     return jsonify([word_list, chart_words])
 
 
-@app.route("/api/unknown-words/<student>")
+@app.route("/api/unknown-words/<student>", methods=['POST'])
 @cross_origin()
-def get_unknown_words(student):
+def get_unknown_words(student,):
     print("student!", student)
+    user = request.get_json()
+    print(user)
     words = StudentWord.query.filter_by(
-        student_id=student).options(db.joinedload('words')).all()
+        student_id=student, user_id=user).options(db.joinedload('words')).all()
+    print(words)
     word_ids = []
     for word in words:
 

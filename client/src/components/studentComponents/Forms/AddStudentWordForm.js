@@ -13,10 +13,10 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
+    console.log("ADD STUDENT WORDS PROPS", this.props);
     const id = this.props.student[0].student_id;
-    this.props.unknownWordsActions.fetchUnknownWords({
-      id: id
-    });
+    const userId = this.props.auth.user.userId;
+    this.props.unknownWordsActions.fetchUnknownWords(id, userId);
   }
 
   handleSubmit(event) {
@@ -95,7 +95,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     unknownWords: state.unknownWords,
-    studentWords: state.studentWords
+    studentWords: state.studentWords,
+    auth: state.auth
   };
 }
 

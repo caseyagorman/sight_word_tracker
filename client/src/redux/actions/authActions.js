@@ -11,6 +11,12 @@ export function checkUser(auth) {
   return { type: types.SET_USER, auth: auth };
 }
 
+export function logoutUser(auth) {
+  console.log("logout action", auth);
+  sessionStorage.clear();
+  return { type: types.LOGOUT_USER, auth: auth };
+}
+
 export function clearErrors() {
   return { type: types.CLEAR_ERRORS };
 }

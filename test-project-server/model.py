@@ -19,6 +19,8 @@ class User(db.Model):
     students = db.relationship(
         'Student', cascade="save-update, merge, delete")
     words = db.relationship('Word', cascade="save-update, merge, delete")
+    studentwords = db.relationship(
+        'StudentWord', cascade="save-update, merge, delete")
 
     def __init__(self, username, email, password):
         print("I'm setting this thing")
@@ -93,6 +95,8 @@ class StudentWord(db.Model):
         'words.word_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
+    user_id = db.Column(db.String(64), db.ForeignKey(
+        'users.user_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
     correct_count = db.Column(db.Integer, default=0, nullable=True)
@@ -102,6 +106,8 @@ class StudentWord(db.Model):
         'Student')
     words = db.relationship(
         'Word')
+    users = db.relationship(
+        'User')
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"
