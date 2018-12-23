@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
+import * as authActions from "../../../redux/actions/authActions";
 
 class AddWord extends Component {
   constructor(props) {
@@ -11,10 +12,25 @@ class AddWord extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    console.log("add word", this.props);
+    // if (sessionStorage.length > 0) {
+    //   this.props.authActions.checkUser(sessionStorage);
+    // } else {
+    //   alert("Please log in");
+    //   this.props.history.push("/login");
+    // }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.word) {
+      this.props.history.push("/words");
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    const userId = this.props.auth.user.userId;
-    console.log("add word", userId);
+    const userId = this.props.userId;
     let newWord = {
       word: this.state.newWord,
       user_id: userId
@@ -52,7 +68,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordActions: bindActionCreators(wordActions, dispatch)
+    wordActions: bindActionCreators(wordActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
   };
 }
 

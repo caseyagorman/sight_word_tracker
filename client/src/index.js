@@ -11,7 +11,7 @@ import WordsContainer from "./containers/WordsContainer";
 import StudentDetailContainer from "./containers/StudentDetailContainer";
 import WordDetailContainer from "./containers/WordDetailContainer";
 import AddStudent from "./components/studentComponents/Forms/AddStudent";
-import AddWord from "./components/wordComponents/Forms/AddWord";
+import AddWordFormContainer from "./containers/AddWordFormContainer";
 import TestStudent from "./components/studentComponents/StudentTest/TestStudent";
 import StudentTestResults from "./components/TestComponents/StudentTestResults";
 import Home from "./components/Home";
@@ -35,7 +35,7 @@ const AppRouter = () => (
 
       <Route path="/students" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudent} />
-      <Route path="/add-word/" component={AddWord} />
+      <Route path="/add-word/" component={AddWordFormContainer} />
       <Route path="/test-student/:id" component={TestStudent} />
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetailContainer} />
