@@ -43,6 +43,7 @@ export function receiveStudent(student) {
 }
 
 export function fetchStudent(id, user) {
+  console.log(id, user);
   return dispatch => {
     return fetch(getStudentApi(id), {
       method: "POST",

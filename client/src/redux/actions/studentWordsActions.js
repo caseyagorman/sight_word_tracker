@@ -26,15 +26,16 @@ export function receiveStudentWords(studentWords) {
   return { type: types.RECEIVE_STUDENT_WORDS, studentWords: studentWords };
 }
 
-export function fetchStudentWords() {
+export function fetchStudentWords(user) {
   return dispatch => {
     return fetch(studentWordsApi(), {
-      method: "GET",
+      method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(user)
     })
       .then(response => response.json())
       .then(studentWords => dispatch(receiveStudentWords(studentWords)));

@@ -15,6 +15,10 @@ class StudentWordsTestPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+    console.log("student words test page", this.props);
+  }
+
   displayWord(words) {
     if (!words) {
       this.createTestObject();
@@ -26,7 +30,8 @@ class StudentWordsTestPage extends React.Component {
     let results = {
       student_id: this.props.student,
       correct_words: this.state.known_words,
-      incorrect_words: this.state.unknown_words
+      incorrect_words: this.state.unknown_words,
+      userId: this.props.userId
     };
     this.props.testActions.addTest(results);
   }

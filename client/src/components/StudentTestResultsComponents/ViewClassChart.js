@@ -4,10 +4,11 @@ import * as studentWordsActions from "../../redux/actions/studentWordsActions";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 
-class ViewStudentChart extends Component {
+class ViewClassChart extends Component {
   componentDidMount() {
-    console.log(this.props);
-    this.props.studentWordsActions.fetchStudentWords();
+    console.log("view class chart", this.props);
+    const user = this.props.user;
+    this.props.studentWordsActions.fetchStudentWords(user);
   }
 
   displayChart(studentWords) {
@@ -36,4 +37,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewStudentChart);
+)(ViewClassChart);

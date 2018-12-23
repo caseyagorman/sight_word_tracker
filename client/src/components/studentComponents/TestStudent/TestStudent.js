@@ -5,8 +5,9 @@ import * as studentActions from "../../../redux/actions/studentActions";
 import StudentWordsTestPage from "./StudentWordsTestPage";
 class TestStudent extends React.Component {
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.studentActions.fetchStudent({ id: id });
+    const id = this.props.id;
+    const userId = this.props.userId;
+    this.props.studentActions.fetchStudent(id, userId);
   }
 
   getWords(student) {
@@ -15,7 +16,11 @@ class TestStudent extends React.Component {
     }
     let words = this.turnIntoArray(student[1]);
     return (
-      <StudentWordsTestPage words={words} student={student[0].student_id} />
+      <StudentWordsTestPage
+        userId={this.props.userId}
+        words={words}
+        student={student[0].student_id}
+      />
     );
   }
 

@@ -366,9 +366,11 @@ def get_all_student_word_counts():
 
 
 @cross_origin()
-@app.route("/api/get-learned-words")
+@app.route("/api/get-learned-words", methods={"POST"})
 def get_all_learned_words():
-    student_words = StudentWord.query.all()
+    user_id = request.get_json()
+    print(user_id)
+    student_words = StudentWord.query.filter_by(user_id=user_id).all()
     learned_count = 0
     unlearned_count = 0
     for word in student_words:
@@ -476,13 +478,14 @@ def update_incorrect_words(student_id, incorrect_words):
 def create_student_test():
     data = request.get_json()
     student_id = data.get('student_id')
+    user_id = data.get('userId')
     correct_words = data.get('correct_words')
     incorrect_words = data.get('incorrect_words')
     score = calculate_score(correct_words, incorrect_words)
     update_correct_words(student_id, correct_words)
     update_incorrect_words(student_id, incorrect_words)
     db.session.add(
-        StudentTestResult(student_id=student_id, score=score,
+        StudentTestResult(student_id=student_id, user_id=user_id, score=score,
                           correct_words=correct_words, incorrect_words=incorrect_words))
     db.session.commit()
     return 'wooo'

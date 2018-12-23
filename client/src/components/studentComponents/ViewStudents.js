@@ -10,6 +10,7 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
+    console.log("view students", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.userId;
       this.props.studentsActions.fetchStudents(user);
@@ -36,7 +37,7 @@ class ViewStudents extends React.Component {
         </div>
         <div>{this.displayStudents(this.props.students)}</div>
         <div>
-          <ViewClassChart />
+          <ViewClassChart user={this.props.userId} />
         </div>
       </div>
     );
