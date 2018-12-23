@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
+import * as authActions from "../../../redux/actions/authActions";
 
 class AddStudent extends Component {
   constructor(props) {
@@ -10,19 +11,24 @@ class AddStudent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
   componentDidMount() {
-    console.log(this.props);
+    console.log("add student form", this.props);
+    if (sessionStorage.length > 0) {
+      this.props.authActions.checkUser(sessionStorage);
+    } else {
+      alert("Please log in");
+      this.props.history.push("/login");
+    }
   }
-
   handleSubmit(event) {
     event.preventDefault();
+    const userId = this.props.userId;
     let newStudent = {
       fname: this.state.fname,
       lname: this.state.lname,
-      userId: this.props.auth.user.userId
+      userId: userId
     };
-    console.log(newStudent);
+
     this.props.studentActions.addStudent(newStudent);
   }
   handleChange(event) {
@@ -62,7 +68,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentActions: bindActionCreators(studentActions, dispatch)
+    studentActions: bindActionCreators(studentActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
   };
 }
 

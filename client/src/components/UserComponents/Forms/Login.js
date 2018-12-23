@@ -11,14 +11,17 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillReceiveProps(newProps) {
-    if (newProps.auth.loginErrors.error) {
-      alert(newProps.auth.loginErrors.error);
-      newProps.history.push("/register/");
+    if (newProps.auth.loginErrors === "") {
+      console.log("newProps", newProps);
     }
+
     if (newProps.auth.isAuthenticated) {
       this.updateInput("userId", newProps.auth.user.userId);
       this.updateInput("username", newProps.auth.user.username);
       this.props.history.push("/");
+    } else if (newProps.auth.loginErrors.error) {
+      alert(newProps.auth.loginErrors.error);
+      newProps.history.push("/register/");
     }
   }
 

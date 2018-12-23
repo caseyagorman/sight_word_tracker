@@ -11,22 +11,15 @@ class AddWord extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
   componentDidMount() {
-    console.log("add word", this.props);
-    // if (sessionStorage.length > 0) {
-    //   this.props.authActions.checkUser(sessionStorage);
-    // } else {
-    //   alert("Please log in");
-    //   this.props.history.push("/login");
-    // }
+    console.log("add word form container", this.props);
+    if (sessionStorage.length > 0) {
+      this.props.authActions.checkUser(sessionStorage);
+    } else {
+      alert("Please log in");
+      this.props.history.push("/login");
+    }
   }
-
-  // componentWillReceiveProps(newProps) {
-  //   if (newProps.word) {
-  //     this.props.history.push("/words");
-  //   }
-  // }
 
   handleSubmit(event) {
     event.preventDefault();
