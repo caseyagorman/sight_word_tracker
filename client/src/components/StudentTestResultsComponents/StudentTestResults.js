@@ -25,21 +25,6 @@ class StudentTestResults extends React.Component {
     return testResults.map(testResults => ViewStudentTestResults(testResults));
   }
 
-  // displayStudentPage(student) {
-  //   if (!student) {
-  //     return <p>loading...</p>;
-  //   }
-  //   return StudentPage(student);
-  // }
-
-  displayStudentLink(student) {
-    if (!student) {
-      return <p>loading...</p>;
-    }
-
-    return Student(student[0]);
-  }
-
   displayChart(studentTest) {
     if (!studentTest) {
       return <p>loading...</p>;

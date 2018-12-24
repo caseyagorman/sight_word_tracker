@@ -15,3 +15,4 @@ PyJWT==1.7.1
 flask-jwt-extended==3.14.0
 passlib==1.7.1
 flask-login==0.4.1
+Flask-JWT==0.3.2

@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
+import { Grid, Col, Row, Glyphicon } from "react-bootstrap";
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
@@ -13,15 +14,9 @@ class DeleteStudent extends Component {
 
   getOptions() {
     return (
-      <div>
-        <form>
-          <label>
-            <button className="btn btn-danger btn-sm" onClick={this.submit}>
-              Delete
-            </button>
-          </label>
-        </form>
-      </div>
+      <form>
+        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
+      </form>
     );
   }
 
