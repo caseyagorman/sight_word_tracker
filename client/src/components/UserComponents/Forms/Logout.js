@@ -4,9 +4,10 @@ import { bindActionCreators } from "redux";
 import * as authActions from "../../../redux/actions/authActions";
 
 class Logout extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  componentDidMount() {
+    const user = this.props.auth.user.userId;
+    this.props.authActions.logoutUser(user);
+    this.handleLogout();
   }
 
   handleLogout() {
@@ -16,22 +17,8 @@ class Logout extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const user = this.props.auth.user.userId;
-    this.props.authActions.logoutUser(user);
-    this.handleLogout();
-  }
-
   render() {
-    return (
-      <div>
-        <div className="form-group" />
-        <form onSubmit={this.handleSubmit}>
-          <button className="btn btn-danger btn-sm">Logout</button>
-        </form>
-      </div>
-    );
+    return <div />;
   }
 }
 

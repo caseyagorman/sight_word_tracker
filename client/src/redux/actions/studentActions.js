@@ -20,7 +20,9 @@ export function addStudent(student) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(student)
-    }).then(response => console.log(response));
+    })
+      .then(response => console.log(response))
+      .then(() => history.push("/students"));
   };
 }
 

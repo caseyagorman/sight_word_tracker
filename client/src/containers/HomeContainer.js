@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
 import Home from "../components/Home";
-class AddStudentFormContainer extends Component {
+class HomeContainer extends Component {
   componentDidMount() {
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
@@ -46,4 +46,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(HomeContainer);

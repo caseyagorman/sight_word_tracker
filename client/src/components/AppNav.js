@@ -8,7 +8,7 @@ const AppNav = () => {
     <Navbar inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/Home">Sight Word Tracker</a>
+          <a href="/">Sight Word Tracker</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
