@@ -17,6 +17,7 @@ class ViewWords extends React.Component {
   }
 
   displayWords(words) {
+    console.log(this.props, words);
     if (!words) {
       return <p>Loading words...</p>;
     }

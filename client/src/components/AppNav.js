@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Logout from "./UserComponents/Forms/Logout";
-import { Navbar, NavItem, Nav, MenuItem, NavDropdown } from "react-bootstrap";
+import { Navbar, NavItem, Nav } from "react-bootstrap";
 
 const AppNav = () => {
   return (

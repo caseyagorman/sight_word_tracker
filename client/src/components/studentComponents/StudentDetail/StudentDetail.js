@@ -79,7 +79,6 @@ class StudentDetail extends React.Component {
     if (!studentId) {
       return <div>loading...</div>;
     }
-    console.log("display delete button", studentId);
     return <DeleteStudentFormContainer studentId={studentId} />;
   }
   render() {

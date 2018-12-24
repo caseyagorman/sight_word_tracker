@@ -2,7 +2,7 @@ import React from "react";
 import ViewStudentTestResults from "./ViewStudentTestResults";
 import Student from "../StudentComponents/StudentDetail/Student";
 import StudentPage from "../StudentComponents/StudentDetail/StudentPage";
-import WordCounts from "./WordCounts";
+import DisplayWordCounts from "./DisplayWordCounts";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -21,22 +21,23 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let testResults = studentTestResults[0];
+
     return testResults.map(testResults => ViewStudentTestResults(testResults));
   }
 
-  // displayStudentPage(student) {
-  //   if (!student) {
-  //     return <p>loading...</p>;
-  //   }
-  //   return StudentPage(student);
-  // }
+  displayStudentPage(student) {
+    if (!student) {
+      return <p>loading...</p>;
+    }
+    return StudentPage(student);
+  }
 
-  // displayStudentLink(student) {
-  //   if (!student) {
-  //     return <p>loading...</p>;
-  //   }
-  //   return Student(student[0]);
-  // }
+  displayStudentLink(student) {
+    if (!student) {
+      return <p>loading...</p>;
+    }
+    return Student(student[0]);
+  }
 
   displayChart(studentTest) {
     if (!studentTest) {
@@ -47,21 +48,22 @@ class StudentTestResults extends React.Component {
     return <StudentDoughnutChart data={test} />;
   }
 
-  // getWordCounts(studentTest) {
-  //   if (!studentTest) {
-  //     return <p>loading...</p>;
-  //   }
-  //   let test = studentTest[1];
-  //   return test.map(test => WordCounts(test));
-  // }
+  getWordCounts(studentTest) {
+    if (!studentTest) {
+      return <p>loading...</p>;
+    }
+    console.log("get word counts", studentTest);
+    let test = studentTest[1];
+    return <DisplayWordCounts test={test} />;
+  }
   render() {
     return (
       <div>
         <br />
-        {/* <div>{this.displayStudentPage(this.props.student)}</div> */}
-        {/* <div>{this.displayStudentLink(this.props.student)}</div> */}
-        {/* <div>{this.getWordCounts(this.props.studentTestResults)}</div> */}
-        <div>{this.displayChart(this.props.studentTestResults)}</div>
+        <div>{this.displayStudentPage(this.props.student)}</div>
+        <div>{this.displayStudentLink(this.props.student)}</div>
+        <div>{this.getWordCounts(this.props.studentTestResults)}</div>
+        {/* <div>{this.displayChart(this.props.studentTestResults)}</div> */}
         <div>{this.viewStudentTestResults(this.props.studentTestResults)}</div>
       </div>
     );

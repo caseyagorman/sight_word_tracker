@@ -1,9 +1,23 @@
 import React from "react";
+import { Table } from "react-bootstrap";
 const WordCounts = props => {
   return (
-    <div>
-      |{props.word} |+ {props.correct_count}|- {props.incorrect_count}|
-    </div>
+    <Table striped bordered condensed hover>
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Correct Count</th>
+          <th>Incorrect Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{props.word}</td>
+          <td>{props.correct_count}</td>
+          <td>{props.incorrect_count}</td>
+        </tr>
+      </tbody>
+    </Table>
   );
 };
 

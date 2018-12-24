@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-
+import history from "../../history";
 function studentWordsApi() {
   return "http://localhost:5000/api/get-learned-words";
 }
@@ -19,6 +19,7 @@ export function addStudentWords(studentWords) {
       },
       body: JSON.stringify(studentWords)
     }).then(response => console.log(response));
+    // .then(() => history.push("/students"))
   };
 }
 
