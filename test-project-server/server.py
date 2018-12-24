@@ -186,7 +186,9 @@ def get_unknown_words(student,):
 @cross_origin()
 def add_word():
     data = request.get_json()
+    print(data)
     user_id = data.get('user_id')
+    print(user_id)
     new_words = data.get('word')
     new_words = new_words.split()
     word_dict = {}
@@ -197,10 +199,16 @@ def add_word():
         else:
             word_dict[word.word] += 1
     for word in new_words:
-        if word in word_dict.keys():
-            continue
-        if word not in word_dict.keys():
+        user_id = user_id
 
+        if word in word_dict.keys():
+            user_id = user_id
+            continue
+        user_id = user_id
+        if word not in word_dict.keys():
+            print("cool!")
+            user_id = user_id
+            print(word, user_id)
             word = Word(word=word, user_id=user_id)
             db.session.add(word)
             db.session.commit()

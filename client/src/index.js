@@ -14,9 +14,10 @@ import AddStudentFormContainer from "./containers/AddStudentFormContainer";
 import AddWordFormContainer from "./containers/AddWordFormContainer";
 import TestStudentContainer from "./containers/TestStudentContainer";
 import StudentTestResultsContainer from "./containers/StudentTestResultsContainer";
-import Home from "./components/Home";
+import HomeContainer from "./containers/HomeContainer";
 import RegisterPage from "./components/UserComponents/RegisterPage";
 import Login from "./components/UserComponents/Forms/Login";
+import Logout from "./components/UserComponents/Forms/Logout";
 import history from "./history";
 // redux imports
 import { Provider } from "react-redux";
@@ -31,7 +32,8 @@ const AppRouter = () => (
       <AppNav />
       <Route path="/register" component={RegisterPage} />
       <Route path="/login/" component={Login} />
-      <Route path="//" component={Home} />
+      <Route path="//" component={HomeContainer} />
+      <Route path="/logout/" component={Logout} />
 
       <Route path="/students" component={StudentsContainer} />
       <Route path="/add-student/" component={AddStudentFormContainer} />

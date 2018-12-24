@@ -1,25 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logout from "./UserComponents/Forms/Logout";
-const divStyle = {
-  display: "inline"
-};
+import { Navbar, NavItem, Nav, MenuItem, NavDropdown } from "react-bootstrap";
+
 const AppNav = () => {
   return (
-    <nav>
-      <div style={divStyle}>
-        <Link to="/">Home |</Link>
-      </div>
-      <div style={divStyle}>
-        <Link to="/students/">Students |</Link>
-      </div>
-      <div style={divStyle}>
-        <Link to="/words/">Words |</Link>
-      </div>
-      <div style={divStyle}>
-        <Logout />
-      </div>
-    </nav>
+    <Navbar inverse collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="/Home">Sight Word Tracker</a>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+          <NavItem eventKey={1} href="/students/">
+            Students
+          </NavItem>
+          <NavItem eventKey={2} href="/words/">
+            Words
+          </NavItem>
+        </Nav>
+        <Nav pullRight>
+          <NavItem eventKey={1} href="/logout/">
+            Logout
+          </NavItem>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
