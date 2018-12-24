@@ -5,6 +5,7 @@ import * as authActions from "../redux/actions/authActions";
 import StudentTestResults from "../components/StudentTestResultsComponents/StudentTestResults";
 class StudentTestResultsContainer extends Component {
   componentDidMount() {
+    console.log(this.props, "studentest results container");
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -22,7 +23,7 @@ class StudentTestResultsContainer extends Component {
         <StudentTestResults
           userId={this.props.auth.user.userId}
           username={this.props.auth.user.username}
-          id={this.props.match.params.id}
+          id={this.props.id}
         />
       </div>
     );

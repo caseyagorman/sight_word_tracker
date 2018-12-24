@@ -29,7 +29,6 @@ class DisplayWordCounts extends Component {
     return (
       <div>
         <div>{this.displayTableHead(this.props.test)}</div>
-        <div>{this.displayTableRows(this.props.test)}</div>
       </div>
     );
   }

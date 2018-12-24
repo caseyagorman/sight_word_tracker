@@ -25,17 +25,18 @@ class StudentTestResults extends React.Component {
     return testResults.map(testResults => ViewStudentTestResults(testResults));
   }
 
-  displayStudentPage(student) {
-    if (!student) {
-      return <p>loading...</p>;
-    }
-    return StudentPage(student);
-  }
+  // displayStudentPage(student) {
+  //   if (!student) {
+  //     return <p>loading...</p>;
+  //   }
+  //   return StudentPage(student);
+  // }
 
   displayStudentLink(student) {
     if (!student) {
       return <p>loading...</p>;
     }
+
     return Student(student[0]);
   }
 
@@ -60,10 +61,7 @@ class StudentTestResults extends React.Component {
     return (
       <div>
         <br />
-        <div>{this.displayStudentPage(this.props.student)}</div>
-        <div>{this.displayStudentLink(this.props.student)}</div>
         <div>{this.getWordCounts(this.props.studentTestResults)}</div>
-        {/* <div>{this.displayChart(this.props.studentTestResults)}</div> */}
         <div>{this.viewStudentTestResults(this.props.studentTestResults)}</div>
       </div>
     );

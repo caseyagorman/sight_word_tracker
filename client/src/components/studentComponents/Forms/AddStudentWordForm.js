@@ -72,7 +72,9 @@ class AddStudentWordForm extends Component {
           </label>
           <div>
             <br />
-            <button type="submit"> Submit</button>
+            <button className="btn btn-primary btn-md" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </div>

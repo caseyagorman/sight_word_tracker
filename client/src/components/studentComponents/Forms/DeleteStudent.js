@@ -16,7 +16,9 @@ class DeleteStudent extends Component {
       <div>
         <form>
           <label>
-            <button onClick={this.submit}>Delete</button>
+            <button className="btn btn-danger btn-sm" onClick={this.submit}>
+              Delete
+            </button>
           </label>
         </form>
       </div>

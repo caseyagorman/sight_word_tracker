@@ -8,7 +8,7 @@ import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
 import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import StudentTestResultsLink from "../../StudentTestResultsComponents/StudentTestResultsLink";
-
+import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
 class StudentDetail extends React.Component {
   componentDidMount() {
     console.log("student detail", this.props);
@@ -84,17 +84,20 @@ class StudentDetail extends React.Component {
   render() {
     return (
       <div>
-        <div>{this.displayStudent(this.props.student)} </div>
+        <div>
+          {this.displayStudent(this.props.student)}{" "}
+          {this.displayDeleteStudentButton(this.props.id)}
+        </div>
 
-        <div>{this.displayDeleteStudentButton(this.props.id)}</div>
+        {/* <div>{this.displayDeleteStudentButton(this.props.id)}</div> */}
 
         <div>{this.displayStudentWords(this.props.student)} </div>
         <br />
         <div>{this.getStudentTestLink(this.props.student)}</div>
         <br />
-        <div>{this.getStudentTestResultsLink(this.props.student)}</div>
         <br />
         <div>{this.displayAddWordForm(this.props.student)}</div>
+        <StudentTestResultsContainer id={this.props.id} />
       </div>
     );
   }

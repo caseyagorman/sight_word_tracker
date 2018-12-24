@@ -42,10 +42,6 @@ const AppRouter = () => (
       <Route path="/words/" component={WordsContainer} />
       <Route path="/details/:id" component={StudentDetailContainer} />
       <Route path="/word-detail/:id" component={WordDetailContainer} />
-      <Route
-        path="/student-test-results/:id"
-        component={StudentTestResultsContainer}
-      />
     </div>
   </Router>
 );
