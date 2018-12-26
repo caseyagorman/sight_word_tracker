@@ -7,7 +7,6 @@ import DisplayStudentWords from "./DisplayStudentWords";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
 import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
-import StudentTestResultsLink from "../../StudentTestResultsComponents/StudentTestResultsLink";
 import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
 import { Grid, Row, Col } from "react-bootstrap";
 
@@ -33,21 +32,14 @@ class StudentDetail extends React.Component {
     if (!student) {
       return <p>Loading student words...</p>;
     }
-    return <DisplayStudentWords words={student[1]} />;
+    return <DisplayStudentWords student={student[0]} words={student[1]} />;
   }
 
-  StudentTestLink(student) {
+  TestStudentLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
     }
     return TestStudentLink(student);
-  }
-
-  StudentTestResultsLink(student) {
-    if (!student) {
-      return <p>Loading test...</p>;
-    }
-    return StudentTestResultsLink(student);
   }
 
   AddStudentWordForm(student) {
@@ -71,9 +63,9 @@ class StudentDetail extends React.Component {
 
           {this.DeleteStudentButton(this.props.id)}
         </Row>
+        <div>{this.TestStudentLink(this.props.student)}</div>
         <div>{this.StudentWords(this.props.student)} </div>
         <div>{this.AddStudentWordForm(this.props.student)}</div>
-        <div>{this.StudentTestLink(this.props.student)}</div>
         <StudentTestResultsContainer id={this.props.id} />
       </Grid>
     );
