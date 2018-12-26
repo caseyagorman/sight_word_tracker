@@ -21,28 +21,38 @@ api = Api(app)
 # userid_table = {u.user_id: u for u in users}
 
 
-# def authenticate(username, password):
-#     user = username_table.get(username, None)
-#     if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
-#         return user
+def authenticate(username, password):
+    # print('hit authenticate')
+    print('username', username, 'password', password)
+    auth_user = User.query.filter_by(username=username).first()
+    print('auth_user', auth_user)
+    if auth_user and auth_user.check_password(password.encode('utf-8')):
+        # if auth_user and safe_str_cmp(auth_user.password.encode('utf-8'), password.encode('utf-8')):
+        print('it match!')
+        # print(auth_user.keys())
+        # print(auth_user.user_id)
+        print(auth_user.id)
+        return auth_user
 
 
-# def identity(payload):
-#     user_id = payload['identity']
-#     return userid_table.get(user_id, None)
+def identity(payload):
+    print('===== hit identity =====', payload)
+    user_id = payload['identity']
+    print(user_id)
+    return True
 
 
 # app = Flask(__name__)
-# app.debug = True
-# app.config['SECRET_KEY'] = 'super-secret'
+app.debug = True
+app.config['SECRET_KEY'] = 'super-secret'
 
-# jwt = JWT(app, authenticate, identity)
+jwt = JWT(app, authenticate, identity)
 
 
-# @app.route('/protected')
-# @jwt_required()
-# def protected():
-#     return '%s' % current_identity
+@app.route('/protected')
+@jwt_required()
+def protected():
+    return '%s' % current_identity
 
 
 @app.route("/")
@@ -432,6 +442,8 @@ def get_word_counts(student_id, user_id):
         student_id=student_id, user_id=user_id).options(db.joinedload('words')).all()
     words = []
     for student_word in word_counts:
+        print("word", student_word.words.word, "correct_count",
+              student_word.correct_count, "incorrect_count", student_word.incorrect_count)
         count = {
             "word": student_word.words.word,
             "correct_count": student_word.correct_count,
@@ -445,20 +457,21 @@ def get_word_counts(student_id, user_id):
 def get_percentage_of_words_learned(student_id, user_id):
 
     word_counts = get_word_counts(student_id, user_id)
-    correct_words = []
-    incorrect_words = []
-    correct_count = 0
-    incorrect_count = 0
+    print("word counts", word_counts)
+    learned_words = []
+    unlearned_words = []
+    learned_count = 0
+    unlearned_count = 0
     total_count = len(word_counts)
     for item in word_counts:
         if item['correct_count'] >= 3:
-            correct_words.append(item['word'])
-            correct_count += 1
+            learned_words.append(item['word'])
+            learned_count += 1
         else:
-            incorrect_words.append(item['word'])
-            incorrect_count += 1
-    count_data = {"correct_words": correct_words, "incorrect_words": incorrect_words,
-                  "correct_count": correct_count, "incorrect_count": incorrect_count,
+            unlearned_words.append(item['word'])
+            unlearned_count += 1
+    count_data = {"learned_words": learned_words, "unlearned_words": unlearned_words,
+                  "learned_count": learned_count, "unlearned_count": unlearned_count,
                   "total_count": total_count}
     return count_data
 

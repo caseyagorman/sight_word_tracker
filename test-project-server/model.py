@@ -13,7 +13,9 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.String(64), primary_key=True)
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
     username = db.Column(db.String(64), nullable=False, unique=True)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128))
@@ -26,20 +28,22 @@ class User(db.Model):
 
     def __init__(self, username, email, password):
         print("I'm setting this thing")
-        self.user_id = token_hex(32)
-        print(self.user_id)
+        # self.id = id
+        # print(self.id)
         self.username = username
         self.email = email
         self.set_password(password)
+        # self.id = token_hex(32)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
+        # self.password = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
     def __repr__(self):
-        return f"<User user_id={self.user_id} email={self.email}>"
+        return f"<User id={self.id} email={self.email}>"
 
 
 class Student(db.Model):
@@ -49,8 +53,8 @@ class Student(db.Model):
 
     student_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.String(64), db.ForeignKey(
-        'users.user_id'), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
     fname = db.Column(db.String(64), nullable=False)
     lname = db.Column(db.String(64), nullable=False)
     grade = db.Column(db.String(64), nullable=False)
@@ -75,8 +79,8 @@ class Word(db.Model):
     word = db.Column(db.String(25), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
-    user_id = db.Column(db.String(64), db.ForeignKey(
-        'users.user_id'), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
     users = db.relationship(
@@ -97,8 +101,8 @@ class StudentWord(db.Model):
         'words.word_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
-    user_id = db.Column(db.String(64), db.ForeignKey(
-        'users.user_id'), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
     correct_count = db.Column(db.Integer, default=0, nullable=True)
@@ -124,8 +128,8 @@ class StudentTestResult(db.Model):
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
-    user_id = db.Column(db.String(64), db.ForeignKey(
-        'users.user_id'), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
     score = db.Column(db.Float)
     wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True,

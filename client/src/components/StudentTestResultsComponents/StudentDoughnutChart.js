@@ -5,6 +5,8 @@ class StudentDoughnutChart extends Component {
   state = { data: null };
 
   componentDidMount() {
+    console.log("Doughnut chart", this.props);
+
     this.setState({ data: this.props });
   }
 
@@ -15,8 +17,8 @@ class StudentDoughnutChart extends Component {
     console.log("dataResults", dataResults);
     const divStyle = { height: "25px", align: "center" };
 
-    let learned = dataResults.dataResults.learned;
-    let unlearned = dataResults.dataResults.unlearned;
+    let learned = dataResults.learned;
+    let unlearned = dataResults.unlearned;
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [
