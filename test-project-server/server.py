@@ -21,6 +21,7 @@ api = Api(app)
 # userid_table = {u.user_id: u for u in users}
 
 
+# @cross_origin()
 def authenticate(username, password):
     # print('hit authenticate')
     print('username', username, 'password', password)
@@ -32,14 +33,20 @@ def authenticate(username, password):
         # print(auth_user.keys())
         # print(auth_user.user_id)
         print(auth_user.id)
+        print(auth_user)
         return auth_user
 
 
-def identity(payload):
-    print('===== hit identity =====', payload)
-    user_id = payload['identity']
-    print(user_id)
-    return True
+@jwt.identity_handler
+def identify(payload):
+    return User.query.filter(User.id == payload['identity']).scalar()
+
+
+# def identity(payload):
+#     print('===== hit identity =====', payload)
+#     user_id = payload['identity']
+#     print(user_id)
+#     return user_id
 
 
 # app = Flask(__name__)
@@ -85,6 +92,7 @@ def add_user():
 
 @app.route("/api/students", methods=['POST'])
 @cross_origin()
+@jwt_required()
 def get_students():
     print('hello!')
     user_id = request.get_json()

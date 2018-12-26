@@ -1,10 +1,11 @@
 import * as types from "./actionTypes";
 
 function getUserApi() {
-  return "http://localhost:5000/api/login";
+  return "http://localhost:5000/auth";
 }
 
 export function checkUser(auth) {
+  console.log("check user", auth);
   if (auth.error) {
     return { type: types.LOGIN_ERROR, auth: auth };
   }
@@ -21,6 +22,7 @@ export function clearErrors() {
 }
 
 export function loginUser(user) {
+  console.log("login user", user);
   return dispatch => {
     return fetch(getUserApi(), {
       method: "POST",

@@ -31,7 +31,7 @@ export default function auth(state = initialState.auth, action) {
           userId: ""
         },
         isAuthenticated: false,
-        loginErrors: action.auth
+        loginError: action.auth
       });
     case CLEAR_ERRORS:
       console.log("CLEAR ERRORS");
