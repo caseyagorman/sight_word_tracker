@@ -10,14 +10,16 @@ function deleteStudentApi() {
   return "http://localhost:5000/api/delete-student";
 }
 
-export function addStudent(student) {
+export function addStudent(student, user) {
+  console.log("add student action", "student", student, "user", user);
   return dispatch => {
     return fetch(addStudentApi(), {
       method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-access-token": user
       },
       body: JSON.stringify(student)
     })

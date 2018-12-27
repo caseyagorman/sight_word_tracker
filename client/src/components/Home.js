@@ -13,11 +13,7 @@ class Home extends Component {
     if (!this.props.auth) {
       return <div>loading...</div>;
     }
-    return (
-      <div>
-        <h1>Welcome {this.props.auth.user.username}</h1>
-      </div>
-    );
+    return <div />;
   }
   render() {
     return <div>{this.displayWelcome()}</div>;

@@ -20,9 +20,8 @@ class AddStudentFormContainer extends Component {
     return (
       <div>
         <AddStudent
-          userId={this.props.auth.user.userId}
+          token={this.props.auth.user.token}
           username={this.props.auth.user.username}
-          id={this.props.match.params.id}
         />
       </div>
     );

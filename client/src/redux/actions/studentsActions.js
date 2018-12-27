@@ -10,13 +10,13 @@ export function receiveStudents(students) {
 export function fetchStudents(user) {
   return dispatch => {
     return fetch(getStudentsApi(user), {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(students => dispatch(receiveStudents(students)));

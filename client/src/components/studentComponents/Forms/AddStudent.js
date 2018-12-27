@@ -12,6 +12,7 @@ class AddStudent extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    console.log("Add student", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -21,14 +22,13 @@ class AddStudent extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const userId = this.props.userId;
+    let user = this.props.token;
     let newStudent = {
       fname: this.state.fname,
-      lname: this.state.lname,
-      userId: userId
+      lname: this.state.lname
     };
 
-    this.props.studentActions.addStudent(newStudent);
+    this.props.studentActions.addStudent(newStudent, user);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });

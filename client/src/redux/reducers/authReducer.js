@@ -9,20 +9,11 @@ import {
 export default function auth(state = initialState.auth, action) {
   switch (action.type) {
     case SET_USER:
-      if (sessionStorage.length > 0) {
-        return Object.assign({}, state, {
-          user: {
-            username: sessionStorage.username,
-            userId: sessionStorage.userId
-          },
-          isAuthenticated: true
-        });
-      } else {
-        return Object.assign({}, state, {
-          user: action.auth,
-          isAuthenticated: true
-        });
-      }
+      console.log("SET USER", action.auth);
+      return Object.assign({}, state, {
+        user: action.auth,
+        isAuthenticated: true
+      });
     case LOGIN_ERROR:
       console.log("LOGIN ERROR", action.auth);
       return Object.assign({}, state, {

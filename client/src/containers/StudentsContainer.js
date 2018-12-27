@@ -6,6 +6,7 @@ import ViewStudents from "../components/StudentComponents/ViewStudents";
 class StudentsContainer extends Component {
   componentDidMount() {
     if (sessionStorage.length > 0) {
+      console.log("checking storage");
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

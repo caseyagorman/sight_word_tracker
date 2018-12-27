@@ -1,7 +1,7 @@
 import * as types from "./actionTypes";
 
 function getUserApi() {
-  return "http://localhost:5000/auth";
+  return "http://localhost:5000/api/login";
 }
 
 export function checkUser(auth) {
