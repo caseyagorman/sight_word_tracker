@@ -86,7 +86,6 @@ def add_user():
 
 @app.route("/api/students")
 @token_required
-# @cross_origin()
 def get_students(current_user):
     print(current_user)
     public_id = current_user.public_id

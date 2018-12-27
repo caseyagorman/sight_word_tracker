@@ -8,6 +8,7 @@ export function receiveStudents(students) {
 }
 
 export function fetchStudents(user) {
+  console.log("fetch students", user);
   return dispatch => {
     return fetch(getStudentsApi(user), {
       method: "GET",
