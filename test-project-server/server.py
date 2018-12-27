@@ -1,3 +1,4 @@
+import datetime
 import os
 from jinja2 import StrictUndefined
 from flask import (Flask, jsonify, render_template,
@@ -5,8 +6,10 @@ from flask import (Flask, jsonify, render_template,
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
 from flask_cors import CORS, cross_origin
-from flask_jwt import JWT, jwt_required, current_identity
+import jwt
+# from flask_jwt import JWT, jwt_required, current_identity
 from werkzeug.security import safe_str_cmp
+from functools import wraps
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
@@ -21,26 +24,40 @@ api = Api(app)
 # userid_table = {u.user_id: u for u in users}
 
 
-# @cross_origin()
-def authenticate(username, password):
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.args.get('token')
+        if not token:
+            return jsonify({'message': 'Token is missing'})
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+
+        except:
+            return jsonify({'message': 'Token is invalid'})
+        return f(*args, **kwargs)
+    return decorated
+
+
+@app.route("/login", methods=["POST"])
+def login():
     # print('hit authenticate')
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
     print('username', username, 'password', password)
     auth_user = User.query.filter_by(username=username).first()
     print('auth_user', auth_user)
     if auth_user and auth_user.check_password(password.encode('utf-8')):
-        # if auth_user and safe_str_cmp(auth_user.password.encode('utf-8'), password.encode('utf-8')):
-        print('it match!')
-        # print(auth_user.keys())
-        # print(auth_user.user_id)
-        print(auth_user.id)
-        print(auth_user)
-        return auth_user
+        token = jwt.encode({'user': auth_user.username, 'exp': datetime.datetime.utcnow(
+        ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        print("token", token)
+        return jsonify({'token': token.decode('utf-8')})
 
 
-@jwt.identity_handler
-def identify(payload):
-    return User.query.filter(User.id == payload['identity']).scalar()
-
+# def identity(payload):
+#     user_id = payload['identity']
+#     return {"user_id": user_id}
 
 # def identity(payload):
 #     print('===== hit identity =====', payload)
@@ -53,13 +70,13 @@ def identify(payload):
 app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
 
-jwt = JWT(app, authenticate, identity)
+# jwt = JWT(app, authenticate, identity)
 
 
 @app.route('/protected')
-@jwt_required()
+@token_required
 def protected():
-    return '%s' % current_identity
+    return "yay!"
 
 
 @app.route("/")
@@ -92,7 +109,7 @@ def add_user():
 
 @app.route("/api/students", methods=['POST'])
 @cross_origin()
-@jwt_required()
+# @jwt_required()
 def get_students():
     print('hello!')
     user_id = request.get_json()
@@ -111,35 +128,35 @@ def get_students():
     return students
 
 
-@app.route("/api/login", methods=['POST'])
-@cross_origin()
-def login():
-    print("login")
-    data = request.get_json()
-    print(data)
-    username = data.get('username')
-    password = data.get('password')
-    auth_user = User.query.filter_by(username=username).first()
-    if auth_user == None:
-        error = {
-            "error": "user does not exist"
-        }
-        return jsonify(error)
-    if auth_user:
-        print(auth_user)
-        if auth_user.check_password(password):
-            user = {
-                "userId": auth_user.user_id,
-                "username": auth_user.username
-            }
+# @app.route("/api/login", methods=['POST'])
+# @cross_origin()
+# def login():
+#     print("login")
+#     data = request.get_json()
+#     print(data)
+#     username = data.get('username')
+#     password = data.get('password')
+#     auth_user = User.query.filter_by(username=username).first()
+#     if auth_user == None:
+#         error = {
+#             "error": "user does not exist"
+#         }
+#         return jsonify(error)
+#     if auth_user:
+#         print(auth_user)
+#         if auth_user.check_password(password):
+#             user = {
+#                 "userId": auth_user.user_id,
+#                 "username": auth_user.username
+#             }
 
-            return jsonify(user)
-        else:
-            print("incorrect password")
-            return abort(401)
-    else:
-        print("no user")
-        return abort(401)
+#             return jsonify(user)
+#         else:
+#             print("incorrect password")
+#             return abort(401)
+#     else:
+#         print("no user")
+#         return abort(401)
 
 
 @app.route("/api/get-student")
