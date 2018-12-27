@@ -8,17 +8,17 @@ export function receiveUnknownWords(unknownWords) {
   return { type: types.RECEIVE_UNKNOWN_WORDS, unknownWords: unknownWords };
 }
 
-export function fetchUnknownWords(studentId, user) {
-  console.log("id", studentId, "user", user);
+export function fetchUnknownWords(student, user) {
+  console.log("id", student, "user", user);
   return dispatch => {
-    return fetch(getUnknownWordsApi(studentId), {
-      method: "POST",
+    return fetch(getUnknownWordsApi(student), {
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(unknownWords => dispatch(receiveUnknownWords(unknownWords)));

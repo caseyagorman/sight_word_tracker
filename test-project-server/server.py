@@ -7,8 +7,8 @@ from flask import (Flask, jsonify, render_template, make_response,
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource, Api, reqparse
 from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
-from flask_cors import CORS, cross_origin
 import jwt
+from flask_cors import CORS, cross_origin
 from werkzeug.security import safe_str_cmp
 from functools import wraps
 app = Flask(__name__)
@@ -31,7 +31,6 @@ def token_required(f):
             data = jwt.decode(token, app.config['SECRET_KEY'])
             current_user = User.query.filter_by(
                 public_id=data['public_id']).first()
-
         except:
             return jsonify({'message': 'Token is invalid'})
         return f(current_user, *args, **kwargs)
@@ -59,7 +58,6 @@ def index(current_user):
 
 
 @app.route("/api/register", methods=['POST'])
-@cross_origin()
 def add_user():
     data = request.get_json()
     username = data.get('username')
@@ -124,7 +122,6 @@ def delete_student(current_user):
 
 @app.route("/api/words/", methods=['POST'])
 @token_required
-@cross_origin()
 def get_words():
     user_id = request.get_json()
     print(user_id)
@@ -140,16 +137,13 @@ def get_words():
     return jsonify([word_list, chart_words])
 
 
-@app.route("/api/unknown-words/<student>", methods=['POST'])
+@app.route("/api/unknown-words/<student>")
 @token_required
-@cross_origin()
-def get_unknown_words(student,):
+def get_unknown_words(current_student, student):
     print("student!", student)
-    user = request.get_json()
-    print(user)
+    user_id = current_student.public_id
     words = StudentWord.query.filter_by(
-        student_id=student, user_id=user).options(db.joinedload('words')).all()
-    print(words)
+        student_id=student, user_id=user_id).options(db.joinedload('words')).all()
     word_ids = []
     for word in words:
 
@@ -169,7 +163,6 @@ def get_unknown_words(student,):
 
 @app.route("/api/add-word", methods=['POST'])
 @token_required
-@cross_origin()
 def add_word():
     data = request.get_json()
     print(data)
@@ -204,7 +197,6 @@ def add_word():
 
 @app.route("/api/delete-word", methods=['POST'])
 @token_required
-@cross_origin()
 def delete_word():
     data = request.get_json()
     word = data.get('word')
@@ -219,7 +211,6 @@ def delete_word():
 
 @app.route('/api/add-word-to-student', methods=['POST'])
 @token_required
-@cross_origin()
 def add_word_to_student():
     print("adding word to students")
     data = request.get_json()
@@ -243,7 +234,6 @@ def add_word_to_student():
 
 @app.route('/api/add-word-to-all-students', methods=['POST'])
 @token_required
-@cross_origin()
 def add_word_to_all_student():
     data = request.get_json()
     word = data.get('word')
@@ -288,13 +278,10 @@ def student_detail(current_user, student):
 
 @app.route("/api/word-detail/<word>", methods=['POST'])
 @token_required
-@cross_origin()
-def word_detail(word):
+def word_detail(current_user, word):
     """Show word detail"""
-    print("word", word)
-    user = request.get_json()
-    print("user", user)
-    word_object = Word.query.filter_by(word_id=word, user_id=user).first()
+    user_id = current_user.public_id
+    word_object = Word.query.filter_by(word_id=word, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
         word_id=word).options(db.joinedload('students')).all()
 
@@ -320,7 +307,6 @@ def word_detail(word):
     return jsonify([word_object, student_list])
 
 
-@cross_origin()
 @app.route("/api/delete-student-word", methods=["POST"])
 @token_required
 def delete_student_word():
@@ -361,7 +347,6 @@ def get_all_student_word_counts():
     return word_counts
 
 
-@cross_origin()
 @app.route("/api/get-learned-words", methods={"POST"})
 @token_required
 def get_all_learned_words():
@@ -478,7 +463,6 @@ def update_incorrect_words(student_id, incorrect_words):
     return "incorrect words"
 
 
-@cross_origin()
 @app.route("/api/create-student-test", methods=["POST"])
 @token_required
 def create_student_test():
@@ -499,7 +483,6 @@ def create_student_test():
     return 'wooo'
 
 
-@cross_origin()
 @app.route("/api/get-student-test/<student>", methods=["POST"])
 @token_required
 def get_student_test(student):
