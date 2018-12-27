@@ -20,7 +20,7 @@ class Words extends Component {
     return (
       <div>
         <ViewWords
-          userId={this.props.auth.user.userId}
+          token={this.props.auth.user.token}
           username={this.props.auth.user.username}
         />
       </div>

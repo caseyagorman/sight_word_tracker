@@ -6,13 +6,12 @@ import * as wordsActions from "../../redux/actions/wordsActions";
 import * as authActions from "../../redux/actions/authActions";
 import ViewWordsPresentation from "./WordDetail/ViewWordsPresentation";
 import WordBarChart from "./WordDetail/WordBarChart";
-
 class ViewWords extends React.Component {
   componentDidMount() {
-    if (!this.props.auth.isAuthenticated) {
-      return this.props.history.push("/login");
-    } else {
-      this.props.wordsActions.fetchWords(this.props.userId);
+    console.log("View Words", this.props);
+    if (this.props.auth.isAuthenticated) {
+      const user = this.props.token;
+      this.props.wordsActions.fetchWords(user);
     }
   }
 

@@ -11,13 +11,13 @@ export function receiveWords(words) {
 export function fetchWords(user) {
   return dispatch => {
     return fetch(api(user), {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(words => dispatch(receiveWords(words)));

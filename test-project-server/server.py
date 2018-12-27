@@ -120,11 +120,10 @@ def delete_student(current_user):
     return 'student deleted!'
 
 
-@app.route("/api/words/", methods=['POST'])
+@app.route("/api/words/")
 @token_required
-def get_words():
-    user_id = request.get_json()
-    print(user_id)
+def get_words(current_user):
+    user_id = current_user.public_id
     words = Word.query.filter_by(user_id=user_id).all()
     word_list = []
     for word in words:
@@ -163,11 +162,9 @@ def get_unknown_words(current_student, student):
 
 @app.route("/api/add-word", methods=['POST'])
 @token_required
-def add_word():
+def add_word(current_user):
     data = request.get_json()
-    print(data)
-    user_id = data.get('user_id')
-    print(user_id)
+    user_id = current_user.public_id
     new_words = data.get('word')
     new_words = new_words.split()
     word_dict = {}
@@ -185,9 +182,7 @@ def add_word():
             continue
         user_id = user_id
         if word not in word_dict.keys():
-            print("cool!")
             user_id = user_id
-            print(word, user_id)
             word = Word(word=word, user_id=user_id)
             db.session.add(word)
             db.session.commit()
@@ -197,10 +192,10 @@ def add_word():
 
 @app.route("/api/delete-word", methods=['POST'])
 @token_required
-def delete_word():
+def delete_word(current_user):
     data = request.get_json()
     word = data.get('word')
-    user_id = data.get('userId')
+    user_id = current_user.public_id
     print(data)
     word_to_delete = Word.query.filter_by(
         word=word, user_id=user_id).first()
@@ -211,13 +206,13 @@ def delete_word():
 
 @app.route('/api/add-word-to-student', methods=['POST'])
 @token_required
-def add_word_to_student():
+def add_word_to_student(current_user):
     print("adding word to students")
     data = request.get_json()
     print("data", data)
     student_id = data.get("studentId")
     words = data.get('words')
-    user_id = data.get('userId')
+    user_id = current_user.public_id
     word_list = Word.query.filter(
         (Word.word.in_(words))).filter(Word.user_id == user_id).all()
     word_ids = []
@@ -232,27 +227,26 @@ def add_word_to_student():
     return "student words added!"
 
 
-@app.route('/api/add-word-to-all-students', methods=['POST'])
-@token_required
-def add_word_to_all_student():
-    data = request.get_json()
-    word = data.get('word')
-    students = StudentWord.query.all()
-    word = Word.query.filter_by(word=word).first()
-    for student in students:
-        new_student_word = StudentWord(
-            word_id=word.word_id, student_id=student.student_id)
-        db.session.add(new_student_word)
-        db.session.commit()
+# @app.route('/api/add-word-to-all-students', methods=['POST'])
+# @token_required
+# def add_word_to_all_student():
+#     data = request.get_json()
+#     word = data.get('word')
+#     students = StudentWord.query.all()
+#     word = Word.query.filter_by(word=word).first()
+#     for student in students:
+#         new_student_word = StudentWord(
+#             word_id=word.word_id, student_id=student.student_id)
+#         db.session.add(new_student_word)
+#         db.session.commit()
 
-    return 'student word added!'
+#     return 'student word added!'
 
 
 @app.route("/api/details/<student>")
 @token_required
 def student_detail(current_user, student):
     """Show student detail"""
-    print("student", student)
     user_id = current_user.public_id
     student_object = Student.query.filter_by(
         student_id=student, user_id=user_id).first()
@@ -276,7 +270,7 @@ def student_detail(current_user, student):
     return jsonify([student_object, word_list])
 
 
-@app.route("/api/word-detail/<word>", methods=['POST'])
+@app.route("/api/word-detail/<word>")
 @token_required
 def word_detail(current_user, word):
     """Show word detail"""
@@ -309,12 +303,12 @@ def word_detail(current_user, word):
 
 @app.route("/api/delete-student-word", methods=["POST"])
 @token_required
-def delete_student_word():
+def delete_student_word(current_user):
     """Show student detail"""
     data = request.get_json()
+    user_id = current_user.public_id
     word = data.get('word')
     student = data.get('student')
-    student = Student.query.filter_by(student_id=student).first()
     word = Word.query.filter_by(word=word).first()
     studentword = StudentWord.query.filter_by(
         student_id=student.student_id, word_id=word.word_id).first()
