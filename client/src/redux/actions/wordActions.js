@@ -24,9 +24,9 @@ export function fetchWord(id, user) {
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(word => dispatch(receiveWord(word)));
@@ -46,15 +46,17 @@ export function deleteWord(word) {
   };
 }
 
-export function addWord(word) {
-  console.log("ADD WORD", word);
+export function addWord(word, user) {
+  console.log("ADD WORD", word, user);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+
+        "x-access-token": user
       },
       body: JSON.stringify(word)
     }).then(response => console.log(response));

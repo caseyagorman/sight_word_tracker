@@ -167,6 +167,7 @@ def add_word(current_user):
     user_id = current_user.public_id
     new_words = data.get('word')
     new_words = new_words.split()
+    print("add words", user_id, new_words)
     word_dict = {}
     user_words = Word.query.filter_by(user_id=user_id).all()
     for word in user_words:
@@ -477,11 +478,11 @@ def create_student_test():
     return 'wooo'
 
 
-@app.route("/api/get-student-test/<student>", methods=["POST"])
+@app.route("/api/get-student-test/<student>")
 @token_required
-def get_student_test(student):
+def get_student_test(current_user, student):
     print(student)
-    user_id = request.get_json()
+    user_id = current_user.public_id
     print(user_id)
     word_count_data = get_percentage_of_words_learned(student, user_id)
     word_counts = get_word_counts(student, user_id)

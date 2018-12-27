@@ -21,8 +21,8 @@ class StudentTestResultsContainer extends Component {
     return (
       <div>
         <StudentTestResults
-          userId={this.props.auth.user.userId}
-          username={this.props.auth.user.username}
+          token={this.props.token}
+          username={this.props.username}
           id={this.props.id}
         />
       </div>

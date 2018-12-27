@@ -12,21 +12,17 @@ import { Grid, Row, Col } from "react-bootstrap";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
-    console.log("component did mount", this.props);
-    console.log("id", this.props.id);
-
     if (!this.props.id) {
-      return <div> loading...</div>;
+      return <div>loading...</div>;
     }
     const student = this.props.id;
     const user = this.props.token;
-    console.log("student", student, "user", user);
     this.props.studentActions.fetchStudent(student, user);
   }
 
   StudentPage(student) {
     if (!student) {
-      return <p>Loading student...</p>;
+      return <p>Boo! Loading student...</p>;
     }
     return StudentPage(student);
   }
@@ -60,6 +56,7 @@ class StudentDetail extends React.Component {
     return <DeleteStudentFormContainer studentId={studentId} />;
   }
   render() {
+    console.log("rendering student detail", this.props, this.props.student);
     return (
       <Grid>
         <Row className="show-grid">
@@ -70,7 +67,11 @@ class StudentDetail extends React.Component {
         <div>{this.TestStudentLink(this.props.student)}</div>
         <div>{this.StudentWords(this.props.student)} </div>
         <div>{this.AddStudentWordForm(this.props.student)}</div>
-        {/* <StudentTestResultsContainer id={this.props.id} /> */}
+        <StudentTestResultsContainer
+          id={this.props.id}
+          token={this.props.token}
+          username={this.props.username}
+        />
       </Grid>
     );
   }

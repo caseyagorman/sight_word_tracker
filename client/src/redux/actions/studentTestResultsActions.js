@@ -10,17 +10,17 @@ export function receiveStudentTestResults(studentTestResults) {
   };
 }
 
-export function fetchStudentTestResults(id, userId) {
-  let studentId = id;
+export function fetchStudentTestResults(id, user) {
+  let student = id;
   return dispatch => {
-    return fetch(getStudentTestResultsApi(studentId), {
-      method: "POST",
+    return fetch(getStudentTestResultsApi(student), {
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userId)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(studentTestResults =>

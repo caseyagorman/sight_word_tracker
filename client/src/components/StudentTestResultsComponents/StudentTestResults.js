@@ -10,10 +10,10 @@ import * as studentActions from "../../redux/actions/studentActions";
 import * as studentTestResultsActions from "../../redux/actions/studentTestResultsActions";
 class StudentTestResults extends React.Component {
   componentDidMount() {
-    const userId = this.props.userId;
+    const user = this.props.token;
     const id = this.props.id;
-    this.props.studentTestResultsActions.fetchStudentTestResults(id, userId);
-    this.props.studentActions.fetchStudent(id, userId);
+    this.props.studentTestResultsActions.fetchStudentTestResults(id, user);
+    this.props.studentActions.fetchStudent(id, user);
   }
 
   viewStudentTestResults(studentTestResults) {

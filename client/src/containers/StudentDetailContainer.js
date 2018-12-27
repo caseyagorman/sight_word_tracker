@@ -5,9 +5,6 @@ import * as authActions from "../redux/actions/authActions";
 import StudentDetail from "../components/StudentComponents/StudentDetail/StudentDetail";
 class StudentDetailContainer extends Component {
   componentDidMount() {
-    console.log("detail container", this.props);
-    console.log("student id is", this.props.match.params.id);
-    console.log(typeof this.props.match.params.id);
     this.studentId = this.props.match.params.id;
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
@@ -18,8 +15,7 @@ class StudentDetailContainer extends Component {
   }
 
   displayStudent() {
-    console.log("displaying student", this.props.match.params.id);
-    if (!this.props.auth.user.token) {
+    if (!this.studentId) {
       return <div>loading...</div>;
     }
     return (
