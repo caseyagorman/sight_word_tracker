@@ -20,7 +20,7 @@ class HomeContainer extends Component {
     return (
       <div>
         <Home
-          userId={this.props.auth.user.userId}
+          token={this.props.auth.user.token}
           username={this.props.auth.user.username}
         />
       </div>

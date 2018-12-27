@@ -21,7 +21,7 @@ class DeleteStudentFormContainer extends Component {
     return (
       <div>
         <DeleteStudent
-          userId={this.props.auth.user.userId}
+          token={this.props.auth.user.token}
           username={this.props.auth.user.username}
           studentId={this.props.studentId}
         />

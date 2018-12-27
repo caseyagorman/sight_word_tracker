@@ -46,22 +46,16 @@ def login():
     auth_user = User.query.filter_by(username=username).first()
     if auth_user and check_password_hash(auth_user.password, password.encode('utf-8')):
         token = jwt.encode({'public_id': auth_user.public_id, 'exp': datetime.datetime.utcnow(
-        ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        ) + datetime.timedelta(hours=24)}, app.config['SECRET_KEY'])
         return jsonify({'token': token.decode('utf-8'), 'username': auth_user.username})
     else:
         return make_response('Could not verify'), 401
 
 
-@app.route('/protected')
-@token_required
-def protected():
-    return "yay!"
-
-
 @app.route("/")
-@cross_origin()
-def index():
-    return "homepage"
+@token_required
+def index(current_user):
+    return current_user
 
 
 @app.route("/api/register", methods=['POST'])
@@ -87,9 +81,7 @@ def add_user():
 @app.route("/api/students")
 @token_required
 def get_students(current_user):
-    print(current_user)
     public_id = current_user.public_id
-    print(public_id)
     students = Student.query.filter_by(user_id=public_id)
     student_list = []
     for student in students:
@@ -104,34 +96,10 @@ def get_students(current_user):
     return students
 
 
-@app.route("/api/get-student")
-@token_required
-@cross_origin()
-def get_student(current_user):
-    data = request.get_json()
-    fname = data.get('fname')
-    student = Student.query.filter_by(fname=fname).first()
-    student = {
-        'student_id': student.student_id,
-        'fname': student.fname,
-        'lname': student.lname,
-        'grade': student.grade
-    }
-    student = jsonify(student)
-    if student:
-        return student
-    else:
-        return "student does not exist"
-
-
 @app.route("/api/add-student", methods=['POST'])
 @token_required
-# @cross_origin()
 def add_student(current_user):
-    print("trying to add student")
     data = request.get_json()
-    print("add student", data)
-    print("current user", current_user)
     fname = data.get('fname')
     lname = data.get('lname')
     user_id = current_user.public_id
@@ -143,11 +111,10 @@ def add_student(current_user):
 
 @app.route("/api/delete-student", methods=['POST'])
 @token_required
-@cross_origin()
 def delete_student(current_user):
     data = request.get_json()
     student_id = data.get('studentId')
-    user_id = data.get('userId')
+    user_id = current_user.public_id
     student = Student.query.filter_by(
         student_id=student_id, user_id=user_id).first()
     db.session.delete(student)
@@ -291,17 +258,14 @@ def add_word_to_all_student():
     return 'student word added!'
 
 
-@app.route("/api/details/<student>", methods=['POST'])
+@app.route("/api/details/<student>")
 @token_required
-@cross_origin()
-def student_detail(student):
+def student_detail(current_user, student):
     """Show student detail"""
     print("student", student)
-    user = request.get_json()
-    print("user", user)
+    user_id = current_user.public_id
     student_object = Student.query.filter_by(
-        student_id=student, user_id=user).first()
-    print(student_object)
+        student_id=student, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
     student_object = {

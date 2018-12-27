@@ -28,17 +28,18 @@ export function addStudent(student, user) {
   };
 }
 
-export function deleteStudent(studentDelete) {
-  console.log("delete student", studentDelete);
+export function deleteStudent(student, user) {
+  console.log("delete student", student, user);
   return dispatch => {
     return fetch(deleteStudentApi(), {
       method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-access-token": user
       },
-      body: JSON.stringify(studentDelete)
+      body: JSON.stringify(student)
     }).then(() => history.push("/students"));
   };
 }
@@ -47,16 +48,17 @@ export function receiveStudent(student) {
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 
-export function fetchStudent(id, user) {
+export function fetchStudent(student, user) {
+  console.log("fetch student", student, user);
   return dispatch => {
-    return fetch(getStudentApi(id), {
-      method: "POST",
+    return fetch(getStudentApi(student), {
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(student => dispatch(receiveStudent(student)));
