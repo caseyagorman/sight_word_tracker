@@ -3,7 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 
 class StudentDoughnutChart extends Component {
   displayChart(dataResults) {
-    console.log("student doughnutchart", dataResults, dataResults.data);
+    console.log("student doughnutchart", dataResults.data);
     if (!dataResults) {
       return <div> loading...</div>;
     }
