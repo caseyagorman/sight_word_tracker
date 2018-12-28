@@ -192,12 +192,10 @@ def add_word(current_user):
 @app.route("/api/delete-word", methods=['POST'])
 @token_required
 def delete_word(current_user):
-    data = request.get_json()
-    word = data.get('word')
+    word_id = request.get_json()
     user_id = current_user.public_id
-    print(data)
     word_to_delete = Word.query.filter_by(
-        word=word, user_id=user_id).first()
+        word_id=word_id, user_id=user_id).first()
     db.session.delete(word_to_delete)
     db.session.commit()
     return 'word deleted!'

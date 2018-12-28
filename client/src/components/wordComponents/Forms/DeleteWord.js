@@ -5,36 +5,27 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
+import { Grid, Col, Row, Glyphicon } from "react-bootstrap";
 class DeleteWord extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: null };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    this.setState({ value: this.props.word });
-  }
+
   getOptions() {
-    if (this.props.word.key === undefined) {
-      return (
-        <div>
-          <form>
-            <label>
-              <button onClick={this.submit}>Delete</button>
-            </label>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <form>
+        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
+      </form>
+    );
   }
 
   handleSubmit() {
-    const userId = this.props.auth.user.userId;
-    let deleteWord = {
-      word: this.props.word[0].word,
-      userId: userId
-    };
-    this.props.wordActions.deleteWord(deleteWord);
+    console.log("handle submit props", this.props);
+    const user = this.props.auth.user.token;
+    const word = this.props.word[0].word_id;
+    console.log("handle submit", user, word);
+    this.props.wordActions.deleteWord(word, user);
   }
 
   submit = event => {
@@ -64,8 +55,6 @@ class DeleteWord extends Component {
   }
 }
 
-const DeleteWordWrapped = withRouter(DeleteWord);
-
 function mapStateToProps(state) {
   return {
     word: state.word,
@@ -78,7 +67,7 @@ function mapDispatchToProps(dispatch) {
     wordActions: bindActionCreators(wordActions, dispatch)
   };
 }
-
+const DeleteWordWrapped = withRouter(DeleteWord);
 export default connect(
   mapStateToProps,
   mapDispatchToProps

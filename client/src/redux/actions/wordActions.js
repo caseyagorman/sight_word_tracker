@@ -32,14 +32,16 @@ export function fetchWord(id, user) {
       .then(word => dispatch(receiveWord(word)));
   };
 }
-export function deleteWord(word) {
+export function deleteWord(word, user) {
+  console.log("delete word action", user, word);
   return dispatch => {
     return fetch(deleteWordApi(), {
       method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-access-token": user
       },
       body: JSON.stringify(word)
     }).then(() => history.push("/words"));
