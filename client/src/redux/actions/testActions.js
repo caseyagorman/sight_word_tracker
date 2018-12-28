@@ -5,7 +5,6 @@ function addTestApi() {
 }
 
 export function addTest(result, user) {
-  console.log("add test action", result, user);
   return dispatch => {
     return fetch(addTestApi(), {
       method: "POST",

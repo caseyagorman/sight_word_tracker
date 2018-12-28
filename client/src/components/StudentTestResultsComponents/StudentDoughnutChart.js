@@ -3,15 +3,13 @@ import { Doughnut } from "react-chartjs-2";
 
 class StudentDoughnutChart extends Component {
   displayChart(dataResults) {
-    console.log("student doughnutchart", dataResults.data);
     if (!dataResults) {
       return <div> loading...</div>;
     }
     const divStyle = { height: "25px", align: "center" };
 
-    let learned = dataResults.data.learned;
-    console.log("learned", learned);
-    let unlearned = dataResults.data.unlearned;
+    let learned = dataResults.dataResults.learned;
+    let unlearned = dataResults.dataResults.unlearned;
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [

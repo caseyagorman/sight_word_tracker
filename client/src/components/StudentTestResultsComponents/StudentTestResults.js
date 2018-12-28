@@ -17,6 +17,7 @@ class StudentTestResults extends React.Component {
   }
 
   viewStudentTestResults(studentTestResults) {
+    console.log("viewStudentTestResults", studentTestResults);
     if (!studentTestResults) {
       return <p>loading...</p>;
     }
@@ -26,12 +27,11 @@ class StudentTestResults extends React.Component {
   }
 
   displayChart(studentTest) {
-    console.log("display chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
     let test = studentTest[3];
-    return <StudentDoughnutChart data={test} />;
+    return <StudentDoughnutChart dataResults={test} />;
   }
 
   getWordCounts(studentTest) {

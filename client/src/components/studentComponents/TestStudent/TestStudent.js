@@ -11,7 +11,6 @@ class TestStudent extends React.Component {
   }
 
   getWords(student) {
-    console.log("getWords", this.props);
     if (!student) {
       return <p> Loading... </p>;
     }

@@ -16,7 +16,6 @@ class StudentWordsTestPage extends React.Component {
   }
 
   displayWord(words) {
-    console.log("display word", this.props);
     if (!words) {
       this.createTestObject();
     }

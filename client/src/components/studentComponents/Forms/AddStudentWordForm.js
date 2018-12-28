@@ -25,7 +25,6 @@ class AddStudentWordForm extends Component {
       words: this.state.value
     };
     let user = this.props.auth.user.token;
-    console.log("handle submit", newStudentWords, user);
     this.props.studentWordsActions.addStudentWords(newStudentWords, user);
   }
 
@@ -53,7 +52,6 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
-    console.log("get options", this.props);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }

@@ -23,7 +23,6 @@ class ViewStudents extends React.Component {
   }
 
   displayChart(user) {
-    console.log("display chart", user);
     if (!user) {
       return <p>Loading...</p>;
     }

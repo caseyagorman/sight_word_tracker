@@ -6,13 +6,11 @@ import { connect } from "react-redux";
 
 class ViewClassChart extends Component {
   componentDidMount() {
-    console.log("view class chart", this.props);
     const user = this.props.user;
     this.props.studentWordsActions.fetchStudentWords(user);
   }
 
   displayChart(studentWords) {
-    console.log("view class chart", studentWords);
     if (!studentWords) {
       return <p> loading...</p>;
     }

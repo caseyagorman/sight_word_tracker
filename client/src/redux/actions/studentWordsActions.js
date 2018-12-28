@@ -9,7 +9,6 @@ function addStudentWordsApi(studentWords) {
 }
 
 export function addStudentWords(studentWords, user) {
-  console.log("add student words", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",
@@ -30,7 +29,6 @@ export function receiveStudentWords(studentWords) {
 }
 
 export function fetchStudentWords(user) {
-  console.log("fetchStudentWordsAction", user);
   return dispatch => {
     return fetch(studentWordsApi(), {
       method: "GET",

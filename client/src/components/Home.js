@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 class Home extends Component {
   componentDidMount() {
-    console.log("home", this.props);
     if (!this.props.auth.isAuthenticated) {
       alert("Please login");
       return this.props.history.push("/login");
