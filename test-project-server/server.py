@@ -398,32 +398,24 @@ def get_percentage_of_words_learned(student_id, user_id):
     return count_data
 
 
-def get_student_chart_data(student_id, user_id):
-
-    word_counts = get_word_counts(student_id, user_id)
-    correct_words = []
-    incorrect_words = []
-    learning_words = []
-    correct_count = 0
-    learning_count = 0
-    incorrect_count = 0
-    for item in word_counts:
-        if item['correct_count'] > 0 and item['correct_count'] <= 3:
-            learning_words.append(item['word'])
-            learning_count += 1
-
-        elif item['correct_count'] >= 4:
-            correct_words.append(item['word'])
-            correct_count += 1
-
-        elif item['correct_count'] == 0:
-            incorrect_words.append(item['word'])
-            incorrect_count += 1
-
-    count_data = {"correct_words": correct_words, "incorrect_words": incorrect_words,
-                  "correct_count": correct_count, "incorrect_count": incorrect_count,
-                  "learning_count": learning_count, "learning_count": learning_count}
-    return count_data
+def get_student_learned_words(user, student):
+    user_id = user
+    student_id = student
+    student_words = StudentWord.query.filter_by(
+        user_id=user_id, student_id=student_id).all()
+    learned_count = 0
+    learned_words = []
+    unlearned_count = 0
+    unlearned_words = []
+    for word in student_words:
+        if word.Learned == True:
+            learned_words.append(word)
+            learned_count += 1
+        else:
+            unlearned_count += 1
+            unlearned_words.append(word)
+    result = {"learned": learned_count, "unlearned": unlearned_count}
+    return result
 
 
 def update_correct_words(student_id, correct_words):
@@ -478,12 +470,14 @@ def create_student_test(current_user):
 @app.route("/api/get-student-test/<student>")
 @token_required
 def get_student_test(current_user, student):
-    print(student)
     user_id = current_user.public_id
-    print(user_id)
     word_count_data = get_percentage_of_words_learned(student, user_id)
+    print("word count data", word_count_data)
     word_counts = get_word_counts(student, user_id)
-    chart_data = get_student_chart_data(student, user_id)
+    print("word counts", word_counts)
+
+    chart_data = get_student_learned_words(user_id, student)
+    print("chart data", chart_data)
     student_test = StudentTestResult.query.filter_by(
         student_id=student, user_id=user_id).all()
     student_test_list = []

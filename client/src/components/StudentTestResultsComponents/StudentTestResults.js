@@ -26,6 +26,7 @@ class StudentTestResults extends React.Component {
   }
 
   displayChart(studentTest) {
+    console.log("display chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
