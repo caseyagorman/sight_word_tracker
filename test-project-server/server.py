@@ -456,15 +456,17 @@ def update_incorrect_words(student_id, incorrect_words):
 
 @app.route("/api/create-student-test", methods=["POST"])
 @token_required
-def create_student_test():
+def create_student_test(current_user):
     data = request.get_json()
-    student_id = data.get('student_id')
-    user_id = data.get('userId')
+    student_id = data.get('student')
+    print('student', student_id)
+    user_id = current_user.public_id
     correct_words = data.get('correct_words')
     print("correct words", correct_words)
     incorrect_words = data.get('incorrect_words')
     print("incorrect words", incorrect_words)
     score = calculate_score(correct_words, incorrect_words)
+    print("score", score)
     update_correct_words(student_id, correct_words)
     update_incorrect_words(student_id, incorrect_words)
     db.session.add(

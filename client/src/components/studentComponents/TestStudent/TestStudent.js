@@ -11,13 +11,14 @@ class TestStudent extends React.Component {
   }
 
   getWords(student) {
+    console.log("getWords", this.props);
     if (!student) {
       return <p> Loading... </p>;
     }
     let words = this.turnIntoArray(student[1]);
     return (
       <StudentWordsTestPage
-        userId={this.props.userId}
+        user={this.props.token}
         words={words}
         student={student[0].student_id}
       />
