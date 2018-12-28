@@ -23,10 +23,11 @@ class ViewWords extends React.Component {
   }
 
   displayChart(words) {
+    console.log("display chart", words);
     if (!words) {
       return <p>loading...</p>;
     }
-    return <WordBarChart data={words[1]} word_id={words[0]} />;
+    return <WordBarChart data={words} />;
   }
 
   render() {

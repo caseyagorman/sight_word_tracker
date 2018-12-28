@@ -5,10 +5,12 @@ class WordBarChart extends Component {
   state = { data: null, showTooltip: false };
 
   componentDidMount() {
+    console.log("word bar chart", this.props.data);
     this.setState({ data: this.props.data });
   }
 
   turnIntoArray(obj) {
+    console.log(obj, "turn into array");
     if (!obj) {
       return <p>Loading...</p>;
     }
@@ -45,8 +47,10 @@ class WordBarChart extends Component {
         ]
       }
     };
-    let wordList = this.turnIntoArray(dataResults)[0];
-    let wordCounts = this.turnIntoArray(dataResults)[1];
+    let words = this.turnIntoArray(dataResults.words[1]);
+    console.log("word counts", words);
+    let wordList = words[0];
+    let wordCounts = words[1];
     const data = {
       labels: wordList,
       datasets: [

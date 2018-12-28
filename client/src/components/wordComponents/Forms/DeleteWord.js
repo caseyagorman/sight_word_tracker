@@ -21,10 +21,8 @@ class DeleteWord extends Component {
   }
 
   handleSubmit() {
-    console.log("handle submit props", this.props);
     const user = this.props.auth.user.token;
     const word = this.props.word[0].word_id;
-    console.log("handle submit", user, word);
     this.props.wordActions.deleteWord(word, user);
   }
 
