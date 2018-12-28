@@ -47,7 +47,7 @@ export function deleteWord(word) {
 }
 
 export function addWord(word, user) {
-  console.log("ADD WORD", word, user);
+  console.log("ADD WORD ACTION", word, user);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",

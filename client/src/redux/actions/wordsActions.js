@@ -1,7 +1,7 @@
 import * as types from "./actionTypes";
 
 function api(user) {
-  return "http://localhost:5000/api/words/";
+  return "http://localhost:5000/api/words";
 }
 
 export function receiveWords(words) {

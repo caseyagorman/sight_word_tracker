@@ -23,7 +23,6 @@ class DeleteStudent extends Component {
   handleSubmit() {
     const user = this.props.token;
     const student = this.props.studentId;
-    console.log("handle submit", user, student);
     this.props.studentActions.deleteStudent(student, user);
   }
 

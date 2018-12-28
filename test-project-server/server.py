@@ -119,7 +119,7 @@ def delete_student(current_user):
     return 'student deleted!'
 
 
-@app.route("/api/words/")
+@app.route("/api/words")
 @token_required
 def get_words(current_user):
     user_id = current_user.public_id
@@ -162,9 +162,8 @@ def get_unknown_words(current_student, student):
 @app.route("/api/add-word", methods=['POST'])
 @token_required
 def add_word(current_user):
-    data = request.get_json()
+    new_words = request.get_json()
     user_id = current_user.public_id
-    new_words = data.get('word')
     new_words = new_words.split()
     print("add words", user_id, new_words)
     word_dict = {}

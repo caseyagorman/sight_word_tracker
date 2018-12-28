@@ -12,6 +12,7 @@ class AddWord extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    console.log("add word component", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -22,13 +23,11 @@ class AddWord extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const userId = this.props.userId;
-    let newWord = {
-      word: this.state.newWord,
-      user_id: userId
-    };
+    const user = this.props.token;
+    const word = this.state.newWord;
 
-    this.props.wordActions.addWord(newWord);
+    console.log("handle submit", user, word);
+    this.props.wordActions.addWord(word, user);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
