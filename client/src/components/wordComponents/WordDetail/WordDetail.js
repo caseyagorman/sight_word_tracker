@@ -7,12 +7,13 @@ import * as wordActions from "../../../redux/actions/wordActions";
 import DeleteWord from "../Forms/DeleteWord";
 class WordDetail extends React.Component {
   componentDidMount() {
-    if (!this.props.id || !this.props.userId) {
+    console.log("component did mount, word detail", this.props);
+    if (!this.props.id || !this.props.token) {
       return <div> loading...</div>;
     }
     const id = this.props.id;
-    const userId = this.props.userId;
-    this.props.wordActions.fetchWord(id, userId);
+    const user = this.props.token;
+    this.props.wordActions.fetchWord(id, user);
   }
 
   displayWord(word) {

@@ -20,7 +20,7 @@ class WordDetailContainer extends Component {
     return (
       <div>
         <WordDetail
-          userId={this.props.auth.user.userId}
+          token={this.props.auth.user.token}
           username={this.props.auth.user.username}
           id={this.props.match.params.id}
         />

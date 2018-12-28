@@ -17,10 +17,10 @@ export function receiveWord(word) {
 }
 
 export function fetchWord(id, user) {
-  console.log("student action", id, user);
+  console.log("word action", id, user);
   return dispatch => {
     return fetch(getWordApi(id), {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
