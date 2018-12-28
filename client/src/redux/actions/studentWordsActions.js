@@ -8,14 +8,16 @@ function addStudentWordsApi(studentWords) {
   return "http://localhost:5000/api/add-word-to-student";
 }
 
-export function addStudentWords(studentWords) {
+export function addStudentWords(studentWords, user) {
+  console.log("add student words", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-access-token": user
       },
       body: JSON.stringify(studentWords)
     }).then(response => console.log(response));

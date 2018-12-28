@@ -13,21 +13,20 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
-    console.log("add student word form", this.props);
     const id = this.props.student[0].student_id;
     const user = this.props.auth.user.token;
-    console.log("component did mount", id, user);
     this.props.unknownWordsActions.fetchUnknownWords(id, user);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     let newStudentWords = {
-      studentId: this.props.student[0].student_id,
-      words: this.state.value,
-      userId: this.props.auth.user.userId
+      student: this.props.student[0].student_id,
+      words: this.state.value
     };
-    this.props.studentWordsActions.addStudentWords(newStudentWords);
+    let user = this.props.auth.user.token;
+    console.log("handle submit", newStudentWords, user);
+    this.props.studentWordsActions.addStudentWords(newStudentWords, user);
   }
 
   handleChange(e) {

@@ -207,7 +207,7 @@ def add_word_to_student(current_user):
     print("adding word to students")
     data = request.get_json()
     print("data", data)
-    student_id = data.get("studentId")
+    student_id = data.get("student")
     words = data.get('words')
     user_id = current_user.public_id
     word_list = Word.query.filter(
