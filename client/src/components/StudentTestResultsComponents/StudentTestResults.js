@@ -3,6 +3,7 @@ import StudentTestResultsTable from "./StudentTestResultsTable";
 import StudentWordCountsTableHead from "./StudentWordCountsTableHead";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import Line3 from "./Line3";
+import Line4 from "./Line4";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";
@@ -21,41 +22,18 @@ class StudentTestResults extends React.Component {
     }
     return <Line3 studentTestResults={studentTestResults} />;
   }
-
-  viewStudentTestResults(studentTestResults) {
+  displayLine4(studentTestResults) {
     if (!studentTestResults) {
-      return <p>loading...</p>;
+      return <div> loading..</div>;
     }
-    let testResults = studentTestResults[0];
-
-    return <StudentTestResultsTable test={testResults} />;
-  }
-
-  displayDoughnutChart(studentTest) {
-    if (!studentTest) {
-      return <p>loading...</p>;
-    }
-    let test = studentTest[3];
-    return <StudentDoughnutChart dataResults={test} />;
-  }
-
-  getWordCounts(studentTest) {
-    if (!studentTest) {
-      return <p>loading...</p>;
-    }
-    let test = studentTest[1];
-    return <StudentWordCountsTableHead test={test} />;
+    return <Line4 studentTestResults={studentTestResults} />;
   }
   render() {
     return (
       <div>
         <br />
-        <div>
-          {this.displayLine3(this.props.studentTestResults)}
-          {/* {this.getWordCounts(this.props.studentTestResults)}
-          {this.displayDoughnutChart(this.props.studentTestResults)} */}
-        </div>
-        <div>{this.viewStudentTestResults(this.props.studentTestResults)}</div>
+        <div>{this.displayLine3(this.props.studentTestResults)}</div>
+        <div>{this.displayLine4(this.props.studentTestResults)}</div>
       </div>
     );
   }

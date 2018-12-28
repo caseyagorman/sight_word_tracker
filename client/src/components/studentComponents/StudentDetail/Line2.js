@@ -31,7 +31,7 @@ class Line2 extends Component {
       <div className="container">
         <div className="align-baseline">
           <Row>
-            <Col lg="8">{this.studentWordsTableHead(this.props.student)}</Col>
+            <Col lg="4">{this.studentWordsTableHead(this.props.student)}</Col>
             <Col lg="4">{this.addStudentWordForm(this.props.student)}</Col>
           </Row>
         </div>
