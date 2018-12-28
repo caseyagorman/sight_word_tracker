@@ -6,8 +6,8 @@ import StudentWordsTestPage from "./StudentWordsTestPage";
 class TestStudent extends React.Component {
   componentDidMount() {
     const id = this.props.id;
-    const userId = this.props.userId;
-    this.props.studentActions.fetchStudent(id, userId);
+    const user = this.props.token;
+    this.props.studentActions.fetchStudent(id, user);
   }
 
   getWords(student) {
