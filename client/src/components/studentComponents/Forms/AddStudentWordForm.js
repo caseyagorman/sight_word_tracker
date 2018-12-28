@@ -13,9 +13,11 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
+    console.log("add student word form", this.props);
     const id = this.props.student[0].student_id;
-    const userId = this.props.auth.user.userId;
-    this.props.unknownWordsActions.fetchUnknownWords(id, userId);
+    const user = this.props.auth.user.token;
+    console.log("component did mount", id, user);
+    this.props.unknownWordsActions.fetchUnknownWords(id, user);
   }
 
   handleSubmit(event) {
@@ -52,6 +54,7 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
+    console.log("get options", this.props);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }
