@@ -1,13 +1,12 @@
 import React from "react";
-import ViewStudentTestResults from "./ViewStudentTestResults";
-import Student from "../StudentComponents/StudentDetail/Student";
-import StudentPage from "../StudentComponents/StudentDetail/StudentPage";
+import StudentTestResultsTable from "./StudentTestResultsTable";
 import DisplayWordCounts from "./DisplayWordCounts";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";
 import * as studentTestResultsActions from "../../redux/actions/studentTestResultsActions";
+
 class StudentTestResults extends React.Component {
   componentDidMount() {
     const user = this.props.token;
@@ -17,13 +16,12 @@ class StudentTestResults extends React.Component {
   }
 
   viewStudentTestResults(studentTestResults) {
-    console.log("viewStudentTestResults", studentTestResults);
     if (!studentTestResults) {
       return <p>loading...</p>;
     }
     let testResults = studentTestResults[0];
 
-    return testResults.map(testResults => ViewStudentTestResults(testResults));
+    return <StudentTestResultsTable test={testResults} />;
   }
 
   displayChart(studentTest) {

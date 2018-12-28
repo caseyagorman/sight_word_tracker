@@ -5,12 +5,10 @@ class WordBarChart extends Component {
   state = { data: null, showTooltip: false };
 
   componentDidMount() {
-    console.log("word bar chart", this.props.data);
     this.setState({ data: this.props.data });
   }
 
   turnIntoArray(obj) {
-    console.log(obj, "turn into array");
     if (!obj) {
       return <p>Loading...</p>;
     }
