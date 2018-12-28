@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
 import * as unknownWordsActions from "../../../redux/actions/unknownWordsActions";
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
@@ -52,28 +54,31 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
+    console.log("get options add word form", this.props);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }
     let wordList = this.turnIntoArray(this.props.unknownWords);
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <select
-            multiple={true}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
+      <form onSubmit={this.handleSubmit}>
+        <FormGroup controlId="formControlsSelectMultiple">
+          <ControlLabel>Add Word to {this.props.student[0].fname}</ControlLabel>
+          <FormControl componentClass="select" multiple>
             {wordList.map(word => (
-              <option key={word}>{word}</option>
+              <option
+                value={this.state.value}
+                onChange={this.handleChange}
+                key={word}
+              >
+                {word}
+              </option>
             ))}
-          </select>
-
-          <button className="btn btn-primary btn-sm" type="submit">
-            Submit
-          </button>
-        </form>
-      </div>
+          </FormControl>
+        </FormGroup>
+        <button className="btn btn-primary btn-sm" type="submit">
+          Submit
+        </button>
+      </form>
     );
   }
 

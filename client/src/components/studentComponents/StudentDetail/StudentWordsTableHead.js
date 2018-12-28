@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Row, Col } from "reactstrap";
 import StudentWordsTableRows from "./StudentWordsTableRows";
 
 // Display table head of words students are learning

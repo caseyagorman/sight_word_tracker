@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as studentsActions from "../../redux/actions/studentsActions";
 import Student from "./Student";
 import { Link } from "react-router-dom";
-import ViewClassChart from "../StudentTestResultsComponents/ViewClassChart";
+import DoughnutChart from "./DoughnutChart";
 const divStyle = {
   display: "inline"
 };
@@ -26,7 +26,7 @@ class ViewStudents extends React.Component {
     if (!user) {
       return <p>Loading...</p>;
     }
-    return <ViewClassChart user={user} />;
+    return <DoughnutChart user={user} />;
   }
 
   render() {

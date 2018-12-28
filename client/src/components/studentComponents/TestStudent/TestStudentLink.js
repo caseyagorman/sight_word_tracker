@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const TestStudentLink = props => {
   return (
-    <div>
+    <div className="container">
       <Link to={`/test-student/${props[0].student_id}`}>
         <button className="btn btn-primary btn-lg">
           Test {props[0].fname}

@@ -18,18 +18,16 @@ class DeleteStudentFormContainer extends Component {
       return <div>loading...</div>;
     }
     return (
-      <div>
-        <DeleteStudent
-          token={this.props.auth.user.token}
-          username={this.props.auth.user.username}
-          studentId={this.props.studentId}
-        />
-      </div>
+      <DeleteStudent
+        token={this.props.auth.user.token}
+        username={this.props.auth.user.username}
+        studentId={this.props.studentId}
+      />
     );
   }
 
   render() {
-    return <div>{this.displayDeleteStudentForm()}</div>;
+    return <b>{this.displayDeleteStudentForm()}</b>;
   }
 }
 

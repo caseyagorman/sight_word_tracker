@@ -6,17 +6,36 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import { Grid, Col, Row, Glyphicon } from "react-bootstrap";
+const divStyle = {
+  display: "inline"
+};
+const glyphStyle = {
+  fontSize: "40px"
+};
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  getOptions() {
+  getOptions(student) {
+    if (!student) {
+      return <div>loading...</div>;
+    }
     return (
-      <form>
-        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
-      </form>
+      <div>
+        <form>
+          <h3>
+            <Glyphicon
+              style={glyphStyle}
+              glyph="glyphicon glyphicon-trash"
+              onClick={this.submit}
+            />
+            <span> </span>
+            Delete {student[0].fname}
+          </h3>
+        </form>
+      </div>
     );
   }
 
@@ -46,9 +65,7 @@ class DeleteStudent extends Component {
 
   render() {
     return (
-      <div>
-        <div>{this.getOptions()}</div>
-      </div>
+      <div className="container">{this.getOptions(this.props.student)}</div>
     );
   }
 }

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
-
+import { Col } from "reactstrap";
 class StudentDoughnutChart extends Component {
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    const divStyle = { height: "25px", align: "center" };
+    const divStyle = { height: "25px", align: "right" };
 
     let learned = dataResults.dataResults.learned;
     let unlearned = dataResults.dataResults.unlearned;
@@ -21,10 +21,11 @@ class StudentDoughnutChart extends Component {
       ]
     };
     return (
-      <div style={divStyle}>
-        <h2>Learned Words</h2>
-        <Doughnut data={data} />
-      </div>
+      <Col lg="6">
+        <div style={divStyle}>
+          <Doughnut data={data} />
+        </div>
+      </Col>
     );
   }
   d;

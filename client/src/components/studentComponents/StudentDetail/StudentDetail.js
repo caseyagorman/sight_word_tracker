@@ -2,13 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import StudentNamePage from "./StudentNamePage";
-import StudentWordsTableHead from "./StudentWordsTableHead";
-import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
-import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
-import { Grid, Row, Col } from "react-bootstrap";
+import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
+import Line1 from "./Line1";
+import Line2 from "./Line2";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
@@ -20,18 +18,26 @@ class StudentDetail extends React.Component {
     this.props.studentActions.fetchStudent(student, user);
   }
 
-  StudentNamePage(student) {
+  displayLine1(student, id) {
     if (!student) {
-      return <p>Loading student...</p>;
+      return <div> loading..</div>;
     }
-    return StudentNamePage(student);
+    return <Line1 student={student} id={id} />;
   }
 
-  studentWordsTableHead(student) {
+  displayLine2(student) {
     if (!student) {
-      return <p>Loading student words...</p>;
+      return <div> loading..</div>;
     }
-    return <StudentWordsTableHead student={student[0]} words={student[1]} />;
+    return <Line2 student={student} />;
+  }
+  deleteStudentButton(student, studentId) {
+    if (!studentId) {
+      return <div>loading...</div>;
+    }
+    return (
+      <DeleteStudentFormContainer studentId={studentId} student={student} />
+    );
   }
 
   TestStudentLink(student) {
@@ -41,32 +47,21 @@ class StudentDetail extends React.Component {
     return TestStudentLink(student);
   }
 
-  AddStudentWordForm(student) {
-    if (!student) {
-      return <div>loading...</div>;
-    }
-    return <AddStudentWordForm student={student} />;
-  }
-
-  DeleteStudentButton(studentId) {
-    if (!studentId) {
-      return <div>loading...</div>;
-    }
-    return <DeleteStudentFormContainer studentId={studentId} />;
-  }
   render() {
     return (
       <div>
-        {this.StudentNamePage(this.props.student)}
-        {this.DeleteStudentButton(this.props.id)}
-        {this.TestStudentLink(this.props.student)}
-        {this.studentWordsTableHead(this.props.student)}
-        {this.AddStudentWordForm(this.props.student)}
-        <StudentTestResultsContainer
-          id={this.props.id}
-          token={this.props.token}
-          username={this.props.username}
-        />
+        {this.displayLine1(this.props.student)}
+        <div>{this.TestStudentLink(this.props.student)}</div>
+        <br />
+        {this.displayLine2(this.props.student)}
+        <div>
+          <StudentTestResultsContainer
+            id={this.props.id}
+            token={this.props.token}
+            username={this.props.username}
+          />
+        </div>
+        {this.deleteStudentButton(this.props.student, this.props.id)}
       </div>
     );
   }

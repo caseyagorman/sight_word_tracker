@@ -1,6 +1,6 @@
 import React from "react";
 import StudentTestResultsTable from "./StudentTestResultsTable";
-import DisplayWordCounts from "./DisplayWordCounts";
+import StudentWordCountsTableHead from "./StudentWordCountsTableHead";
 import StudentDoughnutChart from "./StudentDoughnutChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -24,7 +24,7 @@ class StudentTestResults extends React.Component {
     return <StudentTestResultsTable test={testResults} />;
   }
 
-  displayChart(studentTest) {
+  displayDoughnutChart(studentTest) {
     if (!studentTest) {
       return <p>loading...</p>;
     }
@@ -37,15 +37,17 @@ class StudentTestResults extends React.Component {
       return <p>loading...</p>;
     }
     let test = studentTest[1];
-    return <DisplayWordCounts test={test} />;
+    return <StudentWordCountsTableHead test={test} />;
   }
   render() {
     return (
       <div>
         <br />
-        <div>{this.getWordCounts(this.props.studentTestResults)}</div>
+        <div>
+          {this.getWordCounts(this.props.studentTestResults)}
+          {this.displayDoughnutChart(this.props.studentTestResults)}
+        </div>
         <div>{this.viewStudentTestResults(this.props.studentTestResults)}</div>
-        <div>{this.displayChart(this.props.studentTestResults)}</div>
       </div>
     );
   }
