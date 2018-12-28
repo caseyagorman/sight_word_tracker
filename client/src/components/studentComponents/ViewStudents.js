@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentsActions from "../../redux/actions/studentsActions";
-import Student from "../StudentComponents/StudentDetail/Student";
+import Student from "./Student";
 import { Link } from "react-router-dom";
 import ViewClassChart from "../StudentTestResultsComponents/ViewClassChart";
 const divStyle = {

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
-import StudentWordsPage from "./StudentWordsPage";
+import StudentWordsTableRows from "./StudentWordsTableRows";
 
-class DisplayStudentWords extends Component {
+// Display table head of words students are learning
+
+class StudentWordsTableHead extends Component {
   displayTableHead(words, student) {
     return (
       <Table striped bordered condensed hover>
@@ -21,7 +23,7 @@ class DisplayStudentWords extends Component {
       return <p>loading...</p>;
     }
 
-    return words.map(words => StudentWordsPage(words));
+    return words.map(words => StudentWordsTableRows(words));
   }
 
   render() {
@@ -33,4 +35,4 @@ class DisplayStudentWords extends Component {
   }
 }
 
-export default DisplayStudentWords;
+export default StudentWordsTableHead;

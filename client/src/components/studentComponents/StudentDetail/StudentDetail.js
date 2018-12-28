@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import StudentPage from "./StudentPage";
-import DisplayStudentWords from "./DisplayStudentWords";
+import StudentWordsTableHead from "./StudentWordsTableHead";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
 import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
@@ -27,11 +27,11 @@ class StudentDetail extends React.Component {
     return StudentPage(student);
   }
 
-  StudentWords(student) {
+  studentWordsTableHead(student) {
     if (!student) {
       return <p>Loading student words...</p>;
     }
-    return <DisplayStudentWords student={student[0]} words={student[1]} />;
+    return <StudentWordsTableHead student={student[0]} words={student[1]} />;
   }
 
   TestStudentLink(student) {
@@ -56,21 +56,18 @@ class StudentDetail extends React.Component {
   }
   render() {
     return (
-      <Grid>
-        <Row className="show-grid">
-          {this.StudentPage(this.props.student)}
-
-          {this.DeleteStudentButton(this.props.id)}
-        </Row>
-        <div>{this.TestStudentLink(this.props.student)}</div>
-        <div>{this.StudentWords(this.props.student)} </div>
-        <div>{this.AddStudentWordForm(this.props.student)}</div>
+      <div>
+        {this.StudentPage(this.props.student)}
+        {this.DeleteStudentButton(this.props.id)}
+        {this.TestStudentLink(this.props.student)}
+        {this.studentWordsTableHead(this.props.student)}
+        {this.AddStudentWordForm(this.props.student)}
         <StudentTestResultsContainer
           id={this.props.id}
           token={this.props.token}
           username={this.props.username}
         />
-      </Grid>
+      </div>
     );
   }
 }

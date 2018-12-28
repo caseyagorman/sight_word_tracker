@@ -1,6 +1,8 @@
 import React from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
+// DisplayStudent name
+
 const StudentPage = props => {
   return (
     <Grid>
