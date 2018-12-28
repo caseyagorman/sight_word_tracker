@@ -3,12 +3,7 @@ import { Table } from "react-bootstrap";
 import StudentWordsPage from "./StudentWordsPage";
 
 class DisplayStudentWords extends Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   displayTableHead(words, student) {
-    console.log("displayTableHead", words, student);
     return (
       <Table striped bordered condensed hover>
         <thead>
@@ -22,7 +17,6 @@ class DisplayStudentWords extends Component {
   }
 
   displayTableRows(words) {
-    console.log("display table rows", words);
     if (!words) {
       return <p>loading...</p>;
     }

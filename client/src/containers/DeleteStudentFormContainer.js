@@ -5,7 +5,6 @@ import * as authActions from "../redux/actions/authActions";
 import DeleteStudent from "../components/StudentComponents/Forms/DeleteStudent";
 class DeleteStudentFormContainer extends Component {
   componentDidMount() {
-    console.log(this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

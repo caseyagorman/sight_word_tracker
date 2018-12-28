@@ -17,7 +17,6 @@ export function receiveWord(word) {
 }
 
 export function fetchWord(id, user) {
-  console.log("word action", id, user);
   return dispatch => {
     return fetch(getWordApi(id), {
       method: "GET",
@@ -33,7 +32,6 @@ export function fetchWord(id, user) {
   };
 }
 export function deleteWord(word, user) {
-  console.log("delete word action", user, word);
   return dispatch => {
     return fetch(deleteWordApi(), {
       method: "POST",
@@ -49,7 +47,6 @@ export function deleteWord(word, user) {
 }
 
 export function addWord(word, user) {
-  console.log("ADD WORD ACTION", word, user);
   return dispatch => {
     return fetch(addWordApi(), {
       method: "POST",

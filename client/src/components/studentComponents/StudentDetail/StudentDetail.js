@@ -28,7 +28,6 @@ class StudentDetail extends React.Component {
   }
 
   StudentWords(student) {
-    console.log("StudentWords", student[1]);
     if (!student) {
       return <p>Loading student words...</p>;
     }
@@ -56,7 +55,6 @@ class StudentDetail extends React.Component {
     return <DeleteStudentFormContainer studentId={studentId} />;
   }
   render() {
-    console.log("rendering student detail", this.props, this.props.student);
     return (
       <Grid>
         <Row className="show-grid">

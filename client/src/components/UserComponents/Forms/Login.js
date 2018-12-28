@@ -11,7 +11,6 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillReceiveProps(newProps) {
-    console.log("newProps", newProps);
     if (newProps.auth.loginErrors === "") {
     }
 

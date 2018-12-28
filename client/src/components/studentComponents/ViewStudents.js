@@ -10,14 +10,12 @@ const divStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    console.log("View Students", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.studentsActions.fetchStudents(user);
     }
   }
   displayStudents(students) {
-    console.log("display students", students);
     if (!students) {
       return <p>Loading student...</p>;
     }

@@ -12,7 +12,6 @@ class AddWord extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log("add word component", this.props);
     if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -25,8 +24,6 @@ class AddWord extends Component {
     event.preventDefault();
     const user = this.props.token;
     const word = this.state.newWord;
-
-    console.log("handle submit", user, word);
     this.props.wordActions.addWord(word, user);
   }
   handleChange(event) {

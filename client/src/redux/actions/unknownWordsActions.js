@@ -9,7 +9,6 @@ export function receiveUnknownWords(unknownWords) {
 }
 
 export function fetchUnknownWords(student, user) {
-  console.log("id", student, "user", user);
   return dispatch => {
     return fetch(getUnknownWordsApi(student), {
       method: "GET",

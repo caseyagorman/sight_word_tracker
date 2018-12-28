@@ -8,7 +8,6 @@ import ViewWordsPresentation from "./WordDetail/ViewWordsPresentation";
 import WordBarChart from "./WordDetail/WordBarChart";
 class ViewWords extends React.Component {
   componentDidMount() {
-    console.log("View Words", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.wordsActions.fetchWords(user);
@@ -16,7 +15,6 @@ class ViewWords extends React.Component {
   }
 
   displayWords(words) {
-    console.log("WORDS!", this.props, words);
     if (!words) {
       return <p>Loading words...</p>;
     }
