@@ -30,15 +30,16 @@ export function receiveStudentWords(studentWords) {
 }
 
 export function fetchStudentWords(user) {
+  console.log("fetchStudentWordsAction", user);
   return dispatch => {
     return fetch(studentWordsApi(), {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
     })
       .then(response => response.json())
       .then(studentWords => dispatch(receiveStudentWords(studentWords)));

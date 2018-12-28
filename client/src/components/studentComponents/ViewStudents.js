@@ -22,6 +22,14 @@ class ViewStudents extends React.Component {
     return students.map(student => Student(student));
   }
 
+  displayChart(user) {
+    console.log("display chart", user);
+    if (!user) {
+      return <p>Loading...</p>;
+    }
+    return <ViewClassChart user={user} />;
+  }
+
   render() {
     return (
       <div>
@@ -35,7 +43,7 @@ class ViewStudents extends React.Component {
         </div>
         <div>{this.displayStudents(this.props.students)}</div>
         <div>
-          <ViewClassChart user={this.props.userId} />
+          <div>{this.displayChart(this.props.token)}</div>
         </div>
       </div>
     );

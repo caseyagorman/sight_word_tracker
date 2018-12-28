@@ -338,10 +338,10 @@ def get_all_student_word_counts():
     return word_counts
 
 
-@app.route("/api/get-learned-words", methods={"POST"})
+@app.route("/api/get-learned-words")
 @token_required
-def get_all_learned_words():
-    user_id = request.get_json()
+def get_all_learned_words(current_user):
+    user_id = current_user.public_id
     print(user_id)
     student_words = StudentWord.query.filter_by(user_id=user_id).all()
     learned_count = 0
@@ -355,7 +355,6 @@ def get_all_learned_words():
         else:
             unlearned_count += 1
             unlearned_words.append(word)
-    print("learned and unlearned", learned_words, unlearned_words)
     result = {"learned": learned_count, "unlearned": unlearned_count}
     return jsonify(result)
 

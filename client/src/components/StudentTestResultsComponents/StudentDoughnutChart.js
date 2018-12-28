@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 class StudentDoughnutChart extends Component {
-  state = { data: null };
-
-  componentDidMount() {
-    this.setState({ data: this.props });
-  }
-
   displayChart(dataResults) {
+    console.log("student doughnutchart", dataResults, dataResults.learned);
     if (!dataResults) {
       return <div> loading...</div>;
     }
     const divStyle = { height: "25px", align: "center" };
 
-    let learned = dataResults.learned;
-    let unlearned = dataResults.unlearned;
+    let learned = dataResults.dataResults.learned;
+    console.log("learned", learned);
+    let unlearned = dataResults.dataResults.unlearned;
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [
@@ -35,7 +31,7 @@ class StudentDoughnutChart extends Component {
   }
   d;
   render() {
-    return <div>{this.displayChart(this.state.data)}</div>;
+    return <div>{this.displayChart(this.props)}</div>;
   }
 }
 
