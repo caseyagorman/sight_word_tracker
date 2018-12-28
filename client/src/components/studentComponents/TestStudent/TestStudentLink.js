@@ -5,7 +5,9 @@ const TestStudentLink = props => {
   return (
     <div>
       <Link to={`/test-student/${props[0].student_id}`}>
-        Test {props[0].fname}
+        <button className="btn btn-primary btn-lg">
+          Test {props[0].fname}
+        </button>
       </Link>
     </div>
   );

@@ -59,23 +59,19 @@ class AddStudentWordForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <select
-              multiple={true}
-              value={this.state.value}
-              onChange={this.handleChange}
-            >
-              {wordList.map(word => (
-                <option key={word}>{word}</option>
-              ))}
-            </select>
-          </label>
-          <div>
-            <br />
-            <button className="btn btn-primary btn-md" type="submit">
-              Submit
-            </button>
-          </div>
+          <select
+            multiple={true}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            {wordList.map(word => (
+              <option key={word}>{word}</option>
+            ))}
+          </select>
+
+          <button className="btn btn-primary btn-sm" type="submit">
+            Submit
+          </button>
         </form>
       </div>
     );

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import StudentPage from "./StudentPage";
+import StudentNamePage from "./StudentNamePage";
 import StudentWordsTableHead from "./StudentWordsTableHead";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import TestStudentLink from "../TestStudent/TestStudentLink";
@@ -20,11 +20,11 @@ class StudentDetail extends React.Component {
     this.props.studentActions.fetchStudent(student, user);
   }
 
-  StudentPage(student) {
+  StudentNamePage(student) {
     if (!student) {
-      return <p>Boo! Loading student...</p>;
+      return <p>Loading student...</p>;
     }
-    return StudentPage(student);
+    return StudentNamePage(student);
   }
 
   studentWordsTableHead(student) {
@@ -57,7 +57,7 @@ class StudentDetail extends React.Component {
   render() {
     return (
       <div>
-        {this.StudentPage(this.props.student)}
+        {this.StudentNamePage(this.props.student)}
         {this.DeleteStudentButton(this.props.id)}
         {this.TestStudentLink(this.props.student)}
         {this.studentWordsTableHead(this.props.student)}

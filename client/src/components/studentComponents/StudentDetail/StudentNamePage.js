@@ -1,13 +1,13 @@
 import React from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
-// DisplayStudent name
+// Display student name
 
-const StudentPage = props => {
+const StudentNamePage = props => {
   return (
     <Grid>
       <Row className="studentPage">
-        <Col lg={8} md={4}>
+        <Col lg={8}>
           <h1>
             {props[0].fname} {props[0].lname}
           </h1>
@@ -17,4 +17,4 @@ const StudentPage = props => {
   );
 };
 
-export default StudentPage;
+export default StudentNamePage;
