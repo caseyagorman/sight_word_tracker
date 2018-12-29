@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Col } from "reactstrap";
+import { Table } from "reactstrap";
 import WordCountRows from "./WordCountRows";
 class StudentWordCountsTableHead extends Component {
   displayTableHead(test) {

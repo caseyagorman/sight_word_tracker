@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // Display links to words students are learning within table rows
 
-const StudentWordsTableRows = props => (
+const AllStudentsTableRows = props => (
   <tbody>
     <tr>
       <td>
@@ -17,4 +17,4 @@ const StudentWordsTableRows = props => (
   </tbody>
 );
 
-export default StudentWordsTableRows;
+export default AllStudentsTableRows;

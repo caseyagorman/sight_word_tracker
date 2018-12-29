@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentsActions from "../../../redux/actions/studentsActions";
 import AddStudentButton from "../Forms/AddStudentButton";
-import Line3 from "./Line3AllStudents";
+import Line1 from "./Line1AllStudents";
 import Line2 from "./Line2AllStudents";
 const headerStyle = {
   fontSize: "100px"
@@ -16,17 +16,17 @@ class ViewStudents extends React.Component {
     }
   }
 
-  displayLine2(students) {
+  displayLine1(students) {
     if (!students) {
       return <p>Loading...</p>;
     }
-    return <Line2 students={students} />;
+    return <Line1 students={students} />;
   }
-  displayLine3(user) {
+  displayLine2(user) {
     if (!user) {
       return <p>Loading...</p>;
     }
-    return <Line3 user={user} />;
+    return <Line2 user={user} />;
   }
 
   displayAddStudentButton() {
@@ -43,8 +43,8 @@ class ViewStudents extends React.Component {
           <br />
         </div>
         <div>
-          <div>{this.displayLine2(this.props.students)}</div>
-          <div>{this.displayLine3(this.props.token)}</div>
+          <div>{this.displayLine1(this.props.students)}</div>
+          <div>{this.displayLine2(this.props.token)}</div>
         </div>
       </div>
     );
