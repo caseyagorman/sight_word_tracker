@@ -6,7 +6,6 @@ import AllWordsTableRows from "./AllWordsTableRows";
 
 class AllWordsTableHead extends Component {
   displayTableHead(words) {
-    console.log("display table head", words);
     return (
       <div>
         <Table striped bordered condensed hover>
@@ -17,7 +16,6 @@ class AllWordsTableHead extends Component {
   }
 
   displayTableRows(words) {
-    console.log("display table rows", words);
     if (!words) {
       return <p>loading...</p>;
     }

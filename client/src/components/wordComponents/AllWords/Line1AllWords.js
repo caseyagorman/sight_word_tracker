@@ -4,7 +4,6 @@ import AllWordsTableHead from "./AllWordsTableHead";
 
 class Line1 extends React.Component {
   displayTableHead(words) {
-    console.log("Line1 display table head", words.words[0]);
     if (!words) {
       return <p>Loading...</p>;
     }

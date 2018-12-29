@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import Home from "../components/Home";
+import Home from "../components/HomeComponents/Home";
 class HomeContainer extends Component {
   componentDidMount() {
     if (sessionStorage.length > 0) {

@@ -14,7 +14,7 @@ class Line2 extends React.Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="6">{this.displayChart(this.props.user)}</Col>
+          {/* <Col lg="6">{this.displayChart(this.props.user)}</Col> */}
         </Row>
       </div>
     );

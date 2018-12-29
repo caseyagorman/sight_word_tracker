@@ -6,7 +6,6 @@ import WordDetailTableRows from "./WordDetailTableRows";
 
 class WordDetailTableHead extends Component {
   displayTableHead(students, word) {
-    console.log("display table head", students);
     return (
       <div>
         <Table striped bordered condensed hover>

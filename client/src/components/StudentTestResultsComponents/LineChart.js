@@ -16,8 +16,6 @@ class LineChart extends Component {
   }
 
   displayChartData(dates, scores) {
-    console.log("display chart data", dates, scores);
-
     const data = {
       labels: dates,
       datasets: [

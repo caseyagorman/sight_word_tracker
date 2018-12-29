@@ -10,7 +10,7 @@ class Line4 extends Component {
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentTest[3];
+    let test = studentTest[2];
     return <StudentDoughnutChart dataResults={test} />;
   }
 
