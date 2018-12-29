@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import * as studentWordsActions from "../../redux/actions/studentWordsActions";
-import StudentDoughnutChart from "../StudentTestResultsComponents/StudentDoughnutChart";
+import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
+import StudentDoughnutChart from "../../StudentTestResultsComponents/StudentDoughnutChart";
 import { connect } from "react-redux";
 
 class DoughnutChart extends Component {

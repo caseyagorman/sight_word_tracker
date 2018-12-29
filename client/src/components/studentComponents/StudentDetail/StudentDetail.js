@@ -4,8 +4,8 @@ import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import TestStudentLink from "../TestStudent/TestStudentLink";
 import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
-import Line1 from "./Line1";
-import Line2 from "./Line2";
+import Line1 from "./Line1StudentDetail";
+import Line2 from "./Line2StudentDetail";
 
 class StudentDetail extends React.Component {
   componentDidMount() {

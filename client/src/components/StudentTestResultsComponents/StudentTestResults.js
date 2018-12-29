@@ -1,7 +1,7 @@
 import React from "react";
-import Line3 from "./Line3";
-import Line4 from "./Line4";
-import Line5 from "./Line5";
+import Line3 from "./Line3StudentDetail";
+import Line4 from "./Line4StudentDetail";
+import Line5 from "./Line5StudentDetail";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as studentsActions from "../../redux/actions/studentsActions";
-import Student from "./Student";
-import { Link } from "react-router-dom";
+import * as studentsActions from "../../../redux/actions/studentsActions";
+import StudentLink from "./StudentLink";
+import AddStudentButton from "../Forms/AddStudentButton";
 import DoughnutChart from "./DoughnutChart";
-const divStyle = {
-  display: "inline"
+const headerStyle = {
+  fontSize: "100px"
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
@@ -19,7 +19,7 @@ class ViewStudents extends React.Component {
     if (!students) {
       return <p>Loading student...</p>;
     }
-    return students.map(student => Student(student));
+    return students.map(student => StudentLink(student));
   }
 
   displayChart(user) {
@@ -28,15 +28,16 @@ class ViewStudents extends React.Component {
     }
     return <DoughnutChart user={user} />;
   }
+  displayAddStudentButton() {
+    return <AddStudentButton />;
+  }
 
   render() {
     return (
-      <div>
+      <div class="container">
         <br />
-        <h1>Students</h1>
-        <div style={divStyle}>
-          <Link to={`/add-student`}> Add Student</Link>
-        </div>
+        <h1 style={headerStyle}>All Students</h1>
+        <div>{this.displayAddStudentButton()}</div>
         <div>
           <br />
         </div>

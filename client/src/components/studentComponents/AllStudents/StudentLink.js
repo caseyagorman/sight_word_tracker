@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // Display link to student detail
 
-const Student = props => (
+const StudentLink = props => (
   <div key={props.student_id}>
     <Link to={`/details/${props.student_id}`}>
       {props.fname} {props.lname}
@@ -11,4 +11,4 @@ const Student = props => (
   </div>
 );
 
-export default Student;
+export default StudentLink;

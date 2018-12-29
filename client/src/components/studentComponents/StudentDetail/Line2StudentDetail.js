@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import StudentWordsTableHead from "./StudentWordsTableHead";
-import StudentNamePage from "./StudentNamePage";
-const divStyle = {
-  display: "inline"
-};
 
 class Line2 extends Component {
   studentWordsTableHead(student) {

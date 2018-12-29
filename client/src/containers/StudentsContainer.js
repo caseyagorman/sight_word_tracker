@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import ViewStudents from "../components/StudentComponents/ViewStudents";
+import ViewStudents from "../components/StudentComponents/AllStudents/ViewStudents";
 class StudentsContainer extends Component {
   componentDidMount() {
     if (sessionStorage.length > 0) {

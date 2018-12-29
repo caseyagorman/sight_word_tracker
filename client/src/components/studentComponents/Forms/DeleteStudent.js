@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import { Row, Col, Glyphicon } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 const glyphStyle = {
   fontSize: "40px"

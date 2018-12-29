@@ -13,7 +13,6 @@ import WordDetailContainer from "./containers/WordDetailContainer";
 import AddStudentFormContainer from "./containers/AddStudentFormContainer";
 import AddWordFormContainer from "./containers/AddWordFormContainer";
 import TestStudentContainer from "./containers/TestStudentContainer";
-import StudentTestResultsContainer from "./containers/StudentTestResultsContainer";
 import HomeContainer from "./containers/HomeContainer";
 import RegisterPage from "./components/UserComponents/RegisterPage";
 import Login from "./components/UserComponents/Forms/Login";
