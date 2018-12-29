@@ -4,7 +4,8 @@ import WordCountRows from "./WordCountRows";
 class StudentWordCountsTableHead extends Component {
   displayTableHead(test) {
     return (
-      <Col lg="2">
+      <div>
+        <h3> Word Counts</h3>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -15,7 +16,7 @@ class StudentWordCountsTableHead extends Component {
           </thead>
           {this.displayTableRows(test)}
         </Table>
-      </Col>
+      </div>
     );
   }
 
@@ -28,11 +29,7 @@ class StudentWordCountsTableHead extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div>{this.displayTableHead(this.props.test)}</div>
-      </div>
-    );
+    return <div>{this.displayTableHead(this.props.test)}</div>;
   }
 }
 

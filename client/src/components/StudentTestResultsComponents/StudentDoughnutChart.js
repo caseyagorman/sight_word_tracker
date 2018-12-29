@@ -6,7 +6,7 @@ class StudentDoughnutChart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    const divStyle = { height: "25px", align: "right" };
+    const divStyle = { height: "100px", align: "left" };
 
     let learned = dataResults.dataResults.learned;
     let unlearned = dataResults.dataResults.unlearned;
@@ -21,11 +21,10 @@ class StudentDoughnutChart extends Component {
       ]
     };
     return (
-      <Col lg="6">
-        <div style={divStyle}>
-          <Doughnut data={data} />
-        </div>
-      </Col>
+      <div style={divStyle}>
+        <h3>Percentage of words learned</h3>
+        <Doughnut data={data} />
+      </div>
     );
   }
   d;

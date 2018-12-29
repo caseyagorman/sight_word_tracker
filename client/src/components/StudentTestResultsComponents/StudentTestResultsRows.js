@@ -1,7 +1,6 @@
 import React from "react";
 import DisplayWords from "./DisplayWords";
 const StudentTestResultsRow = props => {
-  console.log("studenttestresultsrow", props);
   return (
     <tbody>
       <tr>

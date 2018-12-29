@@ -5,10 +5,8 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import { Grid, Col, Row, Glyphicon } from "react-bootstrap";
-const divStyle = {
-  display: "inline"
-};
+import { Row, Col, Glyphicon } from "react-bootstrap";
+
 const glyphStyle = {
   fontSize: "40px"
 };
@@ -41,7 +39,7 @@ class DeleteStudent extends Component {
 
   handleSubmit() {
     const user = this.props.token;
-    const student = this.props.studentId;
+    const student = this.props.student[0].student_id;
     this.props.studentActions.deleteStudent(student, user);
   }
 

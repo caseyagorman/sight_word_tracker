@@ -26,6 +26,7 @@ class AddStudentWordForm extends Component {
       student: this.props.student[0].student_id,
       words: this.state.value
     };
+
     let user = this.props.auth.user.token;
     this.props.studentWordsActions.addStudentWords(newStudentWords, user);
   }
@@ -54,7 +55,6 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
-    console.log("get options add word form", this.props);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }
@@ -62,25 +62,57 @@ class AddStudentWordForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup controlId="formControlsSelectMultiple">
-          <ControlLabel>Add Word to {this.props.student[0].fname}</ControlLabel>
-          <FormControl componentClass="select" multiple>
+          <ControlLabel>
+            <h3>Add Word to {this.props.student[0].fname}</h3>
+          </ControlLabel>
+          <FormControl
+            componentClass="select"
+            multiple
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
             {wordList.map(word => (
-              <option
-                value={this.state.value}
-                onChange={this.handleChange}
-                key={word}
-              >
-                {word}
-              </option>
+              <option key={word}>{word}</option>
             ))}
           </FormControl>
         </FormGroup>
-        <button className="btn btn-primary btn-sm" type="submit">
+        <button className="btn btn-primary btn-md" type="submit">
           Submit
         </button>
       </form>
     );
   }
+
+  // getOptions() {
+  //   console.log("get options", this.props);
+  //   if (!this.props.unknownWords) {
+  //     return <div>Loading!</div>;
+  //   }
+  //   let wordList = this.turnIntoArray(this.props.unknownWords);
+  //   return (
+  //     <div>
+  //       <form onSubmit={this.handleSubmit}>
+  //         <label>
+  //           <select
+  //             multiple={true}
+  //             value={this.state.value}
+  //             onChange={this.handleChange}
+  //           >
+  //             {wordList.map(word => (
+  //               <option key={word}>{word}</option>
+  //             ))}
+  //           </select>
+  //         </label>
+  //         <div>
+  //           <br />
+  //           <button className="btn btn-primary btn-md" type="submit">
+  //             Submit
+  //           </button>
+  //         </div>
+  //       </form>
+  //     </div>
+  //   );
+  // }
 
   render() {
     return <div>{this.getOptions()}</div>;

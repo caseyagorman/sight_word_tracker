@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StudentWordCountsTableHead from "./StudentWordCountsTableHead";
-import StudentDoughnutChart from "./StudentDoughnutChart";
-const chartStyle = {
-  height: "100"
-};
-class Line3 extends Component {
-  componetDidMount() {}
 
-  displayDoughnutChart(studentTest) {
-    if (!studentTest) {
+import StudentTestResultsTable from "./StudentTestResultsTable";
+class Line3 extends Component {
+  viewStudentTestResults(studentTestResults) {
+    if (!studentTestResults) {
       return <p>loading...</p>;
     }
-    let test = studentTest[3];
-    return <StudentDoughnutChart dataResults={test} />;
+    let testResults = studentTestResults[0];
+
+    return <StudentTestResultsTable test={testResults} />;
   }
 
   getWordCounts(studentTest) {
@@ -28,9 +25,9 @@ class Line3 extends Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="4">{this.getWordCounts(this.props.studentTestResults)}</Col>
-          <Col lg="8" style={chartStyle}>
-            {this.displayDoughnutChart(this.props.studentTestResults)}
+          <Col lg="6">{this.getWordCounts(this.props.studentTestResults)}</Col>
+          <Col lg="6">
+            {this.viewStudentTestResults(this.props.studentTestResults)}
           </Col>
         </Row>
       </div>

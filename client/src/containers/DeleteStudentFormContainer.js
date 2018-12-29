@@ -27,7 +27,7 @@ class DeleteStudentFormContainer extends Component {
   }
 
   render() {
-    return <b>{this.displayDeleteStudentForm()}</b>;
+    return <div>{this.displayDeleteStudentForm()}</div>;
   }
 }
 

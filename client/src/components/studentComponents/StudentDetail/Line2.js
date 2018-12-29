@@ -8,10 +8,6 @@ const divStyle = {
 };
 
 class Line2 extends Component {
-  componetDidMount() {
-    console.log("Line1", this.props);
-  }
-
   studentWordsTableHead(student) {
     if (!student) {
       return <p>Loading student words...</p>;
@@ -31,8 +27,8 @@ class Line2 extends Component {
       <div className="container">
         <div className="align-baseline">
           <Row>
-            <Col lg="4">{this.studentWordsTableHead(this.props.student)}</Col>
-            <Col lg="4">{this.addStudentWordForm(this.props.student)}</Col>
+            <Col lg="6">{this.studentWordsTableHead(this.props.student)}</Col>
+            <Col lg="6">{this.addStudentWordForm(this.props.student)}</Col>
           </Row>
         </div>
       </div>

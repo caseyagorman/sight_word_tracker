@@ -7,14 +7,12 @@ import StudentWordsTableRows from "./StudentWordsTableRows";
 class StudentWordsTableHead extends Component {
   displayTableHead(words, student) {
     return (
-      <Table striped bordered condensed hover>
-        <thead>
-          <tr>
-            <th>{this.props.student.fname} is learning</th>
-          </tr>
-        </thead>
-        {this.displayTableRows(words)}
-      </Table>
+      <div>
+        <h3>{this.props.student.fname} is learning</h3>
+        <Table striped bordered condensed hover>
+          {this.displayTableRows(words)}
+        </Table>
+      </div>
     );
   }
 

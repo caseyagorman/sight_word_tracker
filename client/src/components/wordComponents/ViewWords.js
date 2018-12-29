@@ -23,7 +23,6 @@ class ViewWords extends React.Component {
   }
 
   displayChart(words) {
-    console.log("display chart", words);
     if (!words) {
       return <p>loading...</p>;
     }

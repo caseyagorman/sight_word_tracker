@@ -7,6 +7,7 @@ import StudentTestResultsContainer from "../../../containers/StudentTestResultsC
 import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import Line1 from "./Line1";
 import Line2 from "./Line2";
+import Line5 from "../../StudentTestResultsComponents/Line5";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
@@ -31,13 +32,12 @@ class StudentDetail extends React.Component {
     }
     return <Line2 student={student} />;
   }
-  deleteStudentButton(student, studentId) {
-    if (!studentId) {
-      return <div>loading...</div>;
+
+  displayLine5(student, studentId) {
+    if (!student) {
+      return <div> loading..</div>;
     }
-    return (
-      <DeleteStudentFormContainer studentId={studentId} student={student} />
-    );
+    return <Line5 student={student} studentId={studentId} />;
   }
 
   TestStudentLink(student) {
@@ -50,18 +50,21 @@ class StudentDetail extends React.Component {
   render() {
     return (
       <div>
-        {this.displayLine1(this.props.student)}
-        <div>{this.TestStudentLink(this.props.student)}</div>
-        <br />
-        {this.displayLine2(this.props.student)}
-        <div>
+        <div className="container">{this.displayLine1(this.props.student)}</div>
+        <div className="container">
+          {this.TestStudentLink(this.props.student)}{" "}
+        </div>
+        <div className="container">{this.displayLine2(this.props.student)}</div>
+        <div className="container">
           <StudentTestResultsContainer
             id={this.props.id}
             token={this.props.token}
             username={this.props.username}
           />
         </div>
-        {this.deleteStudentButton(this.props.student, this.props.id)}
+        {/* <div className="container">
+          {this.displayLine5(this.props.student, this.props.id)}
+        </div> */}
       </div>
     );
   }
