@@ -317,7 +317,10 @@ def delete_student_word(current_user):
 
 def calculate_score(known_words, unknown_words):
     score = len(known_words) / (len(known_words) + len(unknown_words))
-    return score * 100
+    score = score * 100
+    score = int(round(score))
+    print(score)
+    return score
 
 
 def get_all_student_word_counts():
