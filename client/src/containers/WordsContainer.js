@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ViewWords from "../components/WordComponents/ViewWords";
+import ViewWords from "../components/WordComponents/AllWords/ViewWords";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";

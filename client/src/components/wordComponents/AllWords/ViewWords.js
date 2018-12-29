@@ -1,11 +1,15 @@
 import React from "react";
-import Word from "./WordDetail/Word";
+import Word from "../WordDetail/Word";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as wordsActions from "../../redux/actions/wordsActions";
-import * as authActions from "../../redux/actions/authActions";
-import ViewWordsPresentation from "./WordDetail/ViewWordsPresentation";
-import WordBarChart from "./WordDetail/WordBarChart";
+import * as wordsActions from "../../../redux/actions/wordsActions";
+import * as authActions from "../../../redux/actions/authActions";
+import WordBarChart from "../WordDetail/WordBarChart";
+import AddWordButton from "../Forms/AddWordButton";
+import Line1 from "./Line1AllWords";
+const headerStyle = {
+  fontSize: "100px"
+};
 class ViewWords extends React.Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -28,13 +32,23 @@ class ViewWords extends React.Component {
     }
     return <WordBarChart data={words} />;
   }
+  displayLine1(words) {
+    if (!words) {
+      return <p>loading...</p>;
+    }
+    return <Line1 words={words} />;
+  }
+  displayAddWordButton() {
+    return <AddWordButton />;
+  }
 
   render() {
     return (
-      <div>
-        <div>
-          <ViewWordsPresentation words={this.props.words[0]} />
-        </div>
+      <div class="container">
+        <br />
+        <h1 style={headerStyle}>All Words</h1>
+        <div>{this.displayAddWordButton()}</div>
+        <div>{/* <ViewWordsPresentation words={this.props.words[0]} /> */}</div>
         <div>{this.displayWords(this.props.words)}</div>
         {this.displayChart(this.props.words)}
       </div>
