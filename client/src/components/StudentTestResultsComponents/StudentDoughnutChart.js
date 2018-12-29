@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Col } from "reactstrap";
+
 class StudentDoughnutChart extends Component {
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    const divStyle = { height: "100px", align: "left" };
 
     let learned = dataResults.dataResults.learned;
     let unlearned = dataResults.dataResults.unlearned;
@@ -21,7 +20,7 @@ class StudentDoughnutChart extends Component {
       ]
     };
     return (
-      <div style={divStyle}>
+      <div>
         <h3>Percentage of words learned</h3>
         <Doughnut data={data} />
       </div>

@@ -35,9 +35,13 @@ class StudentTestResults extends React.Component {
     return (
       <div>
         <br />
-        <div>{this.displayLine3(this.props.studentTestResults)}</div>
-        <div>{this.displayLine4(this.props.studentTestResults)}</div>
-        <div>{this.displayLine5(this.props.student)}</div>
+        <div className="container">
+          {this.displayLine4(this.props.studentTestResults)}
+        </div>
+        <div className="container">
+          {this.displayLine3(this.props.studentTestResults)}
+        </div>
+        <div className="container">{this.displayLine5(this.props.student)}</div>
       </div>
     );
   }

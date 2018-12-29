@@ -83,37 +83,6 @@ class AddStudentWordForm extends Component {
     );
   }
 
-  // getOptions() {
-  //   console.log("get options", this.props);
-  //   if (!this.props.unknownWords) {
-  //     return <div>Loading!</div>;
-  //   }
-  //   let wordList = this.turnIntoArray(this.props.unknownWords);
-  //   return (
-  //     <div>
-  //       <form onSubmit={this.handleSubmit}>
-  //         <label>
-  //           <select
-  //             multiple={true}
-  //             value={this.state.value}
-  //             onChange={this.handleChange}
-  //           >
-  //             {wordList.map(word => (
-  //               <option key={word}>{word}</option>
-  //             ))}
-  //           </select>
-  //         </label>
-  //         <div>
-  //           <br />
-  //           <button className="btn btn-primary btn-md" type="submit">
-  //             Submit
-  //           </button>
-  //         </div>
-  //       </form>
-  //     </div>
-  //   );
-  // }
-
   render() {
     return <div>{this.getOptions()}</div>;
   }

@@ -4,10 +4,8 @@ import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import TestStudentLink from "../TestStudent/TestStudentLink";
 import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
-import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import Line1 from "./Line1";
 import Line2 from "./Line2";
-import Line5 from "../../StudentTestResultsComponents/Line5";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
@@ -33,13 +31,6 @@ class StudentDetail extends React.Component {
     return <Line2 student={student} />;
   }
 
-  displayLine5(student, studentId) {
-    if (!student) {
-      return <div> loading..</div>;
-    }
-    return <Line5 student={student} studentId={studentId} />;
-  }
-
   TestStudentLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
@@ -62,9 +53,6 @@ class StudentDetail extends React.Component {
             username={this.props.username}
           />
         </div>
-        {/* <div className="container">
-          {this.displayLine5(this.props.student, this.props.id)}
-        </div> */}
       </div>
     );
   }
