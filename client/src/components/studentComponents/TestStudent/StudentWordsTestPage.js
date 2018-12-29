@@ -3,6 +3,17 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as testActions from "../../../redux/actions/testActions";
+import { Button, Card, CardText, Row } from "reactstrap";
+const displayWordStyle = { fontSize: "300px" };
+
+const buttonStyle = {
+  fontSize: "60px",
+  borderWidth: 1,
+  borderStyle: "solid",
+  borderColor: "black",
+  marginRight: "50px",
+  marginLeft: "50px"
+};
 
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
@@ -24,7 +35,7 @@ class StudentWordsTestPage extends React.Component {
   }
   async createTestObject() {
     let results = {
-      student: this.props.student,
+      student: this.props.student[0].student_id,
       correct_words: this.state.known_words,
       incorrect_words: this.state.unknown_words
     };
@@ -51,20 +62,36 @@ class StudentWordsTestPage extends React.Component {
     const words = this.state.words;
     const idx = this.state.idx;
     return (
-      <div>
-        <div>{this.displayWord(words[idx])}</div>
-        <button
-          onClick={e => this.handleTestClick(e, words[idx], idx)}
-          value="yes"
-        >
-          Yes
-        </button>
-        <button
-          onClick={e => this.handleTestClick(e, words[idx], idx)}
-          value="no"
-        >
-          No
-        </button>
+      <div className="container">
+        <Card className="text-center">
+          <CardText style={displayWordStyle}>
+            {this.displayWord(words[idx])}
+          </CardText>
+          <Row className="text-center">
+            <Button
+              style={buttonStyle}
+              size="lg"
+              color="success"
+              onClick={e => this.handleTestClick(e, words[idx], idx)}
+              value="yes"
+            >
+              Yes
+            </Button>
+            <span>
+              {/* {" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+            </span>
+            <Button
+              style={buttonStyle}
+              size="lg"
+              color="danger"
+              onClick={e => this.handleTestClick(e, words[idx], idx)}
+              value="no"
+            >
+              No
+            </Button>
+          </Row>
+        </Card>
       </div>
     );
   }

@@ -19,7 +19,7 @@ class TestStudent extends React.Component {
       <StudentWordsTestPage
         user={this.props.token}
         words={words}
-        student={student[0].student_id}
+        student={student}
       />
     );
   }
