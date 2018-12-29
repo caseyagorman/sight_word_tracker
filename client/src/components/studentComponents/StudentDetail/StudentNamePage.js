@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+
 const divStyle = {
   fontSize: "100px"
 };

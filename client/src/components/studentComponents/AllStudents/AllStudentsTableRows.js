@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Display links to words students are learning within table rows
-const tableStyle = {
-  fontSize: "24px"
-};
+
 const StudentWordsTableRows = props => (
   <tbody>
     <tr>
-      <td style={tableStyle}>
-        <Link to={`/word-detail/${props.word_id}`}>{props.word}</Link>
+      <td>
+        <h4>
+          <Link to={`/details/${props.student_id}`}>
+            {props.fname} {props.lname}
+          </Link>
+        </h4>
       </td>
     </tr>
   </tbody>

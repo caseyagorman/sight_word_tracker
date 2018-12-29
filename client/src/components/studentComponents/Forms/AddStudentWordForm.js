@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
 import * as unknownWordsActions from "../../../redux/actions/unknownWordsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-
+const divStyle = { fontSize: "24px" };
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
@@ -65,16 +65,19 @@ class AddStudentWordForm extends Component {
           <ControlLabel>
             <h3>Add Word to {this.props.student[0].fname}</h3>
           </ControlLabel>
-          <FormControl
-            componentClass="select"
-            multiple
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            {wordList.map(word => (
-              <option key={word}>{word}</option>
-            ))}
-          </FormControl>
+          <strong>
+            <FormControl
+              style={divStyle}
+              componentClass="select"
+              multiple
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              {wordList.map(word => (
+                <option key={word}>{word}</option>
+              ))}
+            </FormControl>
+          </strong>
         </FormGroup>
         <button className="btn btn-primary btn-md" type="submit">
           Submit

@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentsActions from "../../../redux/actions/studentsActions";
-import StudentLink from "./StudentLink";
 import AddStudentButton from "../Forms/AddStudentButton";
-import DoughnutChart from "./DoughnutChart";
+import Line3 from "./Line3AllStudents";
+import Line2 from "./Line2AllStudents";
 const headerStyle = {
   fontSize: "100px"
 };
@@ -15,19 +15,20 @@ class ViewStudents extends React.Component {
       this.props.studentsActions.fetchStudents(user);
     }
   }
-  displayStudents(students) {
-    if (!students) {
-      return <p>Loading student...</p>;
-    }
-    return students.map(student => StudentLink(student));
-  }
 
-  displayChart(user) {
+  displayLine2(students) {
+    if (!students) {
+      return <p>Loading...</p>;
+    }
+    return <Line2 students={students} />;
+  }
+  displayLine3(user) {
     if (!user) {
       return <p>Loading...</p>;
     }
-    return <DoughnutChart user={user} />;
+    return <Line3 user={user} />;
   }
+
   displayAddStudentButton() {
     return <AddStudentButton />;
   }
@@ -41,9 +42,9 @@ class ViewStudents extends React.Component {
         <div>
           <br />
         </div>
-        <div>{this.displayStudents(this.props.students)}</div>
         <div>
-          <div>{this.displayChart(this.props.token)}</div>
+          <div>{this.displayLine2(this.props.students)}</div>
+          <div>{this.displayLine3(this.props.token)}</div>
         </div>
       </div>
     );
