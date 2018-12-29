@@ -13,6 +13,7 @@ function deleteWordApi() {
 }
 
 export function receiveWord(word) {
+  console.log("RECEIVE WORD", word);
   return { type: types.RECEIVE_WORD, word: word };
 }
 

@@ -1,21 +1,23 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import AllWordsTableHead from "./AllWordsTableHead";
-
+const headerStyle = { fontSize: "100px" };
 class Line1 extends React.Component {
-  displayTableHead(words) {
-    console.log("Line1 display table head", words.words[0]);
-    if (!words) {
+  displayWord(word) {
+    if (!word) {
       return <p>Loading...</p>;
     }
-    return <AllWordsTableHead words={words.words[0]} />;
+    return (
+      <div>
+        <h1 style={headerStyle}>{word.word}</h1>
+      </div>
+    );
   }
 
   render() {
     return (
       <div className="container">
         <Row>
-          <Col lg="4">{this.displayTableHead(this.props.words)}</Col>
+          <Col lg="4">{this.displayWord(this.props.word)}</Col>
         </Row>
       </div>
     );

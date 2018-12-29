@@ -1,10 +1,10 @@
 import React from "react";
-import WordStudentsPage from "./WordStudentsPage";
-import WordPage from "./WordPage";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
 import DeleteWord from "../Forms/DeleteWord";
+import Line2 from "./Line2WordDetail";
+import Line1 from "./Line1WordDetail";
 class WordDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id || !this.props.token) {
@@ -15,43 +15,37 @@ class WordDetail extends React.Component {
     this.props.wordActions.fetchWord(id, user);
   }
 
-  displayWord(word) {
+  displayLine1(word) {
     if (!word) {
-      return <p>Loading...</p>;
+      return <div> loading..</div>;
     }
-    return WordPage(word);
+    return <Line1 word={word[0]} />;
   }
 
-  getWord(word) {
-    if (!word) {
-      return <p>Loading...</p>;
+  displayLine2(students) {
+    if (!students) {
+      return <div> loading..</div>;
     }
-    return word[0];
+    return <Line2 students={students[1]} word={students[0]} />;
   }
 
-  displayWordStudents(word) {
+  displayDeleteButton(word) {
     if (!word) {
-      return <p>Loading ...</p>;
+      return <div>loading...</div>;
     }
-    return word[1].map(word => WordStudentsPage(word));
+    return <DeleteWord word={word} />;
   }
 
   render() {
     return (
       <div>
-        <br />
-        <div>{this.displayWord(this.props.word)}</div>
-        <br />
-        <div>{this.displayWordStudents(this.props.word)}</div>
-        <br />
-        <div>
-          <DeleteWord word={this.getWord(this.props.word)} />
-        </div>
+        <div>{this.displayLine1(this.props.word)}</div>
+        <div>{this.displayLine2(this.props.word)}</div>
+        <div>{this.displayDeleteButton(this.props.word)}</div>
       </div>
     );
   }
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     wordActions: bindActionCreators(wordActions, dispatch)

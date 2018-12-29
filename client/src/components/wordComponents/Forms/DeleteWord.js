@@ -5,18 +5,34 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
-import { Grid, Col, Row, Glyphicon } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
+const glyphStyle = {
+  fontSize: "40px"
+};
 class DeleteWord extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  getOptions() {
+  getOptions(word) {
+    if (!word) {
+      return <div>loading...</div>;
+    }
     return (
-      <form>
-        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
-      </form>
+      <div>
+        <form>
+          <h3>
+            <Glyphicon
+              style={glyphStyle}
+              glyph="glyphicon glyphicon-trash"
+              onClick={this.submit}
+            />
+            <span> </span>
+            Delete {word[0].word}
+          </h3>
+        </form>
+      </div>
     );
   }
 
@@ -47,7 +63,7 @@ class DeleteWord extends Component {
   render() {
     return (
       <div>
-        <div>{this.getOptions()}</div>
+        <div className="container">{this.getOptions(this.props.word)}</div>
       </div>
     );
   }

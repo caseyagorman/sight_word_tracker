@@ -294,7 +294,7 @@ def word_detail(current_user, word):
         'word': word_object.word,
         'date': word_object.date_added,
     }
-
+    print(word_object, student_list)
     return jsonify([word_object, student_list])
 
 
