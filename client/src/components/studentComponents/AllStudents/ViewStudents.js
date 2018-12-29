@@ -8,12 +8,27 @@ import Line2 from "./Line2AllStudents";
 const headerStyle = {
   fontSize: "100px"
 };
+const instructionsStyle = {
+  fontSize: "20px",
+  borderWidth: 1,
+  borderStyle: "solid",
+  borderColor: "black"
+};
 class ViewStudents extends React.Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.studentsActions.fetchStudents(user);
     }
+  }
+
+  displayInstructions() {
+    return (
+      <div>
+        <br /> Click student name to test student, view words student is
+        learning, and view student data.
+      </div>
+    );
   }
 
   displayLine1(students) {
@@ -38,6 +53,8 @@ class ViewStudents extends React.Component {
       <div class="container">
         <br />
         <h1 style={headerStyle}>All Students</h1>
+        <div style={instructionsStyle}>{this.displayInstructions()}</div>
+        <br />
         <div>{this.displayAddStudentButton()}</div>
         <div>
           <br />

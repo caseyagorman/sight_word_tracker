@@ -7,7 +7,6 @@ import TestStudentLink from "../TestStudent/TestStudentLink";
 import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
 import Line1 from "./Line1StudentDetail";
 import Line2 from "./Line2StudentDetail";
-import OtherComponent from "./OtherComponent";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
@@ -18,13 +17,6 @@ class StudentDetail extends React.Component {
     const user = this.props.token;
     this.props.studentActions.fetchStudent(student, user);
     // this.props.studentWordsActions.fetchStudentWords(student, user);
-  }
-
-  otherComponent(props) {
-    if (!props) {
-      return <div>loading</div>;
-    }
-    return <OtherComponent props={props} />;
   }
 
   displayLine1(student, id) {
@@ -63,7 +55,6 @@ class StudentDetail extends React.Component {
             username={this.props.username}
           />
         </div>
-        <div>{this.otherComponent(this.props)}</div>
       </div>
     );
   }
