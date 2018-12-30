@@ -8,7 +8,15 @@ class AllWordsTableHead extends Component {
   displayTableHead(words) {
     return (
       <div>
-        <Table striped bordered condensed hover>
+        <Table striped bordered hover>
+          <thead>
+            <th>
+              <h4>Word</h4>
+            </th>
+            <th>
+              <h4>Learning Count</h4>
+            </th>
+          </thead>
           {this.displayTableRows(words)}
         </Table>
       </div>

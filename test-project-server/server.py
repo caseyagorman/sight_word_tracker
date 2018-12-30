@@ -43,12 +43,14 @@ def login():
     username = data.get('username')
     password = data.get('password')
     auth_user = User.query.filter_by(username=username).first()
+    if not auth_user:
+        return jsonify({'error': 'user does not exist'})
     if auth_user and check_password_hash(auth_user.password, password.encode('utf-8')):
         token = jwt.encode({'public_id': auth_user.public_id, 'exp': datetime.datetime.utcnow(
         ) + datetime.timedelta(hours=24)}, app.config['SECRET_KEY'])
         return jsonify({'token': token.decode('utf-8'), 'username': auth_user.username})
     else:
-        return make_response('Could not verify'), 401
+        return jsonify({'error': 'incorrect password'})
 
 
 @app.route("/")

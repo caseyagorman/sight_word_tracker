@@ -12,7 +12,7 @@ const instructionsStyle = {
   fontSize: "20px",
   borderWidth: 1,
   borderStyle: "solid",
-  borderColor: "black"
+  borderColor: "#d3d3d3"
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
