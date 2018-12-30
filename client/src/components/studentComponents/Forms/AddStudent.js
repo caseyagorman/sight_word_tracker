@@ -3,6 +3,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import * as authActions from "../../../redux/actions/authActions";
+import {
+  Col,
+  Row,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText
+} from "reactstrap";
 
 class AddStudent extends Component {
   constructor(props) {
@@ -29,7 +39,6 @@ class AddStudent extends Component {
     };
 
     this.props.studentActions.addStudent(newStudent, user);
-    this.props.history.push("/students");
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -37,24 +46,35 @@ class AddStudent extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>First name</label>
-        <input
-          name="fname"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <label>Last name</label>
-        <input
-          name="lname"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-
-        <button>Add student</button>
-      </form>
+      <div className="container">
+        <Form onSubmit={this.handleSubmit}>
+          <Row form>
+            <FormGroup>
+              <Col md={2}>
+                <Label>First name</Label>
+                <Input
+                  name="fname"
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </Col>
+              <Col md={2}>
+                <Label>Last name</Label>
+                <Input
+                  name="lname"
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </Col>
+              <Col md={4}>
+                <Button color="primary">Add student</Button>
+              </Col>
+            </FormGroup>
+          </Row>
+        </Form>
+      </div>
     );
   }
 }

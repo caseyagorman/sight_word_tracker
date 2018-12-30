@@ -59,6 +59,8 @@ export function addWord(word, user) {
         "x-access-token": user
       },
       body: JSON.stringify(word)
-    }).then(response => console.log(response));
+    }).then(response =>
+      console.log(response).then(() => history.push("/words"))
+    );
   };
 }

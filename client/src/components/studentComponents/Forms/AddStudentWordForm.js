@@ -22,7 +22,6 @@ class AddStudentWordForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    event.target.reset();
     let newStudentWords = {
       student: this.props.student[0].student_id,
       words: this.state.value

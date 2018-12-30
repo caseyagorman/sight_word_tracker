@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
 import * as authActions from "../../../redux/actions/authActions";
+import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
 class AddWord extends Component {
   constructor(props) {
