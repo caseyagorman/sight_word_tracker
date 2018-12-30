@@ -68,10 +68,10 @@ def add_user():
     confirm_password = data.get('confirmPassword')
     hashed_password = generate_password_hash(password)
     existing_user = User.query.filter_by(username=username).first()
-    if password != confirm_password:
-        return jsonify({"error": "passwords don't match"})
     if existing_user:
         return jsonify({'error': 'user already exists'})
+    if password != confirm_password:
+        return jsonify({"error": "passwords don't match"})
     elif password == confirm_password and not existing_user:
         new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
                         password=hashed_password)

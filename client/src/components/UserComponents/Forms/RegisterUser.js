@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as registrationActions from "../../../redux/actions/registrationActions";
 import * as authActions from "../../../redux/actions/authActions";
+import { Button, Form, Label, Input } from "reactstrap";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,18 @@ class RegisterUser extends Component {
 
   componentDidMount() {
     this.props.authActions.clearErrors();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!newProps.newUser) {
+      return <div />;
+    }
+    if (newProps.newUser.newUser) {
+      this.props.history.push("/login");
+    }
+    if (newProps.newUser.error) {
+      console.log(newProps.newUser.error);
+    }
   }
 
   handleSubmit(event) {
@@ -40,34 +53,35 @@ class RegisterUser extends Component {
   render() {
     return (
       <div>
+        <h1>Register</h1>
         <div className="form-group" />
-        <form onSubmit={this.handleSubmit}>
-          <label className="control-label">Username</label>
-          <input
+        <Form onSubmit={this.handleSubmit}>
+          <Label className="control-label">Username</Label>
+          <Input
             className="form-control"
             name="username"
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <label>email</label>
-          <input
+          <Label>email</Label>
+          <Input
             className="form-control"
             name="email"
-            type="text"
+            type="email"
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <label>Password</label>
-          <input
+          <Label>Password</Label>
+          <Input
             className="form-control"
             name="password"
             type="password"
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <label>Confirm password</label>
-          <input
+          <Label>Confirm password</Label>
+          <Input
             className="form-control"
             name="confirmPassword"
             type="password"
@@ -77,8 +91,8 @@ class RegisterUser extends Component {
           <div>
             <br />
           </div>
-          <button className="btn btn-primary btn-lg">Register</button>
-        </form>
+          <Button className="btn btn-primary btn-lg">Register</Button>
+        </Form>
       </div>
     );
   }

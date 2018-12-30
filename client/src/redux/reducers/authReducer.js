@@ -32,7 +32,7 @@ export default function auth(state = initialState.auth, action) {
           userId: ""
         },
         isAuthenticated: false,
-        loginErrors: ""
+        loginError: ""
       });
     case LOGOUT_USER:
       console.log("LOGOUT USER");
@@ -42,7 +42,7 @@ export default function auth(state = initialState.auth, action) {
           userId: ""
         },
         isAuthenticated: false,
-        loginErrors: ""
+        loginError: ""
       });
 
     default:

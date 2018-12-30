@@ -12,5 +12,9 @@ export default {
     user: "",
     isAuthenticated: false,
     loginError: ""
+  },
+  newUser: {
+    newUser: "",
+    error: ""
   }
 };
