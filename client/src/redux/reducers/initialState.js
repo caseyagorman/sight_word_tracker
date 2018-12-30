@@ -13,8 +13,5 @@ export default {
     isAuthenticated: false,
     loginError: ""
   },
-  newUser: {
-    newUser: "",
-    error: ""
-  }
+  newUser: ""
 };
