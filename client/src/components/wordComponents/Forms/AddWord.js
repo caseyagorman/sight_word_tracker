@@ -22,6 +22,7 @@ class AddWord extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    event.target.reset();
     const user = this.props.token;
     const word = this.state.newWord;
     this.props.wordActions.addWord(word, user);
