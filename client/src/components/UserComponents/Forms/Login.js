@@ -15,9 +15,9 @@ class Login extends Component {
       alert(newProps.auth.loginError.error);
       newProps.history.push("/register/");
     }
-    if (newProps.auth.loginError.error === "incorrect password") {
-      newProps.history.push("/login/");
-    }
+    // if (newProps.auth.loginError.error === "incorrect password") {
+
+    // }
     if (newProps.auth.isAuthenticated) {
       this.updateInput("token", newProps.auth.user.token);
       this.updateInput("username", newProps.auth.user.username);
@@ -30,6 +30,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    event.target.reset();
     let user = {
       username: this.state.username,
       password: this.state.password
