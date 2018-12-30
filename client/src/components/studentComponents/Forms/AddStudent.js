@@ -21,6 +21,7 @@ class AddStudent extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    event.target.reset();
     let user = this.props.token;
     let newStudent = {
       fname: this.state.fname,
@@ -28,6 +29,7 @@ class AddStudent extends Component {
     };
 
     this.props.studentActions.addStudent(newStudent, user);
+    this.props.history.push("/students");
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });

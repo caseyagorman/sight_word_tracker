@@ -17,6 +17,7 @@ class RegisterUser extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    event.target.reset();
     let newUser = {
       username: this.state.username,
       email: this.state.email,
