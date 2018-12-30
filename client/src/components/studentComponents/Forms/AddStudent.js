@@ -3,16 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import * as authActions from "../../../redux/actions/authActions";
-import {
-  Col,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText
-} from "reactstrap";
+import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 class AddStudent extends Component {
   constructor(props) {
@@ -46,8 +37,11 @@ class AddStudent extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
+        <div className="container">
+          <Label>
+            <h4>Add New Student</h4>
+          </Label>
           <Row form>
             <FormGroup>
               <Col md={2}>
@@ -68,13 +62,16 @@ class AddStudent extends Component {
                   onChange={this.handleChange}
                 />
               </Col>
-              <Col md={4}>
-                <Button color="primary">Add student</Button>
-              </Col>
             </FormGroup>
           </Row>
-        </Form>
-      </div>
+        </div>
+        <br />
+        <div className="container">
+          <Col md={4}>
+            <Button color="primary">Add student</Button>
+          </Col>
+        </div>
+      </Form>
     );
   }
 }

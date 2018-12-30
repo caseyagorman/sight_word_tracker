@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
 import * as authActions from "../../../redux/actions/authActions";
-import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
-
+import { Form, Button, FormGroup, Label, Input, Row, Col } from "reactstrap";
 class AddWord extends Component {
   constructor(props) {
     super(props);
@@ -34,17 +33,32 @@ class AddWord extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <p>You may add multiple words separated by space</p>
-        Add New Words:
-        <input
-          name="newWord"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <button>Add Word</button>
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <div className="container">
+          <Row form>
+            <FormGroup>
+              <Col lg={6}>
+                <Label>
+                  <h4>Add New Words:</h4>
+                  <p>You may add multiple words separated by space</p>
+                </Label>
+                <Input
+                  name="newWord"
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+          </Row>
+        </div>
+        <br />
+        <div className="container">
+          <Col lg={4}>
+            <Button color="primary">Add Word</Button>
+          </Col>
+        </div>
+      </Form>
     );
   }
 }
