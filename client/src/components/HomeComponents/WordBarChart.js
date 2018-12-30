@@ -35,9 +35,17 @@ class WordBarChart extends Component {
       maintainAspectRatio: false,
       aspectRatio: 1,
       scales: {
+        lable: [
+          {
+            fontSize: 40,
+            fontColor: "black"
+          }
+        ],
         yAxes: [
           {
             ticks: {
+              fontSize: 40,
+              fontColor: "black",
               beginAtZero: true,
               min: 0,
               userCallback: function(label) {
@@ -45,6 +53,14 @@ class WordBarChart extends Component {
                   return label;
                 }
               }
+            }
+          }
+        ],
+        xAxes: [
+          {
+            ticks: {
+              fontSize: 40,
+              fontColor: "black"
             }
           }
         ]
@@ -58,6 +74,7 @@ class WordBarChart extends Component {
       datasets: [
         {
           label: "Unlearned Words",
+
           backgroundColor: "rgba(255,99,132,1)",
           borderColor: "rgba(255,99,132,1)",
           borderWidth: 1,

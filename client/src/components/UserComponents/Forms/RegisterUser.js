@@ -30,19 +30,22 @@ class RegisterUser extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     if (this.state.password !== this.state.confirmPassword) {
-      alert("passwords do not match");
-      this.props.authActions.clearErrors();
-      event.target.reset();
+      console.log("passwords don't match");
+      // alert("passwords do not match");
+      // this.props.authActions.clearErrors();
+      // event.target.reset();
       return <div />;
     } else {
-      event.target.reset();
+      // event.target.reset();
       let newUser = {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
         confirmPassword: this.state.confirmPassword
       };
+      console.log(newUser);
       this.props.registrationActions.registerUser(newUser);
     }
   }
