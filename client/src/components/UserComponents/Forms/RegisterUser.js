@@ -17,14 +17,21 @@ class RegisterUser extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    event.target.reset();
-    let newUser = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      confirmPassword: this.state.confirmPassword
-    };
-    this.props.registrationActions.registerUser(newUser);
+    if (this.state.password !== this.state.confirmPassword) {
+      alert("passwords do not match");
+      this.props.authActions.clearErrors();
+      event.target.reset();
+      return <div />;
+    } else {
+      event.target.reset();
+      let newUser = {
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        confirmPassword: this.state.confirmPassword
+      };
+      this.props.registrationActions.registerUser(newUser);
+    }
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -43,7 +50,7 @@ class RegisterUser extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           />
-          ß<label>email</label>
+          <label>email</label>
           <input
             className="form-control"
             name="email"
