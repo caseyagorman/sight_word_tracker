@@ -9,6 +9,10 @@ class AllStudentsTableHead extends Component {
     return (
       <div>
         <Table striped bordered condensed hover>
+          <thead>
+            <th>Name</th>
+            <th>Learning Count</th>
+          </thead>
           {this.displayTableRows(students)}
         </Table>
       </div>

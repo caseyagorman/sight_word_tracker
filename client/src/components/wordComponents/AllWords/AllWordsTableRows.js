@@ -11,6 +11,7 @@ const AllWordsTableRows = props => (
           <Link to={`/word-detail/${props.word_id}`}>{props.word}</Link>
         </h4>
       </td>
+      <td>{props.count}</td>
     </tr>
   </tbody>
 );

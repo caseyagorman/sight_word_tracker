@@ -80,18 +80,28 @@ def add_user():
 @token_required
 def get_students(current_user):
     public_id = current_user.public_id
-    students = Student.query.filter_by(user_id=public_id)
+    students = Student.query.filter_by(user_id=public_id).options(
+        db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
+        count = get_student_word_counts(student)
         student = {
             'student_id': student.student_id,
             'fname': student.fname,
             'lname': student.lname,
-            'grade': student.grade
+            'grade': student.grade,
+            'count': count
         }
         student_list.append(student)
-    students = jsonify(student_list)
-    return students
+    print(student_list)
+    return jsonify(student_list)
+
+
+def get_student_word_counts(student):
+    student_id = student.student_id
+    words = StudentWord.query.filter(StudentWord.student_id == student_id).filter(
+        StudentWord.Learned == False).all()
+    return len(words)
 
 
 @app.route("/api/add-student", methods=['POST'])
@@ -139,22 +149,33 @@ def get_all_student_word_counts():
 @app.route("/api/words")
 @token_required
 def get_words(current_user):
+
     user_id = current_user.public_id
     words = Word.query.filter_by(user_id=user_id).all()
     word_list = []
     for word in words:
+        count = get_word_student_counts(word)
         word = {
             'word_id': word.word_id,
-            'word': word.word
+            'word': word.word,
+            'count': count
         }
         word_list.append(word)
     chart_words = get_all_student_word_counts()
     return jsonify([word_list, chart_words])
 
 
+def get_word_student_counts(word):
+    word_id = word.word_id
+    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
+        StudentWord.Learned == False).all()
+    return len(words)
+
+
 @app.route("/api/unknown-words/<student>")
 @token_required
 def get_unknown_words(current_student, student):
+    """gets words that student does not know and are not in current word list, words can then be added to students word list"""
     user_id = current_student.public_id
     words = StudentWord.query.filter_by(
         student_id=student, user_id=user_id).options(db.joinedload('words')).all()
@@ -164,15 +185,17 @@ def get_unknown_words(current_student, student):
         word_ids.append(word.word_id)
 
     unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
-    json_word_list = []
+    word_list = []
+
     for word in unknown_words:
         word = {
             'word_id': word.word_id,
             'word': word.word
         }
-        json_word_list.append(word)
-    words = jsonify(json_word_list)
-    return words
+
+        word_list.append(word)
+
+    return jsonify(word_list)
 
 
 @app.route("/api/add-word", methods=['POST'])
@@ -220,9 +243,7 @@ def delete_word(current_user):
 @app.route('/api/add-word-to-student', methods=['POST'])
 @token_required
 def add_word_to_student(current_user):
-    print("adding word to students")
     data = request.get_json()
-    print("data", data)
     student_id = data.get("student")
     words = data.get('words')
     user_id = current_user.public_id
@@ -395,7 +416,7 @@ def get_student_test(current_user, student):
     user_id = current_user.public_id
     student_id = student
     student_words = StudentWord.query.filter_by(
-        user_id=user_id, student_id=student_id).options(db.joinedload('words')).all()
+        user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students')).all()
     student_tests = StudentTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     word_counts = get_word_counts(student_words)
