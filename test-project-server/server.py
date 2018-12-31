@@ -48,6 +48,7 @@ def login():
     if auth_user and check_password_hash(auth_user.password, password.encode('utf-8')):
         token = jwt.encode({'public_id': auth_user.public_id, 'exp': datetime.datetime.utcnow(
         ) + datetime.timedelta(hours=24)}, app.config['SECRET_KEY'])
+        print("logging in!")
         return jsonify({'token': token.decode('utf-8'), 'username': auth_user.username})
     else:
         return jsonify({'error': 'incorrect password'})
@@ -71,8 +72,6 @@ def add_user():
     # Check later for or condition statement on email. Email or user exists, return error
     if existing_user:
         return jsonify({'error': 'user already exists'})
-    # if password != confirm_password:
-    #     return jsonify({"error": "passwords don't match"})
     else:
 
         new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
@@ -81,8 +80,6 @@ def add_user():
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'newUser': 'user added'})
-    # else:
-    #     return abort(401)
 
 
 @app.route("/api/students")

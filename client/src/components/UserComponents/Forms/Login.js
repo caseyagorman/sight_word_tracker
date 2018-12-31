@@ -12,19 +12,21 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("login component will receive props", newProps);
-    if (newProps.auth.loginError.error === "user does not exist") {
-      alert(newProps.auth.loginError.error);
-      newProps.history.push("/register/");
-    }
-    if (newProps.auth.loginError.error === "incorrect password") {
-      alert(newProps.auth.loginError.error);
-      return <div />;
-    }
-    if (newProps.auth.isAuthenticated) {
+    if (!newProps.auth.loginError.error && newProps.auth.isAuthenticated) {
       this.updateInput("token", newProps.auth.user.token);
       this.updateInput("username", newProps.auth.user.username);
       this.props.history.push("/");
+    } else if (newProps.auth.loginError.error) {
+      console.log("error", newProps.auth.loginError.error);
+      if (newProps.auth.loginError.error === "incorrect password") {
+        console.log("incorrect password");
+        alert(newProps.auth.loginError.error);
+        return <div />;
+      }
+      if (newProps.auth.loginError.error === "user does not exist") {
+        alert(newProps.auth.loginError.error);
+        newProps.history.push("/register/");
+      }
     }
   }
   updateInput(key, value) {
