@@ -13,18 +13,18 @@ class RegisterUser extends Component {
   }
 
   componentDidMount() {
+    console.log("this.props", this.props);
     this.props.authActions.clearErrors();
   }
 
   componentWillReceiveProps(newProps) {
-    if (!newProps.newUser) {
+    console.log("newProps", newProps);
+    if (newProps.register.newUser.error) {
+      alert(newProps.register.newUser.error);
       return <div />;
     }
-    if (newProps.newUser.newUser) {
-      this.props.history.push("/login");
-    }
-    if (newProps.newUser.error) {
-      console.log(newProps.newUser.error);
+    if (newProps.register.newUser) {
+      this.props.props.history.push("/login");
     }
   }
 
@@ -33,20 +33,19 @@ class RegisterUser extends Component {
 
     if (this.state.password !== this.state.confirmPassword) {
       console.log("passwords don't match");
-      // alert("passwords do not match");
-      // this.props.authActions.clearErrors();
-      // event.target.reset();
+      alert("passwords do not match");
+      this.props.authActions.clearErrors();
+      event.target.reset();
       return <div />;
     } else {
-      // event.target.reset();
       let newUser = {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
         confirmPassword: this.state.confirmPassword
       };
-      console.log(newUser);
       this.props.registrationActions.registerUser(newUser);
+      event.target.reset();
     }
   }
   handleChange(event) {
@@ -109,7 +108,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
+    register: state.register,
     auth: state.auth
   };
 }

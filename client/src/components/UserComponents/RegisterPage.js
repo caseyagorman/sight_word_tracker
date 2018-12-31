@@ -5,7 +5,7 @@ class RegisterPage extends Component {
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
-          <RegisterUser />
+          <RegisterUser props={this.props} />
         </div>
       </div>
     );

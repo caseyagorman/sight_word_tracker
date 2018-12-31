@@ -60,28 +60,29 @@ def index(current_user):
 
 
 @app.route("/api/register", methods=['POST'])
+@cross_origin()
 def add_user():
     data = request.get_json()
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
-    confirm_password = data.get('confirmPassword')
     hashed_password = generate_password_hash(password)
     existing_user = User.query.filter_by(username=username).first()
     # Check later for or condition statement on email. Email or user exists, return error
     if existing_user:
-        print(existing_user)
         return jsonify({'error': 'user already exists'})
     # if password != confirm_password:
     #     return jsonify({"error": "passwords don't match"})
-    elif password == confirm_password and not existing_user:
+    else:
+
         new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
                         password=hashed_password)
+
         db.session.add(new_user)
         db.session.commit()
-        return 'user added!'
-    else:
-        return abort(401)
+        return jsonify({'newUser': 'user added'})
+    # else:
+    #     return abort(401)
 
 
 @app.route("/api/students")

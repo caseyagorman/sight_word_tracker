@@ -13,5 +13,5 @@ export default {
     isAuthenticated: false,
     loginError: ""
   },
-  newUser: ""
+  register: { newUser: "", registerError: "" }
 };

@@ -10,14 +10,13 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   componentWillReceiveProps(newProps) {
+    console.log("login component will receive props", newProps);
     if (newProps.auth.loginError.error === "user does not exist") {
       alert(newProps.auth.loginError.error);
       newProps.history.push("/register/");
     }
-    // if (newProps.auth.loginError.error === "incorrect password") {
-
-    // }
     if (newProps.auth.isAuthenticated) {
       this.updateInput("token", newProps.auth.user.token);
       this.updateInput("username", newProps.auth.user.username);
