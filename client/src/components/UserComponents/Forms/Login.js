@@ -17,6 +17,10 @@ class Login extends Component {
       alert(newProps.auth.loginError.error);
       newProps.history.push("/register/");
     }
+    if (newProps.auth.loginError.error === "incorrect password") {
+      alert(newProps.auth.loginError.error);
+      return <div />;
+    }
     if (newProps.auth.isAuthenticated) {
       this.updateInput("token", newProps.auth.user.token);
       this.updateInput("username", newProps.auth.user.username);
