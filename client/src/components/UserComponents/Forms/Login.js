@@ -30,7 +30,9 @@ class Login extends Component {
     }
   }
   updateInput(key, value) {
+    console.log(sessionStorage, "1");
     sessionStorage.setItem(key, value);
+    console.log(sessionStorage, "2");
   }
 
   handleSubmit(event) {

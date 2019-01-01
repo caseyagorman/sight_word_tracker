@@ -13,12 +13,10 @@ class RegisterUser extends Component {
   }
 
   componentDidMount() {
-    console.log("this.props", this.props);
     this.props.authActions.clearErrors();
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("newProps", newProps);
     if (newProps.register.newUser.error) {
       alert(newProps.register.newUser.error);
       return <div />;

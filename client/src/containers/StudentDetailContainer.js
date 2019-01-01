@@ -6,7 +6,7 @@ import StudentDetail from "../components/StudentComponents/StudentDetail/Student
 class StudentDetailContainer extends Component {
   componentDidMount() {
     this.studentId = this.props.match.params.id;
-    if (sessionStorage.length > 0) {
+    if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

@@ -5,7 +5,7 @@ import * as authActions from "../redux/actions/authActions";
 import WordDetail from "../components/WordComponents/WordDetail/WordDetail";
 class WordDetailContainer extends Component {
   componentDidMount() {
-    if (sessionStorage.length > 0) {
+    if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

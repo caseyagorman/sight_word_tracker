@@ -5,7 +5,7 @@ import * as authActions from "../redux/actions/authActions";
 import Home from "../components/HomeComponents/Home";
 class HomeContainer extends Component {
   componentDidMount() {
-    if (sessionStorage.length > 0) {
+    if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");
