@@ -2,23 +2,29 @@ import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 class StudentDoughnutChart extends Component {
+  formatArray(tooltipItem) {
+    return " " + tooltipItem;
+  }
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
 
-    let learned = dataResults.dataResults.learned;
-    console.log("learned", learned);
-    let unlearned = dataResults.dataResults.unlearned;
-    let tooltipData = [
-      dataResults.dataResults.learned[1],
-      dataResults.dataResults.unlearned[1]
-    ];
+    const learnedCount = dataResults.dataResults.learned[0];
+    const unlearnedCount = dataResults.dataResults.unlearned[0];
+
+    let learnedWords = dataResults.dataResults.learned[1].map(data =>
+      this.formatArray(data)
+    );
+    let unlearnedWords = dataResults.dataResults.unlearned[1].map(data =>
+      this.formatArray(data)
+    );
+    let tooltipData = [learnedWords, unlearnedWords];
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [
         {
-          data: [learned[0], unlearned[0]],
+          data: [learnedCount, unlearnedCount],
           backgroundColor: ["#229954", "#E74C3C"],
           hoverBackgroundColor: ["#229954", "#E74C3C"]
         }

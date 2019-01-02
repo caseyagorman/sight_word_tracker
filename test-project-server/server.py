@@ -157,15 +157,26 @@ def get_all_student_word_counts():
 def get_words(current_user):
 
     user_id = current_user.public_id
-    words = Word.query.filter_by(user_id=user_id).all()
+    words = Word.query.filter_by(user_id=user_id).options(
+        db.joinedload('studentwords')).all()
     word_list = []
+
     for word in words:
+        student_list = []
+        for item in word.studentwords:
+            if item.Learned == False:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                student_list.append(student.fname + " " + student.lname)
         count = get_word_student_counts(word)
+
         word = {
             'word_id': word.word_id,
             'word': word.word,
-            'count': count
+            'count': count,
+            'students': student_list
         }
+
         word_list.append(word)
     chart_words = get_all_student_word_counts()
     return jsonify([word_list, chart_words])

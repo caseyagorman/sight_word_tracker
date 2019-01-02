@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-// const divStyle = { height: "100px" };
 class WordBarChart extends Component {
   state = { data: null, showTooltip: false };
 
@@ -14,22 +13,44 @@ class WordBarChart extends Component {
     }
     let wordList = [];
     let wordCounts = [];
-    for (let key in obj) {
-      wordList.push(key);
-      wordCounts.push(obj[key]);
+    let studentList = [];
+    for (let item in obj) {
+      wordCounts.push(obj[item].count);
+      wordList.push(obj[item].word);
+      studentList.push(obj[item].students);
     }
-    return [wordList, wordCounts];
+    console.log("wordcounts", wordCounts);
+
+    return [wordCounts, wordList, studentList];
   }
 
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
+    let words = this.turnIntoArray(dataResults.words[0]);
+    let wordCounts = words[0];
+    let wordList = words[1];
+    let studentList = words[2];
+    console.log(
+      "wordcounts",
+      wordCounts,
+      "wordList",
+      wordList,
+      "studentList",
+      studentList
+    );
+
     let options = {
       tooltips: {
-        enabled: false,
-        custom: ""
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const indice = tooltipItem.index;
+            return data.labels[indice] + ":" + studentList[indice];
+          }
+        }
       },
+
       responsive: true,
 
       maintainAspectRatio: false,
@@ -66,11 +87,9 @@ class WordBarChart extends Component {
         ]
       }
     };
-    let words = this.turnIntoArray(dataResults.words[1]);
-    let wordList = words[0];
-    let wordCounts = words[1];
     const data = {
       labels: wordList,
+
       datasets: [
         {
           label: "Unlearned Words",
@@ -80,6 +99,7 @@ class WordBarChart extends Component {
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
+          // data: [0, 2, 1, 2, 1, 1, 1, 1, 0]
           data: wordCounts
         }
       ]
