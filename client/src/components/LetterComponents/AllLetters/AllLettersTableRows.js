@@ -8,7 +8,7 @@ const AllLettersTableRows = props => (
     <tr>
       <td>
         <h4>
-          <Link to={`/word-detail/${props.letter_id}`}>{props.letter}</Link>
+          <Link to={`/letter-detail/${props.letter_id}`}>{props.letter}</Link>
         </h4>
       </td>
       <td>{props.count}</td>

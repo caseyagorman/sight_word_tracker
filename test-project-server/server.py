@@ -372,6 +372,38 @@ def get_all_student_letter_counts():
     return letter_counts
 
 
+@app.route("/api/letter-detail/<letter>")
+@token_required
+def letter_detail(current_user, letter):
+    """Display letter and students who are learning that letter"""
+    user_id = current_user.public_id
+    letter_object = Letter.query.filter_by(
+        letter_id=letter, user_id=user_id).first()
+    student_letters = StudentLetter.query.filter_by(
+        letter_id=letter).options(db.joinedload('students')).all()
+
+    student_list = []
+    for student in student_letters:
+        if student.Learned == False:
+            student = {
+                'student_id': student.students.student_id,
+                'fname': student.students.fname,
+                'lname': student.students.lname
+
+            }
+            student_list.append(student)
+        else:
+            pass
+
+    letter_object = {
+        'letter_id': letter_object.letter_id,
+        'letter': letter_object.letter,
+        'date': letter_object.date_added,
+    }
+
+    return jsonify([letter_object, student_list])
+
+
 @app.route("/api/details/<student>")
 @token_required
 def student_detail(current_user, student):

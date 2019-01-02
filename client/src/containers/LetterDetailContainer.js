@@ -13,7 +13,7 @@ class LetterDetailContainer extends Component {
     }
   }
 
-  displayWord() {
+  displayLetter() {
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }

@@ -13,7 +13,7 @@ export default function word(state = initialState.letter, action) {
       console.log("FETCH_LETTER Action");
       return action;
     case RECEIVE_LETTER:
-      newState = action.word;
+      newState = action.letter;
       console.log("RECEIVE_LETTER Action");
       return newState;
     case DELETE_LETTER:
