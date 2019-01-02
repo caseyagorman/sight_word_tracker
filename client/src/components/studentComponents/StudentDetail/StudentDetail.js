@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
-import TestStudentLink from "../TestStudent/TestStudentLink";
-import StudentTestResultsContainer from "../../../containers/StudentTestResultsContainer";
+import WordTestStudentLink from "../WordTestStudent/WordTestStudentLink";
+import StudentWordTestResultsContainer from "../../../containers/StudentWordTestResultsContainer";
 import Line1 from "./Line1StudentDetail";
 import Line2 from "./Line2StudentDetail";
 
@@ -33,11 +33,11 @@ class StudentDetail extends React.Component {
     return <Line2 student={student} />;
   }
 
-  TestStudentLink(student) {
+  WordTestStudentLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
     }
-    return TestStudentLink(student);
+    return WordTestStudentLink(student);
   }
 
   render() {
@@ -45,11 +45,11 @@ class StudentDetail extends React.Component {
       <div>
         <div className="container">{this.displayLine1(this.props.student)}</div>
         <div className="container">
-          {this.TestStudentLink(this.props.student)}{" "}
+          {this.WordTestStudentLink(this.props.student)}{" "}
         </div>
         <div className="container">{this.displayLine2(this.props.student)}</div>
         <div className="container">
-          <StudentTestResultsContainer
+          <StudentWordTestResultsContainer
             id={this.props.id}
             token={this.props.token}
             username={this.props.username}

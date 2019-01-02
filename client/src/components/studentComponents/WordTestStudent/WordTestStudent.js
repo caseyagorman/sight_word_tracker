@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import StudentWordsTestPage from "./StudentWordsTestPage";
-class TestStudent extends React.Component {
+class WordTestStudent extends React.Component {
   componentDidMount() {
     const id = this.props.id;
     const user = this.props.token;
@@ -56,4 +56,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TestStudent);
+)(WordTestStudent);

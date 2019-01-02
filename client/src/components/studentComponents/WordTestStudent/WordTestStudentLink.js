@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TestStudentLink = props => {
+const WordTestStudentLink = props => {
   return (
     <div className="container">
       <Link to={`/test-student/${props[0].student_id}`}>
@@ -13,4 +13,4 @@ const TestStudentLink = props => {
   );
 };
 
-export default TestStudentLink;
+export default WordTestStudentLink;

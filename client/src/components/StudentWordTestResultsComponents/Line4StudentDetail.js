@@ -27,10 +27,10 @@ class Line4 extends Component {
       <div className="container">
         <Row>
           <Col lg="6">
-            {this.displayDoughnutChart(this.props.studentTestResults)}
+            {this.displayDoughnutChart(this.props.studentWordTestResults)}
           </Col>
           <Col lg="6">
-            {this.displaylineChart(this.props.studentTestResults)}
+            {this.displaylineChart(this.props.studentWordTestResults)}
           </Col>
         </Row>
       </div>

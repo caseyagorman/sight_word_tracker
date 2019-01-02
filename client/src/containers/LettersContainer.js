@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import ViewLetters from "../components/LetterComponents/AllLetters/ViewLetters";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import TestStudent from "../components/StudentComponents/TestStudent/TestStudent";
-class TestStudentContainer extends Component {
+class Letters extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
@@ -13,23 +13,22 @@ class TestStudentContainer extends Component {
     }
   }
 
-  displayTestStudent() {
+  displayLetters() {
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }
     return (
       <div>
-        <TestStudent
+        <ViewLetters
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
-          id={this.props.match.params.id}
         />
       </div>
     );
   }
 
   render() {
-    return <div>{this.displayTestStudent()}</div>;
+    return <div>{this.displayLetters()}</div>;
   }
 }
 
@@ -47,4 +46,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TestStudentContainer);
+)(Letters);

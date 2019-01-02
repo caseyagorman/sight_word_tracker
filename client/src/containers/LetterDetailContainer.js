@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import StudentTestResults from "../components/StudentTestResultsComponents/StudentTestResults";
-class StudentTestResultsContainer extends Component {
+import LetterDetail from "../components/LetterComponents/LetterDetail/LetterDetail";
+class LetterDetailContainer extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
@@ -13,23 +13,23 @@ class StudentTestResultsContainer extends Component {
     }
   }
 
-  displayStudentTestResults() {
+  displayWord() {
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }
     return (
       <div>
-        <StudentTestResults
-          token={this.props.token}
-          username={this.props.username}
-          id={this.props.id}
+        <LetterDetailContainer
+          token={this.props.auth.user.token}
+          username={this.props.auth.user.username}
+          id={this.props.match.params.id}
         />
       </div>
     );
   }
 
   render() {
-    return <div>{this.displayStudentTestResults()}</div>;
+    return <div>{this.displayLetter()}</div>;
   }
 }
 
@@ -40,6 +40,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
+    letter: state.letter,
     auth: state.auth
   };
 }
@@ -47,4 +48,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudentTestResultsContainer);
+)(LetterDetailContainer);

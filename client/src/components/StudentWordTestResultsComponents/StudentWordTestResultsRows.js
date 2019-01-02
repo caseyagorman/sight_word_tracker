@@ -1,6 +1,6 @@
 import React from "react";
 import DisplayWords from "./DisplayWords";
-const StudentTestResultsRow = props => {
+const StudentWordTestResultsRow = props => {
   return (
     <tbody>
       <tr>
@@ -13,4 +13,4 @@ const StudentTestResultsRow = props => {
   );
 };
 
-export default StudentTestResultsRow;
+export default StudentWordTestResultsRow;

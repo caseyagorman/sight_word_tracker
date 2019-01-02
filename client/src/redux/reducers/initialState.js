@@ -1,13 +1,15 @@
 export default {
   students: "",
   student: "",
-  words: "",
   studentWords: "",
   studentDetails: "",
   word: "",
+  words: "",
+  letter: "",
+  letters: "",
   unknownWords: "",
-  studentTestResults: "",
-  test: "",
+  studentWordTestResults: "",
+  wordTest: "",
   auth: {
     user: "",
     isAuthenticated: false,

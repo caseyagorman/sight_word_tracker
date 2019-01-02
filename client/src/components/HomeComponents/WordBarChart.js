@@ -32,14 +32,6 @@ class WordBarChart extends Component {
     let wordCounts = words[0];
     let wordList = words[1];
     let studentList = words[2];
-    console.log(
-      "wordcounts",
-      wordCounts,
-      "wordList",
-      wordList,
-      "studentList",
-      studentList
-    );
 
     let options = {
       tooltips: {

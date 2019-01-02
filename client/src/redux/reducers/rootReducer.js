@@ -5,10 +5,12 @@ import words from "./wordsReducer";
 import studentWords from "./studentWordsReducer";
 import word from "./wordReducer";
 import unknownWords from "./unknownWordsReducer";
-import studentTestResults from "./studentTestResultsReducer";
-import test from "./testReducer";
+import studentWordTestResults from "./studentWordTestResultsReducer";
+import wordTest from "./wordTestReducer";
 import auth from "./authReducer";
 import register from "./registerReducer";
+import letters from "./lettersReducer";
+import letter from "./letterReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -17,10 +19,12 @@ const rootReducer = combineReducers({
   student,
   word,
   unknownWords,
-  studentTestResults,
-  test,
+  studentWordTestResults,
+  wordTest,
   auth,
-  register
+  register,
+  letter,
+  letters
 });
 
 export default rootReducer;

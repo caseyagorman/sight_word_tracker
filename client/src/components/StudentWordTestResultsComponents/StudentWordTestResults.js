@@ -5,25 +5,28 @@ import Line5 from "./Line5StudentDetail";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";
-import * as studentTestResultsActions from "../../redux/actions/studentTestResultsActions";
-class StudentTestResults extends React.Component {
+import * as studentWordTestResultsActions from "../../redux/actions/studentWordTestResultsActions";
+class StudentWordTestResults extends React.Component {
   componentDidMount() {
     const user = this.props.token;
     const id = this.props.id;
-    this.props.studentTestResultsActions.fetchStudentTestResults(id, user);
+    this.props.studentWordTestResultsActions.fetchStudentWordTestResults(
+      id,
+      user
+    );
     this.props.studentActions.fetchStudent(id, user);
   }
-  displayLine3(studentTestResults) {
-    if (!studentTestResults) {
+  displayLine3(studentWordTestResults) {
+    if (!studentWordTestResults) {
       return <div> loading..</div>;
     }
-    return <Line3 studentTestResults={studentTestResults} />;
+    return <Line3 studentWordTestResults={studentWordTestResults} />;
   }
-  displayLine4(studentTestResults) {
-    if (!studentTestResults) {
+  displayLine4(studentWordTestResults) {
+    if (!studentWordTestResults) {
       return <div> loading..</div>;
     }
-    return <Line4 studentTestResults={studentTestResults} />;
+    return <Line4 studentWordTestResults={studentWordTestResults} />;
   }
   displayLine5(student) {
     if (!student) {
@@ -36,10 +39,10 @@ class StudentTestResults extends React.Component {
       <div>
         <br />
         <div className="container">
-          {this.displayLine4(this.props.studentTestResults)}
+          {this.displayLine4(this.props.studentWordTestResults)}
         </div>
         <div className="container">
-          {this.displayLine3(this.props.studentTestResults)}
+          {this.displayLine3(this.props.studentWordTestResults)}
         </div>
         <div className="container">{this.displayLine5(this.props.student)}</div>
       </div>
@@ -49,8 +52,8 @@ class StudentTestResults extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    studentTestResultsActions: bindActionCreators(
-      studentTestResultsActions,
+    studentWordTestResultsActions: bindActionCreators(
+      studentWordTestResultsActions,
       dispatch
     ),
     studentActions: bindActionCreators(studentActions, dispatch)
@@ -59,7 +62,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    studentTestResults: state.studentTestResults,
+    studentWordTestResults: state.studentWordTestResults,
     student: state.student,
     auth: state.auth
   };
@@ -68,4 +71,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudentTestResults);
+)(StudentWordTestResults);

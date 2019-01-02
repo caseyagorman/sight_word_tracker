@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
-import StudentTestResultsRows from "./StudentTestResultsRows";
-class StudentTestResultsTable extends Component {
+import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
+class StudentWordTestResultsTable extends Component {
   displayTableHead(test) {
     return (
       <div>
@@ -15,18 +15,18 @@ class StudentTestResultsTable extends Component {
               <th>Incorrect words</th>
             </tr>
           </thead>
-          {this.displayStudentTestResultsRows(test)}
+          {this.displayStudentWordTestResultsRows(test)}
         </Table>
       </div>
     );
   }
 
-  displayStudentTestResultsRows(test) {
+  displayStudentWordTestResultsRows(test) {
     if (!test) {
       return <p>loading...</p>;
     }
 
-    return test.map(test => StudentTestResultsRows(test));
+    return test.map(test => StudentWordTestResultsRows(test));
   }
 
   render() {
@@ -34,4 +34,4 @@ class StudentTestResultsTable extends Component {
   }
 }
 
-export default StudentTestResultsTable;
+export default StudentWordTestResultsTable;

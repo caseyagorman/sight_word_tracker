@@ -1,12 +1,12 @@
 // import * as types from "./actionTypes";
 import history from "../../history";
-function addTestApi() {
+function addWordTestApi() {
   return "http://localhost:5000/api/create-student-test";
 }
 
-export function addTest(result, user) {
+export function addWordTest(result, user) {
   return dispatch => {
-    return fetch(addTestApi(), {
+    return fetch(addWordTestApi(), {
       method: "POST",
       mode: "cors",
       headers: {

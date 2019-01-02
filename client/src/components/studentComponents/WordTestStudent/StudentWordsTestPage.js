@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as testActions from "../../../redux/actions/testActions";
+import * as wordTestActions from "../../../redux/actions/wordTestActions";
 import { Button, Card, CardText, Row } from "reactstrap";
 const displayWordStyle = { fontSize: "300px" };
 
@@ -40,7 +40,7 @@ class StudentWordsTestPage extends React.Component {
       incorrect_words: this.state.unknown_words
     };
     const user = this.props.user;
-    this.props.testActions.addTest(results, user);
+    this.props.wordTestActions.addWordTest(results, user);
   }
 
   incrementIdx(idx) {
@@ -107,7 +107,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    testActions: bindActionCreators(testActions, dispatch)
+    wordTestActions: bindActionCreators(wordTestActions, dispatch)
   };
 }
 
