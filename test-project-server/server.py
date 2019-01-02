@@ -388,13 +388,15 @@ def get_student_chart_data(student_words):
     unlearned_count = 0
     unlearned_words = []
     for word in student_words:
+        print(word.words.word)
         if word.Learned == True:
-            learned_words.append(word)
+            learned_words.append(word.words.word)
             learned_count += 1
         else:
             unlearned_count += 1
-            unlearned_words.append(word)
-    chart_data = {"learned": learned_count, "unlearned": unlearned_count}
+            unlearned_words.append(word.words.word)
+    chart_data = {"learned": [learned_count, learned_words],
+                  "unlearned": [unlearned_count,  unlearned_words]}
     return chart_data
 
 

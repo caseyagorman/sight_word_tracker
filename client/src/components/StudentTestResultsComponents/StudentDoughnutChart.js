@@ -6,7 +6,7 @@ class StudentDoughnutChart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-
+    console.log("student doughnut chart", dataResults);
     let learned = dataResults.dataResults.learned;
     let unlearned = dataResults.dataResults.unlearned;
     const data = {
