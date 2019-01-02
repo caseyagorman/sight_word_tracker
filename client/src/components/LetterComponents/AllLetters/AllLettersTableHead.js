@@ -5,6 +5,9 @@ import AllLettersTableRows from "./AllLettersTableRows";
 // Display table head of letters students are learning
 
 class AllLettersTableHead extends Component {
+  componentDidMount() {
+    console.log("all letters table head", this.props);
+  }
   displayTableHead(letters) {
     return (
       <div>
@@ -24,8 +27,9 @@ class AllLettersTableHead extends Component {
   }
 
   displayTableRows(letters) {
+    console.log("display table rows", letters);
     if (!letters) {
-      return <p>loading...</p>;
+      return <p>sploading...</p>;
     }
 
     return letters.map(letters => AllLettersTableRows(letters));

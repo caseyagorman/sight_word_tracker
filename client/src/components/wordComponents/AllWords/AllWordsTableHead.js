@@ -24,6 +24,7 @@ class AllWordsTableHead extends Component {
   }
 
   displayTableRows(words) {
+    console.log("display table rows", words);
     if (!words) {
       return <p>loading...</p>;
     }

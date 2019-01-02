@@ -4,11 +4,11 @@ import AllLettersTableHead from "./AllLettersTableHead";
 
 class Line1 extends React.Component {
   displayTableHead(letters) {
-    console.log("letters", letters);
     if (!letters) {
       return <p>Loading...</p>;
     }
-    return <AllLettersTableHead letters={letters} />;
+    console.log(letters);
+    return <AllLettersTableHead letters={letters.letters[0]} />;
   }
 
   render() {
