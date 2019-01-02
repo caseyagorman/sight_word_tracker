@@ -8,7 +8,12 @@ class StudentDoughnutChart extends Component {
     }
 
     let learned = dataResults.dataResults.learned;
+    console.log("learned", learned);
     let unlearned = dataResults.dataResults.unlearned;
+    let tooltipData = [
+      dataResults.dataResults.learned[1],
+      dataResults.dataResults.unlearned[1]
+    ];
     const data = {
       labels: ["Learned Words", "Unlearned Words"],
       datasets: [
@@ -22,8 +27,9 @@ class StudentDoughnutChart extends Component {
     let options = {
       tooltips: {
         callbacks: {
-          label: function(tooltipItem) {
-            return [learned[1], unlearned[1]];
+          label: function(tooltipItem, data) {
+            const indice = tooltipItem.index;
+            return data.labels[indice] + ":" + tooltipData[indice];
           }
         }
       }
