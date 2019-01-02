@@ -12,6 +12,7 @@ class AddLetter extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    console.log("add letter props", this.props);
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -22,13 +23,14 @@ class AddLetter extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    event.target.reset();
+    console.log(this.state.newLetter);
     const user = this.props.token;
     const letter = this.state.newLetter;
     this.props.letterActions.addLetter(letter, user);
+    event.target.reset();
   }
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ newLetter: event.target.value });
   }
 
   render() {

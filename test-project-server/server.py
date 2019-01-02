@@ -309,24 +309,26 @@ def get_letters(current_user):
                 student = Student.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
-        count = get_letter_student_counts(letter)
+        # count = get_letter_student_counts(letter)
 
         letter = {
             'letter_id': letter.letter_id,
             'letter': letter.letter,
-            'count': count,
+            # 'count': count,
             'students': student_list
         }
 
         letter_list.append(letter)
-    chart_letters = get_all_student_letter_counts()
-    return jsonify([letter_list, chart_letters])
+    # chart_letters = get_all_student_letter_counts()
+    # return jsonify([letter_list, chart_letters])
+    return jsonify(letter_list)
 
 
 @app.route("/api/add-letter", methods=['POST'])
 @token_required
 def add_letter(current_user):
     new_letters = request.get_json()
+    print("new letters", new_letters)
     user_id = current_user.public_id
     new_letters = new_letters.split()
     letter_dict = {}

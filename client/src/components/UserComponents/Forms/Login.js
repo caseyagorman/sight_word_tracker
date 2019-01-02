@@ -17,9 +17,7 @@ class Login extends Component {
       this.updateInput("username", newProps.auth.user.username);
       this.props.history.push("/");
     } else if (newProps.auth.loginError.error) {
-      console.log("error", newProps.auth.loginError.error);
       if (newProps.auth.loginError.error === "incorrect password") {
-        console.log("incorrect password");
         alert(newProps.auth.loginError.error);
         return <div />;
       }
@@ -30,9 +28,7 @@ class Login extends Component {
     }
   }
   updateInput(key, value) {
-    console.log(sessionStorage, "1");
     sessionStorage.setItem(key, value);
-    console.log(sessionStorage, "2");
   }
 
   handleSubmit(event) {

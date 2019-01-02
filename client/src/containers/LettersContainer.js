@@ -5,17 +5,17 @@ import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
 class LettersContainer extends Component {
   componentDidMount() {
-    if (sessionStorage.token) {
-      this.props.authActions.checkUser(sessionStorage);
-    } else {
+    if (!sessionStorage.token) {
       alert("Please log in");
       this.props.history.push("/login");
+    } else if (sessionStorage.token) {
+      this.props.authActions.checkUser(sessionStorage);
     }
   }
 
   displayLetters() {
     if (!this.props.auth.isAuthenticated) {
-      return <div>loading...</div>;
+      return <div>loading</div>;
     }
     return (
       <div>

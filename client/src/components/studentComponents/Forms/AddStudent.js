@@ -13,6 +13,7 @@ class AddStudent extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    console.log("add student props", this.props);
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {

@@ -11,7 +11,7 @@ class AllLettersTableHead extends Component {
         <Table striped bordered hover>
           <thead>
             <th>
-              <h4>Word</h4>
+              <h4>Letter</h4>
             </th>
             <th>
               <h4>Learning Count</h4>

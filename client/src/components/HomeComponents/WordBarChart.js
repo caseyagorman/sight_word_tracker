@@ -19,7 +19,6 @@ class WordBarChart extends Component {
       wordList.push(obj[item].word);
       studentList.push(obj[item].students);
     }
-    console.log("wordcounts", wordCounts);
 
     return [wordCounts, wordList, studentList];
   }

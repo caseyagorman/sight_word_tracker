@@ -12,7 +12,8 @@ class AddWord extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    if (sessionStorage.length > 0) {
+    console.log("add word props", this.props);
+    if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");

@@ -8,14 +8,14 @@ class Words extends Component {
     if (!sessionStorage.token) {
       alert("Please log in");
       this.props.history.push("/login");
-    } else if (!sessionStorage.token) {
+    } else if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     }
   }
 
   displayWords() {
     if (!this.props.auth.isAuthenticated) {
-      return <div>loading...</div>;
+      return <div>loading</div>;
     }
     return (
       <div>

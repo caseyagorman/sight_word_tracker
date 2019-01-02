@@ -33,8 +33,9 @@ class ViewWords extends React.Component {
     );
   }
   displayLine1(words) {
+    console.log("words", words);
     if (!words) {
-      return <p>loading...</p>;
+      return <p>sploading...</p>;
     }
     return <Line1 words={words} />;
   }

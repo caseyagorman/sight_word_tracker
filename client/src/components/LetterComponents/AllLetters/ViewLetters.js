@@ -17,7 +17,6 @@ const instructionsStyle = {
 };
 class ViewLetters extends React.Component {
   componentDidMount() {
-    console.log("view letters", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.lettersActions.fetchLetters(user);
