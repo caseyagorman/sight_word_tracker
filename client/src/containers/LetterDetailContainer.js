@@ -19,7 +19,7 @@ class LetterDetailContainer extends Component {
     }
     return (
       <div>
-        <LetterDetailContainer
+        <LetterDetail
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
           id={this.props.match.params.id}

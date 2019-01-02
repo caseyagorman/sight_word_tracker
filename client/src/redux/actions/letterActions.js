@@ -13,7 +13,6 @@ function deleteLetterApi() {
 }
 
 export function receiveLetter(letter) {
-  console.log("RECEIVE Letter", letter);
   return { type: types.RECEIVE_LETTER, letter: letter };
 }
 
@@ -59,8 +58,6 @@ export function addLetter(letter, user) {
         "x-access-token": user
       },
       body: JSON.stringify(letter)
-    }).then(response =>
-      console.log(response).then(() => history.push("/letters"))
-    );
+    }).then(() => history.push("/letters"));
   };
 }

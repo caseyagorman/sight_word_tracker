@@ -16,7 +16,9 @@ const instructionsStyle = {
 };
 class ViewStudents extends React.Component {
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    } else if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.studentsActions.fetchStudents(user);
     }

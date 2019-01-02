@@ -26,6 +26,13 @@ class User(db.Model):
     words = db.relationship('Word', cascade="save-update, merge, delete")
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
+    studentwordtestresults = db.relationship(
+        'StudentWordTestResult', cascade="save-update, merge, delete")
+    letters = db.relationship('Word', cascade="save-update, merge, delete")
+    studentletters = db.relationship(
+        'StudentLetter', cascade="save-update, merge, delete")
+    studentlettertestresults = db.relationship(
+        'StudentLetterTestResult', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<User id={self.public_id} email={self.email}>"
@@ -48,8 +55,12 @@ class Student(db.Model):
         'User')
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
-    studenttestresults = db.relationship(
-        'StudentTestResult', cascade="save-update, merge, delete")
+    studentwordtestresults = db.relationship(
+        'StudentWordTestResult', cascade="save-update, merge, delete")
+    studentletters = db.relationship(
+        'StudentLetter', cascade="save-update, merge, delete")
+    studentlettertestresults = db.relationship(
+        'StudentLetterTestResult', cascade="save-update, merge, delete")
 
     def __repr__(self):
         return f"<Student student_id={self.student_id} first_name={self.fname} last_name={self.lname}>"
@@ -73,6 +84,56 @@ class Word(db.Model):
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
+
+
+class Letter(db.Model):
+    """table of letters"""
+
+    __tablename__ = "letters"
+
+    letter_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    letter = db.Column(db.String(25), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False,
+                           default=datetime.today)
+    user_id = db.Column(db.String(50), db.ForeignKey(
+        'users.public_id'), nullable=False)
+
+    studentletters = db.relationship(
+        'StudentLetter', cascade="save-update, merge, delete")
+    users = db.relationship(
+        'User')
+
+    def __repr__(self):
+        return f"<letter letter_id={self.letter_id} letter={self.letter}>"
+
+
+class StudentLetter(db.Model):
+    """table of student letters"""
+
+    __tablename__ = "studentletters"
+
+    student_word_id = db.Column(
+        db.Integer, autoincrement=True, primary_key=True)
+    letter_id = db.Column(db.Integer, db.ForeignKey(
+        'letters.letter_id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'students.student_id'), nullable=False)
+    user_id = db.Column(db.String(50), db.ForeignKey(
+        'users.public_id'), nullable=False)
+    added_to_student = db.Column(
+        db.DateTime, nullable=False, default=datetime.today)
+    correct_count = db.Column(db.Integer, default=0, nullable=True)
+    incorrect_count = db.Column(db.Integer, default=0, nullable=True)
+    Learned = db.Column(db.Boolean, unique=False, default=False)
+    students = db.relationship(
+        'Student')
+    letters = db.relationship(
+        'Letter')
+    users = db.relationship(
+        'User')
+
+    def __repr__(self):
+        return f"<StudentLetter student_letter_id={self.student_letter_id}>"
 
 
 class StudentWord(db.Model):
@@ -104,19 +165,18 @@ class StudentWord(db.Model):
         return f"<StudentWord student_word_id={self.student_word_id}>"
 
 
-class StudentTestResult(db.Model):
+class StudentWordTestResult(db.Model):
     """table of student tests"""
 
-    __tablename__ = "studenttestresults"
+    __tablename__ = "studentwordtestresults"
 
-    student_test_id = db.Column(
+    student_word_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
         'students.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
         'users.public_id'), nullable=False)
     score = db.Column(db.Float)
-    wordtest_id = db.Column(db.ForeignKey('wordtests.wordtest_id'))
     test_date = db.Column(db.DateTime, nullable=True,
                           default=datetime.today)
     correct_words = db.Column(
@@ -130,20 +190,48 @@ class StudentTestResult(db.Model):
         'User')
 
     def __repr__(self):
-        return f"<StudentTest student_test_id={self.student_test_id}>"
+        return f"<StudentWordTestResults student_word_test_id={self.student_word_test_id}>"
 
 
-class WordTest(db.Model):
-    """table of word tests"""
+class StudentLetterTestResult(db.Model):
+    """table of student tests"""
 
-    __tablename__ = "wordtests"
+    __tablename__ = "studentlettertestresults"
 
-    wordtest_id = db.Column(
+    student_letter_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
-    word_id = db.Column(db.Integer, db.ForeignKey(
-        'words.word_id'), nullable=False)
-    test_date = db.Column(db.DateTime, nullable=True)
-    num_correct = db.Column(db.Integer, nullable=True)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'students.student_id'), nullable=False)
+    user_id = db.Column(db.String(50), db.ForeignKey(
+        'users.public_id'), nullable=False)
+    score = db.Column(db.Float)
+    test_date = db.Column(db.DateTime, nullable=True,
+                          default=datetime.today)
+    correct_words = db.Column(
+        db.ARRAY(db.String(25)))
+    incorrect_words = db.Column(
+        db.ARRAY(db.String(25)))
+
+    students = db.relationship(
+        'Student', cascade="save-update, merge, delete")
+    users = db.relationship(
+        'User')
+
+    def __repr__(self):
+        return f"<StudentLetterTest student_letter_test_id={self.student_letter_test_id}>"
+
+
+# class WordTest(db.Model):
+#     """table of word tests"""
+
+#     __tablename__ = "wordtests"
+
+#     wordtest_id = db.Column(
+#         db.Integer, autoincrement=True, primary_key=True)
+#     word_id = db.Column(db.Integer, db.ForeignKey(
+#         'words.word_id'), nullable=False)
+#     test_date = db.Column(db.DateTime, nullable=True)
+#     num_correct = db.Column(db.Integer, nullable=True)
 
 
 def connect_to_db(app):

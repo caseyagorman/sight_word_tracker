@@ -5,11 +5,11 @@ import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
 class Words extends Component {
   componentDidMount() {
-    if (sessionStorage.token) {
-      this.props.authActions.checkUser(sessionStorage);
-    } else {
+    if (!sessionStorage.token) {
       alert("Please log in");
       this.props.history.push("/login");
+    } else if (!sessionStorage.token) {
+      this.props.authActions.checkUser(sessionStorage);
     }
   }
 

@@ -4,7 +4,6 @@ import AllStudentsTableHead from "./AllStudentsTableHead";
 
 class Line1 extends React.Component {
   displayTableHead(students) {
-    console.log("view students table", students);
     if (!students) {
       return <p>Loading...</p>;
     }

@@ -30,7 +30,6 @@ class RegisterUser extends Component {
     event.preventDefault();
 
     if (this.state.password !== this.state.confirmPassword) {
-      console.log("passwords don't match");
       alert("passwords do not match");
       this.props.authActions.clearErrors();
       event.target.reset();

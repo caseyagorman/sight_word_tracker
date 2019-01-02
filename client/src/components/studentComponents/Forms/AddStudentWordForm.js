@@ -55,7 +55,6 @@ class AddStudentWordForm extends Component {
   }
 
   getOptions() {
-    console.log("add word to student button", this.props.unknownWords);
     if (!this.props.unknownWords) {
       return <div>Loading!</div>;
     }

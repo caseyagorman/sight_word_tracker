@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import WordBarChart from "./WordBarChart";
 import ViewStudentsButton from "./ViewStudentsButton";
 import ViewWordsButton from "./ViewWordsButton";
+import ViewLettersButton from "./ViewLettersButton";
 const welcomeStyle = { fontSize: "100px" };
 const buttonStyle = {
   display: "inline-block",
@@ -46,6 +47,10 @@ class Home extends Component {
   displayViewWordsButton() {
     return <ViewWordsButton />;
   }
+
+  displayViewLettersButton() {
+    return <ViewLettersButton />;
+  }
   displayInstructions() {
     return (
       <div>
@@ -67,6 +72,8 @@ class Home extends Component {
         <div style={buttonStyle}>
           {this.displayViewStudentsButton()} <span />
           {this.displayViewWordsButton()}
+          <span> </span>
+          {this.displayViewLettersButton()}
         </div>
         <br />
         <br />

@@ -6,7 +6,7 @@ from flask import (Flask, jsonify, render_template, make_response,
                    redirect, request, flash, abort, session)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, StudentWord, StudentTestResult, WordTest, connect_to_db, db, User
+from model import Student, Word, StudentWord, StudentWordTestResult, StudentLetterTestResult, Letter, StudentLetter, connect_to_db, db, User
 import jwt
 from flask_cors import CORS, cross_origin
 from werkzeug.security import safe_str_cmp
@@ -293,6 +293,76 @@ def add_word_to_student(current_user):
 
 #     return 'student word added!'
 
+@app.route("/api/letters")
+@token_required
+def get_letters(current_user):
+
+    user_id = current_user.public_id
+    letters = Letter.query.filter_by(user_id=user_id).options(
+        db.joinedload('studentletters')).all()
+    letter_list = []
+
+    for letter in letters:
+        student_list = []
+        for item in letter.studentletters:
+            if item.Learned == False:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                student_list.append(student.fname + " " + student.lname)
+        count = get_letter_student_counts(letter)
+
+        letter = {
+            'letter_id': letter.letter_id,
+            'letter': letter.letter,
+            'count': count,
+            'students': student_list
+        }
+
+        letter_list.append(letter)
+    chart_letters = get_all_student_letter_counts()
+    return jsonify([letter_list, chart_letters])
+
+
+@app.route("/api/add-letter", methods=['POST'])
+@token_required
+def add_letter(current_user):
+    new_letters = request.get_json()
+    user_id = current_user.public_id
+    new_letters = new_letters.split()
+    letter_dict = {}
+    user_letters = Letter.query.filter_by(user_id=user_id).all()
+    for letter in user_letters:
+        if letter.letter not in letter_dict.keys():
+            letter_dict[letter.letter] = 1
+        else:
+            letter_dict[letter.letter] += 1
+    for letter in new_letters:
+        if letter in letter_dict.keys():
+            continue
+        if letter not in letter_dict.keys():
+            letter = Letter(letter=letter, user_id=user_id)
+            db.session.add(letter)
+            db.session.commit()
+
+    return 'letters added'
+
+
+def get_all_student_letter_counts():
+    letters = StudentLetter.query.options(db.joinedload('letters')).all()
+    letter_counts = {}
+    for letter in letters:
+        if letter.Learned == True:
+            if letter.letters.letter not in letter_counts:
+                letter_counts[letter.letters.letter] = 0
+            else:
+                letter_counts[letter.letters.letter] += 0
+        else:
+            if letter.letters.letter not in letter_counts:
+                letter_counts[letter.letters.letter] = 1
+            else:
+                letter_counts[letter.letters.letter] += 1
+    return letter_counts
+
 
 @app.route("/api/details/<student>")
 @token_required
@@ -436,7 +506,7 @@ def get_student_test(current_user, student):
     student_id = student
     student_words = StudentWord.query.filter_by(
         user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students')).all()
-    student_tests = StudentTestResult.query.filter_by(
+    student_tests = StudentWordTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     word_counts = get_word_counts(student_words)
     chart_data = get_student_chart_data(student_words)
@@ -497,8 +567,8 @@ def create_student_test(current_user):
     update_correct_words(student_id, correct_words)
     update_incorrect_words(student_id, incorrect_words)
     db.session.add(
-        StudentTestResult(student_id=student_id, user_id=user_id, score=score,
-                          correct_words=correct_words, incorrect_words=incorrect_words))
+        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+                              correct_words=correct_words, incorrect_words=incorrect_words))
     db.session.commit()
     return 'test added'
 

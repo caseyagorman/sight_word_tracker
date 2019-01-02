@@ -27,7 +27,6 @@ class AllStudentsTableHead extends Component {
     if (!students) {
       return <p>loading...</p>;
     }
-
     return students.map(students => AllStudentsTableRows(students));
   }
 

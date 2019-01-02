@@ -7,7 +7,7 @@ export default function words(state = initialState.letters, action) {
       return action;
     case RECEIVE_LETTERS:
       return Object.assign({}, state, {
-        words: action.words
+        letters: action.letters
       });
     default:
       return state;

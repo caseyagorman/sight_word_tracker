@@ -17,6 +17,7 @@ const instructionsStyle = {
 };
 class ViewLetters extends React.Component {
   componentDidMount() {
+    console.log("view letters", this.props);
     if (this.props.auth.isAuthenticated) {
       const user = this.props.token;
       this.props.lettersActions.fetchLetters(user);
@@ -26,7 +27,7 @@ class ViewLetters extends React.Component {
   displayInstructions() {
     return (
       <div>
-        <br /> Click word to view students learning each letter.
+        <br /> Click letter to view students learning each letter.
       </div>
     );
   }
@@ -42,7 +43,7 @@ class ViewLetters extends React.Component {
 
   render() {
     return (
-      <div class="container">
+      <div className="container">
         <br />
         <h1 style={headerStyle}>All Letters</h1>
         <div style={instructionsStyle}>{this.displayInstructions()}</div>

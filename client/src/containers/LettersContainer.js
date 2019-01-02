@@ -3,7 +3,7 @@ import ViewLetters from "../components/LetterComponents/AllLetters/ViewLetters";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-class Letters extends Component {
+class LettersContainer extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
@@ -46,4 +46,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Letters);
+)(LettersContainer);

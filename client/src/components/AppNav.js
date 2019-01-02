@@ -6,7 +6,7 @@ const AppNav = () => {
     <Navbar inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/">Sight Word Tracker</a>
+          <a href="/">Early Literacy Tracker</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -14,6 +14,9 @@ const AppNav = () => {
         <Nav>
           <NavItem eventKey={1} href="/students/">
             Students
+          </NavItem>
+          <NavItem eventKey={2} href="/letters/">
+            Letters
           </NavItem>
           <NavItem eventKey={2} href="/words/">
             Words
