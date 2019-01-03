@@ -3,8 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import StudentNamePage from "./StudentNamePage";
 
 class Line1 extends Component {
-  componetDidMount() {}
-
   studentNamePage(student) {
     if (!student) {
       return <p>Loading student...</p>;

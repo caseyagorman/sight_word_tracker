@@ -63,7 +63,7 @@ class ViewStudents extends React.Component {
         </div>
         <div>
           <div>{this.displayLine1(this.props.students)}</div>
-          <div>{this.displayLine2(this.props.token)}</div>
+          {/* <div>{this.displayLine2(this.props.token)}</div> */}
         </div>
       </div>
     );

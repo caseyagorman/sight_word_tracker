@@ -1,41 +1,41 @@
 import React, { Component } from "react";
 import { Table, Row, Col } from "reactstrap";
-import StudentWordsTableRows from "./StudentWordsTableRows";
+import StudentLettersTableRows from "./StudentLettersTableRows";
 
 // Display table head of words students are learning
 
-class StudentWordsTableHead extends Component {
-  displayWordsTableHead(data) {
+class StudentLettersTableHead extends Component {
+  displayLettersTableHead(data) {
     console.log("display table head", data);
     return (
       <div>
         <Table striped bordered condensed hover>
           <thead>
             <th>
-              <h4>Words</h4>
+              <h4>Letters</h4>
             </th>
           </thead>
-          {this.displayWordsTableRows(data)}
+          {this.displayLettersTableRows(data)}
         </Table>
       </div>
     );
   }
 
-  displayWordsTableRows(data) {
+  displayLettersTableRows(data) {
     if (!data) {
       return <p>loading...</p>;
     }
-    data = data[1];
-    return data.map(data => StudentWordsTableRows(data));
+    data = data[2];
+    return data.map(data => StudentLettersTableRows(data));
   }
 
   render() {
     return (
       <div>
-        <div>{this.displayWordsTableHead(this.props.data)}</div>
+        <div>{this.displayLettersTableHead(this.props.data)}</div>
       </div>
     );
   }
 }
 
-export default StudentWordsTableHead;
+export default StudentLettersTableHead;

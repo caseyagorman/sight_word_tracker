@@ -191,9 +191,9 @@ def get_word_student_counts(word):
 
 @app.route("/api/unknown-words/<student>")
 @token_required
-def get_unknown_words(current_student, student):
+def get_unknown_words(current_user, student):
     """gets words that student does not know and are not in current word list, words can then be added to students word list"""
-    user_id = current_student.public_id
+    user_id = current_user.public_id
     words = StudentWord.query.filter_by(
         student_id=student, user_id=user_id).options(db.joinedload('words')).all()
     word_ids = []
@@ -416,6 +416,33 @@ def delete_letter(current_user):
     return 'letter deleted!'
 
 
+@app.route("/api/unknown-letters/<student>")
+@token_required
+def get_unknown_letters(current_user, student):
+    """gets letters that student does not know and are not in current letter list, letters can then be added to students letter list"""
+    user_id = current_user.public_id
+    letters = StudentLetter.query.filter_by(
+        student_id=student, user_id=user_id).options(db.joinedload('letters')).all()
+    letter_ids = []
+    for letter in letters:
+
+        letter_ids.append(letter.letter_id)
+
+    unknown_letters = Letter.query.filter(
+        Letter.letter_id.notin_(letter_ids)).all()
+    letter_list = []
+
+    for letter in unknown_letters:
+        letter = {
+            'letter_id': letter.letter_id,
+            'letter': letter.letter
+        }
+
+        letter_list.append(letter)
+
+    return jsonify(letter_list)
+
+
 @app.route("/api/details/<student>")
 @token_required
 def student_detail(current_user, student):
@@ -425,6 +452,8 @@ def student_detail(current_user, student):
         student_id=student, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
+    student_letters = StudentLetter.query.filter_by(
+        student_id=student).options(db.joinedload('letters')).all()
     student_object = {
         'student_id': student_object.student_id,
         'fname': student_object.fname,
@@ -440,7 +469,19 @@ def student_detail(current_user, student):
             word_list.append(word)
         else:
             pass
-    return jsonify([student_object, word_list])
+    letter_list = []
+
+    for letter in student_letters:
+        if letter.Learned == False:
+            letter = {
+                'letter_id': letter.letters.letter_id,
+                'letter': letter.letters.letter,
+            }
+            letter_list.append(letter)
+        else:
+            pass
+    print(letter_list)
+    return jsonify([student_object, word_list, letter_list])
 
 
 @app.route("/api/word-detail/<word>")

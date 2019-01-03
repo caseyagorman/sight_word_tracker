@@ -7,6 +7,7 @@ import WordTestStudentLink from "../WordTestStudent/WordTestStudentLink";
 import StudentWordTestResultsContainer from "../../../containers/StudentWordTestResultsContainer";
 import Line1 from "./Line1StudentDetail";
 import Line2 from "./Line2StudentDetail";
+import Line3 from "./Line3StudentDetail";
 
 class StudentDetail extends React.Component {
   componentDidMount() {
@@ -23,6 +24,7 @@ class StudentDetail extends React.Component {
     if (!student) {
       return <div> loading..</div>;
     }
+
     return <Line1 student={student} id={id} />;
   }
 
@@ -31,6 +33,13 @@ class StudentDetail extends React.Component {
       return <div> loading..</div>;
     }
     return <Line2 student={student} />;
+  }
+
+  displayLine3(student) {
+    if (!student) {
+      return <div> loading..</div>;
+    }
+    return <Line3 student={student} />;
   }
 
   WordTestStudentLink(student) {
@@ -45,9 +54,11 @@ class StudentDetail extends React.Component {
       <div>
         <div className="container">{this.displayLine1(this.props.student)}</div>
         <div className="container">
-          {this.WordTestStudentLink(this.props.student)}{" "}
+          {this.WordTestStudentLink(this.props.student)}
         </div>
+        <br />
         <div className="container">{this.displayLine2(this.props.student)}</div>
+        <div className="container">{this.displayLine3(this.props.student)}</div>
         <div className="container">
           <StudentWordTestResultsContainer
             id={this.props.id}

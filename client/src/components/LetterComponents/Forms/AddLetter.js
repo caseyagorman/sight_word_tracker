@@ -12,7 +12,6 @@ class AddLetter extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log("add letter props", this.props);
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
@@ -23,7 +22,6 @@ class AddLetter extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.newLetter);
     const user = this.props.token;
     const letter = this.state.newLetter;
     this.props.letterActions.addLetter(letter, user);

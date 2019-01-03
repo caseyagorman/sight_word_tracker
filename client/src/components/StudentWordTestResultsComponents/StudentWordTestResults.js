@@ -1,7 +1,7 @@
 import React from "react";
-import Line3 from "./Line3StudentDetail";
 import Line4 from "./Line4StudentDetail";
 import Line5 from "./Line5StudentDetail";
+import Line6 from "./Line6StudentDetail";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../redux/actions/studentActions";
@@ -16,35 +16,35 @@ class StudentWordTestResults extends React.Component {
     );
     this.props.studentActions.fetchStudent(id, user);
   }
-  displayLine3(studentWordTestResults) {
-    if (!studentWordTestResults) {
-      return <div> loading..</div>;
-    }
-    return <Line3 studentWordTestResults={studentWordTestResults} />;
-  }
   displayLine4(studentWordTestResults) {
     if (!studentWordTestResults) {
       return <div> loading..</div>;
     }
     return <Line4 studentWordTestResults={studentWordTestResults} />;
   }
-  displayLine5(student) {
+  displayLine5(studentWordTestResults) {
+    if (!studentWordTestResults) {
+      return <div> loading..</div>;
+    }
+    return <Line5 studentWordTestResults={studentWordTestResults} />;
+  }
+  displayLine6(student) {
     if (!student) {
       return <div> loading..</div>;
     }
-    return <Line5 student={student} />;
+    return <Line6 student={student} />;
   }
   render() {
     return (
       <div>
         <br />
         <div className="container">
-          {this.displayLine4(this.props.studentWordTestResults)}
+          {this.displayLine5(this.props.studentWordTestResults)}
         </div>
         <div className="container">
-          {this.displayLine3(this.props.studentWordTestResults)}
+          {this.displayLine4(this.props.studentWordTestResults)}
         </div>
-        <div className="container">{this.displayLine5(this.props.student)}</div>
+        <div className="container">{this.displayLine6(this.props.student)}</div>
       </div>
     );
   }

@@ -13,7 +13,6 @@ function deleteLetterApi() {
 }
 
 export function receiveLetter(letter) {
-  console.log(letter);
   return { type: types.RECEIVE_LETTER, letter: letter };
 }
 

@@ -1,32 +1,29 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import AddStudentWordForm from "../Forms/AddStudentWordForm";
 import StudentWordsTableHead from "./StudentWordsTableHead";
+import StudentLettersTableHead from "./StudentLettersTableHead";
 
 class Line2 extends Component {
   studentWordsTableHead(student) {
     if (!student) {
       return <p>Loading student words...</p>;
     }
-    return <StudentWordsTableHead student={student[0]} words={student[1]} />;
+    return <StudentWordsTableHead data={student} />;
   }
-
-  addStudentWordForm(student) {
+  studentLettersTableHead(student) {
     if (!student) {
-      return <div>loading...</div>;
+      return <p>Loading student words...</p>;
     }
-    return <AddStudentWordForm student={student} />;
+    return <StudentLettersTableHead data={student} />;
   }
 
   render() {
     return (
       <div className="container">
-        <div className="align-baseline">
-          <Row>
-            <Col lg="6">{this.studentWordsTableHead(this.props.student)}</Col>
-            <Col lg="6">{this.addStudentWordForm(this.props.student)}</Col>
-          </Row>
-        </div>
+        <Row>
+          <Col lg="4">{this.studentWordsTableHead(this.props.student)}</Col>
+          <Col lg="4">{this.studentLettersTableHead(this.props.student)}</Col>
+        </Row>
       </div>
     );
   }

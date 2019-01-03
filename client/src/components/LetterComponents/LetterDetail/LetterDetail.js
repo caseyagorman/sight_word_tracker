@@ -10,7 +10,6 @@ class LetterDetail extends React.Component {
     if (!this.props.id || !this.props.token) {
       return <div> loading...</div>;
     }
-    console.log("letter detail", this.props.id, this.props);
     const id = this.props.id;
     const user = this.props.token;
     this.props.letterActions.fetchLetter(id, user);

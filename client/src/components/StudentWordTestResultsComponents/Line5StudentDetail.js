@@ -1,20 +1,37 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import DeleteStudentFormContainer from "../../containers/DeleteStudentFormContainer";
+import StudentDoughnutChart from "./StudentDoughnutChart";
+import LineChart from "./LineChart";
 
 class Line5 extends Component {
-  deleteStudentForm(student) {
-    if (!student) {
+  componetDidMount() {}
+
+  displayDoughnutChart(studentTest) {
+    if (!studentTest) {
       return <p>loading...</p>;
     }
-    return <DeleteStudentFormContainer student={student[0]} />;
+    let test = studentTest[2];
+    return <StudentDoughnutChart dataResults={test} />;
+  }
+
+  displaylineChart(studentTest) {
+    if (!studentTest) {
+      return <p>loading...</p>;
+    }
+    let tests = studentTest[0];
+    return <LineChart tests={tests} />;
   }
 
   render() {
     return (
       <div className="container">
         <Row>
-          <Col lg="6">{this.deleteStudentForm(this.props.student)}</Col>
+          <Col lg="6">
+            {this.displayDoughnutChart(this.props.studentWordTestResults)}
+          </Col>
+          <Col lg="6">
+            {this.displaylineChart(this.props.studentWordTestResults)}
+          </Col>
         </Row>
       </div>
     );

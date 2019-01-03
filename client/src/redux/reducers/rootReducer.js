@@ -11,6 +11,8 @@ import auth from "./authReducer";
 import register from "./registerReducer";
 import letters from "./lettersReducer";
 import letter from "./letterReducer";
+import unknownLetters from "./unknownLettersReducer";
+import studentLetters from "./studentLettersReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -24,7 +26,9 @@ const rootReducer = combineReducers({
   auth,
   register,
   letter,
-  letters
+  letters,
+  unknownLetters,
+  studentLetters
 });
 
 export default rootReducer;

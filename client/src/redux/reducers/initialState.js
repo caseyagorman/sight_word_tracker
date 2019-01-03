@@ -7,7 +7,9 @@ export default {
   words: "",
   letter: "",
   letters: "",
+  studentLetters: "",
   unknownWords: "",
+  unknownLetters: "",
   studentWordTestResults: "",
   wordTest: "",
   auth: {

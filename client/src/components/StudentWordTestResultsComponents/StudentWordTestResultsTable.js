@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
 class StudentWordTestResultsTable extends Component {
   displayTableHead(test) {
+    console.log("test", test);
     return (
       <div>
         <h3>Past test results</h3>

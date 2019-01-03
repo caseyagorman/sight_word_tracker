@@ -1,6 +1,6 @@
 import React from "react";
 import DoughnutChart from "./DoughnutChart";
-import { Row } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 class Line2 extends React.Component {
   displayChart(user) {
@@ -14,7 +14,7 @@ class Line2 extends React.Component {
     return (
       <div className="container">
         <Row>
-          {/* <Col lg="6">{this.displayChart(this.props.user)}</Col> */}
+          <Col lg="6">{this.displayChart(this.props.user)}</Col>
         </Row>
       </div>
     );

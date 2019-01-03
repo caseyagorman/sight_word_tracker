@@ -7,7 +7,6 @@ class Line1 extends React.Component {
     if (!letters) {
       return <p>Loading...</p>;
     }
-    console.log(letters);
     return <AllLettersTableHead letters={letters.letters[0]} />;
   }
 
