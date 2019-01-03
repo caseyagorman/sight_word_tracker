@@ -207,9 +207,9 @@ class StudentLetterTestResult(db.Model):
     score = db.Column(db.Float)
     test_date = db.Column(db.DateTime, nullable=True,
                           default=datetime.today)
-    correct_words = db.Column(
+    correct_letters = db.Column(
         db.ARRAY(db.String(25)))
-    incorrect_words = db.Column(
+    incorrect_letters = db.Column(
         db.ARRAY(db.String(25)))
 
     students = db.relationship(

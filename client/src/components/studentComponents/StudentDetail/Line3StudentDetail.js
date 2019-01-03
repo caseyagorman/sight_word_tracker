@@ -21,8 +21,8 @@ class Line3 extends Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="2">{this.addStudentWordForm(this.props.student)}</Col>
-          <Col lg="2">{this.addStudentLetterForm(this.props.student)}</Col>
+          <Col lg="4">{this.addStudentWordForm(this.props.student)}</Col>
+          <Col lg="4">{this.addStudentLetterForm(this.props.student)}</Col>
         </Row>
       </div>
     );

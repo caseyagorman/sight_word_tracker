@@ -443,6 +443,104 @@ def get_unknown_letters(current_user, student):
     return jsonify(letter_list)
 
 
+@app.route('/api/add-letters-to-student', methods=['POST'])
+@token_required
+def add_letter_to_student(current_user):
+    data = request.get_json()
+    print(data)
+    student_id = data.get("student")
+    letters = data.get('letters')
+    user_id = current_user.public_id
+    letter_list = Letter.query.filter(
+        (Letter.letter.in_(letters))).filter(Letter.user_id == user_id).all()
+    letter_ids = []
+    for letter in letter_list:
+        letter_ids.append(letter.letter_id)
+    for letter_id in letter_ids:
+        new_student_letter = StudentLetter(
+            letter_id=letter_id, student_id=student_id, user_id=user_id)
+        db.session.add(new_student_letter)
+        db.session.commit()
+
+    return "student letters added!"
+
+
+@app.route("/api/get-student-letter-test/<student>")
+@token_required
+def get_student_test(current_user, student):
+    """get list of student test results, word_counts and chart_data"""
+
+    user_id = current_user.public_id
+    student_id = student
+    student_letters = StudentLetter.query.filter_by(
+        user_id=user_id, student_id=student_id).options(db.joinedload('letters')).options(db.joinedload('students')).all()
+    student_tests = StudentLetterTestResult.query.filter_by(
+        student_id=student_id, user_id=user_id).all()
+    letter_counts = get_letter_counts(student_letters)
+    chart_data = get_student_letter_chart_data(student_letters)
+    student_test_list = get_student_letter_test_list(student_tests)
+    learned_letters_list = get_learned_letters_list(student_letters)
+    return jsonify([student_test_list, letter_counts, chart_data, learned_letters_list])
+
+
+def get_letter_counts(student_letters):
+    """is called by get student test, returns word, times read correctly,times read incorrectly """
+    letter_counts = []
+    for student_letter in student_letters:
+        count = {
+            "letter": student_letter.letters.letter,
+            "correct_count": student_letter.correct_count,
+            "incorrect_count": student_letter.incorrect_count
+        }
+        letter_counts.append(count)
+
+    return letter_counts
+
+
+def get_learned_letters_list(student_letters):
+    """is called by get student test, returns list of learned words"""
+    learned_letters = []
+    for student_letter in student_letters:
+        if student_letter.Learned == True:
+            learned_letters.append(student_letter.letters.letter)
+    return learned_letters
+
+
+def get_student_letter_chart_data(student_words):
+    """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
+    learned_count = 0
+    learned_words = []
+    unlearned_count = 0
+    unlearned_words = []
+    for word in student_words:
+        print(word.words.word)
+        if word.Learned == True:
+            learned_words.append(word.words.word)
+            learned_count += 1
+        else:
+            unlearned_count += 1
+            unlearned_words.append(word.words.word)
+    chart_data = {"learned": [learned_count, learned_words],
+                  "unlearned": [unlearned_count,  unlearned_words]}
+    return chart_data
+
+
+def get_student_letter_test_list(student_test):
+    """is called by get_student_letter_test, returns list of student tests"""
+    student_test_list = []
+    for student in student_test:
+        test_date = student.test_date.strftime('%m-%d-%Y')
+        student_test_object = {
+            'student_id': student.student_id,
+            'score': student.score,
+            'test_date': test_date,
+            'correct_letters': student.correct_letters,
+            'incorrect_letters': student.incorrect_letters
+        }
+        student_test_list.append(student_test_object)
+    return student_test_list
+
+
 @app.route("/api/details/<student>")
 @token_required
 def student_detail(current_user, student):
@@ -555,7 +653,7 @@ def get_learned_words_list(student_words):
     return learned_words
 
 
-def get_student_chart_data(student_words):
+def get_student_word_chart_data(student_words):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
     learned_words = []
@@ -574,8 +672,8 @@ def get_student_chart_data(student_words):
     return chart_data
 
 
-def get_student_test_list(student_test):
-    """is called by get_student_test, returns list of student tests"""
+def get_student_word_test_list(student_test):
+    """is called by get_student_word_test, returns list of student tests"""
     student_test_list = []
     for student in student_test:
         test_date = student.test_date.strftime('%m-%d-%Y')
@@ -590,9 +688,9 @@ def get_student_test_list(student_test):
     return student_test_list
 
 
-@app.route("/api/get-student-test/<student>")
+@app.route("/api/get-student-word-test/<student>")
 @token_required
-def get_student_test(current_user, student):
+def get_student_word_test(current_user, student):
     """get list of student test results, word_counts and chart_data"""
 
     user_id = current_user.public_id
@@ -602,8 +700,8 @@ def get_student_test(current_user, student):
     student_tests = StudentWordTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     word_counts = get_word_counts(student_words)
-    chart_data = get_student_chart_data(student_words)
-    student_test_list = get_student_test_list(student_tests)
+    chart_data = get_student_word_chart_data(student_words)
+    student_test_list = get_student_word_test_list(student_tests)
     learned_words_list = get_learned_words_list(student_words)
     return jsonify([student_test_list, word_counts, chart_data, learned_words_list])
 

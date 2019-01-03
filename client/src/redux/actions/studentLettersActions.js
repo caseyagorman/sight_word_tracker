@@ -8,7 +8,7 @@ function addStudentLettersApi(studentLetters) {
   return "http://localhost:5000/api/add-letters-to-student";
 }
 
-export function addstudentLetters(studentLetters, user) {
+export function addStudentLetters(studentLetters, user) {
   return dispatch => {
     return fetch(addStudentLettersApi(), {
       method: "POST",
