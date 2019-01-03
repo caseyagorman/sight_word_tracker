@@ -404,6 +404,18 @@ def letter_detail(current_user, letter):
     return jsonify([letter_object, student_list])
 
 
+@app.route("/api/delete-letter", methods=['POST'])
+@token_required
+def delete_letter(current_user):
+    letter_id = request.get_json()
+    user_id = current_user.public_id
+    letter_to_delete = Letter.query.filter_by(
+        letter_id=letter_id, user_id=user_id).first()
+    db.session.delete(letter_to_delete)
+    db.session.commit()
+    return 'letter deleted!'
+
+
 @app.route("/api/details/<student>")
 @token_required
 def student_detail(current_user, student):

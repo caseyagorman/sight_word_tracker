@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as letterActions from "../../../redux/actions/letterActions";
-// import DeleteLetter from "../Forms/DeleteLetter";
+import DeleteLetter from "../Forms/DeleteLetter";
 import Line2 from "./Line2LetterDetail";
 import Line1 from "./Line1LetterDetail";
 class LetterDetail extends React.Component {
@@ -30,19 +30,19 @@ class LetterDetail extends React.Component {
     return <Line2 students={students[1]} letter={students[0]} />;
   }
 
-  //   displayDeleteButton(letter) {
-  //     if (!letter) {
-  //       return <div>loading...</div>;
-  //     }
-  //     return <DeleteLetter letter={letter} />;
-  //   }
+  displayDeleteButton(letter) {
+    if (!letter) {
+      return <div>loading...</div>;
+    }
+    return <DeleteLetter letter={letter} />;
+  }
 
   render() {
     return (
       <div>
         <div>{this.displayLine1(this.props.letter)}</div>
         <div>{this.displayLine2(this.props.letter)}</div>
-        {/* <div>{this.displayDeleteButton(this.props.letter)}</div> */}
+        <div>{this.displayDeleteButton(this.props.letter)}</div>
       </div>
     );
   }
