@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import StudentLettersTestPage from "./StudentLettersTestPage";
+import StudentLetterTestPage from "./StudentLetterTestPage";
 class LetterTestStudent extends React.Component {
   componentDidMount() {
     const id = this.props.id;
@@ -11,12 +11,14 @@ class LetterTestStudent extends React.Component {
   }
 
   getLetters(student) {
+    console.log(student);
     if (!student) {
       return <p> Loading... </p>;
     }
-    let letters = this.turnIntoArray(student[1]);
+    let letters = this.turnIntoArray(student[2]);
+    console.log("letter", letters);
     return (
-      <StudentLettersTestPage
+      <StudentLetterTestPage
         user={this.props.token}
         letters={letters}
         student={student}

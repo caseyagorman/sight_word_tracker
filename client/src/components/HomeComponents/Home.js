@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as wordsActions from "../../redux/actions/wordsActions";
 import { bindActionCreators } from "redux";
-import WordBarChart from "./WordBarChart";
 import ViewStudentsButton from "./ViewStudentsButton";
 import ViewWordsButton from "./ViewWordsButton";
 import ViewLettersButton from "./ViewLettersButton";
@@ -29,12 +28,6 @@ class Home extends Component {
     this.props.wordsActions.fetchWords(user);
   }
 
-  displayChart(words) {
-    if (!words) {
-      return <p>loading...</p>;
-    }
-    return <WordBarChart data={words} />;
-  }
   displayWelcome() {
     if (!this.props.auth) {
       return <div>loading...</div>;
@@ -68,7 +61,6 @@ class Home extends Component {
     return (
       <div className="container">
         <div style={welcomeStyle}>{this.displayWelcome()}</div>
-        <div>{this.displayChart(this.props.words)}</div>
         <div style={buttonStyle}>
           {this.displayViewStudentsButton()} <span />
           {this.displayViewWordsButton()}

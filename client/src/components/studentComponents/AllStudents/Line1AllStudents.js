@@ -14,7 +14,7 @@ class Line1 extends React.Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="4">{this.displayTableHead(this.props.students)}</Col>
+          <Col lg="8">{this.displayTableHead(this.props.students)}</Col>
         </Row>
       </div>
     );

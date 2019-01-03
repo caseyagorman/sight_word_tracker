@@ -14,7 +14,10 @@ class AllStudentsTableHead extends Component {
               <h4>Name</h4>
             </th>
             <th>
-              <h4>Learning Count</h4>
+              <h4>Unlearned Words Count</h4>
+            </th>
+            <th>
+              <h4>Unlearned Letters Count</h4>
             </th>
           </thead>
           {this.displayTableRows(students)}

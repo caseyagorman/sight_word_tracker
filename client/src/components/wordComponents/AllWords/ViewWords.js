@@ -5,6 +5,7 @@ import * as wordsActions from "../../../redux/actions/wordsActions";
 import * as authActions from "../../../redux/actions/authActions";
 import AddWordButton from "../Forms/AddWordButton";
 import Line1 from "./Line1AllWords";
+import Line2 from "./Line2AllWords";
 const headerStyle = {
   fontSize: "100px"
 };
@@ -38,6 +39,12 @@ class ViewWords extends React.Component {
     }
     return <Line1 words={words} />;
   }
+  displayLine2(words) {
+    if (!words) {
+      return <p>sploading...</p>;
+    }
+    return <Line2 words={words} />;
+  }
   displayAddWordButton() {
     return <AddWordButton />;
   }
@@ -52,6 +59,8 @@ class ViewWords extends React.Component {
         <div>{this.displayAddWordButton()}</div>
         <br />
         <div>{this.displayLine1(this.props.words)}</div>
+        <br />
+        <div>{this.displayLine2(this.props.words)}</div>
       </div>
     );
   }

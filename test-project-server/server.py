@@ -90,13 +90,15 @@ def get_students(current_user):
         db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
-        count = get_student_word_counts(student)
+        word_count = get_student_word_counts(student)
+        letter_count = get_student_letter_counts(student)
         student = {
             'student_id': student.student_id,
             'fname': student.fname,
             'lname': student.lname,
             'grade': student.grade,
-            'count': count
+            'word_count': word_count,
+            'letter_count': letter_count
         }
         student_list.append(student)
     print(student_list)
@@ -108,6 +110,13 @@ def get_student_word_counts(student):
     words = StudentWord.query.filter(StudentWord.student_id == student_id).filter(
         StudentWord.Learned == False).all()
     return len(words)
+
+
+def get_student_letter_counts(student):
+    student_id = student.student_id
+    letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).filter(
+        StudentLetter.Learned == False).all()
+    return len(letters)
 
 
 @app.route("/api/add-student", methods=['POST'])
@@ -198,7 +207,6 @@ def get_unknown_words(current_user, student):
         student_id=student, user_id=user_id).options(db.joinedload('words')).all()
     word_ids = []
     for word in words:
-
         word_ids.append(word.word_id)
 
     unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
@@ -211,7 +219,7 @@ def get_unknown_words(current_user, student):
         }
 
         word_list.append(word)
-
+    print(word_list)
     return jsonify(word_list)
 
 
@@ -439,7 +447,7 @@ def get_unknown_letters(current_user, student):
         }
 
         letter_list.append(letter)
-
+    print(letter_list)
     return jsonify(letter_list)
 
 

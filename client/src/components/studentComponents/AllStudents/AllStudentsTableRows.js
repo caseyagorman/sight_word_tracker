@@ -13,7 +13,8 @@ const AllStudentsTableRows = props => (
           </Link>
         </h4>
       </td>
-      <td>{props.count}</td>
+      <td>{props.word_count}</td>
+      <td>{props.letter_count}</td>
     </tr>
   </tbody>
 );
