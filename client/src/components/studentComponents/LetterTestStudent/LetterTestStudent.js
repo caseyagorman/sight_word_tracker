@@ -5,7 +5,6 @@ import * as studentActions from "../../../redux/actions/studentActions";
 import StudentLettersTestPage from "./StudentLettersTestPage";
 class LetterTestStudent extends React.Component {
   componentDidMount() {
-    console.log("component did mount", this.props);
     const id = this.props.id;
     const user = this.props.token;
     this.props.studentActions.fetchStudent(id, user);

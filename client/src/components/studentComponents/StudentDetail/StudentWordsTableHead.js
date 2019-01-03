@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Table, Row, Col } from "reactstrap";
+import { Table } from "reactstrap";
 import StudentWordsTableRows from "./StudentWordsTableRows";
 
 // Display table head of words students are learning
 
 class StudentWordsTableHead extends Component {
   displayWordsTableHead(data) {
-    console.log("display table head", data);
     return (
       <div>
         <Table striped bordered condensed hover>

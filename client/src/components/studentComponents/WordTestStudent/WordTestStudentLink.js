@@ -6,7 +6,7 @@ const WordTestStudentLink = props => {
     <div className="container">
       <Link to={`/test-student-words/${props[0].student_id}`}>
         <button className="btn btn-primary btn-lg">
-          Test {props[0].fname}
+          Test {props[0].fname}' words
         </button>
       </Link>
     </div>

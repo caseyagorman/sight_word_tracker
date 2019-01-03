@@ -25,9 +25,7 @@ class StudentWordsTestPage extends React.Component {
       unknown_words: []
     };
   }
-  componentDidMount() {
-    console.log("component did mount test page", this.props);
-  }
+
   displayWord(words) {
     if (!words) {
       this.createTestObject();

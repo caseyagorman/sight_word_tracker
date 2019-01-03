@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as letterTestActions from "../../../redux/actions/letterTestActions";
+import * as letterTestActions from "../../../redux/actions/";
 import { Button, Card, CardText, Row } from "reactstrap";
 const displayletterstyle = { fontSize: "300px" };
 
@@ -105,7 +105,7 @@ const StudentLettersTestPageWrapped = withRouter(StudentLettersTestPage);
 
 function mapStateToProps(state) {
   return {
-    test: state.test
+    letterTest: state.letterTest
   };
 }
 

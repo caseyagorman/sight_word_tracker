@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
-import WordTestStudentLink from "../WordTestStudent/WordTestStudentLink";
-import LetterTestStudentLink from "../LetterTestStudent/LetterTestStudentLink";
 import StudentWordTestResultsContainer from "../../../containers/StudentWordTestResultsContainer";
 import Line1 from "./Line1StudentDetail";
 import Line2 from "./Line2StudentDetail";
 import Line3 from "./Line3StudentDetail";
-
+import Line4 from "./Line4StudentDetail";
 class StudentDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
@@ -29,11 +27,12 @@ class StudentDetail extends React.Component {
     return <Line1 student={student} id={id} />;
   }
 
-  displayLine2(student) {
+  displayLine2(student, id) {
     if (!student) {
       return <div> loading..</div>;
     }
-    return <Line2 student={student} />;
+
+    return <Line2 student={student} id={id} />;
   }
 
   displayLine3(student) {
@@ -43,31 +42,21 @@ class StudentDetail extends React.Component {
     return <Line3 student={student} />;
   }
 
-  WordTestStudentLink(student) {
+  displayLine4(student) {
     if (!student) {
-      return <p>Loading test...</p>;
+      return <div> loading..</div>;
     }
-    return WordTestStudentLink(student);
+    return <Line4 student={student} />;
   }
 
-  LetterTestStudentLink(student) {
-    if (!student) {
-      return <p>Loading test...</p>;
-    }
-    return LetterTestStudentLink(student);
-  }
   render() {
     return (
       <div>
         <div className="container">{this.displayLine1(this.props.student)}</div>
-        <div className="container">
-          {this.WordTestStudentLink(this.props.student)}
-          <span />
-          {this.LetterTestStudentLink(this.props.student)}
-        </div>
-        <br />
         <div className="container">{this.displayLine2(this.props.student)}</div>
+        <br />
         <div className="container">{this.displayLine3(this.props.student)}</div>
+        <div className="container">{this.displayLine4(this.props.student)}</div>
         <div className="container">
           <StudentWordTestResultsContainer
             id={this.props.id}

@@ -12,6 +12,7 @@ export default {
   unknownLetters: "",
   studentWordTestResults: "",
   wordTest: "",
+  letterTest: "",
   auth: {
     user: "",
     isAuthenticated: false,

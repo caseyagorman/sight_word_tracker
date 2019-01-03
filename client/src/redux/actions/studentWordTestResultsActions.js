@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 function getStudentWordTestResultsApi(id) {
-  return `http://localhost:5000/api/get-student-test/${id}`;
+  return `http://localhost:5000/api/get-student-word-test/${id}`;
 }
 
 export function receiveStudentWordTestResults(studentWordTestResults) {

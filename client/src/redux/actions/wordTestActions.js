@@ -1,7 +1,7 @@
 // import * as types from "./actionTypes";
 import history from "../../history";
 function addWordTestApi() {
-  return "http://localhost:5000/api/create-student-test";
+  return "http://localhost:5000/api/create-student-word-test";
 }
 
 export function addWordTest(result, user) {

@@ -743,9 +743,9 @@ def update_incorrect_words(student_id, incorrect_words):
     return "incorrect words"
 
 
-@app.route("/api/create-student-test", methods=["POST"])
+@app.route("/api/create-student-word-test", methods=["POST"])
 @token_required
-def create_student_test(current_user):
+def create_student_word_test(current_user):
     """creates new student test row in db, calls update_correct_words
     and update_incorrect_words functions"""
 
@@ -761,7 +761,57 @@ def create_student_test(current_user):
         StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
                               correct_words=correct_words, incorrect_words=incorrect_words))
     db.session.commit()
-    return 'test added'
+    return 'word test added'
+
+
+def update_correct_letters(student_id, correct_letters):
+    """updates correct letters in db, called by create_student_test"""
+    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
+        Letter.letter.in_(correct_letters)).all()
+    for letter in student_letter_list:
+        if letter.letters.letter in correct_letters:
+            if letter.correct_count >= 3:
+                letter.Learned = True
+            letter.correct_count = StudentLetter.correct_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "correct letters"
+
+
+def update_incorrect_letters(student_id, incorrect_letters):
+    """updates incorrect letters in db, called by create_student_test"""
+
+    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
+        Letter.letter.in_(incorrect_letters)).all()
+    for letter in student_letter_list:
+        if letter.letters.letter in incorrect_letters:
+            letter.incorrect_count = StudentLetter.incorrect_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "incorrect letters"
+
+
+@app.route("/api/create-student-letter-test", methods=["POST"])
+@token_required
+def create_student_letter_test(current_user):
+    """creates new student test row in db, calls update_correct_words
+    and update_incorrect_words functions"""
+
+    data = request.get_json()
+    student_id = data.get('student')
+    user_id = current_user.public_id
+    correct_letters = data.get('correct_letters')
+    incorrect_letters = data.get('incorrect_letters')
+    score = calculate_score(correct_letters, incorrect_letters)
+    update_correct_words(student_id, correct_letters)
+    update_incorrect_letters(student_id, incorrect_letters)
+    db.session.add(
+        StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
+                                correct_letters=correct_letters, incorrect_letters=incorrect_letters))
+    db.session.commit()
+    return 'letter test added'
 
 
 if __name__ == "__main__":
