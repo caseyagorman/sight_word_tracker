@@ -269,6 +269,7 @@ def delete_word(current_user):
 @token_required
 def add_word_to_student(current_user):
     data = request.get_json()
+    print("data", data)
     student_id = data.get("student")
     words = data.get('words')
     user_id = current_user.public_id

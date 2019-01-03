@@ -9,6 +9,7 @@ function addStudentWordsApi(studentWords) {
 }
 
 export function addStudentWords(studentWords, user) {
+  console.log("addStudentWords", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",
@@ -19,7 +20,8 @@ export function addStudentWords(studentWords, user) {
         "x-access-token": user
       },
       body: JSON.stringify(studentWords)
-    }).then(() => history.push("/students"));
+    });
+    // .then(() => history.push(`/details/${studentWords.student}`));
   };
 }
 
