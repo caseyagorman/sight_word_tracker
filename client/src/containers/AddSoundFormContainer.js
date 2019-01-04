@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as authActions from "../../redux/actions/authActions";
-import DeleteStudent from "../components/StudentComponents/Forms/Student/DeleteStudent";
-class DeleteStudentFormContainer extends Component {
+import * as authActions from "../redux/actions/authActions";
+import AddSound from "../components/SoundComponents/Forms/AddSound";
+class AddSoundFormContainer extends Component {
   componentDidMount() {
-    if (sessionStorage.token) {
+    if (sessionStorage.length > 0) {
       this.props.authActions.checkUser(sessionStorage);
     } else {
       alert("Please log in");
@@ -13,21 +13,23 @@ class DeleteStudentFormContainer extends Component {
     }
   }
 
-  displayDeleteStudentForm() {
+  displayAddSoundForm() {
     if (this.props.auth.isAuthenticated === false) {
       return <div>loading...</div>;
     }
     return (
-      <DeleteStudent
-        token={this.props.auth.user.token}
-        username={this.props.auth.user.username}
-        studentId={this.props.studentId}
-      />
+      <div>
+        <AddSound
+          token={this.props.auth.user.token}
+          username={this.props.auth.user.username}
+          id={this.props.match.params.id}
+        />
+      </div>
     );
   }
 
   render() {
-    return <div>{this.displayDeleteStudentForm()}</div>;
+    return <div>{this.displayAddSoundForm()}</div>;
   }
 }
 
@@ -45,4 +47,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeleteStudentFormContainer);
+)(AddSoundFormContainer);

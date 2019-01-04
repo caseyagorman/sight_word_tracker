@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as soundActions from "../../../redux/actions/soundActions";
-import DeleteSound from "../Forms/Deletesound";
+import DeleteSound from "../Forms/DeleteSound";
 import Line2 from "./Line2SoundDetail";
 import Line1 from "./Line1SoundDetail";
 class SoundDetail extends React.Component {

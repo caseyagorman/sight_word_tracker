@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as wordActions from "../../../redux/actions/wordActions";
+import * as soundActions from "../../../redux/actions/soundActions";
 import * as authActions from "../../../redux/actions/authActions";
 import { Form, Button, FormGroup, Label, Input, Row, Col } from "reactstrap";
-class AddWord extends Component {
+class AddSound extends Component {
   constructor(props) {
     super(props);
-    this.state = { newWord: "" };
+    this.state = { newSound: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -24,11 +24,12 @@ class AddWord extends Component {
     event.preventDefault();
     event.target.reset();
     const user = this.props.token;
-    const word = this.state.newWord;
-    this.props.wordActions.addWord(word, user);
+    const sound = this.state.newSound;
+    console.log("sound", sound);
+    this.props.soundActions.addSound(sound, user);
   }
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ newSound: event.target.value });
   }
 
   render() {
@@ -39,11 +40,11 @@ class AddWord extends Component {
             <FormGroup>
               <Col lg={6}>
                 <Label>
-                  <h4>Add New Words:</h4>
-                  <p>You may add multiple words separated by space</p>
+                  <h4>Add New Sounds:</h4>
+                  <p>You may add multiple sounds separated by space</p>
                 </Label>
                 <Input
-                  name="newWord"
+                  name="newsound"
                   type="text"
                   value={this.state.value}
                   onChange={this.handleChange}
@@ -55,7 +56,7 @@ class AddWord extends Component {
         <br />
         <div className="container">
           <Col lg={4}>
-            <Button color="primary">Add Word</Button>
+            <Button color="primary">Add Sound</Button>
           </Col>
         </div>
       </Form>
@@ -65,14 +66,14 @@ class AddWord extends Component {
 
 function mapStateToProps(state) {
   return {
-    word: state.word,
+    sound: state.sound,
     auth: state.auth
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordActions: bindActionCreators(wordActions, dispatch),
+    soundActions: bindActionCreators(soundActions, dispatch),
     authActions: bindActionCreators(authActions, dispatch)
   };
 }
@@ -80,4 +81,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddWord);
+)(AddSound);

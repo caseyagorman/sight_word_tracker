@@ -1,43 +1,43 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import AllWordsTableRows from "./AllWordsTableRows";
+import AllSoundsTableRows from "./AllSoundsTableRows";
 
-// Display table head of words words are learning
+// Display table head of sounds sounds are learning
 
-class AllWordsTableHead extends Component {
-  displayTableHead(words) {
+class AllSoundsTableHead extends Component {
+  displayTableHead(sounds) {
     return (
       <div>
         <Table striped bordered hover>
           <thead>
             <th>
-              <h4>Word</h4>
+              <h4>Sound</h4>
             </th>
             <th>
               <h4>Learning Count</h4>
             </th>
           </thead>
-          {this.displayTableRows(words)}
+          {this.displayTableRows(sounds)}
         </Table>
       </div>
     );
   }
 
-  displayTableRows(words) {
-    if (!words) {
+  displayTableRows(sounds) {
+    if (!sounds) {
       return <p>loading...</p>;
     }
 
-    return words.map(words => AllWordsTableRows(words));
+    return sounds.map(sounds => AllSoundsTableRows(sounds));
   }
 
   render() {
     return (
       <div>
-        <div>{this.displayTableHead(this.props.words)}</div>
+        <div>{this.displayTableHead(this.props.sounds)}</div>
       </div>
     );
   }
 }
 
-export default AllWordsTableHead;
+export default AllSoundsTableHead;

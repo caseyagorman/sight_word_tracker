@@ -1,25 +1,25 @@
 import React, { Component } from "react";
+import ViewSounds from "../components/SoundComponents/AllSounds/ViewSounds";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import Home from "../components/HomeComponents/Home";
-class HomeContainer extends Component {
+class Sounds extends Component {
   componentDidMount() {
-    if (sessionStorage.token) {
-      this.props.authActions.checkUser(sessionStorage);
-    } else {
+    if (!sessionStorage.token) {
       alert("Please log in");
       this.props.history.push("/login");
+    } else if (sessionStorage.token) {
+      this.props.authActions.checkUser(sessionStorage);
     }
   }
 
-  displayHomePage() {
-    if (this.props.auth.isAuthenticated === false) {
-      return <div>loading...</div>;
+  displaySounds() {
+    if (!this.props.auth.isAuthenticated) {
+      return <div>loading</div>;
     }
     return (
       <div>
-        <Home
+        <ViewSounds
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
         />
@@ -28,7 +28,7 @@ class HomeContainer extends Component {
   }
 
   render() {
-    return <div>{this.displayHomePage()}</div>;
+    return <div>{this.displaySounds()}</div>;
   }
 }
 
@@ -46,4 +46,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer);
+)(Sounds);

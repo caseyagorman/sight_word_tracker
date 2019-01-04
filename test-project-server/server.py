@@ -166,13 +166,14 @@ def student_detail(current_user, student):
         student_id=student).options(db.joinedload('words')).all()
     student_letters = StudentLetter.query.filter_by(
         student_id=student).options(db.joinedload('letters')).all()
-    student_sounds = StudentLetter.query.filter_by(
+    student_sounds = StudentSound.query.filter_by(
         student_id=student).options(db.joinedload('sounds')).all()
     student_object = {
         'student_id': student_object.student_id,
         'fname': student_object.fname,
         'lname': student_object.lname
     }
+
     word_list = []
     for word in student_words:
         if word.Learned == False:
@@ -183,8 +184,8 @@ def student_detail(current_user, student):
             word_list.append(word)
         else:
             pass
-    letter_list = []
 
+    letter_list = []
     for letter in student_letters:
         if letter.Learned == False:
             letter = {
@@ -194,8 +195,8 @@ def student_detail(current_user, student):
             letter_list.append(letter)
         else:
             pass
-    sound_list = []
 
+    sound_list = []
     for sound in student_sounds:
         if sound.Learned == False:
             sound = {
@@ -857,7 +858,7 @@ def add_sound(current_user):
         if sound in sound_dict.keys():
             continue
         if sound not in sound_dict.keys():
-            sound = sound(sound=sound, user_id=user_id)
+            sound = Sound(sound=sound, user_id=user_id)
             db.session.add(sound)
             db.session.commit()
 
@@ -934,11 +935,10 @@ def get_unknown_sounds(current_user, student):
         student_id=student, user_id=user_id).options(db.joinedload('sounds')).all()
     sound_ids = []
     for sound in sounds:
-
         sound_ids.append(sound.sound_id)
 
     unknown_sounds = Sound.query.filter(
-        sound.sound_id.notin_(sound_ids)).all()
+        Sound.sound_id.notin_(sound_ids)).all()
     sound_list = []
 
     for sound in unknown_sounds:
@@ -948,7 +948,6 @@ def get_unknown_sounds(current_user, student):
         }
 
         sound_list.append(sound)
-    print(sound_list)
     return jsonify(sound_list)
 
 

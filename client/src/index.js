@@ -30,6 +30,12 @@ import LetterDetailContainer from "./containers/LetterDetailContainer";
 import LetterTestStudentContainer from "./containers/LetterTestStudentContainer";
 import AddLetterFormContainer from "./containers/AddLetterFormContainer";
 
+// Sounds
+import SoundDetailContainer from "./containers/SoundDetailContainer";
+import SoundsContainer from "./containers/SoundsContainer";
+import AddSoundFormContainer from "./containers/AddSoundFormContainer";
+import SoundTestStudentContainer from "./containers/SoundTestStudentContainer";
+
 import history from "./history";
 // redux imports
 import { Provider } from "react-redux";
@@ -51,6 +57,7 @@ const AppRouter = () => (
       <Route path="/add-student/" component={AddStudentFormContainer} />
       <Route path="/add-word/" component={AddWordFormContainer} />
       <Route path="/add-letter/" component={AddLetterFormContainer} />
+      <Route path="/add-sound/" component={AddSoundFormContainer} />
       <Route
         path="/test-student-words/:id"
         component={WordTestStudentContainer}
@@ -63,6 +70,12 @@ const AppRouter = () => (
       <Route
         path="/test-student-letters/:id"
         component={LetterTestStudentContainer}
+      />
+      <Route path="/sound-detail/:id" component={SoundDetailContainer} />
+      <Route path="/sounds/" component={SoundsContainer} />
+      <Route
+        path="/test-student-sounds/:id"
+        component={SoundTestStudentContainer}
       />
     </div>
   </Router>

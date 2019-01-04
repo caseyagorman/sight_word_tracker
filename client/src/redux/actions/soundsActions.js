@@ -5,6 +5,7 @@ function api(user) {
 }
 
 export function receiveSounds(sounds) {
+  console.log(sounds);
   return { type: types.RECEIVE_SOUNDS, sounds: sounds };
 }
 
@@ -20,6 +21,7 @@ export function fetchSounds(user) {
       }
     })
       .then(response => response.json())
+
       .then(sounds => dispatch(receiveSounds(sounds)));
   };
 }

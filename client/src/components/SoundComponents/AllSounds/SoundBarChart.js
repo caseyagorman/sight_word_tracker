@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-class WordBarChart extends Component {
+class SoundBarChart extends Component {
   state = { data: null, showTooltip: false };
 
   componentDidMount() {
@@ -27,10 +27,10 @@ class WordBarChart extends Component {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let words = this.turnIntoArray(dataResults);
-    let wordCounts = words[0];
-    let wordList = words[1];
-    let studentList = words[2];
+    let sounds = this.turnIntoArray(dataResults);
+    let wordCounts = sounds[0];
+    let wordList = sounds[1];
+    let studentList = sounds[2];
 
     let options = {
       tooltips: {
@@ -83,7 +83,7 @@ class WordBarChart extends Component {
 
       datasets: [
         {
-          label: "Unlearned Words",
+          label: "Unlearned sounds",
 
           backgroundColor: "rgba(255,99,132,1)",
           borderColor: "rgba(255,99,132,1)",
@@ -107,4 +107,4 @@ class WordBarChart extends Component {
   }
 }
 
-export default WordBarChart;
+export default SoundBarChart;

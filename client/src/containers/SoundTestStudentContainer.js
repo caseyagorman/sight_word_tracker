@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import AddStudent from "../components/StudentComponents/Forms/Student/AddStudent";
-class AddStudentFormContainer extends Component {
+import SoundTestStudent from "../components/StudentComponents/SoundTestStudent/SoundTestStudent";
+class SoundTestStudentContainer extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
       this.props.authActions.checkUser(sessionStorage);
@@ -13,22 +13,23 @@ class AddStudentFormContainer extends Component {
     }
   }
 
-  displayAddStudentForm() {
-    if (this.props.auth.isAuthenticated === false) {
+  displayTestStudent() {
+    if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }
     return (
       <div>
-        <AddStudent
+        <SoundTestStudent
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
+          id={this.props.match.params.id}
         />
       </div>
     );
   }
 
   render() {
-    return <div>{this.displayAddStudentForm()}</div>;
+    return <div>{this.displayTestStudent()}</div>;
   }
 }
 
@@ -46,4 +47,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddStudentFormContainer);
+)(SoundTestStudentContainer);

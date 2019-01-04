@@ -1,20 +1,20 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import AllWordsTableHead from "./AllSoundsTableHead";
+import AllSoundsTableHead from "./AllSoundsTableHead";
 
 class Line1 extends React.Component {
-  displayTableHead(words) {
-    if (!words) {
+  displayTableHead(sounds) {
+    if (!sounds) {
       return <p>Loading...</p>;
     }
-    return <AllWordsTableHead words={words.words[0]} />;
+    return <AllSoundsTableHead sounds={sounds.sounds[0]} />;
   }
 
   render() {
     return (
       <div className="container">
         <Row>
-          <Col lg="4">{this.displayTableHead(this.props.words)}</Col>
+          <Col lg="4">{this.displayTableHead(this.props.sounds)}</Col>
         </Row>
       </div>
     );

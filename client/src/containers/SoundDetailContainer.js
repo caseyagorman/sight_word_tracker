@@ -1,34 +1,35 @@
 import React, { Component } from "react";
-import ViewLetters from "../components/LetterComponents/AllLetters/ViewLetters";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-class LettersContainer extends Component {
+import SoundDetail from "../components/SoundComponents/SoundDetail/SoundDetail";
+class SoundDetailContainer extends Component {
   componentDidMount() {
-    if (!sessionStorage.token) {
+    if (sessionStorage.token) {
+      this.props.authActions.checkUser(sessionStorage);
+    } else {
       alert("Please log in");
       this.props.history.push("/login");
-    } else if (sessionStorage.token) {
-      this.props.authActions.checkUser(sessionStorage);
     }
   }
 
-  displayLetters() {
+  displaysound() {
     if (!this.props.auth.isAuthenticated) {
-      return <div>loading</div>;
+      return <div>loading...</div>;
     }
     return (
       <div>
-        <ViewLetters
+        <SoundDetail
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
+          id={this.props.match.params.id}
         />
       </div>
     );
   }
 
   render() {
-    return <div>{this.displayLetters()}</div>;
+    return <div>{this.displaySound()}</div>;
   }
 }
 
@@ -39,6 +40,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
+    sound: state.sound,
     auth: state.auth
   };
 }
@@ -46,4 +48,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LettersContainer);
+)(SoundDetailContainer);
