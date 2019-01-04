@@ -4,7 +4,6 @@ import WordBarChart from "./WordBarChart";
 
 class Line2 extends React.Component {
   displayBarChart(words) {
-    console.log("Line2 display bar chart", words.words[0]);
     if (!words) {
       return <p>Loading...</p>;
     }

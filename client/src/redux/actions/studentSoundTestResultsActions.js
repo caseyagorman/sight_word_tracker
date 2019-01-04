@@ -11,8 +11,6 @@ export function receiveStudentSoundTestResults(studentSoundTestResults) {
 }
 
 export function fetchstudentSoundTestResults(student, user) {
-  console.log("fetch student sound tests", student);
-
   return dispatch => {
     return fetch(getstudentSoundTestResultsApi(student), {
       method: "GET",

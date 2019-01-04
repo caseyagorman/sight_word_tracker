@@ -708,7 +708,6 @@ def get_unknown_letters(current_user, student):
 @token_required
 def add_letter_to_student(current_user):
     data = request.get_json()
-    print(data)
     student_id = data.get("student")
     letters = data.get('letters')
     user_id = current_user.public_id
@@ -951,11 +950,11 @@ def get_unknown_sounds(current_user, student):
     return jsonify(sound_list)
 
 
-@app.route('/api/add-sounds-to-student', methods=['POST'])
+@app.route('/api/add-sound-to-student', methods=['POST'])
 @token_required
 def add_sound_to_student(current_user):
     data = request.get_json()
-    print(data)
+    print("add sound to student", data)
     student_id = data.get("student")
     sounds = data.get('sounds')
     user_id = current_user.public_id

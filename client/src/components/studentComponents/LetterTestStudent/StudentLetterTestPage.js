@@ -27,7 +27,6 @@ class StudentLetterTestPage extends React.Component {
   }
 
   displayLetter(letters) {
-    console.log("letter", letters);
     if (!letters) {
       this.createTestObject();
     }

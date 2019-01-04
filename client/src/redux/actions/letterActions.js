@@ -18,20 +18,17 @@ export function receiveLetter(letter) {
 
 export function fetchLetter(id, user) {
   return dispatch => {
-    return (
-      fetch(getLetterApi(id), {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "x-access-token": user
-        }
-      })
-        .then(response => response.json())
-        // .then(letter => console.log(letter));
-        .then(letter => dispatch(receiveLetter(letter)))
-    );
+    return fetch(getLetterApi(id), {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
+    })
+      .then(response => response.json())
+      .then(letter => dispatch(receiveLetter(letter)));
   };
 }
 export function deleteLetter(letter, user) {

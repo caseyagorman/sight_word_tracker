@@ -16,7 +16,6 @@ import Line8 from "./Line8StudentDetail";
 import Line9 from "./Line9StudentDetail";
 class StudentDetail extends React.Component {
   componentDidMount() {
-    console.log("student detail", this.props);
     if (!this.props.id) {
       return <div>loading...</div>;
     }

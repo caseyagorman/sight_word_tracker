@@ -1,10 +1,7 @@
 import * as types from "./actionTypes";
 import history from "../../history";
-// function studentLettersApi() {
-//   return "http://localhost:5000/api/get-learned-words";
-// }
 
-function addStudentLettersApi(studentLetters) {
+function addStudentLettersApi() {
   return "http://localhost:5000/api/add-letters-to-student";
 }
 

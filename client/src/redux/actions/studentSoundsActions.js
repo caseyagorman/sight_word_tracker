@@ -3,14 +3,14 @@ function studentSounds() {
   return "http://localhost:5000/api/get-learned-words";
 }
 
-function addStudentSounds(studentWords) {
-  return "http://localhost:5000/api/add-word-to-student";
+function addStudentSoundsApi() {
+  return "http://localhost:5000/api/add-sound-to-student";
 }
 
-export function addStudentWords(studentWords, user) {
-  console.log("addStudentWords", studentWords);
+export function addStudentSounds(studentSounds, user) {
+  console.log("studentSounds", studentSounds);
   return dispatch => {
-    return fetch(addStudentSounds(), {
+    return fetch(addStudentSoundsApi(), {
       method: "POST",
       mode: "cors",
       headers: {
@@ -18,16 +18,16 @@ export function addStudentWords(studentWords, user) {
         "Content-Type": "application/json",
         "x-access-token": user
       },
-      body: JSON.stringify(studentWords)
+      body: JSON.stringify(studentSounds)
     });
   };
 }
 
-export function receiveStudentWords(studentWords) {
-  return { type: types.RECEIVE_STUDENT_WORDS, studentWords: studentWords };
+export function receiveStudentSounds(studentSounds) {
+  return { type: types.RECEIVE_STUDENT_SOUNDS, studentSounds: studentSounds };
 }
 
-export function fetchStudentWords(id, user) {
+export function fetchStudentSounds(id, user) {
   return dispatch => {
     return fetch(studentSounds(id), {
       method: "GET",
@@ -39,6 +39,6 @@ export function fetchStudentWords(id, user) {
       }
     })
       .then(response => response.json())
-      .then(studentWords => dispatch(receiveStudentWords(studentWords)));
+      .then(studentSounds => dispatch(receiveStudentSounds(studentSounds)));
   };
 }

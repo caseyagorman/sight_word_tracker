@@ -34,7 +34,6 @@ class ViewSounds extends React.Component {
     );
   }
   displayLine1(sounds) {
-    console.log(sounds);
     if (!sounds) {
       return <p>sploading...</p>;
     }

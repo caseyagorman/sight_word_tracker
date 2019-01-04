@@ -3,9 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import LetterBarChart from "./LetterBarChart";
 
 class Line2 extends React.Component {
-  componentDidMount() {
-    console.log("props", this.props.letters);
-  }
   displayBarChart(letters) {
     if (!letters) {
       return <p>Loading...</p>;

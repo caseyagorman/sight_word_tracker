@@ -7,7 +7,6 @@ class Line7 extends Component {
   componetDidMount() {}
 
   displayWordLineChart(studentTest) {
-    console.log("display word line chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
@@ -16,7 +15,6 @@ class Line7 extends Component {
   }
 
   displayLetterLineChart(studentTest) {
-    console.log("display letter line chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
@@ -24,7 +22,6 @@ class Line7 extends Component {
     return <LetterLineChart tests={tests} />;
   }
   displaySoundLineChart(studentTest) {
-    console.log("display letter line chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }

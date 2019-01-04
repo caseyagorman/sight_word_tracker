@@ -6,6 +6,7 @@ import StudentSoundsTableRows from "./StudentSoundsTableRows";
 
 class StudentSoundsTableHead extends Component {
   displaySoundsTableHead(data) {
+    console.log("display sounds table head", data);
     return (
       <div>
         <Table striped bordered condensed hover>
@@ -24,7 +25,7 @@ class StudentSoundsTableHead extends Component {
     if (!data) {
       return <p>loading...</p>;
     }
-    data = data[1];
+    data = data[3];
     return data.map(data => StudentSoundsTableRows(data));
   }
 

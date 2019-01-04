@@ -25,7 +25,6 @@ class AddSound extends Component {
     event.target.reset();
     const user = this.props.token;
     const sound = this.state.newSound;
-    console.log("sound", sound);
     this.props.soundActions.addSound(sound, user);
   }
   handleChange(event) {

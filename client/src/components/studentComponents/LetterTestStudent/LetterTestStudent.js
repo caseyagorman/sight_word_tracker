@@ -11,12 +11,10 @@ class LetterTestStudent extends React.Component {
   }
 
   getLetters(student) {
-    console.log(student);
     if (!student) {
       return <p> Loading... </p>;
     }
     let letters = this.turnIntoArray(student[2]);
-    console.log("letter", letters);
     return (
       <StudentLetterTestPage
         user={this.props.token}

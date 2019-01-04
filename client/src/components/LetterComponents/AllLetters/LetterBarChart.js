@@ -24,7 +24,6 @@ class LetterBarChart extends Component {
   }
 
   displayChart(dataResults) {
-    console.log("dataResults", dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }

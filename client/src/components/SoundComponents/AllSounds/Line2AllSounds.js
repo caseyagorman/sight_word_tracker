@@ -4,7 +4,6 @@ import SoundBarChart from "./SoundBarChart";
 
 class Line2 extends React.Component {
   displayBarChart(sounds) {
-    console.log("Line2 display bar chart", sounds.sounds[0]);
     if (!sounds) {
       return <p>Loading...</p>;
     }
