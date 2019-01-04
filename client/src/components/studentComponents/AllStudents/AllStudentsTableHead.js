@@ -14,6 +14,9 @@ class AllStudentsTableHead extends Component {
               <h4>Name</h4>
             </th>
             <th>
+              <h4>Links</h4>
+            </th>
+            <th>
               <h4>Unlearned Words Count</h4>
             </th>
             <th>

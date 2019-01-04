@@ -8,10 +8,13 @@ const AllStudentsTableRows = props => (
     <tr>
       <td>
         <h4>
-          <Link to={`/details/${props.student_id}`}>
-            {props.fname} {props.lname}
-          </Link>
+          {props.fname} {props.lname}
         </h4>
+      </td>
+      <td>
+        <Link to={`/details/${props.student_id}`}>View dashboard</Link>
+        <br />
+        <Link to={`/#/${props.student_id}`}>View reports</Link>
       </td>
       <td>{props.word_count}</td>
       <td>{props.letter_count}</td>
