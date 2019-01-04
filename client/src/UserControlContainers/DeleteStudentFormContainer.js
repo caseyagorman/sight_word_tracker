@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as authActions from "../redux/actions/authActions";
-import DeleteStudent from "../components/StudentComponents/Forms/DeleteStudent";
+import * as authActions from "../../redux/actions/authActions";
+import DeleteStudent from "../components/StudentComponents/Forms/Student/DeleteStudent";
 class DeleteStudentFormContainer extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
