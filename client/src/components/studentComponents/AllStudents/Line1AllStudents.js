@@ -1,5 +1,4 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 import AllStudentsTableHead from "./AllStudentsTableHead";
 
 class Line1 extends React.Component {
@@ -13,9 +12,7 @@ class Line1 extends React.Component {
   render() {
     return (
       <div className="container">
-        <Row>
-          <Col lg="8">{this.displayTableHead(this.props.students)}</Col>
-        </Row>
+        {this.displayTableHead(this.props.students)}
       </div>
     );
   }

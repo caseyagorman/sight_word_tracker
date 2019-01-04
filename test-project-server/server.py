@@ -1,4 +1,5 @@
 import datetime
+from operator import itemgetter
 import os
 import uuid
 from jinja2 import StrictUndefined
@@ -94,9 +95,9 @@ def get_students(current_user):
     student_list = []
     for student in students:
 
-        word_list = get_student_word_list(student)
-        letter_list = get_student_letter_list(student)
-        sound_list = get_student_sound_list(student)
+        word_list = sorted(get_student_word_list(student))
+        letter_list = sorted(get_student_letter_list(student))
+        sound_list = sorted(get_student_sound_list(student))
         word_count = len(word_list)
         letter_count = len(letter_list)
         sound_count = len(sound_list)
@@ -113,13 +114,15 @@ def get_students(current_user):
             'sound_list': sound_list,
         }
         student_list.append(student)
+
+    student_list = sorted(student_list, key=itemgetter('letter_count', 'sound_count', 'word_count'),  reverse=False) 
     return jsonify(student_list)
 
 
 def get_student_word_list(student):
     student_id = student.student_id
     words = StudentWord.query.filter(StudentWord.student_id == student_id).filter(
-        StudentWord.Learned == False).options(db.joinedload('words')).all()
+        StudentWord.Learned == True).options(db.joinedload('words')).all()
     word_list = []
     for word in words:
         word_list.append(word.words.word)
@@ -129,7 +132,7 @@ def get_student_word_list(student):
 def get_student_letter_list(student):
     student_id = student.student_id
     letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).filter(
-        StudentLetter.Learned == False).options(db.joinedload('letters')).all()
+        StudentLetter.Learned == True).options(db.joinedload('letters')).all()
     letter_list = []
     for letter in letters:
         letter_list.append(letter.letters.letter)
@@ -139,7 +142,7 @@ def get_student_letter_list(student):
 def get_student_sound_list(student):
     student_id = student.student_id
     sounds = StudentSound.query.filter(StudentSound.student_id == student_id).filter(
-        StudentSound.Learned == False).options(db.joinedload('sounds')).all()
+        StudentSound.Learned == True).options(db.joinedload('sounds')).all()
     sound_list = []
     for sound in sounds:
         sound_list.append(sound.sounds.sound)
@@ -240,7 +243,7 @@ def get_words(current_user):
     for word in words:
         student_list = []
         for item in word.studentwords:
-            if item.Learned == False:
+            if item.Learned == True:
                 student = Student.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
@@ -262,7 +265,7 @@ def get_all_student_word_counts():
     words = StudentWord.query.options(db.joinedload('words')).all()
     word_counts = {}
     for word in words:
-        if word.Learned == True:
+        if word.Learned == False:
             if word.words.word not in word_counts:
                 word_counts[word.words.word] = 0
             else:
@@ -278,7 +281,7 @@ def get_all_student_word_counts():
 def get_word_student_counts(word):
     word_id = word.word_id
     words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
-        StudentWord.Learned == False).all()
+        StudentWord.Learned == True).all()
     return len(words)
 
 
@@ -383,18 +386,26 @@ def word_detail(current_user, word):
             student = {
                 'student_id': student.students.student_id,
                 'fname': student.students.fname,
-                'lname': student.students.lname
+                'lname': student.students.lname,
+                'learned': "no"
 
             }
             student_list.append(student)
+
         else:
-            pass
+             student = {
+                'student_id': student.students.student_id,
+                'fname': student.students.fname,
+                'lname': student.students.lname,
+                'learned': "yes"
+            }
 
     word_object = {
         'word_id': word_object.word_id,
         'word': word_object.word,
         'date': word_object.date_added,
     }
+    student_list = sorted(student_list, key=attrgetter('fname')) 
 
     return jsonify([word_object, student_list])
 

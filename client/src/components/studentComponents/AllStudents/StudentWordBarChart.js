@@ -9,7 +9,7 @@ class WordBarChart extends Component {
     let studentList = [];
     for (let item in obj) {
       wordCounts.push(obj[item].word_count);
-      studentList.push(obj[item].fname + " " + obj[item].lname);
+      studentList.push(obj[item].fname);
     }
     return [wordCounts, studentList];
   }
@@ -62,7 +62,7 @@ class WordBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 14,
+              fontSize: 10,
               fontColor: "black"
             }
           }

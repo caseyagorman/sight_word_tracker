@@ -17,16 +17,25 @@ class AllStudentsTableHead extends Component {
               <h4>Links</h4>
             </th>
             <th>
-              <h4>Unlearned Words Count</h4>
+              <h4>Learned Words List</h4>
             </th>
             <th>
-              <h4>Unlearned Letters Count</h4>
+              <h4>Learned Letters List</h4>
+            </th>
+            <th>
+              <h4>Learned Sounds List</h4>
             </th>
           </thead>
           {this.displayTableRows(students)}
         </Table>
       </div>
     );
+  }
+
+  formatLists(list) {
+    if (!list) {
+      return <div>loading...</div>;
+    }
   }
 
   displayTableRows(students) {

@@ -5,7 +5,6 @@ function api(user) {
 }
 
 export function receiveSounds(sounds) {
-  console.log(sounds);
   return { type: types.RECEIVE_SOUNDS, sounds: sounds };
 }
 

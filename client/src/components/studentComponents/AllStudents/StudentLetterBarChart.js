@@ -9,7 +9,7 @@ class LetterBarChart extends Component {
     let studentList = [];
     for (let item in obj) {
       letterCounts.push(obj[item].letter_count);
-      studentList.push(obj[item].fname + " " + obj[item].lname);
+      studentList.push(obj[item].fname);
     }
     return [letterCounts, studentList];
   }
@@ -62,7 +62,7 @@ class LetterBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 14,
+              fontSize: 10,
               fontColor: "black"
             }
           }

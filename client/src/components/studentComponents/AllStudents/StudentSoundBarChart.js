@@ -9,7 +9,7 @@ class SoundBarChart extends Component {
     let studentList = [];
     for (let item in obj) {
       soundCounts.push(obj[item].sound_count);
-      studentList.push(obj[item].fname + " " + obj[item].lname);
+      studentList.push(obj[item].fname);
     }
     return [soundCounts, studentList];
   }
@@ -62,7 +62,7 @@ class SoundBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 14,
+              fontSize: 10,
               fontColor: "black"
             }
           }

@@ -2,7 +2,6 @@ import React from "react";
 import StudentWordBarChart from "./StudentWordBarChart";
 import StudentLetterBarChart from "./StudentLetterBarChart";
 import StudentSoundBarChart from "./StudentSoundBarChart";
-import { Row, Col } from "react-bootstrap";
 
 class Line2 extends React.Component {
   displayWordBarChart(students) {
@@ -28,16 +27,14 @@ class Line2 extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <Row>
-          <Col lg="8">{this.displayWordBarChart(this.props.students)}</Col>
-        </Row>
-        <Row>
-          <Col lg="8">{this.displayLetterBarChart(this.props.students)}</Col>
-        </Row>
-        <Row>
-          <Col lg="8">{this.displaySoundBarChart(this.props.students)}</Col>
-        </Row>
+      <div>
+        <div className="fluid">
+          {this.displayWordBarChart(this.props.students)}
+        </div>
+
+        <div>{this.displayLetterBarChart(this.props.students)}</div>
+
+        <div>{this.displaySoundBarChart(this.props.students)}</div>
       </div>
     );
   }
