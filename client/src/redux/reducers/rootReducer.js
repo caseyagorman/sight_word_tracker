@@ -13,6 +13,7 @@ import letters from "./lettersReducer";
 import letter from "./letterReducer";
 import unknownLetters from "./unknownLettersReducer";
 import studentLetters from "./studentLettersReducer";
+import studentLetterTestResults from "./studentLetterTestResultsReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   letter,
   letters,
   unknownLetters,
-  studentLetters
+  studentLetters,
+  studentLetterTestResults
 });
 
 export default rootReducer;

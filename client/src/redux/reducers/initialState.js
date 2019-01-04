@@ -11,6 +11,7 @@ export default {
   unknownWords: "",
   unknownLetters: "",
   studentWordTestResults: "",
+  studentLetterTestResults: "",
   wordTest: "",
   letterTest: "",
   auth: {

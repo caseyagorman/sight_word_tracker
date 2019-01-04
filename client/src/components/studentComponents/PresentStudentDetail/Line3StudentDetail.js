@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import StudentWordsTableHead from "./StudentWordsTableHead";
-import StudentLettersTableHead from "./StudentLettersTableHead";
+import StudentWordsTableHead from "../StudentDetail/StudentWordsTableHead";
+import StudentLettersTableHead from "../StudentDetail/StudentLettersTableHead";
 
 class Line3 extends Component {
   studentWordsTableHead(student) {

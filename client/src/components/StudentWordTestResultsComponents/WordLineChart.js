@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
-class LineChart extends Component {
+class WordLineChart extends Component {
   getChartData(data) {
     if (!data) {
       return <div>loading...</div>;
@@ -55,4 +55,4 @@ class LineChart extends Component {
   }
 }
 
-export default LineChart;
+export default WordLineChart;

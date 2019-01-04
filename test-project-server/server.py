@@ -476,7 +476,7 @@ def add_letter_to_student(current_user):
 
 @app.route("/api/get-student-letter-test/<student>")
 @token_required
-def get_student_test(current_user, student):
+def get_student_letter_test(current_user, student):
     """get list of student test results, word_counts and chart_data"""
 
     user_id = current_user.public_id
@@ -518,19 +518,18 @@ def get_learned_letters_list(student_letters):
 def get_student_letter_chart_data(student_words):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
-    learned_words = []
+    learned_letters = []
     unlearned_count = 0
-    unlearned_words = []
-    for word in student_words:
-        print(word.words.word)
-        if word.Learned == True:
-            learned_words.append(word.words.word)
+    unlearned_letters = []
+    for letter in student_words:
+        if letter.Learned == True:
+            learned_letters.append(letter.letters.letter)
             learned_count += 1
         else:
             unlearned_count += 1
-            unlearned_words.append(word.words.word)
-    chart_data = {"learned": [learned_count, learned_words],
-                  "unlearned": [unlearned_count,  unlearned_words]}
+            unlearned_letters.append(letter.letters.letter)
+    chart_data = {"learned": [learned_count, learned_letters],
+                  "unlearned": [unlearned_count,  unlearned_letters]}
     return chart_data
 
 

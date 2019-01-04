@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import StudentNamePage from "./StudentNamePage";
+import StudentNamePage from "../StudentDetail/StudentNamePage";
 
 class Line1 extends Component {
   studentNamePage(student) {

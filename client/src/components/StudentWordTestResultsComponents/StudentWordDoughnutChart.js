@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-class StudentDoughnutChart extends Component {
+class StudentWordDoughnutChart extends Component {
   formatArray(tooltipItem) {
     return " " + tooltipItem;
   }
@@ -53,4 +53,4 @@ class StudentDoughnutChart extends Component {
   }
 }
 
-export default StudentDoughnutChart;
+export default StudentWordDoughnutChart;

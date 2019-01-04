@@ -5,7 +5,7 @@ class StudentWordTestResultsTable extends Component {
   displayTableHead(test) {
     return (
       <div>
-        <h3>Past test results</h3>
+        <h3>Past Word Test Results</h3>
         <Table striped bordered condensed hover>
           <thead>
             <tr>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
-import StudentDoughnutChart from "../../StudentWordTestResultsComponents/StudentDoughnutChart";
+import StudentWordDoughnutChart from "../../StudentWordTestResultsComponents/StudentWordDoughnutChart";
 import { connect } from "react-redux";
 
 class DoughnutChart extends Component {
@@ -14,7 +14,7 @@ class DoughnutChart extends Component {
     if (!studentWords) {
       return <p> loading...</p>;
     }
-    return <StudentDoughnutChart dataResults={studentWords} />;
+    return <StudentWordDoughnutChart dataResults={studentWords} />;
   }
 
   render() {

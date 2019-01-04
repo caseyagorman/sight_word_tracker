@@ -10,8 +10,9 @@ export function receiveStudentLettersTestResults(studentLetterTestResults) {
   };
 }
 
-export function fetchstudentLetterTestResults(id, user) {
-  let student = id;
+export function fetchstudentLetterTestResults(student, user) {
+  console.log("fetch student letter tests", student);
+
   return dispatch => {
     return fetch(getstudentLetterTestResultsApi(student), {
       method: "GET",

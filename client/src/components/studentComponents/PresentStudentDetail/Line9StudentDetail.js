@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import DeleteStudentFormContainer from "../../containers/DeleteStudentFormContainer";
+import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 
-class Line6 extends Component {
+class Line8 extends Component {
   deleteStudentForm(student) {
     if (!student) {
       return <p>loading...</p>;
@@ -20,4 +20,4 @@ class Line6 extends Component {
     );
   }
 }
-export default Line6;
+export default Line8;
