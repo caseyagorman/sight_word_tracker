@@ -6,7 +6,6 @@ import studentWords from "./studentWordsReducer";
 import word from "./wordReducer";
 import unknownWords from "./unknownWordsReducer";
 import studentWordTestResults from "./studentWordTestResultsReducer";
-import wordTest from "./wordTestReducer";
 import auth from "./authReducer";
 import register from "./registerReducer";
 import letters from "./lettersReducer";
@@ -28,7 +27,6 @@ const rootReducer = combineReducers({
   word,
   unknownWords,
   studentWordTestResults,
-  wordTest,
   auth,
   register,
   letter,
