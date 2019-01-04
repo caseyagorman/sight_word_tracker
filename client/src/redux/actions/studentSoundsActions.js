@@ -1,16 +1,16 @@
 import * as types from "./actionTypes";
-function studentWordsApi() {
+function studentSounds() {
   return "http://localhost:5000/api/get-learned-words";
 }
 
-function addStudentWordsApi(studentWords) {
+function addStudentSounds(studentWords) {
   return "http://localhost:5000/api/add-word-to-student";
 }
 
 export function addStudentWords(studentWords, user) {
   console.log("addStudentWords", studentWords);
   return dispatch => {
-    return fetch(addStudentWordsApi(), {
+    return fetch(addStudentSounds(), {
       method: "POST",
       mode: "cors",
       headers: {
@@ -29,7 +29,7 @@ export function receiveStudentWords(studentWords) {
 
 export function fetchStudentWords(id, user) {
   return dispatch => {
-    return fetch(studentWordsApi(id), {
+    return fetch(studentSounds(id), {
       method: "GET",
       mode: "cors",
       headers: {
