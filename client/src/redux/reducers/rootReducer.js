@@ -14,6 +14,11 @@ import letter from "./letterReducer";
 import unknownLetters from "./unknownLettersReducer";
 import studentLetters from "./studentLettersReducer";
 import studentLetterTestResults from "./studentLetterTestResultsReducer";
+import unknownSounds from "./unknownSoundsReducer";
+import studentSounds from "./studentSoundsReducer";
+import studentSoundTestResults from "./studentSoundTestResultsReducer";
+import sounds from "./soundsReducer";
+import sound from "./soundReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -30,7 +35,12 @@ const rootReducer = combineReducers({
   letters,
   unknownLetters,
   studentLetters,
-  studentLetterTestResults
+  studentLetterTestResults,
+  unknownSounds,
+  sounds,
+  sound,
+  studentSoundTestResults,
+  studentSounds
 });
 
 export default rootReducer;
