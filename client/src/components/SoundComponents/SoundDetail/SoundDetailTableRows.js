@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Display links to words students are learning within table rows
+// Display links to sounds students are learning within table rows
 const tableStyle = {
   fontSize: "24px"
 };

@@ -1,13 +1,13 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import WordDetailTableHead from "./SoundDetailTableHead";
+import SoundDetailTableHead from "./SoundDetailTableHead";
 
 class Line2 extends React.Component {
   displayTableHead(students, sound) {
     if (!students) {
       return <p>Loading...</p>;
     }
-    return <WordDetailTableHead students={students} sound={sound} />;
+    return <SoundDetailTableHead students={students} sound={sound} />;
   }
 
   render() {

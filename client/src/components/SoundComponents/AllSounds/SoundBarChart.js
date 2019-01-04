@@ -11,16 +11,16 @@ class SoundBarChart extends Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let wordList = [];
-    let wordCounts = [];
+    let soundList = [];
+    let soundCounts = [];
     let studentList = [];
     for (let item in obj) {
-      wordCounts.push(obj[item].count);
-      wordList.push(obj[item].word);
+      soundCounts.push(obj[item].count);
+      soundList.push(obj[item].sound);
       studentList.push(obj[item].students);
     }
 
-    return [wordCounts, wordList, studentList];
+    return [soundCounts, soundList, studentList];
   }
 
   displayChart(dataResults) {
@@ -28,8 +28,8 @@ class SoundBarChart extends Component {
       return <div> loading...</div>;
     }
     let sounds = this.turnIntoArray(dataResults);
-    let wordCounts = sounds[0];
-    let wordList = sounds[1];
+    let soundCounts = sounds[0];
+    let soundList = sounds[1];
     let studentList = sounds[2];
 
     let options = {
@@ -79,7 +79,7 @@ class SoundBarChart extends Component {
       }
     };
     const data = {
-      labels: wordList,
+      labels: soundList,
 
       datasets: [
         {
@@ -91,7 +91,7 @@ class SoundBarChart extends Component {
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
           // data: [0, 2, 1, 2, 1, 1, 1, 1, 0]
-          data: wordCounts
+          data: soundCounts
         }
       ]
     };

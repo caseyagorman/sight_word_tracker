@@ -53,7 +53,7 @@ class ViewSounds extends React.Component {
     return (
       <div class="container">
         <br />
-        <h1 style={headerStyle}>All sounds</h1>
+        <h1 style={headerStyle}>All Sounds</h1>
         <div style={instructionsStyle}>{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddSoundButton()}</div>

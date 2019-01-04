@@ -96,13 +96,15 @@ def get_students(current_user):
     for student in students:
         word_count = get_student_word_counts(student)
         letter_count = get_student_letter_counts(student)
+        sound_count = get_student_sound_counts(student)
         student = {
             'student_id': student.student_id,
             'fname': student.fname,
             'lname': student.lname,
             'grade': student.grade,
             'word_count': word_count,
-            'letter_count': letter_count
+            'letter_count': letter_count,
+            'sound_count': sound_count
         }
         student_list.append(student)
     print(student_list)

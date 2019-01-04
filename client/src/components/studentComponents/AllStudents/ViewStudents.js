@@ -39,11 +39,11 @@ class ViewStudents extends React.Component {
     }
     return <Line1 students={students} />;
   }
-  displayLine2(user) {
-    if (!user) {
+  displayLine2(students) {
+    if (!students) {
       return <p>Loading...</p>;
     }
-    return <Line2 user={user} />;
+    return <Line2 students={students} />;
   }
 
   displayAddStudentButton() {
@@ -63,7 +63,7 @@ class ViewStudents extends React.Component {
         </div>
         <div>
           <div>{this.displayLine1(this.props.students)}</div>
-          {/* <div>{this.displayLine2(this.props.token)}</div> */}
+          <div>{this.displayLine2(this.props.students)}</div>
         </div>
       </div>
     );
