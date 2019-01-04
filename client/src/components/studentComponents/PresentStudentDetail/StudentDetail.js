@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
-import * as studentWordsActions from "../../../redux/actions/studentWordsActions";
 import * as studentWordTestResultsActions from "../../../redux/actions/studentWordTestResultsActions";
 import * as studentLetterTestResultsActions from "../../../redux/actions/studentLetterTestResultsActions";
+import * as studentSoundTestResultsActions from "../../../redux/actions/studentSoundTestResultsActions";
 import Line1 from "./Line1StudentDetail";
 import Line2 from "./Line2StudentDetail";
 import Line3 from "./Line3StudentDetail";
@@ -28,6 +28,10 @@ class StudentDetail extends React.Component {
       user
     );
     this.props.studentLetterTestResultsActions.fetchstudentLetterTestResults(
+      student,
+      user
+    );
+    this.props.studentSoundTestResultsActions.fetchstudentSoundTestResults(
       student,
       user
     );
@@ -63,49 +67,85 @@ class StudentDetail extends React.Component {
     return <Line4 student={student} />;
   }
 
-  displayLine5(studentWordTestResults, studentLetterTestResults) {
-    if (!studentWordTestResults && !studentLetterTestResults) {
+  displayLine5(
+    studentWordTestResults,
+    studentLetterTestResults,
+    studentSoundTestResults
+  ) {
+    if (
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
+      !studentSoundTestResults
+    ) {
       return <div> loading..</div>;
     }
     return (
       <Line5
         studentWordTestResults={studentWordTestResults}
         studentLetterTestResults={studentLetterTestResults}
+        studentSoundTestResults={studentSoundTestResults}
       />
     );
   }
-  displayLine6(studentWordTestResults, studentLetterTestResults) {
-    if (!studentWordTestResults && !studentLetterTestResults) {
+  displayLine6(
+    studentWordTestResults,
+    studentLetterTestResults,
+    studentSoundTestResults
+  ) {
+    if (
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
+      !studentSoundTestResults
+    ) {
       return <div> loading..</div>;
     }
     return (
       <Line6
         studentWordTestResults={studentWordTestResults}
         studentLetterTestResults={studentLetterTestResults}
+        studentSoundTestResults={studentSoundTestResults}
       />
     );
   }
 
-  displayLine7(studentWordTestResults, studentLetterTestResults) {
-    if (!studentWordTestResults && !studentLetterTestResults) {
+  displayLine7(
+    studentWordTestResults,
+    studentLetterTestResults,
+    studentSoundTestResults
+  ) {
+    if (
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
+      !studentSoundTestResults
+    ) {
       return <div> loading..</div>;
     }
     return (
       <Line7
         studentWordTestResults={studentWordTestResults}
         studentLetterTestResults={studentLetterTestResults}
+        studentSoundTestResults={studentSoundTestResults}
       />
     );
   }
 
-  displayLine8(studentWordTestResults, studentLetterTestResults) {
-    if (!studentWordTestResults && !studentLetterTestResults) {
+  displayLine8(
+    studentWordTestResults,
+    studentLetterTestResults,
+    studentSoundTestResults
+  ) {
+    if (
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
+      !studentSoundTestResults
+    ) {
       return <div> loading..</div>;
     }
     return (
       <Line8
         studentWordTestResults={studentWordTestResults}
         studentLetterTestResults={studentLetterTestResults}
+        studentSoundTestResults={studentSoundTestResults}
       />
     );
   }
@@ -128,26 +168,30 @@ class StudentDetail extends React.Component {
         <div className="container">
           {this.displayLine5(
             this.props.studentWordTestResults,
-            this.props.studentLetterTestResults
+            this.props.studentLetterTestResults,
+            this.props.studentSoundTestResults
           )}
         </div>
         <div className="container">
           {this.displayLine6(
             this.props.studentWordTestResults,
-            this.props.studentLetterTestResults
+            this.props.studentLetterTestResults,
+            this.props.studentSoundTestResults
           )}
         </div>
         <br />
         <div className="container">
           {this.displayLine7(
             this.props.studentWordTestResults,
-            this.props.studentLetterTestResults
+            this.props.studentLetterTestResults,
+            this.props.studentSoundTestResults
           )}
         </div>
         <div className="container">
           {this.displayLine8(
             this.props.studentWordTestResults,
-            this.props.studentLetterTestResults
+            this.props.studentLetterTestResults,
+            this.props.studentSoundTestResults
           )}
         </div>
         <div className="container">{this.displayLine9(this.props.student)}</div>
@@ -159,13 +203,16 @@ class StudentDetail extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     studentActions: bindActionCreators(studentActions, dispatch),
-    studentWordsActions: bindActionCreators(studentWordsActions, dispatch),
     studentWordTestResultsActions: bindActionCreators(
       studentWordTestResultsActions,
       dispatch
     ),
     studentLetterTestResultsActions: bindActionCreators(
       studentLetterTestResultsActions,
+      dispatch
+    ),
+    studentSoundTestResultsActions: bindActionCreators(
+      studentSoundTestResultsActions,
       dispatch
     )
   };
@@ -177,7 +224,8 @@ function mapStateToProps(state) {
     studentWords: state.studentWords,
     auth: state.auth,
     studentWordTestResults: state.studentWordTestResults,
-    studentLetterTestResults: state.studentLetterTestResults
+    studentLetterTestResults: state.studentLetterTestResults,
+    studentSoundTestResults: state.studentSoundTestResults
   };
 }
 

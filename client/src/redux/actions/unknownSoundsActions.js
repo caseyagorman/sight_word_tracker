@@ -7,7 +7,7 @@ function getUnknownSoundsApi(id) {
 export function receiveUnknownSounds(unknownSounds) {
   return {
     type: types.RECEIVE_UNKNOWN_SOUNDS,
-    unknownLetters: unknownSounds
+    unknownSounds: unknownSounds
   };
 }
 

@@ -6,7 +6,7 @@ from flask import (Flask, jsonify, render_template, make_response,
                    redirect, request, flash, abort, session)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, Sound, StudentWord, StudentWordTestResult, StudentLetterTestResult, Letter, StudentLetter, StudentSound, connect_to_db, db, User
+from model import Student, Word, Sound, StudentWord, StudentWordTestResult, StudentLetterTestResult, StudentSoundTestResult, Letter, StudentLetter, StudentSound, connect_to_db, db, User
 import jwt
 from flask_cors import CORS, cross_origin
 from werkzeug.security import safe_str_cmp

@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import AddStudentWordForm from "../Forms/Word/AddStudentWordForm";
 import AddStudentLetterForm from "../Forms/Letter/AddStudentLetterForm";
 import AddStudentSoundForm from "../Forms/Sound/AddStudentSoundForm";
+
 class Line4 extends Component {
   addStudentWordForm(student) {
     if (!student) {
@@ -17,6 +18,7 @@ class Line4 extends Component {
     }
     return <AddStudentLetterForm student={student} />;
   }
+
   addStudentSoundForm(student) {
     if (!student) {
       return <div>loading...</div>;
