@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as wordsActions from "../../redux/actions/wordsActions";
-import { bindActionCreators } from "redux";
 import ViewStudentsButton from "./ViewStudentsButton";
 import ViewWordsButton from "./ViewWordsButton";
 import ViewLettersButton from "./ViewLettersButton";
+import ViewSoundsButton from "./ViewSoundsButton";
 const welcomeStyle = { fontSize: "100px" };
 const buttonStyle = {
   display: "inline-block",
@@ -24,10 +23,7 @@ class Home extends Component {
       alert("Please login");
       return this.props.history.push("/login");
     }
-    const user = this.props.token;
-    this.props.wordsActions.fetchWords(user);
   }
-
   displayWelcome() {
     if (!this.props.auth) {
       return <div>loading...</div>;
@@ -43,6 +39,9 @@ class Home extends Component {
 
   displayViewLettersButton() {
     return <ViewLettersButton />;
+  }
+  displayViewSoundsButton() {
+    return <ViewSoundsButton />;
   }
   displayInstructions() {
     return (
@@ -66,6 +65,8 @@ class Home extends Component {
           {this.displayViewWordsButton()}
           <span> </span>
           {this.displayViewLettersButton()}
+          <span> </span>
+          {this.displayViewSoundsButton()}
         </div>
         <br />
         <br />
@@ -76,18 +77,8 @@ class Home extends Component {
 }
 function mapStateToProps(state) {
   return {
-    words: state.words,
     auth: state.auth
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    wordsActions: bindActionCreators(wordsActions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps)(Home);

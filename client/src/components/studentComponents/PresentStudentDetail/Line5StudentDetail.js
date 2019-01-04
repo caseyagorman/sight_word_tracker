@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StudentWordDoughnutChart from "../../StudentWordTestResultsComponents/StudentWordDoughnutChart";
 import StudentLetterDoughnutChart from "../../StudentLetterTestResultsComponents/StudentLetterDoughnutChart";
-
+import StudentSoundDoughnutChart from "../../StudentSoundTestResultsComponents/StudentSoundDoughnutChart";
 class Line5 extends Component {
   componetDidMount() {}
 
@@ -22,6 +22,14 @@ class Line5 extends Component {
     return <StudentLetterDoughnutChart dataResults={test} />;
   }
 
+  displaySoundDoughnutChart(studentTest) {
+    if (!studentTest) {
+      return <p>loading...</p>;
+    }
+    let test = studentTest[2];
+    return <StudentSoundDoughnutChart dataResults={test} />;
+  }
+
   render() {
     return (
       <div className="container">
@@ -33,6 +41,9 @@ class Line5 extends Component {
             {this.displayLetterDoughnutChart(
               this.props.studentLetterTestResults
             )}
+          </Col>
+          <Col lg="4">
+            {this.displaySoundDoughnutChart(this.props.studentSoundTestResults)}
           </Col>
         </Row>
       </div>

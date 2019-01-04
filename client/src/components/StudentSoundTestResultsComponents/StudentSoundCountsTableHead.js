@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import WordCountRows from "./WordCountRows";
-class StudentWordCountsTableHead extends Component {
+import SoundCountRows from "./SoundCountRows";
+class StudentSoundCountsTableHead extends Component {
   displayTableHead(test) {
     return (
       <div>
-        <h3> Word Counts</h3>
+        <h3> Sound Counts</h3>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th>Word</th>
+              <th>Sound</th>
               <th>Correct Count</th>
               <th>Incorrect Count</th>
             </tr>
@@ -25,7 +25,7 @@ class StudentWordCountsTableHead extends Component {
       return <p>loading...</p>;
     }
 
-    return test.map(test => WordCountRows(test));
+    return test.map(test => SoundCountRows(test));
   }
 
   render() {
@@ -33,4 +33,4 @@ class StudentWordCountsTableHead extends Component {
   }
 }
 
-export default StudentWordCountsTableHead;
+export default StudentSoundCountsTableHead;

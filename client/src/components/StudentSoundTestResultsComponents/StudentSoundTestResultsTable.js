@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 // import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
-class StudentWordTestResultsTable extends Component {
+class StudentSoundTestResultsTable extends Component {
   displayTableHead(test) {
     return (
       <div>
@@ -11,8 +11,8 @@ class StudentWordTestResultsTable extends Component {
             <tr>
               <th>Test taken</th>
               <th>Score</th>
-              <th>Correct words</th>
-              <th>Incorrect words</th>
+              <th>Correct sounds</th>
+              <th>Incorrect sounds</th>
             </tr>
           </thead>
           {/* {this.displayStudentWordTestResultsRows(test)} */}
@@ -34,4 +34,4 @@ class StudentWordTestResultsTable extends Component {
   }
 }
 
-export default StudentWordTestResultsTable;
+export default StudentSoundTestResultsTable;

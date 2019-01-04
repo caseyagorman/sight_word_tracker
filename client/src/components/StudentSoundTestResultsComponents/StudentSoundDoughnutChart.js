@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-class StudentWordDoughnutChart extends Component {
+class StudentSoundDoughnutChart extends Component {
   formatArray(tooltipItem) {
     return " " + tooltipItem;
   }
@@ -13,15 +13,15 @@ class StudentWordDoughnutChart extends Component {
     const learnedCount = dataResults.dataResults.learned[0];
     const unlearnedCount = dataResults.dataResults.unlearned[0];
 
-    let learnedWords = dataResults.dataResults.learned[1].map(data =>
+    let learnedSounds = dataResults.dataResults.learned[1].map(data =>
       this.formatArray(data)
     );
-    let unlearnedWords = dataResults.dataResults.unlearned[1].map(data =>
+    let unlearnedSounds = dataResults.dataResults.unlearned[1].map(data =>
       this.formatArray(data)
     );
-    let tooltipData = [learnedWords, unlearnedWords];
+    let tooltipData = [learnedSounds, unlearnedSounds];
     const data = {
-      labels: ["Learned Words", "Unlearned Words"],
+      labels: ["Learned sounds", "Unlearned sounds"],
       datasets: [
         {
           data: [learnedCount, unlearnedCount],
@@ -42,7 +42,7 @@ class StudentWordDoughnutChart extends Component {
     };
     return (
       <div>
-        <h3>Percentage of words learned</h3>
+        <h3>Percentage of sounds learned</h3>
         <Doughnut options={options} data={data} />
       </div>
     );
@@ -53,4 +53,4 @@ class StudentWordDoughnutChart extends Component {
   }
 }
 
-export default StudentWordDoughnutChart;
+export default StudentSoundDoughnutChart;

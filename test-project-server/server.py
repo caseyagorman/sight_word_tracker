@@ -6,7 +6,7 @@ from flask import (Flask, jsonify, render_template, make_response,
                    redirect, request, flash, abort, session)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, StudentWord, StudentWordTestResult, StudentLetterTestResult, Letter, StudentLetter, connect_to_db, db, User
+from model import Student, Word, Sound, StudentWord, StudentWordTestResult, StudentLetterTestResult, Letter, StudentLetter, StudentSound, connect_to_db, db, User
 import jwt
 from flask_cors import CORS, cross_origin
 from werkzeug.security import safe_str_cmp
@@ -36,6 +36,8 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     return decorated
 
+
+# User functions
 
 @app.route("/api/login", methods=["POST"])
 def login():
@@ -81,6 +83,8 @@ def add_user():
         db.session.commit()
         return jsonify({'newUser': 'user added'})
 
+# Student functions
+
 
 @app.route("/api/students")
 @token_required
@@ -119,6 +123,13 @@ def get_student_letter_counts(student):
     return len(letters)
 
 
+def get_student_sound_counts(student):
+    student_id = student.student_id
+    sounds = StudentSound.query.filter(StudentSound.student_id == student_id).filter(
+        StudentSound.Learned == False).all()
+    return len(sounds)
+
+
 @app.route("/api/add-student", methods=['POST'])
 @token_required
 def add_student(current_user):
@@ -144,22 +155,61 @@ def delete_student(current_user):
     return 'student deleted!'
 
 
-def get_all_student_word_counts():
-    words = StudentWord.query.options(db.joinedload('words')).all()
-    word_counts = {}
-    for word in words:
-        if word.Learned == True:
-            if word.words.word not in word_counts:
-                word_counts[word.words.word] = 0
-            else:
-                word_counts[word.words.word] += 0
+@app.route("/api/details/<student>")
+@token_required
+def student_detail(current_user, student):
+    """Show student detail"""
+    user_id = current_user.public_id
+    student_object = Student.query.filter_by(
+        student_id=student, user_id=user_id).first()
+    student_words = StudentWord.query.filter_by(
+        student_id=student).options(db.joinedload('words')).all()
+    student_letters = StudentLetter.query.filter_by(
+        student_id=student).options(db.joinedload('letters')).all()
+    student_sounds = StudentLetter.query.filter_by(
+        student_id=student).options(db.joinedload('sounds')).all()
+    student_object = {
+        'student_id': student_object.student_id,
+        'fname': student_object.fname,
+        'lname': student_object.lname
+    }
+    word_list = []
+    for word in student_words:
+        if word.Learned == False:
+            word = {
+                'word_id': word.words.word_id,
+                'word': word.words.word,
+            }
+            word_list.append(word)
         else:
-            if word.words.word not in word_counts:
-                word_counts[word.words.word] = 1
-            else:
-                word_counts[word.words.word] += 1
-    return word_counts
+            pass
+    letter_list = []
 
+    for letter in student_letters:
+        if letter.Learned == False:
+            letter = {
+                'letter_id': letter.letters.letter_id,
+                'letter': letter.letters.letter,
+            }
+            letter_list.append(letter)
+        else:
+            pass
+    sound_list = []
+
+    for sound in student_sounds:
+        if sound.Learned == False:
+            sound = {
+                'sound_id': sound.sounds.sound_id,
+                'sound': sound.sounds.sound,
+            }
+            sound_list.append(sound)
+        else:
+            pass
+
+    return jsonify([student_object, word_list, letter_list, sound_list])
+
+
+# Word functions
 
 @app.route("/api/words")
 @token_required
@@ -191,11 +241,50 @@ def get_words(current_user):
     return jsonify([word_list, chart_words])
 
 
+def get_all_student_word_counts():
+    words = StudentWord.query.options(db.joinedload('words')).all()
+    word_counts = {}
+    for word in words:
+        if word.Learned == True:
+            if word.words.word not in word_counts:
+                word_counts[word.words.word] = 0
+            else:
+                word_counts[word.words.word] += 0
+        else:
+            if word.words.word not in word_counts:
+                word_counts[word.words.word] = 1
+            else:
+                word_counts[word.words.word] += 1
+    return word_counts
+
+
 def get_word_student_counts(word):
     word_id = word.word_id
     words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
         StudentWord.Learned == False).all()
     return len(words)
+
+
+@app.route('/api/add-word-to-student', methods=['POST'])
+@token_required
+def add_word_to_student(current_user):
+    data = request.get_json()
+    print("data", data)
+    student_id = data.get("student")
+    words = data.get('words')
+    user_id = current_user.public_id
+    word_list = Word.query.filter(
+        (Word.word.in_(words))).filter(Word.user_id == user_id).all()
+    word_ids = []
+    for word in word_list:
+        word_ids.append(word.word_id)
+    for word_id in word_ids:
+        new_student_word = StudentWord(
+            word_id=word_id, student_id=student_id, user_id=user_id)
+        db.session.add(new_student_word)
+        db.session.commit()
+
+    return "student words added!"
 
 
 @app.route("/api/unknown-words/<student>")
@@ -265,26 +354,186 @@ def delete_word(current_user):
     return 'word deleted!'
 
 
-@app.route('/api/add-word-to-student', methods=['POST'])
+@app.route("/api/word-detail/<word>")
 @token_required
-def add_word_to_student(current_user):
-    data = request.get_json()
-    print("data", data)
-    student_id = data.get("student")
-    words = data.get('words')
+def word_detail(current_user, word):
+    """Display word and students who are learning that word"""
     user_id = current_user.public_id
-    word_list = Word.query.filter(
-        (Word.word.in_(words))).filter(Word.user_id == user_id).all()
-    word_ids = []
-    for word in word_list:
-        word_ids.append(word.word_id)
-    for word_id in word_ids:
-        new_student_word = StudentWord(
-            word_id=word_id, student_id=student_id, user_id=user_id)
-        db.session.add(new_student_word)
-        db.session.commit()
+    word_object = Word.query.filter_by(word_id=word, user_id=user_id).first()
+    student_words = StudentWord.query.filter_by(
+        word_id=word).options(db.joinedload('students')).all()
 
-    return "student words added!"
+    student_list = []
+    for student in student_words:
+        if student.Learned == False:
+            student = {
+                'student_id': student.students.student_id,
+                'fname': student.students.fname,
+                'lname': student.students.lname
+
+            }
+            student_list.append(student)
+        else:
+            pass
+
+    word_object = {
+        'word_id': word_object.word_id,
+        'word': word_object.word,
+        'date': word_object.date_added,
+    }
+
+    return jsonify([word_object, student_list])
+
+
+@app.route("/api/delete-student-word", methods=["POST"])
+@token_required
+def delete_student_word(current_user):
+    """Show student detail"""
+    data = request.get_json()
+    user_id = current_user.public_id
+    word = data.get('word')
+    student = data.get('student')
+    word = Word.query.filter_by(word=word, user_id=user_id).first()
+    studentword = StudentWord.query.filter_by(
+        student_id=student.student_id, word_id=word.word_id).first()
+    db.session.delete(studentword)
+    db.session.commit()
+
+    return "student word deleted!"
+
+
+def get_word_counts(student_words):
+    """is called by get student test, returns word, times read correctly,times read incorrectly """
+    word_counts = []
+    for student_word in student_words:
+        count = {
+            "word": student_word.words.word,
+            "correct_count": student_word.correct_count,
+            "incorrect_count": student_word.incorrect_count
+        }
+        word_counts.append(count)
+
+    return word_counts
+
+
+def get_learned_words_list(student_words):
+    """is called by get student test, returns list of learned words"""
+    learned_words = []
+    for student_word in student_words:
+        if student_word.Learned == True:
+            learned_words.append(student_word.words.word)
+    return learned_words
+
+
+def get_student_word_chart_data(student_words):
+    """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
+    learned_count = 0
+    learned_words = []
+    unlearned_count = 0
+    unlearned_words = []
+    for word in student_words:
+        print(word.words.word)
+        if word.Learned == True:
+            learned_words.append(word.words.word)
+            learned_count += 1
+        else:
+            unlearned_count += 1
+            unlearned_words.append(word.words.word)
+    chart_data = {"learned": [learned_count, learned_words],
+                  "unlearned": [unlearned_count,  unlearned_words]}
+    return chart_data
+
+
+def get_student_word_test_list(student_test):
+    """is called by get_student_word_test, returns list of student tests"""
+    student_test_list = []
+    for student in student_test:
+        test_date = student.test_date.strftime('%m-%d-%Y')
+        student_test_object = {
+            'student_id': student.student_id,
+            'score': student.score,
+            'test_date': test_date,
+            'correct_words': student.correct_words,
+            'incorrect_words': student.incorrect_words
+        }
+        student_test_list.append(student_test_object)
+    return student_test_list
+
+
+@app.route("/api/get-student-word-test/<student>")
+@token_required
+def get_student_word_test(current_user, student):
+    """get list of student test results, word_counts and chart_data"""
+
+    user_id = current_user.public_id
+    student_id = student
+    student_words = StudentWord.query.filter_by(
+        user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students')).all()
+    student_tests = StudentWordTestResult.query.filter_by(
+        student_id=student_id, user_id=user_id).all()
+    word_counts = get_word_counts(student_words)
+    chart_data = get_student_word_chart_data(student_words)
+    student_test_list = get_student_word_test_list(student_tests)
+    learned_words_list = get_learned_words_list(student_words)
+    return jsonify([student_test_list, word_counts, chart_data, learned_words_list])
+
+
+def calculate_score(known_words, unknown_words):
+    """calculates student test score, called by create_student_test"""
+    score = len(known_words) / (len(known_words) + len(unknown_words))
+    score = score * 100
+    score = int(round(score))
+    return score
+
+
+def update_correct_words(student_id, correct_words):
+    """updates correct words in db, called by create_student_test"""
+    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
+        Word.word.in_(correct_words)).all()
+    for word in student_word_list:
+        if word.words.word in correct_words:
+            if word.correct_count >= 3:
+                word.Learned = True
+            word.correct_count = StudentWord.correct_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "correct words"
+
+
+def update_incorrect_words(student_id, incorrect_words):
+    """updates incorrect words in db, called by create_student_test"""
+
+    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
+        Word.word.in_(incorrect_words)).all()
+    for word in student_word_list:
+        if word.words.word in incorrect_words:
+            word.incorrect_count = StudentWord.incorrect_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "incorrect words"
+
+
+@app.route("/api/create-student-word-test", methods=["POST"])
+@token_required
+def create_student_word_test(current_user):
+    """creates new student test row in db, calls update_correct_words
+    and update_incorrect_words functions"""
+
+    data = request.get_json()
+    student_id = data.get('student')
+    user_id = current_user.public_id
+    correct_words = data.get('correct_words')
+    incorrect_words = data.get('incorrect_words')
+    score = calculate_score(correct_words, incorrect_words)
+    update_correct_words(student_id, correct_words)
+    update_incorrect_words(student_id, incorrect_words)
+    db.session.add(
+        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+                              correct_words=correct_words, incorrect_words=incorrect_words))
+    db.session.commit()
+    return 'word test added'
 
 
 # @app.route('/api/add-word-to-all-students', methods=['POST'])
@@ -302,6 +551,8 @@ def add_word_to_student(current_user):
 
 #     return 'student word added!'
 
+
+# Begin letter functions
 @app.route("/api/letters")
 @token_required
 def get_letters(current_user):
@@ -548,59 +799,100 @@ def get_student_letter_test_list(student_test):
         student_test_list.append(student_test_object)
     return student_test_list
 
+# Begin Sound Components
 
-@app.route("/api/details/<student>")
+
+@app.route("/api/sounds")
 @token_required
-def student_detail(current_user, student):
-    """Show student detail"""
+def get_sounds(current_user):
+
     user_id = current_user.public_id
-    student_object = Student.query.filter_by(
-        student_id=student, user_id=user_id).first()
-    student_words = StudentWord.query.filter_by(
-        student_id=student).options(db.joinedload('words')).all()
-    student_letters = StudentLetter.query.filter_by(
-        student_id=student).options(db.joinedload('letters')).all()
-    student_object = {
-        'student_id': student_object.student_id,
-        'fname': student_object.fname,
-        'lname': student_object.lname
-    }
-    word_list = []
-    for word in student_words:
-        if word.Learned == False:
-            word = {
-                'word_id': word.words.word_id,
-                'word': word.words.word,
-            }
-            word_list.append(word)
-        else:
-            pass
-    letter_list = []
+    sounds = Sound.query.filter_by(user_id=user_id).options(
+        db.joinedload('studentsounds')).all()
+    sound_list = []
 
-    for letter in student_letters:
-        if letter.Learned == False:
-            letter = {
-                'letter_id': letter.letters.letter_id,
-                'letter': letter.letters.letter,
-            }
-            letter_list.append(letter)
-        else:
-            pass
-    print(letter_list)
-    return jsonify([student_object, word_list, letter_list])
+    for sound in sounds:
+        student_list = []
+        for item in sound.studentsounds:
+            if item.Learned == False:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                student_list.append(student.fname + " " + student.lname)
+        count = get_sound_student_counts(sound)
+
+        sound = {
+            'sound_id': sound.sound_id,
+            'sound': sound.sound,
+            'count': count,
+            'students': student_list
+        }
+
+        sound_list.append(sound)
+    chart_sounds = get_all_student_sound_counts()
+    return jsonify([sound_list, chart_sounds])
 
 
-@app.route("/api/word-detail/<word>")
+def get_sound_student_counts(sound):
+    sound_id = sound.sound_id
+    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
+        StudentSound.Learned == False).all()
+    return len(sounds)
+
+
+@app.route("/api/add-sound", methods=['POST'])
 @token_required
-def word_detail(current_user, word):
-    """Display word and students who are learning that word"""
+def add_sound(current_user):
+    new_sounds = request.get_json()
+    print("new sounds", new_sounds)
     user_id = current_user.public_id
-    word_object = Word.query.filter_by(word_id=word, user_id=user_id).first()
-    student_words = StudentWord.query.filter_by(
-        word_id=word).options(db.joinedload('students')).all()
+    new_sounds = new_sounds.split()
+    sound_dict = {}
+    user_sounds = Sound.query.filter_by(user_id=user_id).all()
+    for sound in user_sounds:
+        if sound.sound not in sound_dict.keys():
+            sound_dict[sound.sound] = 1
+        else:
+            sound_dict[sound.sound] += 1
+    for sound in new_sounds:
+        if sound in sound_dict.keys():
+            continue
+        if sound not in sound_dict.keys():
+            sound = sound(sound=sound, user_id=user_id)
+            db.session.add(sound)
+            db.session.commit()
+
+    return 'sounds added'
+
+
+def get_all_student_sound_counts():
+    sounds = StudentSound.query.options(db.joinedload('sounds')).all()
+    sound_counts = {}
+    for sound in sounds:
+        if sound.Learned == True:
+            if sound.sounds.sound not in sound_counts:
+                sound_counts[sound.sounds.sound] = 0
+            else:
+                sound_counts[sound.sounds.sound] += 0
+        else:
+            if sound.sounds.sound not in sound_counts:
+                sound_counts[sound.sounds.sound] = 1
+            else:
+                sound_counts[sound.sounds.sound] += 1
+    return sound_counts
+
+
+@app.route("/api/sound-detail/<sound>")
+@token_required
+def sound_detail(current_user, sound):
+    """Display sound and students who are learning that sound"""
+    user_id = current_user.public_id
+    sound_object = Sound.query.filter_by(
+        sound_id=sound, user_id=user_id).first()
+    student_sounds = StudentSound.query.filter_by(
+        sound_id=sound).options(db.joinedload('students')).all()
 
     student_list = []
-    for student in student_words:
+    for student in student_sounds:
         if student.Learned == False:
             student = {
                 'student_id': student.students.student_id,
@@ -612,76 +904,137 @@ def word_detail(current_user, word):
         else:
             pass
 
-    word_object = {
-        'word_id': word_object.word_id,
-        'word': word_object.word,
-        'date': word_object.date_added,
+    sound_object = {
+        'sound_id': sound_object.sound_id,
+        'sound': sound_object.sound,
+        'date': sound_object.date_added,
     }
 
-    return jsonify([word_object, student_list])
+    return jsonify([sound_object, student_list])
 
 
-@app.route("/api/delete-student-word", methods=["POST"])
+@app.route("/api/delete-sound", methods=['POST'])
 @token_required
-def delete_student_word(current_user):
-    """Show student detail"""
-    data = request.get_json()
+def delete_sound(current_user):
+    sound_id = request.get_json()
     user_id = current_user.public_id
-    word = data.get('word')
-    student = data.get('student')
-    word = Word.query.filter_by(word=word, user_id=user_id).first()
-    studentword = StudentWord.query.filter_by(
-        student_id=student.student_id, word_id=word.word_id).first()
-    db.session.delete(studentword)
+    sound_to_delete = Sound.query.filter_by(
+        sound_id=sound_id, user_id=user_id).first()
+    db.session.delete(sound_to_delete)
     db.session.commit()
+    return 'sound deleted!'
 
-    return "student word deleted!"
 
+@app.route("/api/unknown-sounds/<student>")
+@token_required
+def get_unknown_sounds(current_user, student):
+    """gets sounds that student does not know and are not in current sound list, sounds can then be added to students sound list"""
+    user_id = current_user.public_id
+    sounds = StudentSound.query.filter_by(
+        student_id=student, user_id=user_id).options(db.joinedload('sounds')).all()
+    sound_ids = []
+    for sound in sounds:
 
-def get_word_counts(student_words):
-    """is called by get student test, returns word, times read correctly,times read incorrectly """
-    word_counts = []
-    for student_word in student_words:
-        count = {
-            "word": student_word.words.word,
-            "correct_count": student_word.correct_count,
-            "incorrect_count": student_word.incorrect_count
+        sound_ids.append(sound.sound_id)
+
+    unknown_sounds = Sound.query.filter(
+        sound.sound_id.notin_(sound_ids)).all()
+    sound_list = []
+
+    for sound in unknown_sounds:
+        sound = {
+            'sound_id': sound.sound_id,
+            'sound': sound.sound
         }
-        word_counts.append(count)
 
-    return word_counts
+        sound_list.append(sound)
+    print(sound_list)
+    return jsonify(sound_list)
 
 
-def get_learned_words_list(student_words):
+@app.route('/api/add-sounds-to-student', methods=['POST'])
+@token_required
+def add_sound_to_student(current_user):
+    data = request.get_json()
+    print(data)
+    student_id = data.get("student")
+    sounds = data.get('sounds')
+    user_id = current_user.public_id
+    sound_list = Sound.query.filter(
+        (Sound.sound.in_(sounds))).filter(Sound.user_id == user_id).all()
+    sound_ids = []
+    for sound in sound_list:
+        sound_ids.append(sound.sound_id)
+    for sound_id in sound_ids:
+        new_student_sound = StudentSound(
+            sound_id=sound_id, student_id=student_id, user_id=user_id)
+        db.session.add(new_student_sound)
+        db.session.commit()
+
+    return "student sounds added!"
+
+
+@app.route("/api/get-student-sound-test/<student>")
+@token_required
+def get_student_sound_test(current_user, student):
+    """get list of student test results, word_counts and chart_data"""
+
+    user_id = current_user.public_id
+    student_id = student
+    student_sounds = StudentSound.query.filter_by(
+        user_id=user_id, student_id=student_id).options(db.joinedload('sounds')).options(db.joinedload('students')).all()
+    student_tests = StudentSoundTestResult.query.filter_by(
+        student_id=student_id, user_id=user_id).all()
+    sound_counts = get_sound_counts(student_sounds)
+    chart_data = get_student_sound_chart_data(student_sounds)
+    student_test_list = get_student_sound_test_list(student_tests)
+    learned_sounds_list = get_learned_sounds_list(student_sounds)
+    return jsonify([student_test_list, sound_counts, chart_data, learned_sounds_list])
+
+
+def get_sound_counts(student_sounds):
+    """is called by get student test, returns word, times read correctly,times read incorrectly """
+    sound_counts = []
+    for student_sound in student_sounds:
+        count = {
+            "sound": student_sound.sounds.sound,
+            "correct_count": student_sound.correct_count,
+            "incorrect_count": student_sound.incorrect_count
+        }
+        sound_counts.append(count)
+
+    return sound_counts
+
+
+def get_learned_sounds_list(student_sounds):
     """is called by get student test, returns list of learned words"""
-    learned_words = []
-    for student_word in student_words:
-        if student_word.Learned == True:
-            learned_words.append(student_word.words.word)
-    return learned_words
+    learned_sounds = []
+    for student_sound in student_sounds:
+        if student_sound.Learned == True:
+            learned_sounds.append(student_sound.sounds.sound)
+    return learned_sounds
 
 
-def get_student_word_chart_data(student_words):
+def get_student_sound_chart_data(student_sounds):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
-    learned_words = []
+    learned_sounds = []
     unlearned_count = 0
-    unlearned_words = []
-    for word in student_words:
-        print(word.words.word)
-        if word.Learned == True:
-            learned_words.append(word.words.word)
+    unlearned_sounds = []
+    for sound in student_sounds:
+        if sound.Learned == True:
+            learned_sounds.append(sound.sounds.sound)
             learned_count += 1
         else:
             unlearned_count += 1
-            unlearned_words.append(word.words.word)
-    chart_data = {"learned": [learned_count, learned_words],
-                  "unlearned": [unlearned_count,  unlearned_words]}
+            unlearned_sounds.append(sound.sounds.sound)
+    chart_data = {"learned": [learned_count, learned_sounds],
+                  "unlearned": [unlearned_count,  unlearned_sounds]}
     return chart_data
 
 
-def get_student_word_test_list(student_test):
-    """is called by get_student_word_test, returns list of student tests"""
+def get_student_sound_test_list(student_test):
+    """is called by get_student_sound_test, returns list of student tests"""
     student_test_list = []
     for student in student_test:
         test_date = student.test_date.strftime('%m-%d-%Y')
@@ -689,137 +1042,13 @@ def get_student_word_test_list(student_test):
             'student_id': student.student_id,
             'score': student.score,
             'test_date': test_date,
-            'correct_words': student.correct_words,
-            'incorrect_words': student.incorrect_words
+            'correct_sounds': student.correct_sounds,
+            'incorrect_sounds': student.incorrect_sounds
         }
         student_test_list.append(student_test_object)
     return student_test_list
 
-
-@app.route("/api/get-student-word-test/<student>")
-@token_required
-def get_student_word_test(current_user, student):
-    """get list of student test results, word_counts and chart_data"""
-
-    user_id = current_user.public_id
-    student_id = student
-    student_words = StudentWord.query.filter_by(
-        user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students')).all()
-    student_tests = StudentWordTestResult.query.filter_by(
-        student_id=student_id, user_id=user_id).all()
-    word_counts = get_word_counts(student_words)
-    chart_data = get_student_word_chart_data(student_words)
-    student_test_list = get_student_word_test_list(student_tests)
-    learned_words_list = get_learned_words_list(student_words)
-    return jsonify([student_test_list, word_counts, chart_data, learned_words_list])
-
-
-def calculate_score(known_words, unknown_words):
-    """calculates student test score, called by create_student_test"""
-    score = len(known_words) / (len(known_words) + len(unknown_words))
-    score = score * 100
-    score = int(round(score))
-    return score
-
-
-def update_correct_words(student_id, correct_words):
-    """updates correct words in db, called by create_student_test"""
-    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
-        Word.word.in_(correct_words)).all()
-    for word in student_word_list:
-        if word.words.word in correct_words:
-            if word.correct_count >= 3:
-                word.Learned = True
-            word.correct_count = StudentWord.correct_count + 1
-            db.session.commit()
-        else:
-            pass
-    return "correct words"
-
-
-def update_incorrect_words(student_id, incorrect_words):
-    """updates incorrect words in db, called by create_student_test"""
-
-    student_word_list = StudentWord.query.filter_by(student_id=student_id).options(db.joinedload('words')).filter(
-        Word.word.in_(incorrect_words)).all()
-    for word in student_word_list:
-        if word.words.word in incorrect_words:
-            word.incorrect_count = StudentWord.incorrect_count + 1
-            db.session.commit()
-        else:
-            pass
-    return "incorrect words"
-
-
-@app.route("/api/create-student-word-test", methods=["POST"])
-@token_required
-def create_student_word_test(current_user):
-    """creates new student test row in db, calls update_correct_words
-    and update_incorrect_words functions"""
-
-    data = request.get_json()
-    student_id = data.get('student')
-    user_id = current_user.public_id
-    correct_words = data.get('correct_words')
-    incorrect_words = data.get('incorrect_words')
-    score = calculate_score(correct_words, incorrect_words)
-    update_correct_words(student_id, correct_words)
-    update_incorrect_words(student_id, incorrect_words)
-    db.session.add(
-        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
-                              correct_words=correct_words, incorrect_words=incorrect_words))
-    db.session.commit()
-    return 'word test added'
-
-
-def update_correct_letters(student_id, correct_letters):
-    """updates correct letters in db, called by create_student_test"""
-    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
-        Letter.letter.in_(correct_letters)).all()
-    for letter in student_letter_list:
-        if letter.letters.letter in correct_letters:
-            if letter.correct_count >= 3:
-                letter.Learned = True
-            letter.correct_count = StudentLetter.correct_count + 1
-            db.session.commit()
-        else:
-            pass
-    return "correct letters"
-
-
-def update_incorrect_letters(student_id, incorrect_letters):
-    """updates incorrect letters in db, called by create_student_test"""
-
-    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
-        Letter.letter.in_(incorrect_letters)).all()
-    for letter in student_letter_list:
-        if letter.letters.letter in incorrect_letters:
-            letter.incorrect_count = StudentLetter.incorrect_count + 1
-            db.session.commit()
-        else:
-            pass
-    return "incorrect letters"
-
-
-@app.route("/api/create-student-letter-test", methods=["POST"])
-@token_required
-def create_student_letter_test(current_user):
-    """creates new student test row in db, calls update_correct_words
-    and update_incorrect_words functions"""
-
-    data = request.get_json()
-    student_id = data.get('student')
-    user_id = current_user.public_id
-    correct_letters = data.get('correct_letters')
-    incorrect_letters = data.get('incorrect_letters')
-    score = calculate_score(correct_letters, incorrect_letters)
-    update_correct_words(student_id, correct_letters)
-    update_incorrect_letters(student_id, incorrect_letters)
-    db.session.add(
-        StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
-                                correct_letters=correct_letters, incorrect_letters=incorrect_letters))
-    db.session.commit()
-    return 'letter test added'
+# End Sound Components
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import WordLineChart from "../../StudentWordTestResultsComponents/WordLineChart";
 import LetterLineChart from "../../StudentLetterTestResultsComponents/LetterLineChart";
+import SoundLineChart from "../../StudentSoundTestResultsComponents/SoundLineChart";
 class Line7 extends Component {
   componetDidMount() {}
 
@@ -22,6 +23,14 @@ class Line7 extends Component {
     let tests = studentTest[0];
     return <LetterLineChart tests={tests} />;
   }
+  displaySoundLineChart(studentTest) {
+    console.log("display letter line chart", studentTest);
+    if (!studentTest) {
+      return <p>loading...</p>;
+    }
+    let tests = studentTest[0];
+    return <SoundLineChart tests={tests} />;
+  }
 
   render() {
     return (
@@ -32,6 +41,9 @@ class Line7 extends Component {
           </Col>
           <Col lg="4">
             {this.displayLetterLineChart(this.props.studentLetterTestResults)}
+          </Col>
+          <Col lg="4">
+            {this.displaySoundLineChart(this.props.studentSoundTestResults)}
           </Col>
         </Row>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-const WordCountRows = props => {
+const SoundCountRows = props => {
   return (
     <tbody>
       <tr>
@@ -11,4 +11,4 @@ const WordCountRows = props => {
   );
 };
 
-export default WordCountRows;
+export default SoundCountRows;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StudentWordTestResultsTable from "../../StudentWordTestResultsComponents/StudentWordTestResultsTable";
 import StudentLetterTestResultsTable from "../../StudentLetterTestResultsComponents/StudentLetterTestResultsTable";
+import StudentSoundTestResultsTable from "../../StudentSoundTestResultsComponents/StudentSoundTestResultsTable";
 class Line8 extends Component {
   viewStudentWordTestResultsTable(studentWordTestResults) {
     if (!studentWordTestResults) {
@@ -21,6 +22,14 @@ class Line8 extends Component {
     return <StudentLetterTestResultsTable test={testResults} />;
   }
 
+  viewStudentSoundTestResultsTable(studentSoundTestResults) {
+    if (!studentSoundTestResults) {
+      return <p>loading...</p>;
+    }
+    let testResults = studentSoundTestResults[0];
+
+    return <StudentSoundTestResultsTable test={testResults} />;
+  }
   render() {
     return (
       <div className="container">
@@ -33,6 +42,11 @@ class Line8 extends Component {
           <Col lg="4">
             {this.viewStudentLetterTestResultsTable(
               this.props.studentLetterTestResults
+            )}
+          </Col>
+          <Col lg="4">
+            {this.viewStudentSoundTestResultsTable(
+              this.props.studentSoundTestResults
             )}
           </Col>
         </Row>
