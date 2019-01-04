@@ -543,7 +543,7 @@ def update_incorrect_words(student_id, incorrect_words):
 @app.route("/api/create-student-word-test", methods=["POST"])
 @token_required
 def create_student_word_test(current_user):
-    """creates new student test row in db, calls update_correct_words
+    """creates new student word test row in db, calls update_correct_words
     and update_incorrect_words functions"""
 
     data = request.get_json()
@@ -853,7 +853,7 @@ def update_incorrect_letters(student_id, incorrect_letters):
 @app.route("/api/create-student-letter-test", methods=["POST"])
 @token_required
 def create_student_letter_test(current_user):
-    """creates new student test row in db, calls update_correct_words
+    """creates new student letter test row in db, calls update_correct_words
     and update_incorrect_letters functions"""
 
     data = request.get_json()
@@ -1060,6 +1060,55 @@ def get_student_sound_test(current_user, student):
     learned_sounds_list = get_learned_sounds_list(student_sounds)
     return jsonify([student_test_list, sound_counts, chart_data, learned_sounds_list])
 
+
+def update_correct_letters(student_id, correct_sounds):
+    """updates correct letters in db, called by create_student_test"""
+    student_letter_list = StudentSound.query.filter_by(student_id=student_id).options(db.joinedload('sounds')).filter(
+        Sound.sound.in_(correct_sounds)).all()
+    for sound in student_sound_list:
+        if sound.sounds.sound in correct_sounds:
+            if sound.correct_count >= 3:
+                sound.Learned = True
+            sound.correct_count = StudentSound.correct_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "correct sounds"
+
+
+def update_incorrect_sounds(student_id, incorrect_sounds):
+    """updates incorrect sounds in db, called by create_student_test"""
+
+    student_sound_list = StudentSound.query.filter_by(student_id=student_id).options(db.joinedload('sounds')).filter(
+        sound.sound.in_(incorrect_sounds)).all()
+    for sound in student_sound_list:
+        if sound.sounds.sound in incorrect_sounds:
+            sound.incorrect_count = Studentsound.incorrect_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "incorrect sounds"
+
+@app.route("/api/create-student-sound-test", methods=["POST"])
+@token_required
+def create_student_sound_test(current_user):
+    """creates new student sound test row in db, calls update_correct_sounds
+    and update_incorrect_sounds functions"""
+
+    data = request.get_json()
+    print(data)
+    student_id = data.get('student')
+    user_id = current_user.public_id
+    correct_sounds = data.get('correct_sounds')
+    incorrect_sounds = data.get('incorrect_sounds')
+    score = calculate_score(correct_sounds, incorrect_sounds)
+    update_correct_sounds(student_id, correct_sounds)
+    update_incorrect_sounds(student_id, incorrect_sounds)
+    db.session.add(
+        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+                              correct_sounds=correct_sounds, incorrect_sounds=incorrect_sounds))
+    db.session.commit()
+    return 'sound test added'
 
 def get_sound_counts(student_sounds):
     """is called by get student test, returns word, times read correctly,times read incorrectly """
