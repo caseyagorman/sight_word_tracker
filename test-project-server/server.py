@@ -50,7 +50,6 @@ def login():
     if auth_user and check_password_hash(auth_user.password, password.encode('utf-8')):
         token = jwt.encode({'public_id': auth_user.public_id, 'exp': datetime.datetime.utcnow(
         ) + datetime.timedelta(hours=24)}, app.config['SECRET_KEY'])
-        print("logging in!")
         return jsonify({'token': token.decode('utf-8'), 'username': auth_user.username})
     else:
         return jsonify({'error': 'incorrect password'})
@@ -94,9 +93,13 @@ def get_students(current_user):
         db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
-        word_count = get_student_word_counts(student)
-        letter_count = get_student_letter_counts(student)
-        sound_count = get_student_sound_counts(student)
+
+        word_list = get_student_word_list(student)
+        letter_list = get_student_letter_list(student)
+        sound_list = get_student_sound_list(student)
+        word_count = len(word_list)
+        letter_count = len(letter_list)
+        sound_count = len(sound_list)
         student = {
             'student_id': student.student_id,
             'fname': student.fname,
@@ -104,32 +107,43 @@ def get_students(current_user):
             'grade': student.grade,
             'word_count': word_count,
             'letter_count': letter_count,
-            'sound_count': sound_count
+            'sound_count': sound_count,
+            'word_list': word_list,
+            'letter_list': letter_list,
+            'sound_list': sound_list,
         }
         student_list.append(student)
-    print(student_list)
     return jsonify(student_list)
 
 
-def get_student_word_counts(student):
+def get_student_word_list(student):
     student_id = student.student_id
     words = StudentWord.query.filter(StudentWord.student_id == student_id).filter(
-        StudentWord.Learned == False).all()
-    return len(words)
+        StudentWord.Learned == False).options(db.joinedload('words')).all()
+    word_list = []
+    for word in words:
+        word_list.append(word.words.word)
+    return word_list
 
 
-def get_student_letter_counts(student):
+def get_student_letter_list(student):
     student_id = student.student_id
     letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).filter(
-        StudentLetter.Learned == False).all()
-    return len(letters)
+        StudentLetter.Learned == False).options(db.joinedload('letters')).all()
+    letter_list = []
+    for letter in letters:
+        letter_list.append(letter.letters.letter)
+    return letter_list
 
 
-def get_student_sound_counts(student):
+def get_student_sound_list(student):
     student_id = student.student_id
     sounds = StudentSound.query.filter(StudentSound.student_id == student_id).filter(
-        StudentSound.Learned == False).all()
-    return len(sounds)
+        StudentSound.Learned == False).options(db.joinedload('sounds')).all()
+    sound_list = []
+    for sound in sounds:
+        sound_list.append(sound.sounds.sound)
+    return sound_list
 
 
 @app.route("/api/add-student", methods=['POST'])
@@ -272,7 +286,6 @@ def get_word_student_counts(word):
 @token_required
 def add_word_to_student(current_user):
     data = request.get_json()
-    print("data", data)
     student_id = data.get("student")
     words = data.get('words')
     user_id = current_user.public_id
@@ -311,7 +324,6 @@ def get_unknown_words(current_user, student):
         }
 
         word_list.append(word)
-    print(word_list)
     return jsonify(word_list)
 
 
@@ -321,7 +333,6 @@ def add_word(current_user):
     new_words = request.get_json()
     user_id = current_user.public_id
     new_words = new_words.split()
-    print("add words", user_id, new_words)
     word_dict = {}
     user_words = Word.query.filter_by(user_id=user_id).all()
     for word in user_words:
@@ -435,7 +446,6 @@ def get_student_word_chart_data(student_words):
     unlearned_count = 0
     unlearned_words = []
     for word in student_words:
-        print(word.words.word)
         if word.Learned == True:
             learned_words.append(word.words.word)
             learned_count += 1
@@ -597,7 +607,6 @@ def get_letter_student_counts(letter):
 @token_required
 def add_letter(current_user):
     new_letters = request.get_json()
-    print("new letters", new_letters)
     user_id = current_user.public_id
     new_letters = new_letters.split()
     letter_dict = {}
@@ -702,7 +711,6 @@ def get_unknown_letters(current_user, student):
         }
 
         letter_list.append(letter)
-    print(letter_list)
     return jsonify(letter_list)
 
 
@@ -845,7 +853,6 @@ def get_sound_student_counts(sound):
 @token_required
 def add_sound(current_user):
     new_sounds = request.get_json()
-    print("new sounds", new_sounds)
     user_id = current_user.public_id
     new_sounds = new_sounds.split()
     sound_dict = {}
@@ -956,7 +963,6 @@ def get_unknown_sounds(current_user, student):
 @token_required
 def add_sound_to_student(current_user):
     data = request.get_json()
-    print("add sound to student", data)
     student_id = data.get("student")
     sounds = data.get('sounds')
     user_id = current_user.public_id
