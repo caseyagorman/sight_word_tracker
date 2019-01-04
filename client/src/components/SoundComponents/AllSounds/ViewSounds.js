@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordsActions from "../../../redux/actions/wordsActions";
 import * as authActions from "../../../redux/actions/authActions";
-import AddWordButton from "../Forms/AddWordButton";
-import Line1 from "./Line1AllWords";
-import Line2 from "./Line2AllWords";
+import AddWordButton from "../Forms/AddSoundButton";
+import Line1 from "./Line1AllSounds";
+import Line2 from "./Line2AllSounds";
 const headerStyle = {
   fontSize: "100px"
 };

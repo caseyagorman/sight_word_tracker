@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import AllWordsTableHead from "./AllWordsTableHead";
+import AllWordsTableHead from "./AllSoundsTableHead";
 
 class Line1 extends React.Component {
   displayTableHead(words) {

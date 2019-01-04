@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import WordBarChart from "./WordBarChart";
+import WordBarChart from "./SoundBarChart";
 
 class Line2 extends React.Component {
   displayBarChart(words) {
