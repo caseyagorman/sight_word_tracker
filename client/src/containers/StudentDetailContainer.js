@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
-import StudentDetail from "../components/StudentComponents/StudentDetail/StudentDetail";
+import StudentDetail from "../components/StudentComponents/PresentStudentDetail/StudentDetail";
 class StudentDetailContainer extends Component {
   componentDidMount() {
     this.studentId = this.props.match.params.id;

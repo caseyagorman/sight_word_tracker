@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StudentWordTestResultsTable from "../../StudentWordTestResultsComponents/StudentWordTestResultsTable";
-// import StudentLetterTestResultsTable from "../../StudentWordTestResultsComponents/StudentLetterTestResultsTable";
-class Line6 extends Component {
+import StudentLetterTestResultsTable from "../../StudentLetterTestResultsComponents/StudentLetterTestResultsTable";
+class Line8 extends Component {
   viewStudentWordTestResultsTable(studentWordTestResults) {
     if (!studentWordTestResults) {
       return <p>loading...</p>;
@@ -12,32 +12,32 @@ class Line6 extends Component {
     return <StudentWordTestResultsTable test={testResults} />;
   }
 
-  //   viewStudentLetterTestResultsTable(studentLetterTestResults) {
-  //     if (!studentLetterTestResults) {
-  //       return <p>loading...</p>;
-  //     }
-  //     let testResults = studentLetterTestResults[0];
+  viewStudentLetterTestResultsTable(studentLetterTestResults) {
+    if (!studentLetterTestResults) {
+      return <p>loading...</p>;
+    }
+    let testResults = studentLetterTestResults[0];
 
-  //     return <StudentLetterTestResultsTable test={testResults} />;
-  //   }
+    return <StudentLetterTestResultsTable test={testResults} />;
+  }
 
   render() {
     return (
       <div className="container">
         <Row>
-          <Col lg="6">
+          <Col lg="4">
             {this.viewStudentWordTestResultsTable(
               this.props.studentWordTestResults
             )}
           </Col>
-          <Col lg="6">
-            {/* {this.viewStudentLetterTestResultsTable(
+          <Col lg="4">
+            {this.viewStudentLetterTestResultsTable(
               this.props.studentLetterTestResults
-            )} */}
+            )}
           </Col>
         </Row>
       </div>
     );
   }
 }
-export default Line6;
+export default Line8;

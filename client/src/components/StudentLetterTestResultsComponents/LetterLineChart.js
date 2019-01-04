@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
-class WordLineChart extends Component {
+class LetterLineChart extends Component {
   getChartData(data) {
     if (!data) {
       return <div>loading...</div>;
@@ -44,7 +44,7 @@ class WordLineChart extends Component {
 
     return (
       <div>
-        <h3>Student word tests over time</h3>
+        <h3>Student letter name tests over time</h3>
         <Line data={data} />
       </div>
     );
@@ -55,4 +55,4 @@ class WordLineChart extends Component {
   }
 }
 
-export default WordLineChart;
+export default LetterLineChart;

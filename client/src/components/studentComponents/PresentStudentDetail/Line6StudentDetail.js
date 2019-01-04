@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import WordLineChart from "../../StudentWordTestResultsComponents/WordLineChart";
-import LetterLineChart from "../../StudentWordTestResultsComponents/WordLineChart";
+import LetterLineChart from "../../StudentLetterTestResultsComponents/LetterLineChart";
 class Line7 extends Component {
   componetDidMount() {}
 
@@ -15,6 +15,7 @@ class Line7 extends Component {
   }
 
   displayLetterLineChart(studentTest) {
+    console.log("display letter line chart", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
@@ -26,11 +27,11 @@ class Line7 extends Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="6">
+          <Col lg="4">
             {this.displayWordLineChart(this.props.studentWordTestResults)}
           </Col>
-          <Col lg="6">
-            {/* {this.displayLetterLineChart(this.props.studentLetterTestResults)} */}
+          <Col lg="4">
+            {this.displayLetterLineChart(this.props.studentLetterTestResults)}
           </Col>
         </Row>
       </div>

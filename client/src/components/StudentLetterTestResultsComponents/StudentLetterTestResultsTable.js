@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
-// import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
-class StudentWordTestResultsTable extends Component {
+import StudentLetterTestResultsRows from "./StudentLetterTestResultsRows";
+class StudentLetterTestResultsTable extends Component {
   displayTableHead(test) {
     return (
       <div>
-        <h3>Past Word Test Results</h3>
+        <h3>Past Letter Test Results</h3>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -15,18 +15,18 @@ class StudentWordTestResultsTable extends Component {
               <th>Incorrect words</th>
             </tr>
           </thead>
-          {/* {this.displayStudentWordTestResultsRows(test)} */}
+          {this.displayStudentLetterTestResultsRows(test)}
         </Table>
       </div>
     );
   }
 
-  displayStudentWordTestResultsRows(test) {
+  displayStudentLetterTestResultsRows(test) {
     if (!test) {
       return <p>loading...</p>;
     }
 
-    // return test.map(test => StudentWordTestResultsRows(test));
+    return test.map(test => StudentLetterTestResultsRows(test));
   }
 
   render() {
@@ -34,4 +34,4 @@ class StudentWordTestResultsTable extends Component {
   }
 }
 
-export default StudentWordTestResultsTable;
+export default StudentLetterTestResultsTable;
