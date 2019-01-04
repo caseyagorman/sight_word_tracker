@@ -27,6 +27,7 @@ class StudentLetterTestPage extends React.Component {
   }
 
   displayLetter(letters) {
+    console.log(letters);
     if (!letters) {
       this.createTestObject();
     }
@@ -34,11 +35,13 @@ class StudentLetterTestPage extends React.Component {
     return <div>{letters}</div>;
   }
   async createTestObject() {
+    console.log("creating test object");
     let results = {
       student: this.props.student[0].student_id,
       correct_letters: this.state.known_letters,
       incorrect_letters: this.state.unknown_letters
     };
+    console.log(results);
     const user = this.props.user;
     this.props.letterTestActions.addLetterTest(results, user);
   }

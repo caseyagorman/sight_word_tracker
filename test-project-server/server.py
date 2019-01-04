@@ -229,6 +229,7 @@ def student_detail(current_user, student):
     return jsonify([student_object, word_list, letter_list, sound_list])
 
 
+
 # Word functions
 
 @app.route("/api/words")
@@ -405,7 +406,7 @@ def word_detail(current_user, word):
         'word': word_object.word,
         'date': word_object.date_added,
     }
-    student_list = sorted(student_list, key=attrgetter('fname')) 
+    student_list = sorted(student_list, key=itemgetter('fname')) 
 
     return jsonify([word_object, student_list])
 
@@ -787,13 +788,13 @@ def get_learned_letters_list(student_letters):
     return learned_letters
 
 
-def get_student_letter_chart_data(student_words):
+def get_student_letter_chart_data(student_letters):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
     learned_letters = []
     unlearned_count = 0
     unlearned_letters = []
-    for letter in student_words:
+    for letter in student_letters:
         if letter.Learned == True:
             learned_letters.append(letter.letters.letter)
             learned_count += 1
@@ -819,6 +820,57 @@ def get_student_letter_test_list(student_test):
         }
         student_test_list.append(student_test_object)
     return student_test_list
+
+def update_correct_letters(student_id, correct_letters):
+    """updates correct letters in db, called by create_student_test"""
+    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
+        Letter.letter.in_(correct_letters)).all()
+    for letter in student_letter_list:
+        if letter.letters.letter in correct_letters:
+            if letter.correct_count >= 3:
+                letter.Learned = True
+            letter.correct_count = StudentLetter.correct_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "correct letters"
+
+
+def update_incorrect_letters(student_id, incorrect_letters):
+    """updates incorrect letters in db, called by create_student_test"""
+
+    student_letter_list = StudentLetter.query.filter_by(student_id=student_id).options(db.joinedload('letters')).filter(
+        Letter.letter.in_(incorrect_letters)).all()
+    for letter in student_letter_list:
+        if letter.letters.letter in incorrect_letters:
+            letter.incorrect_count = StudentLetter.incorrect_count + 1
+            db.session.commit()
+        else:
+            pass
+    return "incorrect letters"
+
+
+@app.route("/api/create-student-letter-test", methods=["POST"])
+@token_required
+def create_student_letter_test(current_user):
+    """creates new student test row in db, calls update_correct_words
+    and update_incorrect_letters functions"""
+
+    data = request.get_json()
+    print(data)
+    student_id = data.get('student')
+    user_id = current_user.public_id
+    correct_letters = data.get('correct_letters')
+    incorrect_letters = data.get('incorrect_letters')
+    score = calculate_score(correct_letters, incorrect_letters)
+    update_correct_letters(student_id, correct_letters)
+    update_incorrect_letters(student_id, incorrect_letters)
+    db.session.add(
+        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+                              correct_letters=correct_letters, incorrect_letters=incorrect_letters))
+    db.session.commit()
+    return 'letter test added'
+
 
 # Begin Sound Components
 
