@@ -51,7 +51,7 @@ class ViewWords extends React.Component {
 
   render() {
     return (
-      <div class="container">
+      <div className="container">
         <br />
         <h1 style={headerStyle}>All Words</h1>
         <div style={instructionsStyle}>{this.displayInstructions()}</div>

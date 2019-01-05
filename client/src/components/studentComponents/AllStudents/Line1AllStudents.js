@@ -1,12 +1,12 @@
 import React from "react";
-import AllStudentsTableHead from "./AllStudentsTableHead";
+import AllStudentsTable from "./AllStudentsTable";
 
 class Line1 extends React.Component {
   displayTableHead(students) {
     if (!students) {
       return <p>Loading...</p>;
     }
-    return <AllStudentsTableHead students={students} />;
+    return <AllStudentsTable students={students} />;
   }
 
   render() {

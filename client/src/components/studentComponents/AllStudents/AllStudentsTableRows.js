@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTable from "react-table";
 import { Link } from "react-router-dom";
 
 // Display links to words students are learning within table rows
