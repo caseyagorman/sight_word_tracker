@@ -20,10 +20,19 @@ class AllStudentsTableHead extends Component {
               <h4>Learned Words List</h4>
             </th>
             <th>
+              <h4>Unlearned Words List</h4>
+            </th>
+            <th>
               <h4>Learned Letters List</h4>
             </th>
             <th>
+              <h4>Unlearned Letters List</h4>
+            </th>
+            <th>
               <h4>Learned Sounds List</h4>
+            </th>
+            <th>
+              <h4>Unlearned Sounds List</h4>
             </th>
           </thead>
           {this.displayTableRows(students)}

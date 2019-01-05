@@ -97,12 +97,18 @@ def get_students(current_user):
     student_list = []
     for student in students:
 
-        word_list = sorted(get_student_word_list(student))
-        letter_list = sorted(get_student_letter_list(student))
-        sound_list = sorted(get_student_sound_list(student))
+        word_list = sorted(get_student_word_list(student)[0])
+        unlearned_word_list = sorted(get_student_word_list(student)[1])
+        letter_list = sorted(get_student_letter_list(student)[0])
+        unlearned_letter_list = sorted(get_student_letter_list(student)[1])
+        sound_list = sorted(get_student_sound_list(student)[0])
+        unlearned_sound_list = sorted(get_student_sound_list(student)[1])
         word_count = len(word_list)
         letter_count = len(letter_list)
         sound_count = len(sound_list)
+        unlearned_word_count = len(unlearned_word_list)
+        unlearned_letter_count = len(unlearned_letter_list)
+        unlearned_sound_count = len(unlearned_sound_list)
         student = {
             'student_id': student.student_id,
             'fname': student.fname,
@@ -114,6 +120,13 @@ def get_students(current_user):
             'word_list': word_list,
             'letter_list': letter_list,
             'sound_list': sound_list,
+            'unlearned_word_count': unlearned_word_count,
+            'unlearned_letter_count': unlearned_letter_count,
+            'unlearned_sound_count': unlearned_sound_count,
+            'unlearned_word_list': unlearned_word_list,
+            'unlearned_letter_list': unlearned_word_list,
+            'unlearned_sound_list': unlearned_sound_list,
+
         }
         student_list.append(student)
 
@@ -123,32 +136,44 @@ def get_students(current_user):
 
 def get_student_word_list(student):
     student_id = student.student_id
-    words = StudentWord.query.filter(StudentWord.student_id == student_id).filter(
-        StudentWord.Learned == True).options(db.joinedload('words')).all()
+    words = StudentWord.query.filter(StudentWord.student_id == student_id).options(db.joinedload('words')).all()
     word_list = []
+    unlearned_word_list =[]
     for word in words:
-        word_list.append(word.words.word)
-    return word_list
+        if word.Learned == True:
+            word_list.append(word.words.word)
+        else:
+            unlearned_word_list.append(word.words.word)
+
+    return [word_list, unlearned_word_list]
 
 
 def get_student_letter_list(student):
     student_id = student.student_id
-    letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).filter(
-        StudentLetter.Learned == True).options(db.joinedload('letters')).all()
+    letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).options(db.joinedload('letters')).all()
     letter_list = []
+    unlearned_letter_list = []
     for letter in letters:
-        letter_list.append(letter.letters.letter)
-    return letter_list
+        if letter.Learned == True:
+            letter_list.append(letter.letters.letter)
+        else:
+            unlearned_letter_list.append(letter.letters.letter)
+
+    return [letter_list, unlearned_letter_list]
 
 
 def get_student_sound_list(student):
     student_id = student.student_id
-    sounds = StudentSound.query.filter(StudentSound.student_id == student_id).filter(
-        StudentSound.Learned == True).options(db.joinedload('sounds')).all()
+    sounds = StudentSound.query.filter(StudentSound.student_id == student_id).options(db.joinedload('sounds')).all()
     sound_list = []
+    unleared_sound_list = []
     for sound in sounds:
-        sound_list.append(sound.sounds.sound)
-    return sound_list
+        if sound.Learned == True:
+            sound_list.append(sound.sounds.sound)
+        else: 
+            unleared_sound_list.append(sound.sounds.sound)
+
+    return [sound_list, unleared_sound_list]
 
 
 # Student forms

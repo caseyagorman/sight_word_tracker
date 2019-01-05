@@ -10,14 +10,29 @@ const AllStudentsTableRows = props => (
   <tbody>
     <tr>
       <td>
-        <h4>
-          {props.fname} {props.lname}
-        </h4>
-        words: {props.word_count}
-        <br />
-        letters: {props.letter_count}
-        <br />
-        sounds: {props.sound_count}
+        <th>
+          <h4>
+            {props.fname} {props.lname}{" "}
+          </h4>
+        </th>
+        <tr>
+          <td>
+            <h5>Learned</h5>
+            words: {props.word_count}
+            <br />
+            letters: {props.letter_count}
+            <br />
+            sounds: {props.sound_count}
+          </td>
+          <td>
+            <h5>Unlearned</h5>
+            words: {props.unlearned_word_count}
+            <br />
+            letters: {props.unlearned_letter_count}
+            <br />
+            sounds: {props.unlearned_sound_count}
+          </td>
+        </tr>
       </td>
       <td>
         <Link to={`/details/${props.student_id}`}>View dashboard</Link>
@@ -28,10 +43,25 @@ const AllStudentsTableRows = props => (
         <ul style={noBulletList}>{props.word_list.map(listElements)}</ul>
       </td>
       <td>
+        <ul style={noBulletList}>
+          {props.unlearned_word_list.map(listElements)}
+        </ul>
+      </td>
+      <td>
         <ul style={noBulletList}>{props.letter_list.map(listElements)}</ul>
       </td>
       <td>
+        <ul style={noBulletList}>
+          {props.unlearned_letter_list.map(listElements)}
+        </ul>
+      </td>
+      <td>
         <ul style={noBulletList}>{props.sound_list.map(listElements)}</ul>
+      </td>
+      <td>
+        <ul style={noBulletList}>
+          {props.unlearned_sound_list.map(listElements)}
+        </ul>
       </td>
     </tr>
   </tbody>
