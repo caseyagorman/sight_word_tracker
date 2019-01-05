@@ -19,6 +19,7 @@ class WordBarChart extends Component {
       return <div> loading...</div>;
     }
     let words = this.turnIntoArray(dataResults);
+    console.log("words", words);
 
     let wordCounts = words[0];
     let studentList = words[1];

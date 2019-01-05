@@ -295,18 +295,27 @@ def get_words(current_user):
 
     for word in words:
         student_list = []
+        unlearned_student_list =[]
         for item in word.studentwords:
             if item.Learned == True:
                 student = Student.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
+            else:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                unlearned_student_list.append(student.fname + " " + student.lname)
+
         count = get_word_student_counts(word)
+        unlearned_count = get_unlearned_word_student_counts(word)
 
         word = {
             'word_id': word.word_id,
             'word': word.word,
             'count': count,
-            'students': student_list
+            'unlearned_count': unlearned_count,
+            'students': student_list,
+            'unlearned_students':unlearned_student_list
         }
 
         word_list.append(word)
@@ -335,6 +344,12 @@ def get_word_student_counts(word):
     word_id = word.word_id
     words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
         StudentWord.Learned == True).all()
+    return len(words)
+
+def get_unlearned_word_student_counts(word):
+    word_id = word.word_id
+    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
+        StudentWord.Learned == False).all()
     return len(words)
 
 

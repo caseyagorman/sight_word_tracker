@@ -5,6 +5,9 @@ import AllWordsTableRows from "./AllWordsTableRows";
 // Display table head of words words are learning
 
 class AllWordsTableHead extends Component {
+  componentDidMount() {
+    console.log(this.props.words);
+  }
   displayTableHead(words) {
     return (
       <div>
@@ -14,7 +17,10 @@ class AllWordsTableHead extends Component {
               <h4>Word</h4>
             </th>
             <th>
-              <h4>Learning Count</h4>
+              <h4>Learned</h4>
+            </th>
+            <th>
+              <h4>Learning</h4>
             </th>
           </thead>
           {this.displayTableRows(words)}
