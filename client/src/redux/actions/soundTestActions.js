@@ -3,7 +3,7 @@ function addSoundTestApi() {
   return "http://localhost:5000/api/create-student-sound-test";
 }
 
-export function addWordTest(result, user) {
+export function addSoundTest(result, user) {
   return dispatch => {
     return fetch(addSoundTestApi(), {
       method: "POST",

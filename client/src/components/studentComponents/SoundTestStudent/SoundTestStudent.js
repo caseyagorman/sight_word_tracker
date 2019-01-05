@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../redux/actions/studentActions";
 import StudentSoundsTestPage from "./StudentSoundsTestPage";
-class WordTestStudent extends React.Component {
+class SoundTestStudent extends React.Component {
   componentDidMount() {
     const id = this.props.id;
     const user = this.props.token;
@@ -11,10 +11,11 @@ class WordTestStudent extends React.Component {
   }
 
   getSounds(student) {
+    console.log(student);
     if (!student) {
       return <p> Loading... </p>;
     }
-    let sounds = this.turnIntoArray(student[1]);
+    let sounds = this.turnIntoArray(student[3]);
     return (
       <StudentSoundsTestPage
         user={this.props.token}
@@ -28,12 +29,12 @@ class WordTestStudent extends React.Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let wordList = [];
+    let soundList = [];
     for (let key in obj) {
-      let wordObj = obj[key];
-      wordList.push(wordObj.word);
+      let soundObj = obj[key];
+      soundList.push(soundObj.sound);
     }
-    return wordList;
+    return soundList;
   }
 
   render() {
@@ -56,4 +57,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WordTestStudent);
+)(SoundTestStudent);

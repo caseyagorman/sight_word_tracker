@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as wordTestActions from "../../../redux/actions/wordTestActions";
+import * as soundTestActions from "../../../redux/actions/soundTestActions";
 import { Button, Card, CardText, Row } from "reactstrap";
 const displaySoundStyle = { fontSize: "300px" };
 
@@ -25,8 +25,7 @@ class StudentSoundsTestPage extends React.Component {
       unknown_sounds: []
     };
   }
-
-  displayWord(sounds) {
+  displaySound(sounds) {
     if (!sounds) {
       this.createTestObject();
     }
@@ -39,8 +38,9 @@ class StudentSoundsTestPage extends React.Component {
       correct_sounds: this.state.known_sounds,
       incorrect_sounds: this.state.unknown_sounds
     };
+    console.log(results);
     const user = this.props.user;
-    this.props.wordTestActions.addWordTest(results, user);
+    this.props.soundTestActions.addSoundTest(results, user);
   }
 
   incrementIdx(idx) {
@@ -48,14 +48,14 @@ class StudentSoundsTestPage extends React.Component {
     this.setState({ idx: new_idx });
   }
 
-  handleTestClick(e, word, idx) {
+  handleTestClick(e, sound, idx) {
     e.preventDefault();
     this.incrementIdx(idx);
     if (e.target.value === "yes") {
-      this.setState({ known_sounds: this.state.known_sounds.concat([word]) });
+      this.setState({ known_sounds: this.state.known_sounds.concat([sound]) });
     } else if (e.target.value === "no") {
       this.setState({
-        unknown_sounds: this.state.unknown_sounds.concat([word])
+        unknown_sounds: this.state.unknown_sounds.concat([sound])
       });
     }
   }
@@ -67,7 +67,7 @@ class StudentSoundsTestPage extends React.Component {
       <div className="container">
         <Card className="text-center">
           <CardText style={displaySoundStyle}>
-            {this.displayWord(sounds[idx])}
+            {this.displaySound(sounds[idx])}
           </CardText>
           <Row className="text-center">
             <Button
@@ -103,13 +103,13 @@ const StudentSoundsTestPageWrapped = withRouter(StudentSoundsTestPage);
 
 function mapStateToProps(state) {
   return {
-    test: state.test
+    soundTest: state.soundTest
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordTestActions: bindActionCreators(wordTestActions, dispatch)
+    soundTestActions: bindActionCreators(soundTestActions, dispatch)
   };
 }
 

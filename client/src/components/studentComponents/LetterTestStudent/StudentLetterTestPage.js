@@ -35,7 +35,6 @@ class StudentLetterTestPage extends React.Component {
     return <div>{letters}</div>;
   }
   async createTestObject() {
-    console.log("creating test object");
     let results = {
       student: this.props.student[0].student_id,
       correct_letters: this.state.known_letters,

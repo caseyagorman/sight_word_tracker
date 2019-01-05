@@ -1113,7 +1113,7 @@ def create_student_sound_test(current_user):
     update_correct_sounds(student_id, correct_sounds)
     update_incorrect_sounds(student_id, incorrect_sounds)
     db.session.add(
-        StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+        StudentSoundTestResult(student_id=student_id, user_id=user_id, score=score,
                               correct_sounds=correct_sounds, incorrect_sounds=incorrect_sounds))
     db.session.commit()
     return 'sound test added'
