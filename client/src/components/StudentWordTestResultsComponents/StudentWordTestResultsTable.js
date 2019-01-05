@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
-// import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
+import StudentWordTestResultsRows from "./StudentWordTestResultsRows";
 class StudentWordTestResultsTable extends Component {
   displayTableHead(test) {
     return (
@@ -15,7 +15,7 @@ class StudentWordTestResultsTable extends Component {
               <th>Incorrect words</th>
             </tr>
           </thead>
-          {/* {this.displayStudentWordTestResultsRows(test)} */}
+          {this.displayStudentWordTestResultsRows(test)}
         </Table>
       </div>
     );
@@ -26,7 +26,7 @@ class StudentWordTestResultsTable extends Component {
       return <p>loading...</p>;
     }
 
-    // return test.map(test => StudentWordTestResultsRows(test));
+    return test.map(test => StudentWordTestResultsRows(test));
   }
 
   render() {

@@ -26,6 +26,7 @@ class AddStudentLetterForm extends Component {
       student: this.props.student[0].student_id,
       letters: this.state.value
     };
+    console.log("letters", newStudentLetters);
 
     let user = this.props.auth.user.token;
     this.props.studentLettersActions.addStudentLetters(newStudentLetters, user);

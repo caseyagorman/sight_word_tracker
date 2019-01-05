@@ -100,7 +100,9 @@ def get_students(current_user):
         word_list = sorted(get_student_word_list(student)[0])
         unlearned_word_list = sorted(get_student_word_list(student)[1])
         letter_list = sorted(get_student_letter_list(student)[0])
+
         unlearned_letter_list = sorted(get_student_letter_list(student)[1])
+
         sound_list = sorted(get_student_sound_list(student)[0])
         unlearned_sound_list = sorted(get_student_sound_list(student)[1])
         word_count = len(word_list)
@@ -124,13 +126,13 @@ def get_students(current_user):
             'unlearned_letter_count': unlearned_letter_count,
             'unlearned_sound_count': unlearned_sound_count,
             'unlearned_word_list': unlearned_word_list,
-            'unlearned_letter_list': unlearned_word_list,
+            'unlearned_letter_list': unlearned_letter_list,
             'unlearned_sound_list': unlearned_sound_list,
 
         }
         student_list.append(student)
 
-    student_list = sorted(student_list, key=itemgetter('letter_count', 'sound_count', 'word_count'),  reverse=False) 
+    student_list = sorted(student_list, key=itemgetter('fname', 'lname'),  reverse=False) 
     return jsonify(student_list)
 
 
@@ -158,7 +160,7 @@ def get_student_letter_list(student):
             letter_list.append(letter.letters.letter)
         else:
             unlearned_letter_list.append(letter.letters.letter)
-
+    print("letter list", unlearned_letter_list)
     return [letter_list, unlearned_letter_list]
 
 
@@ -763,6 +765,7 @@ def get_unknown_letters(current_user, student):
 @token_required
 def add_letter_to_student(current_user):
     data = request.get_json()
+    print("letter", data)
     student_id = data.get("student")
     letters = data.get('letters')
     user_id = current_user.public_id

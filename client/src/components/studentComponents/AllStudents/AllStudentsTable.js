@@ -24,6 +24,7 @@ class AllStudentsTable extends Component {
 
   render() {
     let students = this.state.students;
+
     return (
       <div>
         <Table bordered hover striped>
@@ -47,6 +48,7 @@ class AllStudentsTable extends Component {
           </thead>
           <tbody>
             {students.map(function(student) {
+              console.log("unlearned letters", student.unlearned_letter_list);
               return (
                 <tr>
                   <td>
