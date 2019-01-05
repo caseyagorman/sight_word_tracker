@@ -13,6 +13,7 @@ export default {
   unknownWords: "",
   unknownLetters: "",
   unknownSounds: "",
+  unknownWordStudents: "",
   studentWordTestResults: "",
   studentLetterTestResults: "",
   studentSoundTestResults: "",

@@ -376,7 +376,52 @@ def get_unknown_words(current_user, student):
         word_list.append(word)
     return jsonify(word_list)
 
+@app.route("/api/word-unknown-students/<word>")
+@token_required
+def get_unknown_students_word(current_user, word):
+    """gets students are not assigned to word"""
+    user_id = current_user.public_id
+    students = StudentWord.query.filter_by(
+        word_id=word, user_id=user_id).options(db.joinedload('students')).all()
+    student_ids = []
+    for student in students:
+        student_ids.append(student.student_id)
+
+    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    student_list = []
+
+    for student in unknown_students:
+        student = {
+            'student_id': student.student_id,
+            'student': student.fname + " " + student.lname
+            
+        }
+
+        student_list.append(student)
+    student_list = sorted(student_list, key=itemgetter('student'))
+    return jsonify(student_list)
+
 # Forms
+
+@app.route('/api/add-student-to-word', methods=['POST'])
+@token_required
+def add_student_to_word(current_user):
+    data = request.get_json()
+    word_id = data.get("word")
+    students = data.get('students')
+    user_id = current_user.public_id
+    student_list = Student.query.filter(
+        (Student.student.in_(students))).filter(Student.user_id == user_id).all()
+    student_ids = []
+    for student in student_list:
+        student_ids.append(student.student_id)
+    for student_id in student_ids:
+        new_word_student = StudentWord(
+            student_id=student_id, word_id=word_id, user_id=user_id)
+        db.session.add(new_word_student)
+        db.session.commit()
+
+    return "student words added!"
 
 @app.route("/api/add-word", methods=['POST'])
 @token_required
