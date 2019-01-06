@@ -27,6 +27,7 @@ class AllLettersTableHead extends Component {
   }
 
   displayTableRows(letters) {
+    console.log(letters);
     if (!letters) {
       return <p>sploading...</p>;
     }

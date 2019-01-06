@@ -1031,7 +1031,6 @@ def create_student_letter_test(current_user):
 
 # Begin Sound Components
 
-
 @app.route("/api/sounds")
 @token_required
 def get_sounds(current_user):
@@ -1043,18 +1042,27 @@ def get_sounds(current_user):
 
     for sound in sounds:
         student_list = []
+        unlearned_student_list =[]
         for item in sound.studentsounds:
-            if item.Learned == False:
+            if item.Learned == True:
                 student = Student.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
+            else:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                unlearned_student_list.append(student.fname + " " + student.lname)
+
         count = get_sound_student_counts(sound)
+        unlearned_count = get_unlearned_sound_student_counts(sound)
 
         sound = {
             'sound_id': sound.sound_id,
             'sound': sound.sound,
             'count': count,
-            'students': student_list
+            'unlearned_count': unlearned_count,
+            'students': student_list,
+            'unlearned_students':unlearned_student_list
         }
 
         sound_list.append(sound)
@@ -1063,6 +1071,12 @@ def get_sounds(current_user):
 
 
 def get_sound_student_counts(sound):
+    sound_id = sound.sound_id
+    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
+        StudentSound.Learned == True).all()
+    return len(sounds)
+
+def get_unlearned_sound_student_counts(sound):
     sound_id = sound.sound_id
     sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
         StudentSound.Learned == False).all()
@@ -1224,7 +1238,7 @@ def update_correct_sounds(student_id, correct_sounds):
         Sound.sound.in_(correct_sounds)).all()
     for sound in student_sounds_list:
         if sound.sounds.sound in correct_sounds:
-            if sound.correct_count >= 3:
+            if sound.correct_count >= 2:
                 sound.Learned = True
             sound.correct_count = StudentSound.correct_count + 1
             db.session.commit()
@@ -1282,7 +1296,7 @@ def get_sound_counts(student_sounds):
 
 
 def get_learned_sounds_list(student_sounds):
-    """is called by get student test, returns list of learned words"""
+    """is called by get student test, returns list of learned sounds"""
     learned_sounds = []
     for student_sound in student_sounds:
         if student_sound.Learned == True:
