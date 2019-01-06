@@ -44,7 +44,7 @@ class AllLettersTableHead extends Component {
                     <th>
                       <h1>
                         <Link to={`/letter-detail/${letter.letter_id}`}>
-                          {letters.letter}
+                          {letter.letter}
                         </Link>
                       </h1>
                     </th>

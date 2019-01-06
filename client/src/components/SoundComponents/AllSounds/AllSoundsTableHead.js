@@ -44,7 +44,7 @@ class AllSoundsTableHead extends Component {
                     <th>
                       <h1>
                         <Link to={`/sound-detail/${sound.sound_id}`}>
-                          {sounds.sound}
+                          {sound.sound}
                         </Link>
                       </h1>
                     </th>

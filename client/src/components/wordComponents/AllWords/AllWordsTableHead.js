@@ -1,46 +1,80 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import AllWordsTableRows from "./AllWordsTableRows";
-
-// Display table head of words words are learning
+import { Link } from "react-router-dom";
+// Display table head of words students are learning
+const noBulletList = { listStyleType: "none" };
+const listElements = el => <li>{el}</li>;
 
 class AllWordsTableHead extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { words: this.props.words };
+    this.onSort = this.onSort.bind(this);
+  }
   componentDidMount() {
-    console.log(this.props.words);
+    console.log("all words table", this.props);
   }
-  displayTableHead(words) {
-    return (
-      <div>
-        <Table striped bordered hover>
-          <thead>
-            <th>
-              <h4>Word</h4>
-            </th>
-            <th>
-              <h4>Learned</h4>
-            </th>
-            <th>
-              <h4>Learning</h4>
-            </th>
-          </thead>
-          {this.displayTableRows(words)}
-        </Table>
-      </div>
-    );
-  }
-
-  displayTableRows(words) {
-    if (!words) {
-      return <p>loading...</p>;
-    }
-
-    return words.map(words => AllWordsTableRows(words));
+  onSort(e, sortKey) {
+    let myArray = this.state.words;
+    myArray.sort(function(a, b) {
+      console.log("a", a[sortKey], "b", b[sortKey]);
+      return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
+    });
+    this.setState({ words: myArray });
   }
 
   render() {
+    let words = this.state.words;
+
     return (
       <div>
-        <div>{this.displayTableHead(this.props.words)}</div>
+        <Table bordered hover striped>
+          <thead>
+            <tr>
+              <th onClick={e => this.onSort(e, "word")}>Word</th>
+              <th onClick={e => this.onSort(e, "count")}>Learned</th>
+              <th onClick={e => this.onSort(e, "unlearned_count")}>Learning</th>
+            </tr>
+          </thead>
+          <tbody>
+            {words.map(function(word) {
+              return (
+                <tr>
+                  <td>
+                    <th>
+                      <h1>
+                        <Link to={`/word-detail/${word.word_id}`}>
+                          {word.word}
+                        </Link>
+                      </h1>
+                    </th>
+                    <tr>
+                      <td>
+                        <h5>Learned |</h5> <span />
+                        {word.count}
+                      </td>
+
+                      <td>
+                        <h5> Unlearned</h5>
+                        {word.unlearned_count}
+                      </td>
+                    </tr>
+                  </td>
+                  <td>
+                    <ul style={noBulletList}>
+                      {word.students.map(listElements)}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul style={noBulletList}>
+                      {word.unlearned_students.map(listElements)}
+                    </ul>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
       </div>
     );
   }
