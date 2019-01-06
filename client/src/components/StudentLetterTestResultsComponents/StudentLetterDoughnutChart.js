@@ -42,7 +42,7 @@ class StudentLetterDoughnutChart extends Component {
     };
     return (
       <div>
-        <h3>Percentage of letters learned</h3>
+        <h3>Percentage of assigned letters learned</h3>
         <Doughnut options={options} data={data} />
       </div>
     );

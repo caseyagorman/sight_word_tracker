@@ -319,6 +319,7 @@ def get_words(current_user):
         }
 
         word_list.append(word)
+    word_list = sorted(word_list, key=itemgetter('word'))
     chart_words = get_all_student_word_counts()
     return jsonify([word_list, chart_words])
 
@@ -410,12 +411,7 @@ def add_student_to_word(current_user):
     word_id = data.get("word")
     students = data.get('students')
     user_id = current_user.public_id
-    student_list = Student.query.filter(
-        (Student.student.in_(students))).filter(Student.user_id == user_id).all()
-    student_ids = []
-    for student in student_list:
-        student_ids.append(student.student_id)
-    for student_id in student_ids:
+    for student_id in students:
         new_word_student = StudentWord(
             student_id=student_id, word_id=word_id, user_id=user_id)
         db.session.add(new_word_student)
@@ -723,6 +719,7 @@ def get_letters(current_user):
 
         letter_list.append(letter)
     chart_letters = get_all_student_letter_counts()
+    letter_list = sorted(letter_list, key=itemgetter('letter'))
     return jsonify([letter_list, chart_letters])
 # Forms
 
@@ -1066,6 +1063,7 @@ def get_sounds(current_user):
         }
 
         sound_list.append(sound)
+    sound_list = sorted(sound_list, key=itemgetter('sound'))
     chart_sounds = get_all_student_sound_counts()
     return jsonify([sound_list, chart_sounds])
 

@@ -11,13 +11,10 @@ class AllWordsTableHead extends Component {
     this.state = { words: this.props.words };
     this.onSort = this.onSort.bind(this);
   }
-  componentDidMount() {
-    console.log("all words table", this.props);
-  }
+
   onSort(e, sortKey) {
     let myArray = this.state.words;
     myArray.sort(function(a, b) {
-      console.log("a", a[sortKey], "b", b[sortKey]);
       return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
     });
     this.setState({ words: myArray });

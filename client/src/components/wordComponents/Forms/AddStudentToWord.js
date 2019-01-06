@@ -21,15 +21,30 @@ class AddStudentWordForm extends Component {
     this.props.unknownWordStudentsActions.fetchUnknownWordStudents(id, user);
   }
 
+  getIds(students) {
+    let studentIds = [];
+    let allStudents = this.props.unknownWordStudents;
+    console.log(allStudents);
+    console.log("get ids", students);
+    for (let i = 0; i < allStudents.length; i++) {
+      for (let j = 0; j < students.length; j++)
+        if (allStudents[i].student === students[j]) {
+          studentIds.push(allStudents[i].student_id);
+        }
+    }
+    return studentIds;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+    let studentIds = this.getIds(this.state.value);
     let newWordStudents = {
       word: this.props.word.word_id,
-      students: this.state.value
+      students: studentIds
     };
 
     let user = this.props.auth.user.token;
-    console.log(newWordStudents);
+    console.log("new word students", newWordStudents);
     this.props.wordStudentsActions.addWordStudents(newWordStudents, user);
   }
 
@@ -44,25 +59,11 @@ class AddStudentWordForm extends Component {
     this.setState({ value: value });
   }
 
-  turnIntoArray(obj) {
-    console.log("obj", obj);
-    if (!obj) {
-      return <p>Loading...</p>;
-    }
-    let studentList = [];
-    for (let key in obj) {
-      let studentObj = obj[key];
-      studentList.push(studentObj.student);
-    }
-    return studentList;
-  }
-
   getOptions() {
     if (!this.props.unknownWordStudents) {
       return <div>Loading!</div>;
     }
-    let studentList = this.turnIntoArray(this.props.unknownWordStudents);
-    console.log("student list", studentList);
+    let studentList = this.props.unknownWordStudents;
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup controlId="formControlsSelectMultiple">
@@ -78,7 +79,7 @@ class AddStudentWordForm extends Component {
               onChange={this.handleChange}
             >
               {studentList.map(student => (
-                <option key={student}>{student}</option>
+                <option key={student.student_id}>{student.student}</option>
               ))}
             </FormControl>
           </strong>
