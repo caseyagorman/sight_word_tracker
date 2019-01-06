@@ -32,16 +32,16 @@ class AllStudentsTable extends Component {
             <tr>
               <th onClick={e => this.onSort(e, "fname")}>Name</th>
               <th onClick={e => this.onSort(e, "links")}>Links</th>
-              <th onClick={e => this.onSort(e, "word_list")}>Words</th>
-              <th onClick={e => this.onSort(e, "unlearned_word_list")}>
+              <th onClick={e => this.onSort(e, "word_count")}>Words</th>
+              <th onClick={e => this.onSort(e, "unlearned_word_count")}>
                 Unleared Words
               </th>
-              <th onClick={e => this.onSort(e, "letter_list")}>Letters</th>
-              <th onClick={e => this.onSort(e, "unlearned_letter_list")}>
+              <th onClick={e => this.onSort(e, "letter_count")}>Letters</th>
+              <th onClick={e => this.onSort(e, "unlearned_letter_count")}>
                 Unlearned Letters
               </th>
-              <th onClick={e => this.onSort(e, "sound_list")}>Sounds</th>
-              <th onClick={e => this.onSort(e, "unlearned_sound_list")}>
+              <th onClick={e => this.onSort(e, "sound_count")}>Sounds</th>
+              <th onClick={e => this.onSort(e, "unlearned_sound_count")}>
                 Unlearned Sounds
               </th>
             </tr>
