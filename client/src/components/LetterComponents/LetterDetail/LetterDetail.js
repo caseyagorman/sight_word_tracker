@@ -5,6 +5,7 @@ import * as letterActions from "../../../redux/actions/letterActions";
 import DeleteLetter from "../Forms/DeleteLetter";
 import Line2 from "./Line2LetterDetail";
 import Line1 from "./Line1LetterDetail";
+import Line3 from "./Line3LetterDetail";
 class LetterDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id || !this.props.token) {
@@ -29,6 +30,13 @@ class LetterDetail extends React.Component {
     return <Line2 students={students[1]} letter={students[0]} />;
   }
 
+  displayLine3(students) {
+    if (!students) {
+      return <div> loading..</div>;
+    }
+    return <Line3 students={students[1]} letter={students[0]} />;
+  }
+
   displayDeleteButton(letter) {
     if (!letter) {
       return <div>loading...</div>;
@@ -41,6 +49,7 @@ class LetterDetail extends React.Component {
       <div>
         <div>{this.displayLine1(this.props.letter)}</div>
         <div>{this.displayLine2(this.props.letter)}</div>
+        <div>{this.displayLine3(this.props.letter)}</div>
         <div>{this.displayDeleteButton(this.props.letter)}</div>
       </div>
     );

@@ -709,6 +709,7 @@ def get_letter_student_counts(letter):
         StudentLetter.Learned == False).all()
     return len(letters)
 
+# Forms
 
 @app.route("/api/add-letter", methods=['POST'])
 @token_required
@@ -733,6 +734,52 @@ def add_letter(current_user):
 
     return 'letters added'
 
+
+@app.route('/api/add-student-to-letter', methods=['POST'])
+@token_required
+def add_student_to_letter(current_user):
+    data = request.get_json()
+    letter_id = data.get("letter")
+    students = data.get('students')
+    print("students", students)
+    user_id = current_user.public_id
+    student_list = Student.query.filter(
+        (Student.student.in_(students))).filter(Student.user_id == user_id).all()
+    student_ids = []
+    for student in student_list:
+        student_ids.append(student.student_id)
+    for student_id in student_ids:
+        new_letter_student = StudentLetter(
+            student_id=student_id, letter_id=letter_id, user_id=user_id)
+        db.session.add(new_letter_student)
+        db.session.commit()
+
+    return "student letters added!"
+
+@app.route("/api/letter-unknown-students/<letter>")
+@token_required
+def get_unknown_students_letter(current_user, letter):
+    """gets students are not assigned to letter"""
+    user_id = current_user.public_id
+    students = StudentLetter.query.filter_by(
+        letter_id=letter, user_id=user_id).options(db.joinedload('students')).all()
+    student_ids = []
+    for student in students:
+        student_ids.append(student.student_id)
+
+    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    student_list = []
+
+    for student in unknown_students:
+        student = {
+            'student_id': student.student_id,
+            'student': student.fname + " " + student.lname
+            
+        }
+
+        student_list.append(student)
+    student_list = sorted(student_list, key=itemgetter('student'))
+    return jsonify(student_list)
 
 def get_all_student_letter_counts():
     letters = StudentLetter.query.options(db.joinedload('letters')).all()
@@ -825,7 +872,6 @@ def get_unknown_letters(current_user, student):
 @token_required
 def add_letter_to_student(current_user):
     data = request.get_json()
-    print("letter", data)
     student_id = data.get("student")
     letters = data.get('letters')
     user_id = current_user.public_id
@@ -846,7 +892,7 @@ def add_letter_to_student(current_user):
 @app.route("/api/get-student-letter-test/<student>")
 @token_required
 def get_student_letter_test(current_user, student):
-    """get list of student test results, word_counts and chart_data"""
+    """get list of student test results, letter_counts and chart_data"""
 
     user_id = current_user.public_id
     student_id = student

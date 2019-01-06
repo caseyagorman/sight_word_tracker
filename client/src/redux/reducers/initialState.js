@@ -22,5 +22,6 @@ export default {
     isAuthenticated: false,
     loginError: ""
   },
-  register: { newUser: "", registerError: "" }
+  register: { newUser: "", registerError: "" },
+  unknownLetterStudents: ""
 };
