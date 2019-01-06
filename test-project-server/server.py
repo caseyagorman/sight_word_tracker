@@ -673,6 +673,20 @@ def create_student_word_test(current_user):
 
 
 # Begin letter functions
+
+def get_unlearned_letter_student_counts(letter):
+    letter_id = letter.letter_id
+    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
+        StudentLetter.Learned == False).all()
+    return len(letters)
+
+def get_letter_student_counts(letter):
+    letter_id = letter.letter_id
+    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
+        StudentLetter.Learned == True).all()
+    return len(letters)
+
+
 @app.route("/api/letters")
 @token_required
 def get_letters(current_user):
@@ -684,31 +698,32 @@ def get_letters(current_user):
 
     for letter in letters:
         student_list = []
+        unlearned_student_list =[]
         for item in letter.studentletters:
-            if item.Learned == False:
+            if item.Learned == True:
                 student = Student.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
+            else:
+                student = Student.query.filter_by(
+                    student_id=item.student_id).first()
+                unlearned_student_list.append(student.fname + " " + student.lname)
+
         count = get_letter_student_counts(letter)
+        unlearned_count = get_unlearned_letter_student_counts(letter)
 
         letter = {
             'letter_id': letter.letter_id,
             'letter': letter.letter,
             'count': count,
-            'students': student_list
+            'unlearned_count': unlearned_count,
+            'students': student_list,
+            'unlearned_students':unlearned_student_list
         }
 
         letter_list.append(letter)
     chart_letters = get_all_student_letter_counts()
     return jsonify([letter_list, chart_letters])
-
-
-def get_letter_student_counts(letter):
-    letter_id = letter.letter_id
-    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
-        StudentLetter.Learned == False).all()
-    return len(letters)
-
 # Forms
 
 @app.route("/api/add-letter", methods=['POST'])

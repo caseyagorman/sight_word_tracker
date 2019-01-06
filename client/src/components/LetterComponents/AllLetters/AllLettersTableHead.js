@@ -14,7 +14,10 @@ class AllLettersTableHead extends Component {
               <h4>Letter</h4>
             </th>
             <th>
-              <h4>Learning Count</h4>
+              <h4>Learned</h4>
+            </th>
+            <th>
+              <h4>Learning</h4>
             </th>
           </thead>
           {this.displayTableRows(letters)}

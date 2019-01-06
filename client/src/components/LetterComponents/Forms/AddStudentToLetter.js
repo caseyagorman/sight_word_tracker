@@ -47,25 +47,13 @@ class AddStudentToLetter extends Component {
     this.setState({ value: value });
   }
 
-  turnIntoArray(obj) {
-    console.log("obj", obj);
-    if (!obj) {
-      return <p>Loading...</p>;
-    }
-    let studentList = [];
-    for (let key in obj) {
-      let studentObj = obj[key];
-      studentList.push(studentObj.student);
-    }
-    return studentList;
-  }
-
   getOptions() {
     if (!this.props.unknownLetterStudents) {
       return <div>Loading!</div>;
     }
-    let studentList = this.turnIntoArray(this.props.unknownLetterStudents);
-    console.log("student list", studentList);
+
+    let studentList = this.props.unknownLetterStudents;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup controlId="formControlsSelectMultiple">
@@ -81,7 +69,7 @@ class AddStudentToLetter extends Component {
               onChange={this.handleChange}
             >
               {studentList.map(student => (
-                <option key={student}>{student}</option>
+                <option key={student.student_id}>{student.student}</option>
               ))}
             </FormControl>
           </strong>
