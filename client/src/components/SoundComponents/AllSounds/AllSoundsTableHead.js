@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import AllSoundsTableRows from "./AllSoundsTableRows";
 import { Link } from "react-router-dom";
 // Display table head of sounds sounds are learning
 const noBulletList = { listStyleType: "none" };
