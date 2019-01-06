@@ -4,6 +4,7 @@ import AllSoundsTableHead from "./AllSoundsTableHead";
 
 class Line1 extends React.Component {
   displayTableHead(sounds) {
+    console.log("display table head", sounds.sounds[0]);
     if (!sounds) {
       return <p>Loading...</p>;
     }
