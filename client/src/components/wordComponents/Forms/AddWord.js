@@ -56,7 +56,7 @@ class AddWord extends Component {
         <br />
         <div className="container">
           <Col lg={4}>
-            <Button id="add-word">Add Word</Button>
+            <Button id="add-word-button">Add Word</Button>
           </Col>
         </div>
       </Form>

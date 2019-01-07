@@ -5,6 +5,7 @@ import * as studentsActions from "../../../redux/actions/studentsActions";
 import AddStudentButton from "../Forms/Student/AddStudentButton";
 import Line1 from "./Line1AllStudents";
 import Line2 from "./Line2AllStudents";
+import "../../../static/StudentStyle.css";
 const headerStyle = {
   fontSize: "100px"
 };
@@ -54,7 +55,7 @@ class ViewStudents extends React.Component {
     return (
       <div className="container">
         <br />
-        <h1 style={headerStyle}>All Students</h1>
+        <h1 id="display-student">All Students</h1>
         <div style={instructionsStyle}>{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddStudentButton()}</div>

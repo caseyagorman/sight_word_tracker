@@ -11,9 +11,7 @@ class AllLettersTableHead extends Component {
     this.state = { letters: this.props.letters };
     this.onSort = this.onSort.bind(this);
   }
-  componentDidMount() {
-    console.log("all letters table", this.props);
-  }
+
   onSort(e, sortKey) {
     let myArray = this.state.letters;
     myArray.sort(function(a, b) {
@@ -43,7 +41,10 @@ class AllLettersTableHead extends Component {
                   <td>
                     <th>
                       <h1>
-                        <Link to={`/letter-detail/${letter.letter_id}`}>
+                        <Link
+                          to={`/letter-detail/${letter.letter_id}`}
+                          id="link"
+                        >
                           {letter.letter}
                         </Link>
                       </h1>

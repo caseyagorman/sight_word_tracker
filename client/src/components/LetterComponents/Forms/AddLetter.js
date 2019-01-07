@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as letterActions from "../../../redux/actions/letterActions";
 import * as authActions from "../../../redux/actions/authActions";
 import { Form, Button, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import "../../../static/LetterStyle.css";
 class AddLetter extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +56,7 @@ class AddLetter extends Component {
         <br />
         <div className="container">
           <Col lg={4}>
-            <Button color="primary">Add Letter</Button>
+            <Button id="add-letter-button">Add Letter</Button>
           </Col>
         </div>
       </Form>

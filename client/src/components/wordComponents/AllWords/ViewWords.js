@@ -23,13 +23,13 @@ class ViewWords extends React.Component {
   }
   displayLine1(words) {
     if (!words) {
-      return <p>sploading...</p>;
+      return <p>loading...</p>;
     }
     return <Line1 words={words} />;
   }
   displayLine2(words) {
     if (!words) {
-      return <p>sploading...</p>;
+      return <p>loading...</p>;
     }
     return <Line2 words={words} />;
   }
