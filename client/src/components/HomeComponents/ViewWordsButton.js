@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 const ViewWordsButton = props => {
   return (
     <Link to={`/words`}>
-      <button className="btn btn-primary btn-lg">View Words</button>
+      <button id="ViewWordsButton">View Words</button>
     </Link>
   );
 };

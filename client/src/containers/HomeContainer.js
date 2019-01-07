@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../redux/actions/authActions";
 import Home from "../components/HomeComponents/Home";
+import "./containers.css";
+
 class HomeContainer extends Component {
   componentDidMount() {
     if (sessionStorage.token) {
@@ -18,7 +20,7 @@ class HomeContainer extends Component {
       return <div>loading...</div>;
     }
     return (
-      <div>
+      <div id="homepage">
         <Home
           token={this.props.auth.user.token}
           username={this.props.auth.user.username}
@@ -28,7 +30,7 @@ class HomeContainer extends Component {
   }
 
   render() {
-    return <div>{this.displayHomePage()}</div>;
+    return <div id="homepage">{this.displayHomePage()}</div>;
   }
 }
 

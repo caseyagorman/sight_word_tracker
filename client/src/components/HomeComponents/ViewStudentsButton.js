@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 const ViewStudentsButton = props => {
   return (
     <Link to={`/students`}>
-      <button className="btn btn-primary btn-lg">View Students</button>
+      <button id="ViewStudentsButton">View Students</button>
     </Link>
   );
 };

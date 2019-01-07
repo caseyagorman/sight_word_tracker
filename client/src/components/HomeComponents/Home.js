@@ -4,19 +4,14 @@ import ViewStudentsButton from "./ViewStudentsButton";
 import ViewWordsButton from "./ViewWordsButton";
 import ViewLettersButton from "./ViewLettersButton";
 import ViewSoundsButton from "./ViewSoundsButton";
-const welcomeStyle = { fontSize: "100px" };
+import "./Home.css";
+// const welcomeStyle = { fontSize: "100px" };
 const buttonStyle = {
   display: "inline-block",
   marginRight: "30px",
   marginLeft: "30px"
 };
-const instructionsStyle = {
-  fontSize: "20px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "black",
-  marginLeft: "30px"
-};
+
 class Home extends Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
@@ -28,7 +23,7 @@ class Home extends Component {
     if (!this.props.auth) {
       return <div>loading...</div>;
     }
-    return <div>Welcome, {this.props.auth.user.username}!</div>;
+    return <div id="welcome">Welcome, {this.props.auth.user.username}!</div>;
   }
   displayViewStudentsButton() {
     return <ViewStudentsButton />;
@@ -59,7 +54,7 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <div style={welcomeStyle}>{this.displayWelcome()}</div>
+        <div>{this.displayWelcome()}</div>
         <div style={buttonStyle}>
           {this.displayViewStudentsButton()} <span />
           {this.displayViewWordsButton()}
@@ -70,7 +65,7 @@ class Home extends Component {
         </div>
         <br />
         <br />
-        <div style={instructionsStyle}>{this.displayInstructions()}</div>
+        <div id="instructions">{this.displayInstructions()}</div>
       </div>
     );
   }

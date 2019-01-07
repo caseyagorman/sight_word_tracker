@@ -1120,9 +1120,10 @@ def add_student_to_sound(current_user):
     students = data.get('students')
     user_id = current_user.public_id
     for student_id in students:
-        existing_sound = StudentWord.query.filter_by(student_id = student_id, sound_id = sound_id, user_id = user_id).first()
+        existing_sound = StudentSound.query.filter_by(student_id = student_id, 
+        sound_id = sound_id, user_id = user_id).first()
         if not existing_sound:
-            new_sound_student = StudentWord(
+            new_sound_student = StudentSound(
                 student_id=student_id, sound_id=sound_id, user_id=user_id)
             db.session.add(new_sound_student)
             db.session.commit()
@@ -1387,6 +1388,21 @@ def get_student_sound_test_list(student_test):
 
 # End Sound Components
 
+# def load_csv(filepath='sight_word_tracker.csv'):
+#     def parse_student_row(row, cols):
+#         student_name = row[0]
+#         student_words = [word for idx, word in enumerate(cols) if row[idx] == 1]
+#         return {
+#             'name': student_name,
+#             'words': student_words
+#         }
+
+#     with open(filepath, 'rb') as csvfile:
+#         csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+#         print dir()
+#         cols = csvreader[0]
+#         students = [ parse_student_row(row, cols) for row in csvreader[1:] ]
+#     return students
 
 if __name__ == "__main__":
 
