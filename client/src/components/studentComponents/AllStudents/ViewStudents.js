@@ -6,9 +6,7 @@ import AddStudentButton from "../Forms/Student/AddStudentButton";
 import Line1 from "./Line1AllStudents";
 import Line2 from "./Line2AllStudents";
 import "../../../static/StudentStyle.css";
-const headerStyle = {
-  fontSize: "100px"
-};
+
 const instructionsStyle = {
   fontSize: "20px",
   borderWidth: 1,

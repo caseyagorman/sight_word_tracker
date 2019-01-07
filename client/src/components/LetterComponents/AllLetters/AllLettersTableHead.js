@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../../../static/WordStyle.css";
 // Display table head of letters letters are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -25,7 +26,7 @@ class AllLettersTableHead extends Component {
     let letters = this.state.letters;
 
     return (
-      <div>
+      <div id="table">
         <Table bordered hover striped>
           <thead>
             <tr>

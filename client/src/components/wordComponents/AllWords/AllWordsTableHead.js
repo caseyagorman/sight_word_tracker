@@ -25,7 +25,7 @@ class AllWordsTableHead extends Component {
     let words = this.state.words;
 
     return (
-      <div>
+      <div id="table">
         <Table bordered hover striped>
           <thead>
             <tr>

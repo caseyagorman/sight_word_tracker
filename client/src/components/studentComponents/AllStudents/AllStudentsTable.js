@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
-
+import "../../../static/StudentStyle.css";
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -26,7 +26,7 @@ class AllStudentsTable extends Component {
     let students = this.state.students;
 
     return (
-      <div>
+      <div className="table">
         <Table bordered hover striped>
           <thead>
             <tr>
@@ -48,7 +48,6 @@ class AllStudentsTable extends Component {
           </thead>
           <tbody>
             {students.map(function(student) {
-              console.log("unlearned letters", student.unlearned_letter_list);
               return (
                 <tr>
                   <td>
@@ -77,11 +76,13 @@ class AllStudentsTable extends Component {
                     </tr>
                   </td>
                   <td>
-                    <Link to={`/details/${student.student_id}`}>
+                    <Link to={`/details/${student.student_id}`} id="link">
                       View dashboard
                     </Link>
                     <br />
-                    <Link to={`/#/${student.student_id}`}>View reports</Link>
+                    <Link to={`/#/${student.student_id}`} id="link">
+                      View reports
+                    </Link>
                   </td>
                   <td>
                     <ul style={noBulletList}>
