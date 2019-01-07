@@ -4,19 +4,19 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as wordActions from "../../../redux/actions/wordActions";
+import * as soundActions from "../../../redux/actions/soundActions";
 import { Glyphicon } from "react-bootstrap";
 const glyphStyle = {
   fontSize: "40px"
 };
-class DeleteWord extends Component {
+class DeleteSound extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  getOptions(word) {
-    if (!word) {
+  getOptions(sound) {
+    if (!sound) {
       return <div>loading...</div>;
     }
     return (
@@ -29,7 +29,7 @@ class DeleteWord extends Component {
               onClick={this.submit}
             />
             <span> </span>
-            Delete {word[0].word}
+            Delete "{sound[0].sound}"
           </h3>
         </form>
       </div>
@@ -38,8 +38,8 @@ class DeleteWord extends Component {
 
   handleSubmit() {
     const user = this.props.auth.user.token;
-    const word = this.props.word[0].word_id;
-    this.props.wordActions.deleteWord(word, user);
+    const sound = this.props.sound[0].sound_id;
+    this.props.soundActions.deleteSound(sound, user);
   }
 
   submit = event => {
@@ -63,7 +63,7 @@ class DeleteWord extends Component {
   render() {
     return (
       <div>
-        <div className="container">{this.getOptions(this.props.word)}</div>
+        <div className="container">{this.getOptions(this.props.sound)}</div>
       </div>
     );
   }
@@ -71,18 +71,18 @@ class DeleteWord extends Component {
 
 function mapStateToProps(state) {
   return {
-    word: state.word,
+    sound: state.sound,
     auth: state.auth
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    wordActions: bindActionCreators(wordActions, dispatch)
+    soundActions: bindActionCreators(soundActions, dispatch)
   };
 }
-const DeleteWordWrapped = withRouter(DeleteWord);
+const DeleteSoundWrapped = withRouter(DeleteSound);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeleteWordWrapped);
+)(DeleteSoundWrapped);

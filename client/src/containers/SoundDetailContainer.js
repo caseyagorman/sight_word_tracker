@@ -13,7 +13,7 @@ class SoundDetailContainer extends Component {
     }
   }
 
-  displaysound() {
+  displaySound() {
     if (!this.props.auth.isAuthenticated) {
       return <div>loading...</div>;
     }

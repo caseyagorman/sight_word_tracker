@@ -5,6 +5,7 @@ import * as soundActions from "../../../redux/actions/soundActions";
 import DeleteSound from "../Forms/DeleteSound";
 import Line2 from "./Line2SoundDetail";
 import Line1 from "./Line1SoundDetail";
+import Line3 from "./Line3SoundDetail";
 class SoundDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id || !this.props.token) {
@@ -24,9 +25,16 @@ class SoundDetail extends React.Component {
 
   displayLine2(students) {
     if (!students) {
-      return <div> loading..</div>;
+      return <div> sploading..</div>;
     }
     return <Line2 students={students[1]} sound={students[0]} />;
+  }
+
+  displayLine3(students) {
+    if (!students) {
+      return <div> sploading..</div>;
+    }
+    return <Line3 students={students[1]} sound={students[0]} />;
   }
 
   displayDeleteButton(sound) {
@@ -41,6 +49,7 @@ class SoundDetail extends React.Component {
       <div>
         <div>{this.displayLine1(this.props.sound)}</div>
         <div>{this.displayLine2(this.props.sound)}</div>
+        <div>{this.displayLine3(this.props.sound)}</div>
         <div>{this.displayDeleteButton(this.props.sound)}</div>
       </div>
     );

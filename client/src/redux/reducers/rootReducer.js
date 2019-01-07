@@ -20,6 +20,7 @@ import sounds from "./soundsReducer";
 import sound from "./soundReducer";
 import unknownWordStudents from "./unknownWordStudentsReducer";
 import unknownLetterStudents from "./unknownLetterStudentsReducer";
+import unknownSoundStudents from "./unknownSoundStudentsReducer";
 
 const rootReducer = combineReducers({
   students,
@@ -42,7 +43,8 @@ const rootReducer = combineReducers({
   studentSoundTestResults,
   studentSounds,
   unknownWordStudents,
-  unknownLetterStudents
+  unknownLetterStudents,
+  unknownSoundStudents
 });
 
 export default rootReducer;

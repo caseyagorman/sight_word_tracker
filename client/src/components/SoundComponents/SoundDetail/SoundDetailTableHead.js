@@ -24,7 +24,7 @@ class SoundDetailTableHead extends Component {
 
   displayTableRows(students) {
     if (!students) {
-      return <p>loading...</p>;
+      return <p>sploading...</p>;
     }
 
     return students.map(students => SoundDetailTableRows(students));

@@ -23,5 +23,6 @@ export default {
     loginError: ""
   },
   register: { newUser: "", registerError: "" },
-  unknownLetterStudents: ""
+  unknownLetterStudents: "",
+  unknownSoundStudents: ""
 };

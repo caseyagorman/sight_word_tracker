@@ -5,7 +5,7 @@ import * as letterStudentsActions from "../../../redux/actions/letterStudentsAct
 import * as unknownLetterStudentsActions from "../../../redux/actions/unknownLetterStudentsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 const divStyle = { fontSize: "24px" };
-class AddStudentToLetter extends Component {
+class AddStudentLetterForm extends Component {
   constructor(props) {
     super(props);
     this.state = { value: [] };
@@ -24,15 +24,28 @@ class AddStudentToLetter extends Component {
     );
   }
 
+  getIds(students) {
+    let studentIds = [];
+    let allStudents = this.props.unknownLetterStudents;
+    for (let i = 0; i < allStudents.length; i++) {
+      for (let j = 0; j < students.length; j++)
+        if (allStudents[i].student === students[j]) {
+          studentIds.push(allStudents[i].student_id);
+        }
+    }
+    return studentIds;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+    let studentIds = this.getIds(this.state.value);
     let newLetterStudents = {
       letter: this.props.letter.letter_id,
-      students: this.state.value
+      students: studentIds
     };
 
     let user = this.props.auth.user.token;
-    console.log(newLetterStudents);
+    console.log("new letter students", newLetterStudents);
     this.props.letterStudentsActions.addLetterStudents(newLetterStudents, user);
   }
 
@@ -51,9 +64,7 @@ class AddStudentToLetter extends Component {
     if (!this.props.unknownLetterStudents) {
       return <div>Loading!</div>;
     }
-
     let studentList = this.props.unknownLetterStudents;
-
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup controlId="formControlsSelectMultiple">
@@ -106,4 +117,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddStudentToLetter);
+)(AddStudentLetterForm);

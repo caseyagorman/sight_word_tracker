@@ -412,10 +412,14 @@ def add_student_to_word(current_user):
     students = data.get('students')
     user_id = current_user.public_id
     for student_id in students:
-        new_word_student = StudentWord(
-            student_id=student_id, word_id=word_id, user_id=user_id)
-        db.session.add(new_word_student)
-        db.session.commit()
+        existing_word = StudentWord.query.filter_by(student_id = student_id, word_id = word_id, user_id = user_id).first()
+        if not existing_word:
+            new_word_student = StudentWord(
+                student_id=student_id, word_id=word_id, user_id=user_id)
+            db.session.add(new_word_student)
+            db.session.commit()
+        else:
+            continue
 
     return "student words added!"
 
@@ -753,18 +757,17 @@ def add_student_to_letter(current_user):
     data = request.get_json()
     letter_id = data.get("letter")
     students = data.get('students')
-    print("students", students)
     user_id = current_user.public_id
-    student_list = Student.query.filter(
-        (Student.student.in_(students))).filter(Student.user_id == user_id).all()
-    student_ids = []
-    for student in student_list:
-        student_ids.append(student.student_id)
-    for student_id in student_ids:
-        new_letter_student = StudentLetter(
-            student_id=student_id, letter_id=letter_id, user_id=user_id)
-        db.session.add(new_letter_student)
-        db.session.commit()
+    for student_id in students:
+        existing_word = StudentLetter.query.filter_by(student_id = student_id, 
+        letter_id = letter_id, user_id = user_id).first()
+        if not existing_word:
+            new_letter_student = StudentLetter(
+                student_id=student_id, letter_id=letter_id, user_id=user_id)
+            db.session.add(new_letter_student)
+            db.session.commit()
+        else:
+            continue
 
     return "student letters added!"
 
@@ -1080,6 +1083,53 @@ def get_unlearned_sound_student_counts(sound):
         StudentSound.Learned == False).all()
     return len(sounds)
 
+@app.route("/api/sound-unknown-students/<sound>")
+@token_required
+def get_unknown_students_sound(current_user, sound):
+
+    """gets students are not assigned to sound"""
+    print("getting unknown students")
+    user_id = current_user.public_id
+    sound_id = sound
+    students = StudentSound.query.filter_by(
+        sound_id=sound_id, user_id=user_id).options(db.joinedload('students')).all()
+    student_ids = []
+    for student in students:
+        student_ids.append(student.student_id)
+
+    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    student_list = []
+
+    for student in unknown_students:
+        student = {
+            'student_id': student.student_id,
+            'student': student.fname + " " + student.lname
+            
+        }
+
+        student_list.append(student)
+    student_list = sorted(student_list, key=itemgetter('student'))
+    print(student_list)
+    return jsonify(student_list)
+
+@app.route('/api/add-student-to-sound', methods=['POST'])
+@token_required
+def add_student_to_sound(current_user):
+    data = request.get_json()
+    sound_id = data.get("sound")
+    students = data.get('students')
+    user_id = current_user.public_id
+    for student_id in students:
+        existing_sound = StudentWord.query.filter_by(student_id = student_id, sound_id = sound_id, user_id = user_id).first()
+        if not existing_sound:
+            new_sound_student = StudentWord(
+                student_id=student_id, sound_id=sound_id, user_id=user_id)
+            db.session.add(new_sound_student)
+            db.session.commit()
+        else:
+            continue
+
+    return "student sounds added!"
 
 @app.route("/api/add-sound", methods=['POST'])
 @token_required
