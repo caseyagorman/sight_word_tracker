@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../../../static/SoundStyle.css";
 // Display table head of sounds sounds are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -27,8 +28,8 @@ class AllSoundsTableHead extends Component {
     let sounds = this.state.sounds;
 
     return (
-      <div>
-        <Table bordered hover striped>
+      <div id="sound-table">
+        <Table bordered hover>
           <thead>
             <tr>
               <th onClick={e => this.onSort(e, "sound")}>Sound</th>
@@ -43,7 +44,7 @@ class AllSoundsTableHead extends Component {
                   <td>
                     <th>
                       <h1>
-                        <Link to={`/sound-detail/${sound.sound_id}`}>
+                        <Link to={`/sound-detail/${sound.sound_id}`} id="link">
                           {sound.sound}
                         </Link>
                       </h1>

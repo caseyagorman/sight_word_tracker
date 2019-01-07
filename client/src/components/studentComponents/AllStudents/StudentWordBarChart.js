@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
+import "../../../static/ChartStyle.css";
 class WordBarChart extends Component {
   turnIntoArray(obj) {
     if (!obj) {
@@ -19,8 +20,6 @@ class WordBarChart extends Component {
       return <div> loading...</div>;
     }
     let words = this.turnIntoArray(dataResults);
-    console.log("words", words);
-
     let wordCounts = words[0];
     let studentList = words[1];
 
@@ -77,11 +76,11 @@ class WordBarChart extends Component {
         {
           label: "Students",
 
-          backgroundColor: "rgba(255,99,132,1)",
-          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "#008000",
+          borderColor: "#008000",
           borderWidth: 1,
-          hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)",
+          hoverBackgroundColor: "#008000",
+          hoverBorderColor: "#008000",
           data: wordCounts
         }
       ]
@@ -90,7 +89,7 @@ class WordBarChart extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="chart-style">
         <h2>Words</h2>
         <div className="container">
           {this.displayChart(this.props.students)}

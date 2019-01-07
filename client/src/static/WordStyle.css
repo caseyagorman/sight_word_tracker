@@ -16,6 +16,8 @@
 #link {
   color: #0033cc;
 }
-.table {
+#word-table {
   font-family: "Niramit", sans-serif;
+  font-size: 20px;
+  color: black;
 }

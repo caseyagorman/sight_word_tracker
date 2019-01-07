@@ -25,8 +25,8 @@ class AllWordsTableHead extends Component {
     let words = this.state.words;
 
     return (
-      <div id="table">
-        <Table bordered hover striped>
+      <div id="word-table">
+        <Table bordered hover>
           <thead>
             <tr>
               <th onClick={e => this.onSort(e, "word")}>Word</th>

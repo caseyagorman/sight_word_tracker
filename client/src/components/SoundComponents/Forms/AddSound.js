@@ -55,7 +55,7 @@ class AddSound extends Component {
         <br />
         <div className="container">
           <Col lg={4}>
-            <Button color="primary">Add Sound</Button>
+            <Button id="add-sound-button">Add Sound</Button>
           </Col>
         </div>
       </Form>

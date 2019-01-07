@@ -26,8 +26,8 @@ class AllStudentsTable extends Component {
     let students = this.state.students;
 
     return (
-      <div className="table">
-        <Table bordered hover striped>
+      <div id="#student-table">
+        <Table bordered hover>
           <thead>
             <tr>
               <th onClick={e => this.onSort(e, "fname")}>Name</th>

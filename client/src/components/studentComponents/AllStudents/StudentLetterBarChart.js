@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
+import "../../../static/ChartStyle.css";
 class LetterBarChart extends Component {
   turnIntoArray(obj) {
     if (!obj) {
@@ -76,11 +77,11 @@ class LetterBarChart extends Component {
         {
           label: "Students",
 
-          backgroundColor: "rgba(255,99,132,1)",
-          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "#008000",
+          borderColor: "#008000",
           borderWidth: 1,
-          hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)",
+          hoverBackgroundColor: "#008000",
+          hoverBorderColor: "#008000",
           data: letterCounts
         }
       ]
@@ -89,7 +90,7 @@ class LetterBarChart extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="chart-style">
         <h2>Letters</h2>
         <div className="container">
           {this.displayChart(this.props.students)}

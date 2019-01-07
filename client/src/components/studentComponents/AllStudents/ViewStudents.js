@@ -54,7 +54,7 @@ class ViewStudents extends React.Component {
       <div className="container">
         <br />
         <h1 id="display-student">All Students</h1>
-        <div style={instructionsStyle}>{this.displayInstructions()}</div>
+        <div id="instructions">{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddStudentButton()}</div>
         <div>

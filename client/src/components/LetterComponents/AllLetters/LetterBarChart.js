@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
+import "../../../static/ChartStyle.css";
 class LetterBarChart extends Component {
   state = { data: null, showTooltip: false };
 
@@ -85,7 +86,7 @@ class LetterBarChart extends Component {
         {
           label: "Unlearned letters",
 
-          backgroundColor: "rgba(255,99,132,1)",
+          backgroundColor: "#ff3333",
           borderColor: "rgba(255,99,132,1)",
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -98,7 +99,7 @@ class LetterBarChart extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="bar-chart">
         <h2>Students are learning:</h2>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>

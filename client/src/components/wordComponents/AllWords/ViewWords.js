@@ -42,6 +42,7 @@ class ViewWords extends React.Component {
       <div className="container">
         <br />
         <h1 id="display-word">All Words</h1>
+        <br />
         <div id="instructions">{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddWordButton()}</div>

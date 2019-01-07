@@ -46,7 +46,7 @@ class ViewLetters extends React.Component {
       <div className="container">
         <br />
         <h1 id="display-letter">All Letters</h1>
-        <div>{this.displayInstructions()}</div>
+        <div id="instructions">{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddLetterButton()}</div>
         <br />

@@ -6,9 +6,7 @@ import * as authActions from "../../../redux/actions/authActions";
 import AddSoundButton from "../Forms/AddSoundButton";
 import Line1 from "./Line1AllSounds";
 import Line2 from "./Line2AllSounds";
-const headerStyle = {
-  fontSize: "100px"
-};
+import "../../../static/SoundStyle.css";
 
 const instructionsStyle = {
   fontSize: "20px",
@@ -53,8 +51,8 @@ class ViewSounds extends React.Component {
     return (
       <div className="container">
         <br />
-        <h1 style={headerStyle}>All Sounds</h1>
-        <div style={instructionsStyle}>{this.displayInstructions()}</div>
+        <h1 id="display-sound">All Sounds</h1>
+        <div id="instructions">{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddSoundButton()}</div>
         <br />

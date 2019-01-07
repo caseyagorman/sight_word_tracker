@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AddSoundButton = props => {
   return (
     <Link to={`/add-sound`}>
-      <button className="btn btn-primary btn-lg">Add Sound</button>
+      <button id="add-sound-button">Add Sound</button>
     </Link>
   );
 };
