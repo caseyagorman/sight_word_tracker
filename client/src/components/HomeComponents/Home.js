@@ -4,13 +4,7 @@ import ViewStudentsButton from "./ViewStudentsButton";
 import ViewWordsButton from "./ViewWordsButton";
 import ViewLettersButton from "./ViewLettersButton";
 import ViewSoundsButton from "./ViewSoundsButton";
-import "./Home.css";
-// const welcomeStyle = { fontSize: "100px" };
-const buttonStyle = {
-  display: "inline-block",
-  marginRight: "30px",
-  marginLeft: "30px"
-};
+import "../../static/HomeStyle.css";
 
 class Home extends Component {
   componentDidMount() {
@@ -40,32 +34,27 @@ class Home extends Component {
   }
   displayInstructions() {
     return (
-      <div>
+      <div id="instructions">
         Getting started:
-        <br /> Click <strong>view students</strong> to view list of students and
-        see student details.
-        <br />
-        Click <strong>view words </strong>to view list of words and see word
+        <br /> Click view students to view list of students and see student
         details.
+        <br />
+        Click view words to view list of words and see word details.
       </div>
     );
   }
 
   render() {
     return (
-      <div className="container">
-        <div>{this.displayWelcome()}</div>
-        <div style={buttonStyle}>
-          {this.displayViewStudentsButton()} <span />
+      <div>
+        <div className="container">
+          <div>{this.displayWelcome()}</div>
+          {this.displayViewStudentsButton()}
           {this.displayViewWordsButton()}
-          <span> </span>
           {this.displayViewLettersButton()}
-          <span> </span>
           {this.displayViewSoundsButton()}
         </div>
-        <br />
-        <br />
-        <div id="instructions">{this.displayInstructions()}</div>
+        <div className="container">{this.displayInstructions()}</div>
       </div>
     );
   }

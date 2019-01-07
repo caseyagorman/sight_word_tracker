@@ -1,0 +1,53 @@
+#navbar {
+  background-color: #ff3333;
+  font-family: "Niramit", sans-serif;
+  font-size: 24px;
+  color: white;
+}
+
+#Brand {
+  font-size: 24px;
+  color: white;
+}
+
+#Students {
+  color: white;
+  background-color: #663399;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
+}
+#Words {
+  color: white;
+  background-color: #0033cc;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
+}
+#Letters {
+  color: white;
+  background-color: #008000;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
+}
+#Sounds {
+  color: white;
+  background-color: #ff6600;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
+}
+
+#Logout {
+  background-color: #ff3333;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
+}

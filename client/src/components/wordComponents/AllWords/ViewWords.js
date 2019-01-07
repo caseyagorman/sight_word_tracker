@@ -6,16 +6,8 @@ import * as authActions from "../../../redux/actions/authActions";
 import AddWordButton from "../Forms/AddWordButton";
 import Line1 from "./Line1AllWords";
 import Line2 from "./Line2AllWords";
-const headerStyle = {
-  fontSize: "100px"
-};
+import "../../../static/WordStyle.css";
 
-const instructionsStyle = {
-  fontSize: "20px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "#d3d3d3"
-};
 class ViewWords extends React.Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
@@ -27,11 +19,7 @@ class ViewWords extends React.Component {
   }
 
   displayInstructions() {
-    return (
-      <div>
-        <br /> Click word to view students learning each word.
-      </div>
-    );
+    return <div>Click word to view students learning each word.</div>;
   }
   displayLine1(words) {
     if (!words) {
@@ -53,8 +41,8 @@ class ViewWords extends React.Component {
     return (
       <div className="container">
         <br />
-        <h1 style={headerStyle}>All Words</h1>
-        <div style={instructionsStyle}>{this.displayInstructions()}</div>
+        <h1 id="display-word">All Words</h1>
+        <div id="instructions">{this.displayInstructions()}</div>
         <br />
         <div>{this.displayAddWordButton()}</div>
         <br />

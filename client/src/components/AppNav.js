@@ -1,32 +1,35 @@
 import React from "react";
 import { Navbar, NavItem, Nav } from "react-bootstrap";
+import "../static/NavStyle.css";
 
 const AppNav = () => {
   return (
-    <Navbar inverse collapseOnSelect>
+    <Navbar collapseOnSelect id="navbar">
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/">Early Literacy Tracker</a>
+          <a href="/" id="Brand">
+            Home
+          </a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavItem eventKey={1} href="/students/">
+          <NavItem id="Students" eventKey={1} href="/students/">
             Students
           </NavItem>
-          <NavItem eventKey={2} href="/words/">
+          <NavItem id="Words" eventKey={2} href="/words/">
             Words
           </NavItem>
-          <NavItem eventKey={3} href="/letters/">
+          <NavItem id="Letters" eventKey={3} href="/letters/">
             Letters
           </NavItem>
-          <NavItem eventKey={4} href="/sounds/">
+          <NavItem id="Sounds" eventKey={4} href="/sounds/">
             Sounds
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={5} href="/logout/">
+          <NavItem id="Logout" eventKey={5} href="/logout/">
             Logout
           </NavItem>
         </Nav>

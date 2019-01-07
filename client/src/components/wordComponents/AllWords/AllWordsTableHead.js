@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../../../static/WordStyle.css";
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -40,7 +41,7 @@ class AllWordsTableHead extends Component {
                   <td>
                     <th>
                       <h1>
-                        <Link to={`/word-detail/${word.word_id}`}>
+                        <Link to={`/word-detail/${word.word_id}`} id="link">
                           {word.word}
                         </Link>
                       </h1>

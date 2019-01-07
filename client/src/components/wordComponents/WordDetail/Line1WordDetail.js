@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-const headerStyle = { fontSize: "100px" };
+import "../../../static/WordStyle.css";
+
 class Line1 extends React.Component {
   displayWord(word) {
     if (!word) {
@@ -8,7 +9,7 @@ class Line1 extends React.Component {
     }
     return (
       <div>
-        <h1 style={headerStyle}>{word.word}</h1>
+        <h1 id="display-word">{word.word}</h1>
       </div>
     );
   }

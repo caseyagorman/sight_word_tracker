@@ -1,15 +1,14 @@
 #welcome {
   font-family: "Niramit", sans-serif;
-  font-size: 100px;
-  color: white;
-  background-color: #ff3333;
+  font-size: 70px;
+  color: black;
+  margin-bottom: 10%;
 }
 
 #instructions {
   font-family: "Niramit", sans-serif;
-  font-size: 18px;
-  color: white;
-  background-color: #ff3333;
+  font-size: 24px;
+  color: black;
 }
 #ViewStudentsButton {
   border-radius: 10px;
@@ -18,7 +17,7 @@
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 #ViewWordsButton {
@@ -28,7 +27,7 @@
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 #ViewLettersButton {
@@ -38,7 +37,7 @@
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 #ViewSoundsButton {
@@ -48,5 +47,5 @@
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
-  font-size: 16px;
+  font-size: 20px;
 }

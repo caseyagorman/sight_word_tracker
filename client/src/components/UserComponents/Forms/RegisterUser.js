@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as registrationActions from "../../../redux/actions/registrationActions";
 import * as authActions from "../../../redux/actions/authActions";
 import { Button, Form, Label, Input } from "reactstrap";
+import "../../../static/WelcomeStyle.css";
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
@@ -52,10 +53,12 @@ class RegisterUser extends Component {
   render() {
     return (
       <div>
-        <h1>Register</h1>
+        <h1>
+          <strong>Register</strong>
+        </h1>
         <div className="form-group" />
         <Form onSubmit={this.handleSubmit}>
-          <Label className="control-label">Username</Label>
+          <Label className="login-form">Username</Label>
           <Input
             className="form-control"
             name="username"
@@ -63,7 +66,7 @@ class RegisterUser extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <Label>email</Label>
+          <Label className="login-form">email</Label>
           <Input
             className="form-control"
             name="email"
@@ -71,7 +74,7 @@ class RegisterUser extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <Label>Password</Label>
+          <Label className="login-form">Password</Label>
           <Input
             className="form-control"
             name="password"
@@ -79,7 +82,7 @@ class RegisterUser extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <Label>Confirm password</Label>
+          <Label className="login-form">Confirm password</Label>
           <Input
             className="form-control"
             name="confirmPassword"
@@ -90,7 +93,7 @@ class RegisterUser extends Component {
           <div>
             <br />
           </div>
-          <Button className="btn btn-primary btn-lg">Register</Button>
+          <Button id="login-button">Register</Button>
         </Form>
       </div>
     );

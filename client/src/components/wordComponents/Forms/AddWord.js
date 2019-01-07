@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
 import * as authActions from "../../../redux/actions/authActions";
+import "../../../static/WordStyle.css";
 import { Form, Button, FormGroup, Label, Input, Row, Col } from "reactstrap";
 class AddWord extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class AddWord extends Component {
         <br />
         <div className="container">
           <Col lg={4}>
-            <Button color="primary">Add Word</Button>
+            <Button id="add-word">Add Word</Button>
           </Col>
         </div>
       </Form>

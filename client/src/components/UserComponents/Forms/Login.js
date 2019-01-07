@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "../../../redux/actions/authActions";
-
+import Welcome from "../Welcome";
+import "../../../static/WelcomeStyle.css";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -49,20 +50,20 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
-        <div className="form-group" />
-        <form onSubmit={this.handleSubmit}>
-          <label className="control-label">Username</label>
+        <Welcome />
+        <div />
+        <form onSubmit={this.handleSubmit} className="form-container">
+          <label className="login-form">Username</label>
           <input
-            className="form-control"
             name="username"
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
           />
 
-          <label>Password</label>
+          <label className="login-form">Password</label>
           <input
-            className="form-control"
+            id=""
             name="password"
             type="password"
             value={this.state.value}
@@ -72,7 +73,7 @@ class Login extends Component {
           <div>
             <br />
           </div>
-          <button className="btn btn-primary btn-lg">Login</button>
+          <button id="login-button">Login</button>
         </form>
       </div>
     );
