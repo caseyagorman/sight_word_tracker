@@ -368,15 +368,14 @@ def get_unknown_students_word(current_user, word):
     """gets students are not assigned to word"""
     user_id = current_user.public_id
     print(current_user)
-    # 566f675f-e940-460a-a06f-c130cb4d9c12
-    # edcd9371-1cd7-4f5b-8b4b-0ed85c6f8851
     students = StudentWord.query.filter_by(
         word_id=word, user_id=user_id).options(db.joinedload('students')).all()
+    print("students", students)
     student_ids = []
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
@@ -800,7 +799,7 @@ def get_unknown_students_letter(current_user, letter):
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
@@ -1144,7 +1143,7 @@ def get_unknown_students_sound(current_user, sound):
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
