@@ -10,10 +10,11 @@ import Line2 from "./Line2StudentDetail";
 import Line3 from "./Line3StudentDetail";
 import Line4 from "./Line4StudentDetail";
 import Line5 from "./Line5StudentDetail";
-import Line6 from "./Line6StudentDetail";
-import Line7 from "./Line7StudentDetail";
-import Line8 from "./Line8StudentDetail";
-import Line9 from "./Line9StudentDetail";
+import Line6 from "./Line7StudentDetail";
+import Line7 from "./Line8StudentDetail";
+import Line8 from "./Line9StudentDetail";
+import Line9 from "./Line10StudentDetail";
+import Line10 from "./Line6StudentDetail";
 class StudentDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
@@ -86,22 +87,23 @@ class StudentDetail extends React.Component {
       />
     );
   }
+
   displayLine6(
-    studentWordTestResults,
-    studentLetterTestResults,
+    // studentWordTestResults,
+    // studentLetterTestResults,
     studentSoundTestResults
   ) {
     if (
-      !studentWordTestResults &&
-      !studentLetterTestResults &&
+      // !studentWordTestResults &&
+      // !studentLetterTestResults &&
       !studentSoundTestResults
     ) {
       return <div> loading..</div>;
     }
     return (
-      <Line6
-        studentWordTestResults={studentWordTestResults}
-        studentLetterTestResults={studentLetterTestResults}
+      <Line10
+        // studentWordTestResults={studentWordTestResults}
+        // studentLetterTestResults={studentLetterTestResults}
         studentSoundTestResults={studentSoundTestResults}
       />
     );
@@ -149,11 +151,32 @@ class StudentDetail extends React.Component {
     );
   }
 
-  displayLine9(student) {
+  displayLine9(
+    studentWordTestResults,
+    studentLetterTestResults,
+    studentSoundTestResults
+  ) {
+    if (
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
+      !studentSoundTestResults
+    ) {
+      return <div> loading..</div>;
+    }
+    return (
+      <Line9
+        studentWordTestResults={studentWordTestResults}
+        studentLetterTestResults={studentLetterTestResults}
+        studentSoundTestResults={studentSoundTestResults}
+      />
+    );
+  }
+
+  displayLine10(student) {
     if (!student) {
       return <div> loading..</div>;
     }
-    return <Line9 student={student} />;
+    return <Line10 student={student} />;
   }
 
   render() {
@@ -173,12 +196,11 @@ class StudentDetail extends React.Component {
         </div>
         <div className="container">
           {this.displayLine6(
-            this.props.studentWordTestResults,
-            this.props.studentLetterTestResults,
+            // this.props.studentWordTestResults,
+            // this.props.studentLetterTestResults,
             this.props.studentSoundTestResults
           )}
         </div>
-        <br />
         <div className="container">
           {this.displayLine7(
             this.props.studentWordTestResults,
@@ -186,6 +208,7 @@ class StudentDetail extends React.Component {
             this.props.studentSoundTestResults
           )}
         </div>
+        <br />
         <div className="container">
           {this.displayLine8(
             this.props.studentWordTestResults,
@@ -193,7 +216,16 @@ class StudentDetail extends React.Component {
             this.props.studentSoundTestResults
           )}
         </div>
-        <div className="container">{this.displayLine9(this.props.student)}</div>
+        <div className="container">
+          {this.displayLine9(
+            this.props.studentWordTestResults,
+            this.props.studentLetterTestResults,
+            this.props.studentSoundTestResults
+          )}
+        </div>
+        <div className="container">
+          {this.displayLine10(this.props.student)}
+        </div>
       </div>
     );
   }

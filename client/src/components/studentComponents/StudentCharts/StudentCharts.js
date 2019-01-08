@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import * as studentsActions from "../../../redux/actions/studentsActions";
-import StudentLearnedLetterBarChart from "./StudentLearnedLetterBarChart";
-import StudentLearnedWordBarChart from "./StudentLearnedWordBarChart";
-import StudentLearnedSoundBarChart from "./StudentLearnedSoundBarChart";
-import StudentUnlearnedWordBarChart from "./StudentUnlearnedWordBarChart";
-import StudentUnlearnedLetterBarChart from "./StudentUnlearnedLetterBarChart";
-import StudentUnlearnedSoundBarChart from "./StudentUnlearnedSoundBarChart";
+import StudentLearnedLetterBarChart from "./LetterCharts/StudentLearnedLetterBarChart";
+import StudentLearnedWordBarChart from "./WordCharts/StudentLearnedWordBarChart";
+import StudentLearnedSoundBarChart from "./SoundCharts/StudentLearnedSoundBarChart";
+import StudentUnlearnedWordBarChart from "./WordCharts/StudentUnlearnedWordBarChart";
+import StudentUnlearnedLetterBarChart from "./LetterCharts/StudentUnlearnedLetterBarChart";
+import StudentUnlearnedSoundBarChart from "./SoundCharts/StudentUnlearnedSoundBarChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 

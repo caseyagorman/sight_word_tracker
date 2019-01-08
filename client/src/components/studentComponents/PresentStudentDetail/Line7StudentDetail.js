@@ -1,31 +1,32 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import StudentWordCountsTableHead from "../../StudentWordTestResultsComponents/StudentWordCountsTableHead";
-import StudentLetterCountsTableHead from "../../StudentLetterTestResultsComponents/StudentLetterCountsTableHead";
-import StudentSoundCountsTableHead from "../../StudentSoundTestResultsComponents/StudentSoundCountsTableHead";
-class Line6 extends Component {
-  getWordCounts(studentWordTest) {
-    if (!studentWordTest) {
+import WordLineChart from "../../StudentWordTestResultsComponents/StudentCharts/WordLineChart";
+import LetterLineChart from "../../StudentLetterTestResultsComponents/StudentCharts/LetterLineChart";
+import SoundLineChart from "../../StudentSoundTestResultsComponents/StudentCharts/SoundLineChart";
+class Line7 extends Component {
+  componetDidMount() {}
+
+  displayWordLineChart(studentTest) {
+    if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentWordTest[1];
-    return <StudentWordCountsTableHead test={test} />;
+    let tests = studentTest[0];
+    return <WordLineChart tests={tests} />;
   }
 
-  getLetterCounts(studentLetterTest) {
-    if (!studentLetterTest) {
+  displayLetterLineChart(studentTest) {
+    if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentLetterTest[1];
-    return <StudentLetterCountsTableHead test={test} />;
+    let tests = studentTest[0];
+    return <LetterLineChart tests={tests} />;
   }
-
-  getSoundCounts(studentSoundTest) {
-    if (!studentSoundTest) {
+  displaySoundLineChart(studentTest) {
+    if (!studentTest) {
       return <p>loading...</p>;
     }
-    let test = studentSoundTest[1];
-    return <StudentSoundCountsTableHead test={test} />;
+    let tests = studentTest[0];
+    return <SoundLineChart tests={tests} />;
   }
 
   render() {
@@ -33,17 +34,17 @@ class Line6 extends Component {
       <div className="container" id="student-detail">
         <Row>
           <Col lg="4">
-            {this.getWordCounts(this.props.studentWordTestResults)}
+            {this.displayWordLineChart(this.props.studentWordTestResults)}
           </Col>
           <Col lg="4">
-            {this.getLetterCounts(this.props.studentLetterTestResults)}
+            {this.displayLetterLineChart(this.props.studentLetterTestResults)}
           </Col>
           <Col lg="4">
-            {this.getSoundCounts(this.props.studentSoundTestResults)}
+            {this.displaySoundLineChart(this.props.studentSoundTestResults)}
           </Col>
         </Row>
       </div>
     );
   }
 }
-export default Line6;
+export default Line7;

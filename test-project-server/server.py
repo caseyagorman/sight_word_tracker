@@ -97,6 +97,7 @@ def get_students(current_user):
         db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
+        print("student", student)
 
         word_list = sorted(get_student_word_list(student)[0])
         unlearned_word_list = sorted(get_student_word_list(student)[1])
@@ -128,7 +129,8 @@ def get_students(current_user):
             'unlearned_sound_count': unlearned_sound_count,
             'unlearned_word_list': unlearned_word_list,
             'unlearned_letter_list': unlearned_letter_list,
-            'unlearned_sound_list': unlearned_sound_list,
+            'unlearned_sound_list': unlearned_sound_list
+            
 
         }
         student_list.append(student)
@@ -323,24 +325,6 @@ def get_words(current_user):
         word_list.append(word)
     word_list = sorted(word_list, key=itemgetter('word'))
     return jsonify(word_list)
-
-
-def get_all_student_word_counts():
-    words = StudentWord.query.options(db.joinedload('words')).all()
-    word_counts = {}
-    for word in words:
-        if word.Learned == False:
-            if word.words.word not in word_counts:
-                word_counts[word.words.word] = 0
-            else:
-                word_counts[word.words.word] += 0
-        else:
-            if word.words.word not in word_counts:
-                word_counts[word.words.word] = 1
-            else:
-                word_counts[word.words.word] += 1
-    return word_counts
-
 
 def get_word_student_counts(word):
     word_id = word.word_id
@@ -616,7 +600,7 @@ def update_correct_words(student_id, correct_words):
         Word.word.in_(correct_words)).all()
     for word in student_word_list:
         if word.words.word in correct_words:
-            if word.correct_count >= 3:
+            if word.correct_count >= 2:
                 word.Learned = True
             word.correct_count = StudentWord.correct_count + 1
             db.session.commit()
@@ -924,7 +908,7 @@ def get_student_letter_test(current_user, student):
     student_tests = StudentLetterTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     letter_counts = get_letter_counts(student_letters)
-    chart_data = get_student_letter_chart_data(student_letters)
+    chart_data = get_student_letter_chart_data(student_letters, student)
     student_test_list = get_student_letter_test_list(student_tests)
     learned_letters_list = get_learned_letters_list(student_letters)
     return jsonify([student_test_list, letter_counts, chart_data, learned_letters_list])
@@ -953,8 +937,10 @@ def get_learned_letters_list(student_letters):
     return learned_letters
 
 
-def get_student_letter_chart_data(student_letters):
+def get_student_letter_chart_data(student_letters, student):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
+    print("student letters", student_letters)
+    print(student)
     learned_count = 0
     learned_letters = []
     unlearned_count = 0
@@ -992,7 +978,7 @@ def update_correct_letters(student_id, correct_letters):
         Letter.letter.in_(correct_letters)).all()
     for letter in student_letter_list:
         if letter.letters.letter in correct_letters:
-            if letter.correct_count >= 3:
+            if letter.correct_count >= 2:
                 letter.Learned = True
             letter.correct_count = StudentLetter.correct_count + 1
             db.session.commit()
@@ -1164,23 +1150,6 @@ def add_sound(current_user):
     return 'sounds added'
 
 
-def get_all_student_sound_counts():
-    sounds = StudentSound.query.options(db.joinedload('sounds')).all()
-    sound_counts = {}
-    for sound in sounds:
-        if sound.Learned == True:
-            if sound.sounds.sound not in sound_counts:
-                sound_counts[sound.sounds.sound] = 0
-            else:
-                sound_counts[sound.sounds.sound] += 0
-        else:
-            if sound.sounds.sound not in sound_counts:
-                sound_counts[sound.sounds.sound] = 1
-            else:
-                sound_counts[sound.sounds.sound] += 1
-    return sound_counts
-
-
 @app.route("/api/sound-detail/<sound>")
 @token_required
 def sound_detail(current_user, sound):
@@ -1250,6 +1219,31 @@ def get_unknown_sounds(current_user, student):
     return jsonify(sound_list)
 
 
+@app.route("/api/unknown-sounds-chart/<student>")
+@token_required
+def get_unknown_sounds_chart(current_user, student):
+    """gets sounds that student does not know and are not in current sound list, sounds can then be added to students sound list"""
+    user_id = current_user.public_id
+    sounds = StudentSound.query.filter_by(
+        student_id=student, user_id=user_id).options(db.joinedload('sounds')).all()
+    sound_ids = []
+    for sound in sounds:
+        sound_ids.append(sound.sound_id)
+
+    unknown_sounds = Sound.query.filter(
+        Sound.sound_id.notin_(sound_ids)).all()
+    sound_list = []
+
+    for sound in unknown_sounds:
+        sound = {
+            'sound_id': sound.sound_id,
+            'sound': sound.sound
+        }
+
+        sound_list.append(sound)
+    return sound_list
+
+
 @app.route('/api/add-sound-to-student', methods=['POST'])
 @token_required
 def add_sound_to_student(current_user):
@@ -1283,10 +1277,11 @@ def get_student_sound_test(current_user, student):
     student_tests = StudentSoundTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     sound_counts = get_sound_counts(student_sounds)
-    chart_data = get_student_sound_chart_data(student_sounds)
+    chart_data = get_student_sound_chart_data(student_sounds, student_id)[0]
     student_test_list = get_student_sound_test_list(student_tests)
     learned_sounds_list = get_learned_sounds_list(student_sounds)
-    return jsonify([student_test_list, sound_counts, chart_data, learned_sounds_list])
+    total_chart_data = get_student_sound_chart_data(student_sounds, student_id)[1]
+    return jsonify([student_test_list, sound_counts, chart_data, learned_sounds_list, total_chart_data])
 
 
 def update_correct_sounds(student_id, correct_sounds):
@@ -1324,7 +1319,6 @@ def create_student_sound_test(current_user):
     and update_incorrect_sounds functions"""
 
     data = request.get_json()
-    print(data)
     student_id = data.get('student')
     user_id = current_user.public_id
     correct_sounds = data.get('correct_sounds')
@@ -1361,7 +1355,7 @@ def get_learned_sounds_list(student_sounds):
     return learned_sounds
 
 
-def get_student_sound_chart_data(student_sounds):
+def get_student_sound_chart_data(student_sounds, student):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
     learned_sounds = []
@@ -1374,9 +1368,13 @@ def get_student_sound_chart_data(student_sounds):
         else:
             unlearned_count += 1
             unlearned_sounds.append(sound.sounds.sound)
+    unassigned_sounds = get_unknown_sounds_chart(student)
+    unassigned_count = len(unassigned_sounds)
+    total_count = unassigned_count + unlearned_count
+    total_chart_data = {"learned":learned_count, "unlearned": total_count}
     chart_data = {"learned": [learned_count, learned_sounds],
                   "unlearned": [unlearned_count,  unlearned_sounds]}
-    return chart_data
+    return [chart_data, total_chart_data]
 
 
 def get_student_sound_test_list(student_test):

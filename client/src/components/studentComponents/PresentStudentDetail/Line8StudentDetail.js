@@ -1,53 +1,45 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import StudentWordTestResultsTable from "../../StudentWordTestResultsComponents/StudentWordTestResultsTable";
-import StudentLetterTestResultsTable from "../../StudentLetterTestResultsComponents/StudentLetterTestResultsTable";
-import StudentSoundTestResultsTable from "../../StudentSoundTestResultsComponents/StudentSoundTestResultsTable";
+import StudentWordCountsTableHead from "../../StudentWordTestResultsComponents/StudentWordCountsTableHead";
+import StudentLetterCountsTableHead from "../../StudentLetterTestResultsComponents/StudentLetterCountsTableHead";
+import StudentSoundCountsTableHead from "../../StudentSoundTestResultsComponents/StudentSoundCountsTableHead";
 class Line8 extends Component {
-  viewStudentWordTestResultsTable(studentWordTestResults) {
-    if (!studentWordTestResults) {
+  getWordCounts(studentWordTest) {
+    if (!studentWordTest) {
       return <p>loading...</p>;
     }
-    let testResults = studentWordTestResults[0];
-
-    return <StudentWordTestResultsTable test={testResults} />;
+    let test = studentWordTest[1];
+    return <StudentWordCountsTableHead test={test} />;
   }
 
-  viewStudentLetterTestResultsTable(studentLetterTestResults) {
-    if (!studentLetterTestResults) {
+  getLetterCounts(studentLetterTest) {
+    if (!studentLetterTest) {
       return <p>loading...</p>;
     }
-    let testResults = studentLetterTestResults[0];
-
-    return <StudentLetterTestResultsTable test={testResults} />;
+    let test = studentLetterTest[1];
+    return <StudentLetterCountsTableHead test={test} />;
   }
 
-  viewStudentSoundTestResultsTable(studentSoundTestResults) {
-    if (!studentSoundTestResults) {
+  getSoundCounts(studentSoundTest) {
+    if (!studentSoundTest) {
       return <p>loading...</p>;
     }
-    let testResults = studentSoundTestResults[0];
-
-    return <StudentSoundTestResultsTable test={testResults} />;
+    let test = studentSoundTest[1];
+    return <StudentSoundCountsTableHead test={test} />;
   }
+
   render() {
     return (
       <div className="container" id="student-detail">
         <Row>
           <Col lg="4">
-            {this.viewStudentWordTestResultsTable(
-              this.props.studentWordTestResults
-            )}
+            {this.getWordCounts(this.props.studentWordTestResults)}
           </Col>
           <Col lg="4">
-            {this.viewStudentLetterTestResultsTable(
-              this.props.studentLetterTestResults
-            )}
+            {this.getLetterCounts(this.props.studentLetterTestResults)}
           </Col>
           <Col lg="4">
-            {this.viewStudentSoundTestResultsTable(
-              this.props.studentSoundTestResults
-            )}
+            {this.getSoundCounts(this.props.studentSoundTestResults)}
           </Col>
         </Row>
       </div>

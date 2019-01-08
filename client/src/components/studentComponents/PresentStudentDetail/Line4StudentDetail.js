@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import AddStudentWordForm from "../Forms/Word/AddStudentWordForm";
-import AddStudentLetterForm from "../Forms/Letter/AddStudentLetterForm";
-import AddStudentSoundForm from "../Forms/Sound/AddStudentSoundForm";
+import AddStudentWordForm from "../Forms/WordForms/AddStudentWordForm";
+import AddStudentLetterForm from "../Forms/LetterForms/AddStudentLetterForm";
+import AddStudentSoundForm from "../Forms/SoundForms/AddStudentSoundForm";
 
 class Line4 extends Component {
   addStudentWordForm(student) {

@@ -1,32 +1,36 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import WordLineChart from "../../StudentWordTestResultsComponents/StudentCharts/WordLineChart";
-import LetterLineChart from "../../StudentLetterTestResultsComponents/StudentCharts/LetterLineChart";
-import SoundLineChart from "../../StudentSoundTestResultsComponents/StudentCharts/SoundLineChart";
-class Line7 extends Component {
-  componetDidMount() {}
-
-  displayWordLineChart(studentTest) {
-    if (!studentTest) {
-      return <p>loading...</p>;
-    }
-    let tests = studentTest[0];
-    return <WordLineChart tests={tests} />;
+// import StudentWordDoughnutChart from "../../StudentWordTestResultsComponents/StudentCharts/StudentWordDoughnutChart";
+// import StudentLetterDoughnutChart from "../../StudentLetterTestResultsComponents/StudentCharts/StudentLetterDoughnutChart";
+import TotalSoundsDoughnutChart from "../../StudentSoundTestResultsComponents/StudentCharts/TotalSoundsDoughnutChart";
+import "../../../static/StudentStyle.css";
+class Line10 extends Component {
+  componentDidMount() {
+    console.log("line 10 props", this.props);
   }
+  //   displayWordDoughnutChart(studentTest) {
+  //     if (!studentTest) {
+  //       return <p>loading...</p>;
+  //     }
+  //     let test = studentTest[2];
+  //     return <StudentWordDoughnutChart dataResults={test} />;
+  //   }
 
-  displayLetterLineChart(studentTest) {
+  //   displayLetterDoughnutChart(studentTest) {
+  //     if (!studentTest) {
+  //       return <p>loading...</p>;
+  //     }
+  //     let test = studentTest[2];
+  //     return <StudentLetterDoughnutChart dataResults={test} />;
+  //   }
+
+  displayTotalSoundDoughnutChart(studentTest) {
+    console.log("student test", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
-    let tests = studentTest[0];
-    return <LetterLineChart tests={tests} />;
-  }
-  displaySoundLineChart(studentTest) {
-    if (!studentTest) {
-      return <p>loading...</p>;
-    }
-    let tests = studentTest[0];
-    return <SoundLineChart tests={tests} />;
+    let test = studentTest[4];
+    return <TotalSoundsDoughnutChart dataResults={test} />;
   }
 
   render() {
@@ -34,17 +38,21 @@ class Line7 extends Component {
       <div className="container" id="student-detail">
         <Row>
           <Col lg="4">
-            {this.displayWordLineChart(this.props.studentWordTestResults)}
+            {/* {this.displayWordDoughnutChart(this.props.studentWordTestResults)} */}
           </Col>
           <Col lg="4">
-            {this.displayLetterLineChart(this.props.studentLetterTestResults)}
+            {/* {this.displayLetterDoughnutChart(
+              this.props.studentLetterTestResults
+            )} */}
           </Col>
           <Col lg="4">
-            {this.displaySoundLineChart(this.props.studentSoundTestResults)}
+            {this.displayTotalSoundDoughnutChart(
+              this.props.studentSoundTestResults
+            )}
           </Col>
         </Row>
       </div>
     );
   }
 }
-export default Line7;
+export default Line10;

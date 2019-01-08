@@ -66,3 +66,15 @@
 #student-table-header {
   text-align: center;
 }
+
+#add-to-student-form {
+  font-size: 24px;
+  align-self: baseline;
+}
+.form-control {
+  font-size: 24px;
+}
+#detail-form-control {
+  font-size: 24px;
+  height: 250px;
+}

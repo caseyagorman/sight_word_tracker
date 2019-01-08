@@ -42,7 +42,7 @@ class StudentSoundDoughnutChart extends Component {
     };
     return (
       <div>
-        <h3>Percentage of sounds learned</h3>
+        <h3>Percentage of assigned sounds learned</h3>
         <Doughnut options={options} data={data} />
       </div>
     );

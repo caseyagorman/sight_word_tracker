@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentsActions from "../../../redux/actions/studentsActions";
-import AddStudentButton from "../Forms/Student/AddStudentButton";
+import AddStudentButton from "../Forms/StudentForms/AddStudentButton";
 import ViewChartsButton from "../Forms/ViewChartsButton";
 import Line1 from "./Line1AllStudents";
 import "../../../static/StudentStyle.css";

@@ -12,7 +12,6 @@ class StudentLetterDoughnutChart extends Component {
 
     const learnedCount = dataResults.dataResults.learned[0];
     const unlearnedCount = dataResults.dataResults.unlearned[0];
-
     let learnedLetters = dataResults.dataResults.learned[1].map(data =>
       this.formatArray(data)
     );
@@ -47,7 +46,6 @@ class StudentLetterDoughnutChart extends Component {
       </div>
     );
   }
-  d;
   render() {
     return <div>{this.displayChart(this.props)}</div>;
   }
