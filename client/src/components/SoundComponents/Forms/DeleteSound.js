@@ -5,10 +5,9 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as soundActions from "../../../redux/actions/soundActions";
+import "../../../static/SoundStyle.css";
 import { Glyphicon } from "react-bootstrap";
-const glyphStyle = {
-  fontSize: "40px"
-};
+
 class DeleteSound extends Component {
   constructor(props) {
     super(props);
@@ -22,15 +21,15 @@ class DeleteSound extends Component {
     return (
       <div>
         <form>
-          <h3>
+          <div className="delete-div">
             <Glyphicon
-              style={glyphStyle}
               glyph="glyphicon glyphicon-trash"
               onClick={this.submit}
+              id="trash-can"
             />
-            <span> </span>
-            Delete "{sound[0].sound}"
-          </h3>
+
+            <b id="delete-sound">Delete "{sound[0].sound}"</b>
+          </div>
         </form>
       </div>
     );

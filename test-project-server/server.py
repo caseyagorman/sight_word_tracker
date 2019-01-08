@@ -308,7 +308,8 @@ def get_words(current_user):
 
         count = get_word_student_counts(word)
         unlearned_count = get_unlearned_word_student_counts(word)
-
+        unlearned_student_list = sorted(unlearned_student_list)
+        student_list = sorted(student_list)
         word = {
             'word_id': word.word_id,
             'word': word.word,
@@ -711,7 +712,8 @@ def get_letters(current_user):
 
         count = get_letter_student_counts(letter)
         unlearned_count = get_unlearned_letter_student_counts(letter)
-
+        unlearned_student_list = sorted(unlearned_student_list)
+        student_list = sorted(student_list)
         letter = {
             'letter_id': letter.letter_id,
             'letter': letter.letter,
@@ -1055,7 +1057,8 @@ def get_sounds(current_user):
 
         count = get_sound_student_counts(sound)
         unlearned_count = get_unlearned_sound_student_counts(sound)
-
+        unlearned_student_list = sorted(unlearned_student_list)
+        student_list = sorted(student_list)
         sound = {
             'sound_id': sound.sound_id,
             'sound': sound.sound,
@@ -1201,7 +1204,7 @@ def sound_detail(current_user, sound):
         'sound': sound_object.sound,
         'date': sound_object.date_added,
     }
-
+    student_list = sorted(student_list, key=itemgetter('fname'))
     return jsonify([sound_object, student_list])
 
 

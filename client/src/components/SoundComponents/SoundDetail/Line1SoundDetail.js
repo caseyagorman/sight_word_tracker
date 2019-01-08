@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-const headerStyle = { fontSize: "100px" };
+import "../../../static/SoundStyle.css";
+
 class Line1 extends React.Component {
   displaySound(sound) {
     if (!sound) {
@@ -8,7 +9,7 @@ class Line1 extends React.Component {
     }
     return (
       <div>
-        <h1 style={headerStyle}>{sound.sound}</h1>
+        <h1 id="display-sound">{sound.sound}</h1>
       </div>
     );
   }

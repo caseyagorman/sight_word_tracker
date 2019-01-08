@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as soundActions from "../../../redux/actions/soundActions";
 import * as authActions from "../../../redux/actions/authActions";
 import { Form, Button, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import "../../../static/SoundStyle.css";
 class AddSound extends Component {
   constructor(props) {
     super(props);

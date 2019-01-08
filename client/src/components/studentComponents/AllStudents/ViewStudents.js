@@ -7,12 +7,6 @@ import Line1 from "./Line1AllStudents";
 import Line2 from "./Line2AllStudents";
 import "../../../static/StudentStyle.css";
 
-const instructionsStyle = {
-  fontSize: "20px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "#d3d3d3"
-};
 class ViewStudents extends React.Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import SoundDetailTableRows from "./SoundDetailTableRows";
-
+import "../../../static/SoundStyle.css";
 // Display table head of sounds students are learning
 
 class SoundDetailTableHead extends Component {
   displayTableHead(students, sound) {
     return (
-      <div>
-        <Table striped bordered condensed hover>
+      <div id="sound-table">
+        <Table bordered hover>
           <thead>
             <tr>
               <th>

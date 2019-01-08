@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import SoundDetailTableHead from "./SoundDetailTableHead";
-
+import "../../../static/SoundStyle.css";
 class Line2 extends React.Component {
   displayTableHead(students, sound) {
     if (!students) {

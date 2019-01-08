@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as soundStudentsActions from "../../../redux/actions/soundStudentsActions";
 import * as unknownSoundStudentsActions from "../../../redux/actions/unknownSoundStudentsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import "../../../static/SoundStyle.css";
 const divStyle = { fontSize: "24px" };
 class AddStudentSoundForm extends Component {
   constructor(props) {
@@ -58,16 +59,16 @@ class AddStudentSoundForm extends Component {
   }
 
   getOptions() {
-    console.log("props", this.props);
     if (!this.props.unknownSoundStudents) {
       return <div>Loading!</div>;
     }
     let studentList = this.props.unknownSoundStudents;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="add-students-to-sound">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
             <h3>Assign students to "{this.props.sound.sound}"</h3>
+            <p>Hold shift and select names to add multiple students</p>
           </ControlLabel>
           <strong>
             <FormControl
@@ -83,7 +84,7 @@ class AddStudentSoundForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="submit-student-button" type="submit">
           Submit
         </button>
       </form>

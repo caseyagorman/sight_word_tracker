@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as studentActions from "../../../../redux/actions/studentActions";
 import * as authActions from "../../../../redux/actions/authActions";
 import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import "../../../../static/WordStyle.css";
+import "../../../../static/StudentStyle.css";
 class AddStudent extends Component {
   constructor(props) {
     super(props);

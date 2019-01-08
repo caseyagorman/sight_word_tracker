@@ -6,6 +6,7 @@ import DeleteSound from "../Forms/DeleteSound";
 import Line2 from "./Line2SoundDetail";
 import Line1 from "./Line1SoundDetail";
 import Line3 from "./Line3SoundDetail";
+import "../../../static/SoundStyle.css";
 class SoundDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id || !this.props.token) {

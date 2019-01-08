@@ -8,12 +8,6 @@ import Line1 from "./Line1AllSounds";
 import Line2 from "./Line2AllSounds";
 import "../../../static/SoundStyle.css";
 
-const instructionsStyle = {
-  fontSize: "20px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "#d3d3d3"
-};
 class ViewSounds extends React.Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
