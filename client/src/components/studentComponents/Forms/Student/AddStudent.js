@@ -68,7 +68,7 @@ class AddStudent extends Component {
         <br />
         <div className="container">
           <Col md={4}>
-            <Button id="add-student-button">Add student</Button>
+            <Button id="add-button">Add student</Button>
           </Col>
         </div>
       </Form>

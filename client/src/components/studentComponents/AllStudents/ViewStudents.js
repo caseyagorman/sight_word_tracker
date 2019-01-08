@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentsActions from "../../../redux/actions/studentsActions";
 import AddStudentButton from "../Forms/Student/AddStudentButton";
+import ViewChartsButton from "../Forms/ViewChartsButton";
 import Line1 from "./Line1AllStudents";
 import Line2 from "./Line2AllStudents";
 import "../../../static/StudentStyle.css";
@@ -43,6 +44,10 @@ class ViewStudents extends React.Component {
     return <AddStudentButton />;
   }
 
+  displayViewChartsButton() {
+    return <ViewChartsButton />;
+  }
+
   render() {
     return (
       <div className="container">
@@ -50,7 +55,9 @@ class ViewStudents extends React.Component {
         <h1 id="display-student">All Students</h1>
         <div id="instructions">{this.displayInstructions()}</div>
         <br />
-        <div>{this.displayAddStudentButton()}</div>
+        <div>
+          {this.displayAddStudentButton()} {this.displayViewChartsButton()}
+        </div>
         <div>
           <br />
         </div>

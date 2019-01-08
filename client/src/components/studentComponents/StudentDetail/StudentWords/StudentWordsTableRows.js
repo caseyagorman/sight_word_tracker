@@ -9,7 +9,9 @@ const StudentWordsTableRows = props => (
   <tbody>
     <tr>
       <td style={tableStyle}>
-        <Link to={`/word-detail/${props.word_id}`}>{props.word}</Link>
+        <Link to={`/word-detail/${props.word_id}`} className="link">
+          {props.word}
+        </Link>
       </td>
     </tr>
   </tbody>

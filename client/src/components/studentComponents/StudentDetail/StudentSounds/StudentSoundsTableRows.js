@@ -9,7 +9,9 @@ const StudentSoundsTableRows = props => (
   <tbody>
     <tr>
       <td style={tableStyle}>
-        <Link to={`/sound-detail/${props.sound_id}`}>{props.sound}</Link>
+        <Link to={`/sound-detail/${props.sound_id}`} className="link">
+          {props.sound}
+        </Link>
       </td>
     </tr>
   </tbody>

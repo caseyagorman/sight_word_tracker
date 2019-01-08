@@ -80,7 +80,7 @@ class AddStudentWordForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="add-to-student-button" type="submit">
           Submit
         </button>
       </form>

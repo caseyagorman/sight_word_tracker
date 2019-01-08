@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as studentSoundsActions from "../../../../redux/actions/studentSoundsActions";
 import * as unknownSoundsActions from "../../../../redux/actions/unknownSoundsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import "../../../../static/StudentStyle.css";
 const divStyle = { fontSize: "24px" };
 class AddStudentsoundForm extends Component {
   constructor(props) {
@@ -79,7 +80,7 @@ class AddStudentsoundForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="add-to-student-button" type="submit">
           Submit
         </button>
       </form>

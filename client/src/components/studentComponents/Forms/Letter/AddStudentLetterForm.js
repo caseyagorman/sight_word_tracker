@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as studentLettersActions from "../../../../redux/actions/studentLettersActions";
 import * as unknownLettersActions from "../../../../redux/actions/unknownLettersActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-const divStyle = { fontSize: "24px" };
+import "../../../../static/StudentStyle.css";
 class AddStudentLetterForm extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +26,6 @@ class AddStudentLetterForm extends Component {
       student: this.props.student[0].student_id,
       letters: this.state.value
     };
-    console.log("letters", newStudentLetters);
-
     let user = this.props.auth.user.token;
     this.props.studentLettersActions.addStudentLetters(newStudentLetters, user);
   }
@@ -68,7 +66,6 @@ class AddStudentLetterForm extends Component {
           </ControlLabel>
           <strong>
             <FormControl
-              style={divStyle}
               componentClass="select"
               multiple
               value={this.state.value}
@@ -80,7 +77,7 @@ class AddStudentLetterForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="add-to-student-button" type="submit">
           Submit
         </button>
       </form>

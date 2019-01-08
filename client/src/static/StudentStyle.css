@@ -4,20 +4,51 @@
   color: black;
   margin-bottom: 2%;
 }
-#add-student-button {
+#add-button {
   border-radius: 10px;
   color: white;
-  background-color: #0033cc;
+  background-color: #663399;
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
   font-size: 20px;
 }
-#link {
+.link {
   color: #0033cc;
 }
 .student-table {
   font-family: "Niramit", sans-serif;
   font-size: 20px;
   color: black;
+}
+
+#test-student-button {
+  border-radius: 10px;
+  color: white;
+  background-color: #0033cc;
+  text-align: center;
+  display: inline-block;
+  padding: 8px 26px;
+  font-size: 20px;
+  margin: 10px;
+}
+#add-to-student-button {
+  border-radius: 10px;
+  color: white;
+  background-color: #0033cc;
+  text-align: center;
+  display: inline-block;
+  padding: 8px 28px;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+#view-charts-button {
+  border-radius: 10px;
+  color: white;
+  background-color: #663399;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 20px;
 }

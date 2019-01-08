@@ -41,7 +41,10 @@ class AllWordsTableHead extends Component {
                   <td>
                     <th>
                       <h1>
-                        <Link to={`/word-detail/${word.word_id}`} id="link">
+                        <Link
+                          to={`/word-detail/${word.word_id}`}
+                          className="link"
+                        >
                           {word.word}
                         </Link>
                       </h1>

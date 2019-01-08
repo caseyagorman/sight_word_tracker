@@ -14,7 +14,11 @@ class Welcome extends Component {
           <br />
           Login below if you already have an account. If you don't have an
           account,
-          <Link to={`/register`}> register </Link>to sign up for one.
+          <Link to={`/register`} className="link">
+            {" "}
+            register{" "}
+          </Link>
+          to sign up for one.
           <br />
           <br />
         </div>

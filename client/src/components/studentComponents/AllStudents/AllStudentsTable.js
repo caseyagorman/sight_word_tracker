@@ -76,11 +76,14 @@ class AllStudentsTable extends Component {
                     </tr>
                   </td>
                   <td>
-                    <Link to={`/details/${student.student_id}`} id="link">
+                    <Link
+                      to={`/details/${student.student_id}`}
+                      className="link"
+                    >
                       View dashboard
                     </Link>
                     <br />
-                    <Link to={`/#/${student.student_id}`} id="link">
+                    <Link to={`/#/${student.student_id}`} className="link">
                       View reports
                     </Link>
                   </td>
