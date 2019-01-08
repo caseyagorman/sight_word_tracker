@@ -10,11 +10,11 @@ import Line2 from "./Line2StudentDetail";
 import Line3 from "./Line3StudentDetail";
 import Line4 from "./Line4StudentDetail";
 import Line5 from "./Line5StudentDetail";
-import Line6 from "./Line7StudentDetail";
-import Line7 from "./Line8StudentDetail";
-import Line8 from "./Line9StudentDetail";
-import Line9 from "./Line10StudentDetail";
-import Line10 from "./Line6StudentDetail";
+import Line6 from "./Line6StudentDetail";
+import Line7 from "./Line7StudentDetail";
+import Line8 from "./Line8StudentDetail";
+import Line9 from "./Line9StudentDetail";
+import Line10 from "./Line10StudentDetail";
 class StudentDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
@@ -89,21 +89,22 @@ class StudentDetail extends React.Component {
   }
 
   displayLine6(
-    // studentWordTestResults,
-    // studentLetterTestResults,
+    studentWordTestResults,
+    studentLetterTestResults,
     studentSoundTestResults
   ) {
+    console.log("studentSoundTest", studentSoundTestResults);
     if (
-      // !studentWordTestResults &&
-      // !studentLetterTestResults &&
+      !studentWordTestResults &&
+      !studentLetterTestResults &&
       !studentSoundTestResults
     ) {
       return <div> loading..</div>;
     }
     return (
-      <Line10
-        // studentWordTestResults={studentWordTestResults}
-        // studentLetterTestResults={studentLetterTestResults}
+      <Line6
+        studentWordTestResults={studentWordTestResults}
+        studentLetterTestResults={studentLetterTestResults}
         studentSoundTestResults={studentSoundTestResults}
       />
     );
@@ -196,8 +197,8 @@ class StudentDetail extends React.Component {
         </div>
         <div className="container">
           {this.displayLine6(
-            // this.props.studentWordTestResults,
-            // this.props.studentLetterTestResults,
+            this.props.studentWordTestResults,
+            this.props.studentLetterTestResults,
             this.props.studentSoundTestResults
           )}
         </div>

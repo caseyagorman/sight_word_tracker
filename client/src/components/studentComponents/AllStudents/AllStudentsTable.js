@@ -144,6 +144,11 @@ class AllStudentsTable extends Component {
                 </tr>
               );
             })}
+            <tr>
+              <td colspan="8">
+                <a>+ Click to add new student</a>
+              </td>
+            </tr>
           </tbody>
         </Table>
       </div>

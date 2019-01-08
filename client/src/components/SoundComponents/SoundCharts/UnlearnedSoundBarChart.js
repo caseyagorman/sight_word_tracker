@@ -58,11 +58,7 @@ class SoundBarChart extends Component {
               fontColor: "black",
               beginAtZero: true,
               min: 0,
-              userCallback: function(label) {
-                if (Math.floor(label) === label) {
-                  return label;
-                }
-              }
+              max: 22
             }
           }
         ],

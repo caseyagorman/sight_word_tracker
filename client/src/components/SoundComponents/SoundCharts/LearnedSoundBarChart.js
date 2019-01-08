@@ -53,15 +53,13 @@ class SoundBarChart extends Component {
         yAxes: [
           {
             ticks: {
-              fontSize: 24,
+              fontSize: 12,
               fontColor: "black",
               beginAtZero: true,
+              steps: 22,
+              stepValue: 1,
               min: 0,
-              userCallback: function(label) {
-                if (Math.floor(label) === label) {
-                  return label;
-                }
-              }
+              max: 22
             }
           }
         ],

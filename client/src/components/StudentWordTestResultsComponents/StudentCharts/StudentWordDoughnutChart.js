@@ -42,7 +42,7 @@ class StudentWordDoughnutChart extends Component {
     };
     return (
       <div>
-        <h3>Percentage of words learned</h3>
+        <h3>Percentage of assigned words learned</h3>
         <Doughnut options={options} data={data} />
       </div>
     );

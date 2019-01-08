@@ -24,6 +24,7 @@ class SoundChart extends React.Component {
   }
 
   displayLearnedSoundBarChart(sounds) {
+    console.log("sounds", sounds);
     if (!sounds) {
       return <p>Loading...</p>;
     }

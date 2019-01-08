@@ -81,7 +81,7 @@ class LetterLineChart extends Component {
 
     return (
       <div>
-        <h3>Student letter name tests over time</h3>
+        <h3>Student letter tests over time</h3>
         <Line options={options} data={data} />
       </div>
     );

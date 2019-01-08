@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-class TotalSoundsDoughnutChart extends Component {
+class TotalLettersDoughnutChart extends Component {
   formatArray(tooltipItem) {
     return " " + tooltipItem;
   }
   displayChart(dataResults) {
+    console.log("dataResults", dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }
@@ -13,15 +14,15 @@ class TotalSoundsDoughnutChart extends Component {
     const learnedCount = dataResults.dataResults.learned;
     const unlearnedCount = dataResults.dataResults.unlearned;
 
-    // let learnedSounds = dataResults.dataResults.learned[1].map(data =>
+    // let learnedletters = dataResults.dataResults.learned[1].map(data =>
     //   this.formatArray(data)
     // );
-    // let unlearnedSounds = dataResults.dataResults.unlearned[1].map(data =>
+    // let unlearnedletters = dataResults.dataResults.unlearned[1].map(data =>
     //   this.formatArray(data)
     // );
-    // let tooltipData = [learnedSounds, unlearnedSounds];
+    // let tooltipData = [learnedletters, unlearnedletters];
     const data = {
-      labels: ["Learned sounds", "Unlearned sounds"],
+      labels: ["Learned letters", "Unlearned letters"],
       datasets: [
         {
           data: [learnedCount, unlearnedCount],
@@ -42,7 +43,7 @@ class TotalSoundsDoughnutChart extends Component {
     };
     return (
       <div>
-        <h3>Percentage of all sounds learned</h3>
+        <h3>Percentage of all letters learned</h3>
         <Doughnut options={options} data={data} />
       </div>
     );
@@ -53,4 +54,4 @@ class TotalSoundsDoughnutChart extends Component {
   }
 }
 
-export default TotalSoundsDoughnutChart;
+export default TotalLettersDoughnutChart;

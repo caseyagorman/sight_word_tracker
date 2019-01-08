@@ -532,13 +532,37 @@ def get_learned_words_list(student_words):
             learned_words.append(student_word.words.word)
     return learned_words
 
+@app.route("/api/unknown-words-chart/<student>")
+@token_required
+def get_unknown_words_chart(current_user, student):
+    """gets words that student does not know and are not in current word list, words can then be added to students word list"""
+    user_id = current_user.public_id
+    words = StudentWord.query.filter_by(
+        student_id=student, user_id=user_id).options(db.joinedload('words')).all()
+    word_ids = []
+    for word in words:
+        word_ids.append(word.word_id)
 
-def get_student_word_chart_data(student_words):
+    unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
+    word_list = []
+
+    for word in unknown_words:
+        word = {
+            'word_id': word.word_id,
+            'word': word.word
+        }
+
+        word_list.append(word)
+    return word_list
+
+def get_student_word_chart_data(student_words, student):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
     learned_count = 0
     learned_words = []
     unlearned_count = 0
     unlearned_words = []
+    unassigned_words = get_unknown_words_chart(student)
+    unassigned_words_count = len(unassigned_words)
     for word in student_words:
         if word.Learned == True:
             learned_words.append(word.words.word)
@@ -546,9 +570,10 @@ def get_student_word_chart_data(student_words):
         else:
             unlearned_count += 1
             unlearned_words.append(word.words.word)
+    total_chart_data = {"learned": learned_count, "unlearned": unassigned_words_count + unlearned_count}
     chart_data = {"learned": [learned_count, learned_words],
                   "unlearned": [unlearned_count,  unlearned_words]}
-    return chart_data
+    return [chart_data, total_chart_data]
 
 # Tests
 
@@ -580,10 +605,11 @@ def get_student_word_test(current_user, student):
     student_tests = StudentWordTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     word_counts = get_word_counts(student_words)
-    chart_data = get_student_word_chart_data(student_words)
+    chart_data = get_student_word_chart_data(student_words, student)[0]
+    total_chart_data = get_student_word_chart_data(student_words, student)[1]
     student_test_list = get_student_word_test_list(student_tests)
     learned_words_list = get_learned_words_list(student_words)
-    return jsonify([student_test_list, word_counts, chart_data, learned_words_list])
+    return jsonify([student_test_list, word_counts, chart_data, learned_words_list, total_chart_data])
 
 
 def calculate_score(known_words, unknown_words):
@@ -908,10 +934,11 @@ def get_student_letter_test(current_user, student):
     student_tests = StudentLetterTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     letter_counts = get_letter_counts(student_letters)
-    chart_data = get_student_letter_chart_data(student_letters, student)
+    chart_data = get_student_letter_chart_data(student_letters, student)[0]
+    total_chart_data = get_student_letter_chart_data(student_letters, student)[1]
     student_test_list = get_student_letter_test_list(student_tests)
     learned_letters_list = get_learned_letters_list(student_letters)
-    return jsonify([student_test_list, letter_counts, chart_data, learned_letters_list])
+    return jsonify([student_test_list, letter_counts, chart_data, learned_letters_list, total_chart_data])
 
 
 def get_letter_counts(student_letters):
@@ -939,8 +966,6 @@ def get_learned_letters_list(student_letters):
 
 def get_student_letter_chart_data(student_letters, student):
     """is called by get_student_test, returns dictionary of learned and unlearned word counts"""
-    print("student letters", student_letters)
-    print(student)
     learned_count = 0
     learned_letters = []
     unlearned_count = 0
@@ -952,10 +977,38 @@ def get_student_letter_chart_data(student_letters, student):
         else:
             unlearned_count += 1
             unlearned_letters.append(letter.letters.letter)
+    unassigned_letters = get_unknown_letters_chart(student)
+    unassigned_count = len(unassigned_letters)
+    total_count = unassigned_count + unlearned_count
+    total_chart_data = {"learned":learned_count, "unlearned": total_count}
     chart_data = {"learned": [learned_count, learned_letters],
                   "unlearned": [unlearned_count,  unlearned_letters]}
-    return chart_data
+    return [chart_data, total_chart_data]
 
+
+@app.route("/api/unknown-letters-chart/<student>")
+@token_required
+def get_unknown_letters_chart(current_user, student):
+    """gets letters that student does not know and are not in current sound list, sounds can then be added to students sound list"""
+    user_id = current_user.public_id
+    letters = StudentLetter.query.filter_by(
+        student_id=student, user_id=user_id).options(db.joinedload('letters')).all()
+    letter_ids = []
+    for letter in letters:
+        letter_ids.append(letter.letter_id)
+
+    unknown_letters = Letter.query.filter(
+        Letter.letter_id.notin_(letter_ids)).all()
+    letter_list = []
+
+    for letter in unknown_letters:
+        letter = {
+            'letter_id': letter.letter_id,
+            'letter': letter.letter
+        }
+
+        letter_list.append(letter)
+    return letter_list
 
 def get_student_letter_test_list(student_test):
     """is called by get_student_letter_test, returns list of student tests"""

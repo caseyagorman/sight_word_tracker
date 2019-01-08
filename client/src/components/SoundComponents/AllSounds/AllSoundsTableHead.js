@@ -23,6 +23,13 @@ class AllSoundsTableHead extends Component {
 
   render() {
     let sounds = this.state.sounds;
+    // console.log(
+    //   "rendering AllSoundsTableHead",
+    //   "this.state.sounds ==",
+    //   this.state.sounds,
+    //   "this.props",
+    //   this.props
+    // );
 
     return (
       <div id="sound-table">
