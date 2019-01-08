@@ -8,7 +8,7 @@ class WordDetailTableHead extends Component {
   displayTableHead(students, word) {
     return (
       <div>
-        <Table striped bordered condensed hover>
+        <Table bordered hover>
           <thead>
             <tr>
               <th>

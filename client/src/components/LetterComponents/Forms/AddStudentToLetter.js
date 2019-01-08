@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as letterStudentsActions from "../../../redux/actions/letterStudentsActions";
 import * as unknownLetterStudentsActions from "../../../redux/actions/unknownLetterStudentsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-const divStyle = { fontSize: "24px" };
+import "../../../static/WordStyle.css";
 class AddStudentLetterForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,6 @@ class AddStudentLetterForm extends Component {
   }
 
   componentDidMount() {
-    console.log("props", this.props);
     const id = this.props.letter.letter_id;
     const user = this.props.auth.user.token;
     this.props.unknownLetterStudentsActions.fetchUnknownLetterStudents(
@@ -66,14 +65,14 @@ class AddStudentLetterForm extends Component {
     }
     let studentList = this.props.unknownLetterStudents;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="add-students-to-letter">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
             <h3>Assign students to "{this.props.letter.letter}"</h3>
+            <p>Hold shift and select names to add multiple students</p>
           </ControlLabel>
           <strong>
             <FormControl
-              style={divStyle}
               componentClass="select"
               multiple
               value={this.state.value}
@@ -85,7 +84,7 @@ class AddStudentLetterForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="submit-student-button" type="submit">
           Submit
         </button>
       </form>

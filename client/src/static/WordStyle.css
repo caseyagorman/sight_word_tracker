@@ -13,7 +13,7 @@
   padding: 15px 32px;
   font-size: 20px;
 }
-#link {
+.link {
   color: #0033cc;
 }
 #word-table {
@@ -46,4 +46,8 @@
 }
 .add-students-to-word {
   font-family: "Niramit", sans-serif;
+}
+
+#name-table {
+  font-size: 24px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-const headerStyle = { fontSize: "100px" };
+import "../../../static/LetterStyle.css";
 class Line1 extends React.Component {
   displayLetter(letter) {
     if (!letter) {
@@ -8,7 +8,7 @@ class Line1 extends React.Component {
     }
     return (
       <div>
-        <h1 style={headerStyle}>{letter.letter}</h1>
+        <h1 id="display-letter">{letter.letter}</h1>
       </div>
     );
   }

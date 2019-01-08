@@ -8,7 +8,7 @@ class LetterDetailTableHead extends Component {
   displayTableHead(students, letter) {
     return (
       <div>
-        <Table striped bordered condensed hover>
+        <Table bordered hover>
           <thead>
             <tr>
               <th>

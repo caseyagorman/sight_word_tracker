@@ -13,11 +13,31 @@
   padding: 15px 32px;
   font-size: 20px;
 }
-#link {
+.link {
   color: #0033cc;
 }
 #letter-table {
   font-family: "Niramit", sans-serif;
   font-size: 20px;
   color: black;
+}
+
+#delete-letter {
+  font-family: "Niramit", sans-serif;
+  color: #ff3333;
+}
+.delete-div {
+  margin-top: 10%;
+  font-size: 40px;
+  display: inline-block;
+}
+#trash-can {
+  margin-right: 5px;
+}
+.add-students-to-letter {
+  font-family: "Niramit", sans-serif;
+}
+
+#name-table {
+  font-size: 24px;
 }

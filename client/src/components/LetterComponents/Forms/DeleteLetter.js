@@ -5,10 +5,9 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as letterActions from "../../../redux/actions/letterActions";
+import "../../../static/LetterStyle.css";
 import { Glyphicon } from "react-bootstrap";
-const glyphStyle = {
-  fontSize: "40px"
-};
+
 class DeleteLetter extends Component {
   constructor(props) {
     super(props);
@@ -22,15 +21,15 @@ class DeleteLetter extends Component {
     return (
       <div>
         <form>
-          <h3>
+          <div className="delete-div">
             <Glyphicon
-              style={glyphStyle}
               glyph="glyphicon glyphicon-trash"
               onClick={this.submit}
+              id="trash-can"
             />
             <span> </span>
-            Delete {letter[0].letter}
-          </h3>
+            <b id="delete-letter">Delete {letter[0].letter}</b>
+          </div>
         </form>
       </div>
     );

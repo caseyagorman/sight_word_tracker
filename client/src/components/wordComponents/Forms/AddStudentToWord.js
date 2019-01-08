@@ -5,7 +5,7 @@ import * as wordStudentsActions from "../../../redux/actions/wordStudentsActions
 import * as unknownWordStudentsActions from "../../../redux/actions/unknownWordStudentsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "../../../static/WordStyle.css";
-const divStyle = { fontSize: "24px" };
+
 class AddStudentWordForm extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,6 @@ class AddStudentWordForm extends Component {
   }
 
   componentDidMount() {
-    console.log("props", this.props);
     const id = this.props.word.word_id;
     const user = this.props.auth.user.token;
     this.props.unknownWordStudentsActions.fetchUnknownWordStudents(id, user);
@@ -71,7 +70,6 @@ class AddStudentWordForm extends Component {
           </ControlLabel>
           <strong>
             <FormControl
-              style={divStyle}
               componentClass="select"
               multiple
               value={this.state.value}
