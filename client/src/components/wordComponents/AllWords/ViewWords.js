@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as wordsActions from "../../../redux/actions/wordsActions";
 import * as authActions from "../../../redux/actions/authActions";
 import AddWordButton from "../Forms/AddWordButton";
+import ViewChartsButton from "../Forms/ViewChartsButton";
 import Line1 from "./Line1AllWords";
 import Line2 from "./Line2AllWords";
 import "../../../static/WordStyle.css";
@@ -36,6 +37,9 @@ class ViewWords extends React.Component {
   displayAddWordButton() {
     return <AddWordButton />;
   }
+  displayViewChartsButton() {
+    return <ViewChartsButton />;
+  }
 
   render() {
     return (
@@ -45,7 +49,10 @@ class ViewWords extends React.Component {
         <br />
         <div id="instructions">{this.displayInstructions()}</div>
         <br />
-        <div>{this.displayAddWordButton()}</div>
+        <div>
+          {this.displayAddWordButton()}
+          {this.displayViewChartsButton()}
+        </div>
         <br />
         <div>{this.displayLine1(this.props.words)}</div>
         <br />

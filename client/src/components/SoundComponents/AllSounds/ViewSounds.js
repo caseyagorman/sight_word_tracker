@@ -5,8 +5,8 @@ import * as soundsActions from "../../../redux/actions/soundsActions";
 import * as authActions from "../../../redux/actions/authActions";
 import AddSoundButton from "../Forms/AddSoundButton";
 import Line1 from "./Line1AllSounds";
-import Line2 from "./Line2AllSounds";
 import "../../../static/SoundStyle.css";
+import ViewChartsButton from "../Forms/ViewChartsButton";
 
 class ViewSounds extends React.Component {
   componentDidMount() {
@@ -31,14 +31,11 @@ class ViewSounds extends React.Component {
     }
     return <Line1 sounds={sounds} />;
   }
-  displayLine2(sounds) {
-    if (!sounds) {
-      return <p>sploading...</p>;
-    }
-    return <Line2 sounds={sounds} />;
-  }
   displayAddSoundButton() {
     return <AddSoundButton />;
+  }
+  displayViewChartsButton() {
+    return <ViewChartsButton />;
   }
 
   render() {
@@ -48,11 +45,13 @@ class ViewSounds extends React.Component {
         <h1 id="display-sound">All Sounds</h1>
         <div id="instructions">{this.displayInstructions()}</div>
         <br />
-        <div>{this.displayAddSoundButton()}</div>
+        <div>
+          {this.displayAddSoundButton()}
+          {this.displayViewChartsButton()}
+        </div>
         <br />
         <div>{this.displayLine1(this.props.sounds)}</div>
         <br />
-        <div>{this.displayLine2(this.props.sounds)}</div>
       </div>
     );
   }

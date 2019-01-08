@@ -7,6 +7,7 @@ import AddLetterButton from "../Forms/AddLetterButton";
 import Line1 from "./Line1AllLetters";
 import Line2 from "./Line2AllLetters";
 import "../../../static/LetterStyle.css";
+import ViewChartsButton from "../Forms/ViewCharts";
 
 class ViewLetters extends React.Component {
   componentDidMount() {
@@ -40,6 +41,9 @@ class ViewLetters extends React.Component {
   displayAddLetterButton() {
     return <AddLetterButton />;
   }
+  displayViewChartsButton() {
+    return <ViewChartsButton />;
+  }
 
   render() {
     return (
@@ -48,7 +52,10 @@ class ViewLetters extends React.Component {
         <h1 id="display-letter">All Letters</h1>
         <div id="instructions">{this.displayInstructions()}</div>
         <br />
-        <div>{this.displayAddLetterButton()}</div>
+        <div>
+          {this.displayAddLetterButton()}
+          {this.displayViewChartsButton()}
+        </div>
         <br />
         <div>{this.displayLine1(this.props.letters)}</div>
         <br />
