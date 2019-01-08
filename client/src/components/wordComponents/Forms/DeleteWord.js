@@ -6,9 +6,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordActions from "../../../redux/actions/wordActions";
 import { Glyphicon } from "react-bootstrap";
-const glyphStyle = {
-  fontSize: "40px"
-};
+import "../../../static/WordStyle.css";
 class DeleteWord extends Component {
   constructor(props) {
     super(props);
@@ -22,15 +20,15 @@ class DeleteWord extends Component {
     return (
       <div>
         <form>
-          <h3>
+          <div className="delete-div">
             <Glyphicon
-              style={glyphStyle}
               glyph="glyphicon glyphicon-trash"
               onClick={this.submit}
+              id="trash-can"
             />
-            <span> </span>
-            Delete {word[0].word}
-          </h3>
+
+            <b id="delete-word">Delete "{word[0].word}"</b>
+          </div>
         </form>
       </div>
     );

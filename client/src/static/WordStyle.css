@@ -21,3 +21,29 @@
   font-size: 20px;
   color: black;
 }
+
+#submit-student-button {
+  border-radius: 10px;
+  color: white;
+  background-color: #0033cc;
+  text-align: center;
+  display: inline-block;
+  padding: 8px 28px;
+  font-size: 20px;
+}
+
+#delete-word {
+  font-family: "Niramit", sans-serif;
+  color: #ff3333;
+}
+.delete-div {
+  margin-top: 10%;
+  font-size: 40px;
+  display: inline-block;
+}
+#trash-can {
+  margin-right: 5px;
+}
+.add-students-to-word {
+  font-family: "Niramit", sans-serif;
+}

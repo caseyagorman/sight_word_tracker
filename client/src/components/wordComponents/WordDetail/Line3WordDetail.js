@@ -4,7 +4,6 @@ import AddStudentToWord from "../Forms/AddStudentToWord";
 
 class Line4 extends Component {
   addStudentToWord(word) {
-    console.log("student", word);
     if (!word) {
       return <div>loading...</div>;
     }

@@ -30,7 +30,6 @@ class WordDetail extends React.Component {
     return <Line2 students={students[1]} word={students[0]} />;
   }
   displayLine3(students) {
-    console.log("line 3", students);
     if (!students) {
       return <div> loading..</div>;
     }

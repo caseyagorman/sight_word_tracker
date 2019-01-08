@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as wordStudentsActions from "../../../redux/actions/wordStudentsActions";
 import * as unknownWordStudentsActions from "../../../redux/actions/unknownWordStudentsActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import "../../../static/WordStyle.css";
 const divStyle = { fontSize: "24px" };
 class AddStudentWordForm extends Component {
   constructor(props) {
@@ -24,8 +25,6 @@ class AddStudentWordForm extends Component {
   getIds(students) {
     let studentIds = [];
     let allStudents = this.props.unknownWordStudents;
-    console.log(allStudents);
-    console.log("get ids", students);
     for (let i = 0; i < allStudents.length; i++) {
       for (let j = 0; j < students.length; j++)
         if (allStudents[i].student === students[j]) {
@@ -44,7 +43,6 @@ class AddStudentWordForm extends Component {
     };
 
     let user = this.props.auth.user.token;
-    console.log("new word students", newWordStudents);
     this.props.wordStudentsActions.addWordStudents(newWordStudents, user);
   }
 
@@ -65,10 +63,11 @@ class AddStudentWordForm extends Component {
     }
     let studentList = this.props.unknownWordStudents;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="add-students-to-word">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
             <h3>Assign students to "{this.props.word.word}"</h3>
+            <p>Hold shift and select names to add multiple students</p>
           </ControlLabel>
           <strong>
             <FormControl
@@ -84,7 +83,7 @@ class AddStudentWordForm extends Component {
             </FormControl>
           </strong>
         </FormGroup>
-        <button className="btn btn-primary btn-md" type="submit">
+        <button id="submit-student-button" type="submit">
           Submit
         </button>
       </form>
