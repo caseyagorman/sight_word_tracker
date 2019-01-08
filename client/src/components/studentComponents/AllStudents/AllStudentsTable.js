@@ -16,7 +16,6 @@ class AllStudentsTable extends Component {
   onSort(e, sortKey) {
     let myArray = this.state.students;
     myArray.sort(function(a, b) {
-      console.log("a", a[sortKey], "b", b[sortKey]);
       return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
     });
     this.setState({ students: myArray });

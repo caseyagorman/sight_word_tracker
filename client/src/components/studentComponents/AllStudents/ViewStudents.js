@@ -5,7 +5,6 @@ import * as studentsActions from "../../../redux/actions/studentsActions";
 import AddStudentButton from "../Forms/Student/AddStudentButton";
 import ViewChartsButton from "../Forms/ViewChartsButton";
 import Line1 from "./Line1AllStudents";
-import Line2 from "./Line2AllStudents";
 import "../../../static/StudentStyle.css";
 
 class ViewStudents extends React.Component {
@@ -33,12 +32,6 @@ class ViewStudents extends React.Component {
     }
     return <Line1 students={students} />;
   }
-  displayLine2(students) {
-    if (!students) {
-      return <p>Loading...</p>;
-    }
-    return <Line2 students={students} />;
-  }
 
   displayAddStudentButton() {
     return <AddStudentButton />;
@@ -63,7 +56,6 @@ class ViewStudents extends React.Component {
         </div>
         <div>
           <div>{this.displayLine1(this.props.students)}</div>
-          <div>{this.displayLine2(this.props.students)}</div>
         </div>
       </div>
     );

@@ -27,7 +27,6 @@ class StudentLetterTestPage extends React.Component {
   }
 
   displayLetter(letters) {
-    console.log(letters);
     if (!letters) {
       this.createTestObject();
     }
@@ -40,7 +39,6 @@ class StudentLetterTestPage extends React.Component {
       correct_letters: this.state.known_letters,
       incorrect_letters: this.state.unknown_letters
     };
-    console.log(results);
     const user = this.props.user;
     this.props.letterTestActions.addLetterTest(results, user);
   }

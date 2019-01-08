@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class WordBarChart extends Component {
+class LearnedLowercaseLetterBarChart extends Component {
   state = { data: null, showTooltip: false };
 
   componentDidMount() {
@@ -12,27 +12,25 @@ class WordBarChart extends Component {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let wordList = [];
-    let wordCounts = [];
+    let letterList = [];
+    let letterCounts = [];
     let studentList = [];
     for (let item in obj) {
-      wordCounts.push(obj[item].count);
-      wordList.push(obj[item].word);
+      letterCounts.push(obj[item].count);
+      letterList.push(obj[item].letter);
       studentList.push(obj[item].students);
     }
-
-    return [wordCounts, wordList, studentList];
+    return [letterCounts, letterList, studentList];
   }
 
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let words = this.turnIntoArray(dataResults);
-    let wordCounts = words[0];
-    let wordList = words[1];
-    let studentList = words[2];
-
+    let letters = this.turnIntoArray(dataResults);
+    let letterCounts = letters[0];
+    let letterList = letters[1];
+    let studentList = letters[2];
     let options = {
       tooltips: {
         callbacks: {
@@ -80,18 +78,18 @@ class WordBarChart extends Component {
       }
     };
     const data = {
-      labels: wordList,
+      labels: letterList,
 
       datasets: [
         {
-          label: "Unlearned Words",
+          label: "Learned lowercase letters",
 
-          backgroundColor: "#ff3333",
-          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "#008000",
+          borderColor: "#008000",
           borderWidth: 1,
-          hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)",
-          data: wordCounts
+          hoverBackgroundColor: "#008000",
+          hoverBorderColor: "#008000",
+          data: letterCounts
         }
       ]
     };
@@ -100,11 +98,11 @@ class WordBarChart extends Component {
   render() {
     return (
       <div id="bar-chart">
-        <h2>Students are learning:</h2>
+        <h2>Students have learned:</h2>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>
     );
   }
 }
 
-export default WordBarChart;
+export default LearnedLowercaseLetterBarChart;

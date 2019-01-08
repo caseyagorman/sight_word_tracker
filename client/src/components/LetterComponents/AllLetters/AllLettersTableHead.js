@@ -16,7 +16,6 @@ class AllLettersTableHead extends Component {
   onSort(e, sortKey) {
     let myArray = this.state.letters;
     myArray.sort(function(a, b) {
-      console.log("a", a[sortKey], "b", b[sortKey]);
       return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
     });
     this.setState({ letters: myArray });

@@ -44,7 +44,6 @@ class AddStudentLetterForm extends Component {
     };
 
     let user = this.props.auth.user.token;
-    console.log("new letter students", newLetterStudents);
     this.props.letterStudentsActions.addLetterStudents(newLetterStudents, user);
   }
 

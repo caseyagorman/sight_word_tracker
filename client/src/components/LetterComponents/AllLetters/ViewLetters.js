@@ -5,7 +5,6 @@ import * as lettersActions from "../../../redux/actions/lettersActions";
 import * as authActions from "../../../redux/actions/authActions";
 import AddLetterButton from "../Forms/AddLetterButton";
 import Line1 from "./Line1AllLetters";
-import Line2 from "./Line2AllLetters";
 import "../../../static/LetterStyle.css";
 import ViewChartsButton from "../Forms/ViewCharts";
 
@@ -31,13 +30,6 @@ class ViewLetters extends React.Component {
     return <Line1 letters={letters} />;
   }
 
-  displayLine2(letters) {
-    if (!letters) {
-      return <p>loading...</p>;
-    }
-    letters = letters.letters[0];
-    return <Line2 letters={letters} />;
-  }
   displayAddLetterButton() {
     return <AddLetterButton />;
   }
@@ -59,7 +51,6 @@ class ViewLetters extends React.Component {
         <br />
         <div>{this.displayLine1(this.props.letters)}</div>
         <br />
-        <div>{this.displayLine2(this.props.letters)}</div>
       </div>
     );
   }

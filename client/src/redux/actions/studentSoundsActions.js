@@ -8,7 +8,6 @@ function addStudentSoundsApi() {
 }
 
 export function addStudentSounds(studentSounds, user) {
-  console.log("studentSounds", studentSounds);
   return dispatch => {
     return fetch(addStudentSoundsApi(), {
       method: "POST",

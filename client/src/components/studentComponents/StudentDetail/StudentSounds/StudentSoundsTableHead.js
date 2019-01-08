@@ -6,7 +6,6 @@ import StudentSoundsTableRows from "./StudentSoundsTableRows";
 
 class StudentSoundsTableHead extends Component {
   displaySoundsTableHead(data) {
-    console.log("display sounds table head", data);
     return (
       <div>
         <Table striped bordered condensed hover>

@@ -28,7 +28,6 @@ class AddStudentWordForm extends Component {
     };
 
     let user = this.props.auth.user.token;
-    console.log(newStudentWords);
     this.props.studentWordsActions.addStudentWords(newStudentWords, user);
   }
 

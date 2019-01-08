@@ -66,6 +66,7 @@ def index(current_user):
 @cross_origin()
 def add_user():
     data = request.get_json()
+    print(data)
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
@@ -73,15 +74,15 @@ def add_user():
     existing_user = User.query.filter_by(username=username).first()
     # Check later for or condition statement on email. Email or user exists, return error
     if existing_user:
+        print("already exists")
         return jsonify({'error': 'user already exists'})
-    else:
 
-        new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
-                        password=hashed_password)
-
-        db.session.add(new_user)
-        db.session.commit()
-        return jsonify({'newUser': 'user added'})
+    new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
+                    password=hashed_password)
+    print(new_user)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'newUser': 'user added'})
 
 
 """Student functions"""
@@ -321,8 +322,7 @@ def get_words(current_user):
 
         word_list.append(word)
     word_list = sorted(word_list, key=itemgetter('word'))
-    chart_words = get_all_student_word_counts()
-    return jsonify([word_list, chart_words])
+    return jsonify(word_list)
 
 
 def get_all_student_word_counts():
@@ -383,6 +383,9 @@ def get_unknown_words(current_user, student):
 def get_unknown_students_word(current_user, word):
     """gets students are not assigned to word"""
     user_id = current_user.public_id
+    print(current_user)
+    # 566f675f-e940-460a-a06f-c130cb4d9c12
+    # edcd9371-1cd7-4f5b-8b4b-0ed85c6f8851
     students = StudentWord.query.filter_by(
         word_id=word, user_id=user_id).options(db.joinedload('students')).all()
     student_ids = []
@@ -695,7 +698,8 @@ def get_letters(current_user):
     user_id = current_user.public_id
     letters = Letter.query.filter_by(user_id=user_id).options(
         db.joinedload('studentletters')).all()
-    letter_list = []
+    capital_letter_list = []
+    lowercase_letter_list = []
 
     for letter in letters:
         student_list = []
@@ -722,11 +726,13 @@ def get_letters(current_user):
             'students': student_list,
             'unlearned_students':unlearned_student_list
         }
-
-        letter_list.append(letter)
-    chart_letters = get_all_student_letter_counts()
-    letter_list = sorted(letter_list, key=itemgetter('letter'))
-    return jsonify([letter_list, chart_letters])
+        if letter['letter'].isupper():
+            capital_letter_list.append(letter)
+        elif letter['letter'].islower():
+            lowercase_letter_list.append(letter)
+    capital_letter_list = sorted(capital_letter_list, key=itemgetter('letter'))
+    lowercase_letter_list = sorted(lowercase_letter_list, key=itemgetter('letter'))
+    return jsonify([lowercase_letter_list, capital_letter_list])
 # Forms
 
 @app.route("/api/add-letter", methods=['POST'])

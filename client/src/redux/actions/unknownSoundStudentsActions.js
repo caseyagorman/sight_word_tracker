@@ -5,7 +5,6 @@ function getUnknownSoundStudents(id) {
 }
 
 export function receiveUnknownSoundStudents(unknownSoundStudents) {
-  console.log("unknownSoundStudents", unknownSoundStudents);
   return {
     type: types.RECEIVE_UNKNOWN_SOUND_STUDENTS,
     unknownSoundStudents: unknownSoundStudents
@@ -13,7 +12,6 @@ export function receiveUnknownSoundStudents(unknownSoundStudents) {
 }
 
 export function fetchUnknownSoundStudents(sound, user) {
-  console.log("fetch unknownSoundStudents", sound, user);
   return dispatch => {
     return fetch(getUnknownSoundStudents(sound), {
       method: "GET",

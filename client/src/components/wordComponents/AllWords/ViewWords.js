@@ -6,7 +6,6 @@ import * as authActions from "../../../redux/actions/authActions";
 import AddWordButton from "../Forms/AddWordButton";
 import ViewChartsButton from "../Forms/ViewChartsButton";
 import Line1 from "./Line1AllWords";
-import Line2 from "./Line2AllWords";
 import "../../../static/WordStyle.css";
 
 class ViewWords extends React.Component {
@@ -27,12 +26,6 @@ class ViewWords extends React.Component {
       return <p>loading...</p>;
     }
     return <Line1 words={words} />;
-  }
-  displayLine2(words) {
-    if (!words) {
-      return <p>loading...</p>;
-    }
-    return <Line2 words={words} />;
   }
   displayAddWordButton() {
     return <AddWordButton />;
@@ -56,7 +49,6 @@ class ViewWords extends React.Component {
         <br />
         <div>{this.displayLine1(this.props.words)}</div>
         <br />
-        <div>{this.displayLine2(this.props.words)}</div>
       </div>
     );
   }

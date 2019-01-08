@@ -7,7 +7,7 @@ class Line1 extends React.Component {
     if (!words) {
       return <p>Loading...</p>;
     }
-    return <AllWordsTableHead words={words.words[0]} />;
+    return <AllWordsTableHead words={words.words} />;
   }
 
   render() {

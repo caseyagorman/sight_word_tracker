@@ -5,7 +5,6 @@ function getUnknownLetterStudentsApi(id) {
 }
 
 export function receiveUnknownLetterStudents(unknownLetterStudents) {
-  console.log(unknownLetterStudents);
   return {
     type: types.RECEIVE_UNKNOWN_LETTER_STUDENTS,
     unknownLetterStudents: unknownLetterStudents

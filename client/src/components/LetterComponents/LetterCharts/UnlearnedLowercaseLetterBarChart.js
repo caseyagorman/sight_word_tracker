@@ -1,18 +1,27 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class LetterBarChart extends Component {
+class UnlearnedLowercaseLetterBarChart extends Component {
+  state = { data: null, showTooltip: false };
+
+  componentDidMount() {
+    this.setState({ data: this.props.data });
+  }
+
   turnIntoArray(obj) {
+    console.log(obj);
     if (!obj) {
       return <p>Loading...</p>;
     }
+    let letterList = [];
     let letterCounts = [];
     let studentList = [];
     for (let item in obj) {
-      letterCounts.push(obj[item].letter_count);
-      studentList.push(obj[item].fname);
+      letterCounts.push(obj[item].unlearned_count);
+      letterList.push(obj[item].letter);
+      studentList.push(obj[item].unlearned_students);
     }
-    return [letterCounts, studentList];
+    return [letterCounts, letterList, studentList];
   }
 
   displayChart(dataResults) {
@@ -20,9 +29,9 @@ class LetterBarChart extends Component {
       return <div> loading...</div>;
     }
     let letters = this.turnIntoArray(dataResults);
-
     let letterCounts = letters[0];
-    let studentList = letters[1];
+    let letterList = letters[1];
+    let studentList = letters[2];
 
     let options = {
       tooltips: {
@@ -41,14 +50,14 @@ class LetterBarChart extends Component {
       scales: {
         lable: [
           {
-            fontSize: 18,
+            fontSize: 40,
             fontColor: "black"
           }
         ],
         yAxes: [
           {
             ticks: {
-              fontSize: 14,
+              fontSize: 40,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -63,7 +72,7 @@ class LetterBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 10,
+              fontSize: 40,
               fontColor: "black"
             }
           }
@@ -71,33 +80,31 @@ class LetterBarChart extends Component {
       }
     };
     const data = {
-      labels: studentList,
+      labels: letterList,
 
       datasets: [
         {
-          label: "Students",
+          label: "Unlearned lowercase letters",
 
-          backgroundColor: "#008000",
-          borderColor: "#008000",
+          backgroundColor: "#ff3333",
+          borderColor: "#ff3333",
           borderWidth: 1,
-          hoverBackgroundColor: "#008000",
-          hoverBorderColor: "#008000",
+          hoverBackgroundColor: "#ff3333",
+          hoverBorderColor: "#ff3333",
           data: letterCounts
         }
       ]
     };
-    return <Bar data={data} options={options} />;
+    return <Bar data={data} width={200} height={400} options={options} />;
   }
   render() {
     return (
-      <div id="chart-style">
-        <h2>Letters</h2>
-        <div className="container">
-          {this.displayChart(this.props.students)}
-        </div>
+      <div id="bar-chart">
+        <h2>Students are learning:</h2>
+        <div className="container">{this.displayChart(this.state.data)}</div>
       </div>
     );
   }
 }
 
-export default LetterBarChart;
+export default UnlearnedLowercaseLetterBarChart;

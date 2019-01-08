@@ -38,7 +38,7 @@ class StudentSoundsTestPage extends React.Component {
       correct_sounds: this.state.known_sounds,
       incorrect_sounds: this.state.unknown_sounds
     };
-    console.log(results);
+
     const user = this.props.user;
     this.props.soundTestActions.addSoundTest(results, user);
   }

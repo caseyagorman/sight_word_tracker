@@ -11,7 +11,6 @@ class SoundTestStudent extends React.Component {
   }
 
   getSounds(student) {
-    console.log(student);
     if (!student) {
       return <p> Loading... </p>;
     }

@@ -16,7 +16,6 @@ class AddStudentSoundForm extends Component {
   }
 
   componentDidMount() {
-    console.log("props", this.props);
     const id = this.props.sound.sound_id;
     const user = this.props.auth.user.token;
     this.props.unknownSoundStudentsActions.fetchUnknownSoundStudents(id, user);
@@ -43,7 +42,6 @@ class AddStudentSoundForm extends Component {
     };
 
     let user = this.props.auth.user.token;
-    console.log("new sound students", newSoundStudents);
     this.props.soundStudentsActions.addSoundStudents(newSoundStudents, user);
   }
 

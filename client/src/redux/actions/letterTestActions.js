@@ -5,7 +5,6 @@ function addLetterTestApi() {
 }
 
 export function addLetterTest(result, user) {
-  console.log(result);
   return dispatch => {
     return fetch(addLetterTestApi(), {
       method: "POST",

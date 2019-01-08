@@ -12,13 +12,10 @@ class AllSoundsTableHead extends Component {
     this.state = { sounds: this.props.sounds };
     this.onSort = this.onSort.bind(this);
   }
-  componentDidMount() {
-    console.log("all sounds table", this.props);
-  }
+
   onSort(e, sortKey) {
     let myArray = this.state.sounds;
     myArray.sort(function(a, b) {
-      console.log("a", a[sortKey], "b", b[sortKey]);
       return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
     });
     this.setState({ sounds: myArray });
