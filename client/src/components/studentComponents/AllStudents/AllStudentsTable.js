@@ -25,23 +25,37 @@ class AllStudentsTable extends Component {
     let students = this.state.students;
 
     return (
-      <div id="#student-table">
+      <div className="student-table">
         <Table bordered hover>
+          <thead>
+            <tr>
+              <th id="student-table-header" colspan="2">
+                Students
+              </th>
+
+              <th id="student-table-header" colspan="3">
+                Learned{" "}
+              </th>
+              <th id="student-table-header" colspan="3">
+                Unlearned{" "}
+              </th>
+            </tr>
+          </thead>
           <thead>
             <tr>
               <th onClick={e => this.onSort(e, "fname")}>Name</th>
               <th onClick={e => this.onSort(e, "links")}>Links</th>
               <th onClick={e => this.onSort(e, "word_count")}>Words</th>
-              <th onClick={e => this.onSort(e, "unlearned_word_count")}>
-                Unleared Words
-              </th>
               <th onClick={e => this.onSort(e, "letter_count")}>Letters</th>
-              <th onClick={e => this.onSort(e, "unlearned_letter_count")}>
-                Unlearned Letters
-              </th>
               <th onClick={e => this.onSort(e, "sound_count")}>Sounds</th>
+              <th onClick={e => this.onSort(e, "unlearned_word_count")}>
+                Words
+              </th>
+              <th onClick={e => this.onSort(e, "unlearned_letter_count")}>
+                Letters
+              </th>
               <th onClick={e => this.onSort(e, "unlearned_sound_count")}>
-                Unlearned Sounds
+                Sounds
               </th>
             </tr>
           </thead>
@@ -93,17 +107,7 @@ class AllStudentsTable extends Component {
                   </td>
                   <td>
                     <ul style={noBulletList}>
-                      {student.unlearned_word_list.map(listElements)}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul style={noBulletList}>
                       {student.letter_list.map(listElements)}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul style={noBulletList}>
-                      {student.unlearned_letter_list.map(listElements)}
                     </ul>
                   </td>
                   <td>
@@ -111,6 +115,18 @@ class AllStudentsTable extends Component {
                       {student.sound_list.map(listElements)}
                     </ul>
                   </td>
+                  <td>
+                    <ul style={noBulletList}>
+                      {student.unlearned_word_list.map(listElements)}
+                    </ul>
+                  </td>
+
+                  <td>
+                    <ul style={noBulletList}>
+                      {student.unlearned_letter_list.map(listElements)}
+                    </ul>
+                  </td>
+
                   <td>
                     <ul style={noBulletList}>
                       {student.unlearned_sound_list.map(listElements)}

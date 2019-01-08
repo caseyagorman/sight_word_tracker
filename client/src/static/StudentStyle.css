@@ -5,6 +5,7 @@
   margin-bottom: 2%;
 }
 #add-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;
@@ -23,6 +24,7 @@
 }
 
 #test-student-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;
@@ -33,6 +35,7 @@
   margin: 10px;
 }
 #add-to-student-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;
@@ -44,6 +47,7 @@
 }
 
 #view-charts-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #008000;
@@ -54,4 +58,11 @@
 }
 #student-detail {
   font-family: "Niramit", sans-serif;
+}
+
+/* #table-header {
+  margin-left: 0%;
+} */
+#student-table-header {
+  text-align: center;
 }

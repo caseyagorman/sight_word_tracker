@@ -3,18 +3,8 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as soundTestActions from "../../../redux/actions/soundTestActions";
-import { Button, Card, CardText, Row } from "reactstrap";
-const displaySoundStyle = { fontSize: "300px" };
-
-const buttonStyle = {
-  fontSize: "60px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "black",
-  marginRight: "50px",
-  marginLeft: "50px"
-};
-
+import { Row } from "reactstrap";
+import "../../../static/TestStyle.css";
 class StudentSoundsTestPage extends React.Component {
   constructor(props) {
     super(props);
@@ -65,35 +55,25 @@ class StudentSoundsTestPage extends React.Component {
     const idx = this.state.idx;
     return (
       <div className="container">
-        <Card className="text-center">
-          <CardText style={displaySoundStyle}>
-            {this.displaySound(sounds[idx])}
-          </CardText>
-          <Row className="text-center">
-            <Button
-              style={buttonStyle}
-              size="lg"
-              color="success"
-              onClick={e => this.handleTestClick(e, sounds[idx], idx)}
-              value="yes"
-            >
-              Yes
-            </Button>
-            <span>
-              {/* {" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
-            </span>
-            <Button
-              style={buttonStyle}
-              size="lg"
-              color="danger"
-              onClick={e => this.handleTestClick(e, sounds[idx], idx)}
-              value="no"
-            >
-              No
-            </Button>
-          </Row>
-        </Card>
+        <div className="display-test-letter">
+          {this.displaySound(sounds[idx])}
+        </div>
+        <Row className="text-center">
+          <button
+            id="yes-button"
+            onClick={e => this.handleTestClick(e, sounds[idx], idx)}
+            value="yes"
+          >
+            Yes
+          </button>
+          <button
+            id="no-button"
+            onClick={e => this.handleTestClick(e, sounds[idx], idx)}
+            value="no"
+          >
+            No
+          </button>
+        </Row>
       </div>
     );
   }

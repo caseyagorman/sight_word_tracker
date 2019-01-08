@@ -5,6 +5,7 @@
   margin-bottom: 2%;
 }
 #add-letter-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;
@@ -39,6 +40,7 @@
 }
 
 #name-table {
+  font-family: "Niramit", sans-serif;
   font-size: 24px;
 }
 #test-letter {

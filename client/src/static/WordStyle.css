@@ -5,6 +5,7 @@
   margin-bottom: 2%;
 }
 #add-word-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;
@@ -23,6 +24,7 @@
 }
 
 #submit-student-button {
+  font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;
   background-color: #0033cc;

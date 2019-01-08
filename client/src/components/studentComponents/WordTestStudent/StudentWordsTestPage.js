@@ -3,17 +3,8 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as wordTestActions from "../../../redux/actions/wordTestActions";
-import { Button, Card, CardText, Row } from "reactstrap";
-const displayWordStyle = { fontSize: "300px" };
-
-const buttonStyle = {
-  fontSize: "60px",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "black",
-  marginRight: "50px",
-  marginLeft: "50px"
-};
+import { Row } from "reactstrap";
+import "../../../static/TestStyle.css";
 
 class StudentWordsTestPage extends React.Component {
   constructor(props) {
@@ -63,35 +54,23 @@ class StudentWordsTestPage extends React.Component {
     const idx = this.state.idx;
     return (
       <div className="container">
-        <Card className="text-center">
-          <CardText style={displayWordStyle}>
-            {this.displayWord(words[idx])}
-          </CardText>
-          <Row className="text-center">
-            <Button
-              style={buttonStyle}
-              size="lg"
-              color="success"
-              onClick={e => this.handleTestClick(e, words[idx], idx)}
-              value="yes"
-            >
-              Yes
-            </Button>
-            <span>
-              {/* {" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
-            </span>
-            <Button
-              style={buttonStyle}
-              size="lg"
-              color="danger"
-              onClick={e => this.handleTestClick(e, words[idx], idx)}
-              value="no"
-            >
-              No
-            </Button>
-          </Row>
-        </Card>
+        <div className="display-test-item">{this.displayWord(words[idx])}</div>
+        <Row className="text-center">
+          <button
+            id="yes-button"
+            onClick={e => this.handleTestClick(e, words[idx], idx)}
+            value="yes"
+          >
+            Yes
+          </button>
+          <button
+            id="no-button"
+            onClick={e => this.handleTestClick(e, words[idx], idx)}
+            value="no"
+          >
+            No
+          </button>
+        </Row>
       </div>
     );
   }
