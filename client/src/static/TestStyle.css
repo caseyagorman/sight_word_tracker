@@ -1,0 +1,35 @@
+.display-test-item {
+  font-size: 400px;
+  font-family: "Niramit", sans-serif;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+#yes-button {
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 50px;
+  margin-right: 20%;
+  background-color: #008000;
+}
+
+#no-button {
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 32px;
+  font-size: 50px;
+  margin-left: 20%;
+  background-color: #ff3333;
+}
+
+.display-test-letter {
+  font-size: 400px;
+  font-family: "Niramit", sans-serif;
+  margin-left: 40%;
+  margin-right: 25%;
+}
