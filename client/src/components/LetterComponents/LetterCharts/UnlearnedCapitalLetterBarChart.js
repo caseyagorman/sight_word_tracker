@@ -36,9 +36,9 @@ class UnlearnedCapitalLetterBarChart extends Component {
       tooltips: {
         fontFamily: "Niramit",
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function(tooltipItem) {
             const indice = tooltipItem.index;
-            return data.labels[indice] + ":" + studentList[indice];
+            return studentList[indice];
           }
         }
       },
@@ -104,7 +104,7 @@ class UnlearnedCapitalLetterBarChart extends Component {
   }
   render() {
     return (
-      <div id="bar-chart">
+      <div id="chart-div">
         <h4>Students are learning:</h4>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>

@@ -20,8 +20,8 @@ class ViewStudents extends React.Component {
   displayInstructions() {
     return (
       <div>
-        <br /> Click student name to test student, view words student is
-        learning, and view student data.
+        <br /> Click dashboard to test student, view words student is learning,
+        and view student data. Click book to view student reports.
       </div>
     );
   }

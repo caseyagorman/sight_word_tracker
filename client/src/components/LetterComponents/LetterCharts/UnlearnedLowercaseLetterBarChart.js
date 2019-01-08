@@ -39,7 +39,7 @@ class UnlearnedLowercaseLetterBarChart extends Component {
         callbacks: {
           label: function(tooltipItem, data) {
             const indice = tooltipItem.index;
-            return data.labels[indice] + ":" + studentList[indice];
+            return studentList[indice];
           }
         }
       },

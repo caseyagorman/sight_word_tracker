@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../../static/StudentStyle.css";
+import { Glyphicon } from "react-bootstrap";
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -65,9 +66,14 @@ class AllStudentsTable extends Component {
                 <tr>
                   <td>
                     <th>
-                      <h4>
-                        {student.fname} {student.lname}
-                      </h4>
+                      <Link
+                        to={`/details/${student.student_id}`}
+                        className="link"
+                      >
+                        <h2>
+                          {student.fname} {student.lname}
+                        </h2>
+                      </Link>
                     </th>
                     <tr>
                       <td>
@@ -93,11 +99,14 @@ class AllStudentsTable extends Component {
                       to={`/details/${student.student_id}`}
                       className="link"
                     >
-                      View dashboard
+                      <Glyphicon
+                        glyph="glyphicon glyphicon-dashboard"
+                        id="dashboard"
+                      />
                     </Link>
                     <br />
                     <Link to={`/#/${student.student_id}`} className="link">
-                      View reports
+                      <Glyphicon glyph="glyphicon glyphicon-book" id="book" />
                     </Link>
                   </td>
                   <td>

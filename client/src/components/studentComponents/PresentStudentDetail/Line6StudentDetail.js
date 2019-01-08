@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import WordLineChart from "../../StudentWordTestResultsComponents/WordLineChart";
-import LetterLineChart from "../../StudentLetterTestResultsComponents/LetterLineChart";
-import SoundLineChart from "../../StudentSoundTestResultsComponents/SoundLineChart";
+import WordLineChart from "../../StudentWordTestResultsComponents/StudentCharts/WordLineChart";
+import LetterLineChart from "../../StudentLetterTestResultsComponents/StudentCharts/LetterLineChart";
+import SoundLineChart from "../../StudentSoundTestResultsComponents/StudentCharts/SoundLineChart";
 class Line7 extends Component {
   componetDidMount() {}
 
