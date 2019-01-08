@@ -9,20 +9,44 @@ const listElements = el => <li>{el}</li>;
 class AllSoundsTableHead extends Component {
   constructor(props) {
     super(props);
-    this.state = { sounds: this.props.sounds };
-    this.onSort = this.onSort.bind(this);
+    // this.state = { sounds: this.props.sounds };
+    this.sortArray = this.sortArray.bind(this);
+    this.state = {
+      sortKey: undefined,
+      reverseSort: false
+    };
+  }
+
+  sortArray(array, sortKey, reverseSort) {
+    array = array.slice();
+    if (sortKey) {
+      array.sort(function(a, b) {
+        return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
+      });
+    }
+    if (reverseSort) {
+      array.reverse();
+    }
+    return array;
+    // this.setState({ sounds: myArray });
   }
 
   onSort(e, sortKey) {
-    let myArray = this.state.sounds;
-    myArray.sort(function(a, b) {
-      return a[sortKey] < b[sortKey] ? 1 : a[sortKey] > b[sortKey] ? -1 : 0;
+    // TODO: Set state using Object.assign, etc
+    // If we clicked the column that we're already using to sort the table,
+    // reverse the order.
+    const newReverseSort =
+      sortKey === this.state.sortKey
+        ? !this.state.reverseSort
+        : this.state.reverseSort;
+    this.setState({
+      sortKey: sortKey,
+      reverseSort: newReverseSort
     });
-    this.setState({ sounds: myArray });
   }
 
   render() {
-    let sounds = this.state.sounds;
+    // let sounds = this.state.sounds;
     // console.log(
     //   "rendering AllSoundsTableHead",
     //   "this.state.sounds ==",
@@ -30,6 +54,8 @@ class AllSoundsTableHead extends Component {
     //   "this.props",
     //   this.props
     // );
+    let sounds = this.props.sounds;
+    sounds = this.sortArray(sounds, this.state.sortKey, this.state.reverseSort);
 
     return (
       <div id="sound-table">
