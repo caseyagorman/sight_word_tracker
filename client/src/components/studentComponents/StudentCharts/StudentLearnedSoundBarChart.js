@@ -1,43 +1,38 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class LearnedLowercaseLetterBarChart extends Component {
-  state = { data: null, showTooltip: false };
-
-  componentDidMount() {
-    this.setState({ data: this.props.data });
-  }
-
+class StudentLearnedSoundBarChart extends Component {
   turnIntoArray(obj) {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let letterList = [];
-    let letterCounts = [];
+    let soundCounts = [];
     let studentList = [];
+    let soundList = [];
     for (let item in obj) {
-      letterCounts.push(obj[item].count);
-      letterList.push(obj[item].letter);
-      studentList.push(obj[item].students);
+      soundCounts.push(obj[item].sound_count);
+      studentList.push(obj[item].fname);
+      soundList.push(obj[item].sound_list);
     }
-    return [letterCounts, letterList, studentList];
+    return [soundCounts, studentList, soundList];
   }
 
   displayChart(dataResults) {
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let letters = this.turnIntoArray(dataResults);
-    let letterCounts = letters[0];
-    let letterList = letters[1];
-    let studentList = letters[2];
+    let sounds = this.turnIntoArray(dataResults);
+
+    let soundCounts = sounds[0];
+    let studentList = sounds[1];
+    let soundList = sounds[2];
+
     let options = {
       tooltips: {
-        fontFamily: "Niramit",
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function(tooltipItem) {
             const indice = tooltipItem.index;
-            return data.labels[indice] + ":" + studentList[indice];
+            return soundList[indice];
           }
         }
       },
@@ -49,16 +44,14 @@ class LearnedLowercaseLetterBarChart extends Component {
       scales: {
         lable: [
           {
-            fontFamily: "Niramit",
-            fontSize: 24,
+            fontSize: 18,
             fontColor: "black"
           }
         ],
         yAxes: [
           {
             ticks: {
-              fontFamily: "Niramit",
-              fontSize: 24,
+              fontSize: 14,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -73,8 +66,7 @@ class LearnedLowercaseLetterBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontFamily: "Niramit",
-              fontSize: 24,
+              fontSize: 10,
               fontColor: "black"
             }
           }
@@ -82,39 +74,31 @@ class LearnedLowercaseLetterBarChart extends Component {
       }
     };
     const data = {
-      labels: letterList,
+      labels: studentList,
 
       datasets: [
         {
-          label: "Learned lowercase letters",
+          label: "Students",
 
           backgroundColor: "#008000",
           borderColor: "#008000",
           borderWidth: 1,
           hoverBackgroundColor: "#008000",
           hoverBorderColor: "#008000",
-          data: letterCounts
+          data: soundCounts
         }
       ]
     };
-    return (
-      <Bar
-        id="chart-div"
-        data={data}
-        width={200}
-        height={300}
-        options={options}
-      />
-    );
+    return <Bar data={data} options={options} />;
   }
   render() {
     return (
-      <div id="bar-chart">
-        <h4>Students have learned:</h4>
-        <div className="container">{this.displayChart(this.state.data)}</div>
+      <div id="chart-style">
+        <h2>Sounds</h2>
+        <div className="container">{this.displayChart(this.props.data)}</div>
       </div>
     );
   }
 }
 
-export default LearnedLowercaseLetterBarChart;
+export default StudentLearnedSoundBarChart;

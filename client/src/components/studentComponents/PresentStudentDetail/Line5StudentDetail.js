@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import StudentWordDoughnutChart from "../../StudentWordTestResultsComponents/StudentWordDoughnutChart";
-import StudentLetterDoughnutChart from "../../StudentLetterTestResultsComponents/StudentLetterDoughnutChart";
-import StudentSoundDoughnutChart from "../../StudentSoundTestResultsComponents/StudentSoundDoughnutChart";
-
+import StudentWordDoughnutChart from "../../StudentWordTestResultsComponents/StudentCharts/StudentWordDoughnutChart";
+import StudentLetterDoughnutChart from "../../StudentLetterTestResultsComponents/StudentCharts/StudentLetterDoughnutChart";
+import StudentSoundDoughnutChart from "../../StudentSoundTestResultsComponents/StudentCharts/StudentSoundDoughnutChart";
+import "../../../static/StudentStyle.css";
 class Line5 extends Component {
   componetDidMount() {}
 
@@ -33,7 +33,7 @@ class Line5 extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="student-detail">
         <Row>
           <Col lg="4">
             {this.displayWordDoughnutChart(this.props.studentWordTestResults)}

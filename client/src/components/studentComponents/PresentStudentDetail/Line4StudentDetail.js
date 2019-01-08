@@ -28,7 +28,7 @@ class Line4 extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="student-detail">
         <Row>
           <Col lg="4">{this.addStudentWordForm(this.props.student)}</Col>
           <Col lg="4">{this.addStudentLetterForm(this.props.student)}</Col>

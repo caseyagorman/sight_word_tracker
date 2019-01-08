@@ -41,3 +41,7 @@
 #name-table {
   font-size: 24px;
 }
+#test-letter {
+  font-size: "300px";
+  font-family: "Niramit", sans-serif;
+}

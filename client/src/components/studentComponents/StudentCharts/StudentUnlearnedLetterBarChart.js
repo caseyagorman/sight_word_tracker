@@ -1,35 +1,41 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class SoundBarChart extends Component {
+class StudentUnlearnedWordBarChart extends Component {
+  componentDidMount() {
+    console.log("prop", this.props);
+  }
   turnIntoArray(obj) {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let soundCounts = [];
+    let letterCounts = [];
     let studentList = [];
+    let letterList = [];
     for (let item in obj) {
-      soundCounts.push(obj[item].sound_count);
+      letterCounts.push(obj[item].unlearned_letter_count);
+      letterList.push(obj[item].unlearned_letter_list);
       studentList.push(obj[item].fname);
     }
-    return [soundCounts, studentList];
+    return [letterCounts, studentList, letterList];
   }
 
   displayChart(dataResults) {
+    console.log(dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let sounds = this.turnIntoArray(dataResults);
-
-    let soundCounts = sounds[0];
-    let studentList = sounds[1];
+    let letters = this.turnIntoArray(dataResults);
+    let letterCounts = letters[0];
+    let studentList = letters[1];
+    let letterList = letters[2];
 
     let options = {
       tooltips: {
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function(tooltipItem) {
             const indice = tooltipItem.index;
-            return data.labels[indice] + ":" + studentList[indice];
+            return letterList[indice];
           }
         }
       },
@@ -77,12 +83,12 @@ class SoundBarChart extends Component {
         {
           label: "Students",
 
-          backgroundColor: "#008000",
-          borderColor: "#008000",
+          backgroundColor: "#ff3333",
+          borderColor: "#ff3333",
           borderWidth: 1,
-          hoverBackgroundColor: "#008000",
-          hoverBorderColor: "#008000",
-          data: soundCounts
+          hoverBackgroundColor: "#ff3333",
+          hoverBorderColor: "#ff3333",
+          data: letterCounts
         }
       ]
     };
@@ -91,13 +97,11 @@ class SoundBarChart extends Component {
   render() {
     return (
       <div id="chart-style">
-        <h2>Sounds</h2>
-        <div className="container">
-          {this.displayChart(this.props.students)}
-        </div>
+        <h2>Unlearned Letters</h2>
+        <div className="container">{this.displayChart(this.props.data)}</div>
       </div>
     );
   }
 }
 
-export default SoundBarChart;
+export default StudentUnlearnedWordBarChart;

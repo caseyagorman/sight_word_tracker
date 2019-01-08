@@ -31,7 +31,7 @@ class Line7 extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="student-detail">
         <Row>
           <Col lg="4">
             {this.displayWordLineChart(this.props.studentWordTestResults)}

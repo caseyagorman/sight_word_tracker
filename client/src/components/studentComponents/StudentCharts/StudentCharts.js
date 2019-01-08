@@ -1,9 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import * as studentsActions from "../../../redux/actions/studentsActions";
-import StudentLetterBarChart from "./StudentLetterBarChart";
-import StudentWordBarChart from "./StudentWordBarChart";
-import StudentSoundBarChart from "./StudentSoundBarChart";
+import StudentLearnedLetterBarChart from "./StudentLearnedLetterBarChart";
+import StudentLearnedWordBarChart from "./StudentLearnedWordBarChart";
+import StudentLearnedSoundBarChart from "./StudentLearnedSoundBarChart";
+import StudentUnlearnedWordBarChart from "./StudentUnlearnedWordBarChart";
+import StudentUnlearnedLetterBarChart from "./StudentUnlearnedLetterBarChart";
+import StudentUnlearnedSoundBarChart from "./StudentUnlearnedSoundBarChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -17,27 +20,47 @@ class StudentCharts extends React.Component {
     }
   }
 
-  displayStudentWordBarChart(students) {
+  displayStudentLearnedWordBarChart(students) {
+    console.log("students", students);
     if (!students) {
       return <p>Loading...</p>;
     }
-    students = students.students;
-    return <StudentWordBarChart data={students} />;
+    return <StudentLearnedWordBarChart data={students} />;
   }
-  displayStudentLetterBarChart(students) {
+  displayStudentLearnedLetterBarChart(students) {
     if (!students) {
       return <p>Loading...</p>;
     }
-    students = students.students;
-    return <StudentLetterBarChart data={students} />;
+
+    return <StudentLearnedLetterBarChart data={students} />;
   }
 
-  displayStudentSoundBarChart(students) {
+  displayStudentLearnedSoundBarChart(students) {
     if (!students) {
       return <p>Loading...</p>;
     }
-    students = students.students;
-    return <StudentSoundBarChart data={students} />;
+    return <StudentLearnedSoundBarChart data={students} />;
+  }
+  displayStudentUnlearnedWordBarChart(students) {
+    console.log("students", students);
+    if (!students) {
+      return <p>Loading...</p>;
+    }
+    return <StudentUnlearnedWordBarChart data={students} />;
+  }
+  displayStudentUnlearnedLetterBarChart(students) {
+    console.log("students", students);
+    if (!students) {
+      return <p>Loading...</p>;
+    }
+    return <StudentUnlearnedLetterBarChart data={students} />;
+  }
+  displayStudentUnlearnedSoundBarChart(students) {
+    console.log("students", students);
+    if (!students) {
+      return <p>Loading...</p>;
+    }
+    return <StudentUnlearnedSoundBarChart data={students} />;
   }
 
   render() {
@@ -45,17 +68,32 @@ class StudentCharts extends React.Component {
       <div className="container">
         <Row>
           <Col lg="10">
-            {this.displayStudentWordBarChart(this.props.students)}
+            {this.displayStudentLearnedWordBarChart(this.props.students)}
           </Col>
         </Row>
         <Row>
           <Col lg="10">
-            {this.displayStudentLetterBarChart(this.props.students)}
+            {this.displayStudentLearnedLetterBarChart(this.props.students)}
           </Col>
         </Row>
         <Row>
           <Col lg="10">
-            {this.displayStudentSoundBarChart(this.props.students)}
+            {this.displayStudentLearnedSoundBarChart(this.props.students)}
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="10">
+            {this.displayStudentUnlearnedWordBarChart(this.props.students)}
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="10">
+            {this.displayStudentUnlearnedLetterBarChart(this.props.students)}
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="10">
+            {this.displayStudentUnlearnedSoundBarChart(this.props.students)}
           </Col>
         </Row>
       </div>

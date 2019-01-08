@@ -33,6 +33,7 @@ class WordCharts extends React.Component {
   render() {
     return (
       <div className="container">
+        <h1 className="chart-heading">Words</h1>
         <Row>
           <Col lg="10">{this.displayLearnedBarChart(this.props.words)}</Col>
         </Row>

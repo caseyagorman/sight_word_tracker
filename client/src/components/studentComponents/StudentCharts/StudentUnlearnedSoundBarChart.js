@@ -1,47 +1,41 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class UnlearnedWordsBarChart extends Component {
-  state = { data: null, showTooltip: false };
-
+class StudentUnlearnedWordBarChart extends Component {
   componentDidMount() {
-    this.setState({ data: this.props.data });
+    console.log("prop", this.props);
   }
-
   turnIntoArray(obj) {
-    console.log("obj", obj);
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let wordList = [];
-    let wordCounts = [];
+    let soundCounts = [];
     let studentList = [];
+    let soundList = [];
     for (let item in obj) {
-      console.log(obj[item]);
-      wordCounts.push(obj[item].unlearned_count);
-      wordList.push(obj[item].word);
-      studentList.push(obj[item].unlearned_students);
+      soundCounts.push(obj[item].unlearned_sound_count);
+      soundList.push(obj[item].unlearned_sound_list);
+      studentList.push(obj[item].fname);
     }
-
-    return [wordCounts, wordList, studentList];
+    return [soundCounts, studentList, soundList];
   }
 
   displayChart(dataResults) {
+    console.log(dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let words = this.turnIntoArray(dataResults);
-    let wordCounts = words[0];
-    let wordList = words[1];
-    let studentList = words[2];
+    let sounds = this.turnIntoArray(dataResults);
+    let soundCounts = sounds[0];
+    let studentList = sounds[1];
+    let soundList = sounds[2];
 
     let options = {
       tooltips: {
-        fontFamily: "Niramit",
         callbacks: {
           label: function(tooltipItem) {
             const indice = tooltipItem.index;
-            return studentList[indice];
+            return soundList[indice];
           }
         }
       },
@@ -51,12 +45,16 @@ class UnlearnedWordsBarChart extends Component {
       maintainAspectRatio: false,
       aspectRatio: 1,
       scales: {
-        lable: [{ fontFamily: "Niramit", fontSize: 24, fontColor: "black" }],
+        lable: [
+          {
+            fontSize: 18,
+            fontColor: "black"
+          }
+        ],
         yAxes: [
           {
             ticks: {
-              fontFamily: "Niramit",
-              fontSize: 24,
+              fontSize: 14,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -71,8 +69,7 @@ class UnlearnedWordsBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontFamily: "Niramit",
-              fontSize: 24,
+              fontSize: 10,
               fontColor: "black"
             }
           }
@@ -80,31 +77,31 @@ class UnlearnedWordsBarChart extends Component {
       }
     };
     const data = {
-      labels: wordList,
+      labels: studentList,
 
       datasets: [
         {
-          label: "Unlearned Words",
+          label: "Students",
 
           backgroundColor: "#ff3333",
           borderColor: "#ff3333",
           borderWidth: 1,
           hoverBackgroundColor: "#ff3333",
           hoverBorderColor: "#ff3333",
-          data: wordCounts
+          data: soundCounts
         }
       ]
     };
-    return <Bar data={data} width={200} height={400} options={options} />;
+    return <Bar data={data} options={options} />;
   }
   render() {
     return (
-      <div id="bar-chart">
-        <h4>Students are learning:</h4>
-        <div className="container">{this.displayChart(this.state.data)}</div>
+      <div id="chart-style">
+        <h2>Unlearned sounds</h2>
+        <div className="container">{this.displayChart(this.props.data)}</div>
       </div>
     );
   }
 }
 
-export default UnlearnedWordsBarChart;
+export default StudentUnlearnedWordBarChart;

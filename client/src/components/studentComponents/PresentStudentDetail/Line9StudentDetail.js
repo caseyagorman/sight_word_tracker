@@ -12,7 +12,7 @@ class Line8 extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="student-detail">
         <Row>
           <Col lg="6">{this.deleteStudentForm(this.props.student)}</Col>
         </Row>

@@ -50,14 +50,16 @@ class UnlearnedWordsBarChart extends Component {
       scales: {
         lable: [
           {
-            fontSize: 40,
+            fontFamily: "Niramit",
+            fontSize: 24,
             fontColor: "black"
           }
         ],
         yAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -72,7 +74,8 @@ class UnlearnedWordsBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black"
             }
           }
@@ -100,7 +103,7 @@ class UnlearnedWordsBarChart extends Component {
   render() {
     return (
       <div id="bar-chart">
-        <h2>Students have learned:</h2>
+        <h4>Students have learned:</h4>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>
     );

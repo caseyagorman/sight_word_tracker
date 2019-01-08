@@ -25,8 +25,8 @@ class StudentWordDoughnutChart extends Component {
       datasets: [
         {
           data: [learnedCount, unlearnedCount],
-          backgroundColor: ["#229954", "#E74C3C"],
-          hoverBackgroundColor: ["#229954", "#E74C3C"]
+          backgroundColor: ["#008000", "#ff3333"],
+          hoverBackgroundColor: ["#008000", "#ff3333"]
         }
       ]
     };

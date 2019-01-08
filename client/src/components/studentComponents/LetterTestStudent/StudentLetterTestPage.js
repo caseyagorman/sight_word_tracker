@@ -88,7 +88,7 @@ class StudentLetterTestPage extends React.Component {
             <Button
               style={buttonStyle}
               size="lg"
-              color="danger"
+              color="#ff3333"
               onClick={e => this.handleTestClick(e, letters[idx], idx)}
               value="no"
             >

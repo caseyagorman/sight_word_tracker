@@ -1,35 +1,41 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../static/ChartStyle.css";
-class StudentLetterBarChart extends Component {
+class StudentUnlearnedWordBarChart extends Component {
+  componentDidMount() {
+    console.log("prop", this.props);
+  }
   turnIntoArray(obj) {
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let letterCounts = [];
+    let wordCounts = [];
     let studentList = [];
+    let wordList = [];
     for (let item in obj) {
-      letterCounts.push(obj[item].letter_count);
+      wordCounts.push(obj[item].unlearned_word_count);
+      wordList.push(obj[item].unlearned_word_list);
       studentList.push(obj[item].fname);
     }
-    return [letterCounts, studentList];
+    return [wordCounts, studentList, wordList];
   }
 
   displayChart(dataResults) {
+    console.log(dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }
-    let letters = this.turnIntoArray(dataResults);
-
-    let letterCounts = letters[0];
-    let studentList = letters[1];
+    let words = this.turnIntoArray(dataResults);
+    let wordCounts = words[0];
+    let studentList = words[1];
+    let wordList = words[2];
 
     let options = {
       tooltips: {
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function(tooltipItem) {
             const indice = tooltipItem.index;
-            return data.labels[indice] + ":" + studentList[indice];
+            return wordList[indice];
           }
         }
       },
@@ -77,12 +83,12 @@ class StudentLetterBarChart extends Component {
         {
           label: "Students",
 
-          backgroundColor: "#008000",
-          borderColor: "#008000",
+          backgroundColor: "#ff3333",
+          borderColor: "#ff3333",
           borderWidth: 1,
-          hoverBackgroundColor: "#008000",
-          hoverBorderColor: "#008000",
-          data: letterCounts
+          hoverBackgroundColor: "#ff3333",
+          hoverBorderColor: "#ff3333",
+          data: wordCounts
         }
       ]
     };
@@ -91,13 +97,11 @@ class StudentLetterBarChart extends Component {
   render() {
     return (
       <div id="chart-style">
-        <h2>Letters</h2>
-        <div className="container">
-          {this.displayChart(this.props.students)}
-        </div>
+        <h2>Unlearned Words</h2>
+        <div className="container">{this.displayChart(this.props.data)}</div>
       </div>
     );
   }
 }
 
-export default StudentLetterBarChart;
+export default StudentUnlearnedWordBarChart;

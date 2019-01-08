@@ -7,7 +7,7 @@ class Line1 extends React.Component {
     if (!sounds) {
       return <p>Loading...</p>;
     }
-    return <AllSoundsTableHead sounds={sounds.sounds[0]} />;
+    return <AllSoundsTableHead sounds={sounds.sounds} />;
   }
 
   render() {

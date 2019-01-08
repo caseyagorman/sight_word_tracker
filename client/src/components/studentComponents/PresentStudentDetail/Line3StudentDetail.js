@@ -26,7 +26,7 @@ class Line3 extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="student-detail">
         <Row>
           <Col lg="4">{this.studentWordsTableHead(this.props.student)}</Col>
           <Col lg="4">{this.studentLettersTableHead(this.props.student)}</Col>

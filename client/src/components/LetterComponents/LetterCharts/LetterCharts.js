@@ -7,7 +7,7 @@ import UnlearnedLowercaseLetterBarChart from "./UnlearnedLowercaseLetterBarChart
 import LearnedLowercaseLetterBarChart from "./LearnedLowercaseLetterBarChart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import "../../../static/ChartStyle.css";
 class LetterCharts extends React.Component {
   componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
@@ -53,7 +53,7 @@ class LetterCharts extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="chart-div">
         <Row>
           <Col lg="10">
             <h1 className="chart-heading">Capital Letters</h1>

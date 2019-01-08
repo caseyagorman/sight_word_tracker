@@ -16,9 +16,9 @@ class SoundBarChart extends Component {
     let soundCounts = [];
     let studentList = [];
     for (let item in obj) {
-      soundCounts.push(obj[item].count);
+      soundCounts.push(obj[item].unlearned_count);
       soundList.push(obj[item].sound);
-      studentList.push(obj[item].students);
+      studentList.push(obj[item].unlearned_students);
     }
 
     return [soundCounts, soundList, studentList];
@@ -35,6 +35,7 @@ class SoundBarChart extends Component {
 
     let options = {
       tooltips: {
+        fontFamily: "Niramit",
         callbacks: {
           label: function(tooltipItem, data) {
             const indice = tooltipItem.index;
@@ -48,16 +49,12 @@ class SoundBarChart extends Component {
       maintainAspectRatio: false,
       aspectRatio: 1,
       scales: {
-        lable: [
-          {
-            fontSize: 40,
-            fontColor: "black"
-          }
-        ],
+        lable: [{ fontFamily: "Niramit", fontSize: 24, fontColor: "black" }],
         yAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -72,7 +69,8 @@ class SoundBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black"
             }
           }
@@ -91,7 +89,6 @@ class SoundBarChart extends Component {
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
-          // data: [0, 2, 1, 2, 1, 1, 1, 1, 0]
           data: soundCounts
         }
       ]
@@ -101,7 +98,7 @@ class SoundBarChart extends Component {
   render() {
     return (
       <div id="bar-chart">
-        <h2>Students are learning:</h2>
+        <h4>Students are learning:</h4>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>
     );

@@ -1076,8 +1076,7 @@ def get_sounds(current_user):
 
         sound_list.append(sound)
     sound_list = sorted(sound_list, key=itemgetter('sound'))
-    chart_sounds = get_all_student_sound_counts()
-    return jsonify([sound_list, chart_sounds])
+    return jsonify(sound_list)
 
 
 def get_sound_student_counts(sound):

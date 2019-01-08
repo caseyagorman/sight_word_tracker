@@ -33,6 +33,7 @@ class LearnedLetterBarChart extends Component {
     let studentList = letters[2];
     let options = {
       tooltips: {
+        fontFamily: "Niramit",
         callbacks: {
           label: function(tooltipItem, data) {
             const indice = tooltipItem.index;
@@ -48,14 +49,16 @@ class LearnedLetterBarChart extends Component {
       scales: {
         lable: [
           {
-            fontSize: 30,
-            fontColor: "black"
+            fontSize: 24,
+            fontColor: "black",
+            fontFamily: "Niramit"
           }
         ],
         yAxes: [
           {
             ticks: {
-              fontSize: 30,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -70,7 +73,8 @@ class LearnedLetterBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 30,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black"
             }
           }
@@ -93,7 +97,15 @@ class LearnedLetterBarChart extends Component {
         }
       ]
     };
-    return <Bar data={data} width={200} height={400} options={options} />;
+    return (
+      <Bar
+        id="chart-div"
+        data={data}
+        width={200}
+        height={400}
+        options={options}
+      />
+    );
   }
   render() {
     return (

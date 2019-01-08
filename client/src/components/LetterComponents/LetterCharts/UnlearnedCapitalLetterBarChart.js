@@ -9,7 +9,6 @@ class UnlearnedCapitalLetterBarChart extends Component {
   }
 
   turnIntoArray(obj) {
-    console.log(obj);
     if (!obj) {
       return <p>Loading...</p>;
     }
@@ -17,12 +16,10 @@ class UnlearnedCapitalLetterBarChart extends Component {
     let letterCounts = [];
     let studentList = [];
     for (let item in obj) {
-      console.log("obj", obj[item].letter);
       letterCounts.push(obj[item].unlearned_count);
       letterList.push(obj[item].letter);
       studentList.push(obj[item].unlearned_students);
     }
-    console.log("letter counts", letterCounts);
     return [letterCounts, letterList, studentList];
   }
 
@@ -37,6 +34,7 @@ class UnlearnedCapitalLetterBarChart extends Component {
 
     let options = {
       tooltips: {
+        fontFamily: "Niramit",
         callbacks: {
           label: function(tooltipItem, data) {
             const indice = tooltipItem.index;
@@ -52,14 +50,16 @@ class UnlearnedCapitalLetterBarChart extends Component {
       scales: {
         lable: [
           {
-            fontSize: 40,
-            fontColor: "black"
+            fontSize: 24,
+            fontColor: "black",
+            fontFamily: "Niramit"
           }
         ],
         yAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black",
               beginAtZero: true,
               min: 0,
@@ -74,7 +74,8 @@ class UnlearnedCapitalLetterBarChart extends Component {
         xAxes: [
           {
             ticks: {
-              fontSize: 40,
+              fontFamily: "Niramit",
+              fontSize: 24,
               fontColor: "black"
             }
           }
@@ -83,9 +84,11 @@ class UnlearnedCapitalLetterBarChart extends Component {
     };
     const data = {
       labels: letterList,
+      fontFamily: "Niramit",
 
       datasets: [
         {
+          fontFamily: "Niramit",
           label: "Unlearned capital letters",
 
           backgroundColor: "#ff3333",
@@ -102,7 +105,7 @@ class UnlearnedCapitalLetterBarChart extends Component {
   render() {
     return (
       <div id="bar-chart">
-        <h2>Students are learning:</h2>
+        <h4>Students are learning:</h4>
         <div className="container">{this.displayChart(this.state.data)}</div>
       </div>
     );
