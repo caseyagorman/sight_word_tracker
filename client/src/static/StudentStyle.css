@@ -7,7 +7,7 @@
 #add-button {
   border-radius: 10px;
   color: white;
-  background-color: #663399;
+  background-color: #0033cc;
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
@@ -46,7 +46,7 @@
 #view-charts-button {
   border-radius: 10px;
   color: white;
-  background-color: #663399;
+  background-color: #008000;
   text-align: center;
   display: inline-block;
   padding: 15px 32px;
