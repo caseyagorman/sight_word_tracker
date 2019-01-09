@@ -52,13 +52,7 @@ class DeleteSound extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <div className="container">
-          {this.getOptions(this.props.soundAlt, this.props.auth)}
-        </div>
-      </div>
-    );
+    return <b>{this.getOptions(this.props.soundAlt, this.props.auth)}</b>;
   }
 }
 

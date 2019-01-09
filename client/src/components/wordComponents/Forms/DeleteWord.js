@@ -14,29 +14,24 @@ class DeleteWord extends Component {
   }
 
   getOptions(word) {
+    console.log("delete word", word);
     if (!word) {
       return <div>loading...</div>;
     }
     return (
-      <div>
-        <form>
-          <div className="delete-div">
-            <Glyphicon
-              glyph="glyphicon glyphicon-trash"
-              onClick={this.submit}
-              id="trash-can"
-            />
-
-            <b id="delete-word">Delete "{word[0].word}"</b>
-          </div>
-        </form>
-      </div>
+      <form>
+        <Glyphicon
+          glyph="glyphicon glyphicon-trash"
+          onClick={this.submit}
+          id="trash-can"
+        />
+      </form>
     );
   }
 
   handleSubmit() {
     const user = this.props.auth.user.token;
-    const word = this.props.word[0].word_id;
+    const word = this.props.wordAlt.word_id;
     this.props.wordActions.deleteWord(word, user);
   }
 
@@ -59,11 +54,7 @@ class DeleteWord extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <div className="container">{this.getOptions(this.props.word)}</div>
-      </div>
-    );
+    return <b>{this.getOptions(this.props.wordAlt)}</b>;
   }
 }
 

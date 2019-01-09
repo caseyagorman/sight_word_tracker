@@ -1,13 +1,21 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import AllWordsTableHead from "./AllWordsTableHead";
-import "../../../static/WordStyle.css";
+import TableContainer from "../../TableContainer/TableContainer";
+import WordsTableComponent from "../../TableContainer/WordsTableComponent";
+// import "../../../static/WordStyle.css";
 class Line1 extends React.Component {
   displayTableHead(words) {
+    console.log("words", words);
     if (!words) {
       return <p>Loading...</p>;
     }
-    return <AllWordsTableHead words={words.words} />;
+    return (
+      <TableContainer
+        renderTable={WordsTableComponent}
+        tableElements={words.words}
+        token={this.props.token}
+      />
+    );
   }
 
   render() {

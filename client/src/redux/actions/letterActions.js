@@ -66,7 +66,9 @@ export function deleteLetter(letter, user) {
         "x-access-token": user
       },
       body: JSON.stringify(letter)
-    }).then(() => dispatch(fetchLetters(user)));
+    })
+      .then(() => dispatch(fetchLetters(user)))
+      .then(() => history.push("/letters"));
   };
 }
 

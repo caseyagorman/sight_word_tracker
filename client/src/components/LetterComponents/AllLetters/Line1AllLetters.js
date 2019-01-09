@@ -17,7 +17,6 @@ class Line1 extends React.Component {
         token={this.props.token}
       />
     );
-    // return <AllSoundsTableHead sounds={sounds.sounds} />;
   }
 
   displayCapitalLettersTable(letters) {

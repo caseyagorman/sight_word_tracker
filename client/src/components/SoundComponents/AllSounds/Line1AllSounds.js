@@ -6,7 +6,6 @@ import SoundsTableComponent from "../../TableContainer/SoundsTableComponent";
 
 class Line1 extends React.Component {
   displayTableHead(sounds) {
-    console.log("line1 all sounds", this.props);
     if (!sounds) {
       return <p>Loading...</p>;
     }
@@ -17,7 +16,6 @@ class Line1 extends React.Component {
         token={this.props.token}
       />
     );
-    // return <AllSoundsTableHead sounds={sounds.sounds} />;
   }
 
   render() {
