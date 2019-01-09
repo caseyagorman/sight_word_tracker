@@ -66,7 +66,7 @@ def index(current_user):
 @cross_origin()
 def add_user():
     data = request.get_json()
-    print(data)
+ 
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
@@ -74,12 +74,12 @@ def add_user():
     existing_user = User.query.filter_by(username=username).first()
     # Check later for or condition statement on email. Email or user exists, return error
     if existing_user:
-        print("already exists")
+     
         return jsonify({'error': 'user already exists'})
 
     new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
                     password=hashed_password)
-    print(new_user)
+  
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'newUser': 'user added'})
@@ -97,7 +97,7 @@ def get_students(current_user):
         db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
-        print("student", student)
+    
 
         word_list = sorted(get_student_word_list(student)[0])
         unlearned_word_list = sorted(get_student_word_list(student)[1])
@@ -163,7 +163,7 @@ def get_student_letter_list(student):
             letter_list.append(letter.letters.letter)
         else:
             unlearned_letter_list.append(letter.letters.letter)
-    print("letter list", unlearned_letter_list)
+
     return [letter_list, unlearned_letter_list]
 
 
@@ -200,9 +200,9 @@ def add_student(current_user):
 @token_required
 def delete_student(current_user):
     student_id = request.get_json()
-    print(student_id)
+
     user_id = current_user.public_id
-    student = Student.query.filter_by(
+    student = Student.querxy.filter_by(
         student_id=student_id, user_id=user_id).first()
     db.session.delete(student)
     db.session.commit()
@@ -212,20 +212,26 @@ def delete_student(current_user):
 @token_required
 def add_word_to_student(current_user):
     data = request.get_json()
+  
     student_id = data.get("student")
     words = data.get('words')
     user_id = current_user.public_id
-    word_list = Word.query.filter(
-        (Word.word.in_(words))).filter(Word.user_id == user_id).all()
+ 
+    word_list = Word.query.filter(Word.word.in_(words)).filter(Word.user_id == user_id).all()
+ 
     word_ids = []
     for word in word_list:
         word_ids.append(word.word_id)
+
     for word_id in word_ids:
+     
         new_student_word = StudentWord(
+
             word_id=word_id, student_id=student_id, user_id=user_id)
+ 
         db.session.add(new_student_word)
         db.session.commit()
-
+ 
     return "student words added!"
 
 # Student detail
@@ -351,7 +357,7 @@ def get_unknown_words(current_user, student):
     for word in words:
         word_ids.append(word.word_id)
 
-    unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
+    unknown_words = Word.query.filter_by(user_id=user_id).filter(Word.word_id.notin_(word_ids)).all()
     word_list = []
 
     for word in unknown_words:
@@ -368,10 +374,10 @@ def get_unknown_words(current_user, student):
 def get_unknown_students_word(current_user, word):
     """gets students are not assigned to word"""
     user_id = current_user.public_id
-    print(current_user)
+  
     students = StudentWord.query.filter_by(
         word_id=word, user_id=user_id).options(db.joinedload('students')).all()
-    print("students", students)
+  
     student_ids = []
     for student in students:
         student_ids.append(student.student_id)
@@ -543,7 +549,7 @@ def get_unknown_words_chart(current_user, student):
     for word in words:
         word_ids.append(word.word_id)
 
-    unknown_words = Word.query.filter(Word.word_id.notin_(word_ids)).all()
+    unknown_words = Word.query.filter_by(user_id=user_id).filter(Word.word_id.notin_(word_ids)).all()
     word_list = []
 
     for word in unknown_words:
@@ -866,9 +872,9 @@ def letter_detail(current_user, letter):
 @app.route("/api/delete-letter", methods=['POST'])
 @token_required
 def delete_letter(current_user):
-    print("deleting letter")
+
     letter_id = request.get_json()
-    print("letter", letter_id)
+
     user_id = current_user.public_id
     letter_to_delete = Letter.query.filter_by(
         letter_id=letter_id, user_id=user_id).first()
@@ -889,7 +895,7 @@ def get_unknown_letters(current_user, student):
 
         letter_ids.append(letter.letter_id)
 
-    unknown_letters = Letter.query.filter(
+    unknown_letters = Letter.query.filter_by(user_id=user_id).filter(
         Letter.letter_id.notin_(letter_ids)).all()
     letter_list = []
 
@@ -907,11 +913,13 @@ def get_unknown_letters(current_user, student):
 @token_required
 def add_letter_to_student(current_user):
     data = request.get_json()
+   
     student_id = data.get("student")
     letters = data.get('letters')
     user_id = current_user.public_id
     letter_list = Letter.query.filter(
         (Letter.letter.in_(letters))).filter(Letter.user_id == user_id).all()
+  
     letter_ids = []
     for letter in letter_list:
         letter_ids.append(letter.letter_id)
@@ -999,7 +1007,7 @@ def get_unknown_letters_chart(current_user, student):
     for letter in letters:
         letter_ids.append(letter.letter_id)
 
-    unknown_letters = Letter.query.filter(
+    unknown_letters = Letter.query.filter_by(user_id=user_id).filter(
         Letter.letter_id.notin_(letter_ids)).all()
     letter_list = []
 
@@ -1063,7 +1071,7 @@ def create_student_letter_test(current_user):
     and update_incorrect_letters functions"""
 
     data = request.get_json()
-    print(data)
+ 
     student_id = data.get('student')
     user_id = current_user.public_id
     correct_letters = data.get('correct_letters')
@@ -1137,7 +1145,7 @@ def get_unlearned_sound_student_counts(sound):
 def get_unknown_students_sound(current_user, sound):
 
     """gets students are not assigned to sound"""
-    print("getting unknown students")
+
     user_id = current_user.public_id
     sound_id = sound
     students = StudentSound.query.filter_by(
@@ -1158,7 +1166,7 @@ def get_unknown_students_sound(current_user, sound):
 
         student_list.append(student)
     student_list = sorted(student_list, key=itemgetter('student'))
-    print(student_list)
+ 
     return jsonify(student_list)
 
 @app.route('/api/add-student-to-sound', methods=['POST'])
@@ -1260,7 +1268,7 @@ def get_unknown_sounds(current_user, student):
     for sound in sounds:
         sound_ids.append(sound.sound_id)
 
-    unknown_sounds = Sound.query.filter(
+    unknown_sounds = Sound.query.filter_by(user_id=user_id).filter(
         Sound.sound_id.notin_(sound_ids)).all()
     sound_list = []
 

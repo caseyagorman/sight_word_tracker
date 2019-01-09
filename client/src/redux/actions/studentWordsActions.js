@@ -1,13 +1,15 @@
 import * as types from "./actionTypes";
+import history from "../../history";
 function studentWordsApi() {
   return "http://localhost:5000/api/get-learned-words";
 }
 
-function addStudentWordsApi(studentWords) {
+function addStudentWordsApi() {
   return "http://localhost:5000/api/add-word-to-student";
 }
 
 export function addStudentWords(studentWords, user) {
+  console.log("studentWords", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",
@@ -18,7 +20,9 @@ export function addStudentWords(studentWords, user) {
         "x-access-token": user
       },
       body: JSON.stringify(studentWords)
-    });
+    })
+      .then(response => console.log(response))
+      .then(() => history.push("/students"));
   };
 }
 

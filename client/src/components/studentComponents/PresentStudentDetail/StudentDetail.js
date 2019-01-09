@@ -37,12 +37,13 @@ class StudentDetail extends React.Component {
     );
   }
 
-  displayLine1(student, id) {
+  displayLine1(student) {
+    console.log("display line 1", student);
     if (!student) {
       return <div> loading..</div>;
     }
 
-    return <Line1 student={student} id={id} />;
+    return <Line1 student={student} />;
   }
 
   displayLine2(student, id) {

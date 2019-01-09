@@ -48,6 +48,7 @@ export function deleteStudent(student, user) {
 }
 
 export function receiveStudent(student) {
+  console.log("receive student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 
@@ -63,6 +64,6 @@ export function fetchStudent(student, user) {
       }
     })
       .then(response => response.json())
-      .then(students => dispatch(receiveStudents(students)));
+      .then(student => dispatch(receiveStudent(student)));
   };
 }
