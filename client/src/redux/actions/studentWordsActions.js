@@ -20,9 +20,7 @@ export function addStudentWords(studentWords, user) {
         "x-access-token": user
       },
       body: JSON.stringify(studentWords)
-    })
-      .then(response => console.log(response))
-      .then(() => history.push("/students"));
+    }).then(() => dispatch(fetchStudentWords(studentWords)));
   };
 }
 

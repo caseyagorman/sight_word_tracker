@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StudentNamePage from "../StudentDetail/StudentNamePage";
-
+import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
+import "../../../static/StudentStyle.css";
 class Line1 extends Component {
   studentNamePage(student) {
     if (!student) {
@@ -10,16 +11,24 @@ class Line1 extends Component {
     return StudentNamePage(student);
   }
 
+  deleteStudentForm(student) {
+    console.log("student delete", student);
+    if (!student) {
+      return <p>loading...</p>;
+    }
+    return <DeleteStudentFormContainer student={student[0]} />;
+  }
+
   render() {
     return (
       <div className="container">
-        <div className="align-baseline">
-          <Row>
-            <Col className="align-top" lg="8">
-              {this.studentNamePage(this.props.student)}
-            </Col>
-          </Row>
-        </div>
+        <b id="student-name-header">
+          {this.studentNamePage(this.props.student)}
+        </b>
+
+        <b id="student-detail-trash-can">
+          {this.deleteStudentForm(this.props.student)}
+        </b>
       </div>
     );
   }

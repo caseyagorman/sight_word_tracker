@@ -14,7 +14,7 @@ import Line6 from "./Line6StudentDetail";
 import Line7 from "./Line7StudentDetail";
 import Line8 from "./Line8StudentDetail";
 import Line9 from "./Line9StudentDetail";
-import Line10 from "./Line10StudentDetail";
+
 class StudentDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
@@ -38,7 +38,6 @@ class StudentDetail extends React.Component {
   }
 
   displayLine1(student) {
-    console.log("display line 1", student);
     if (!student) {
       return <div> loading..</div>;
     }
@@ -174,17 +173,10 @@ class StudentDetail extends React.Component {
     );
   }
 
-  displayLine10(student) {
-    if (!student) {
-      return <div> loading..</div>;
-    }
-    return <Line10 student={student} />;
-  }
-
   render() {
     return (
       <div>
-        <div className="container">{this.displayLine1(this.props.student)}</div>
+        <b>{this.displayLine1(this.props.student)}</b>
         <div className="container">{this.displayLine2(this.props.student)}</div>
         <br />
         <div className="container">{this.displayLine3(this.props.student)}</div>
@@ -224,9 +216,6 @@ class StudentDetail extends React.Component {
             this.props.studentLetterTestResults,
             this.props.studentSoundTestResults
           )}
-        </div>
-        <div className="container">
-          {this.displayLine10(this.props.student)}
         </div>
       </div>
     );

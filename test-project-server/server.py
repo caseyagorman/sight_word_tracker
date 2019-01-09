@@ -480,6 +480,7 @@ def delete_student_word(current_user):
 @token_required
 def word_detail(current_user, word):
     """Display word and students who are learning that word"""
+    print("word", word)
     user_id = current_user.public_id
     word_object = Word.query.filter_by(word_id=word, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
