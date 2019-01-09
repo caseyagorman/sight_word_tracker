@@ -84,6 +84,8 @@ export function addLetter(letter, user) {
         "x-access-token": user
       },
       body: JSON.stringify(letter)
-    }).then(() => history.push("/letters"));
+    })
+      .then(() => dispatch(fetchLetters(user)))
+      .then(() => history.push("/letters"));
   };
 }
