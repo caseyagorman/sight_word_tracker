@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import history from "../../history";
+import { fetchStudents } from "./studentsActions";
 function addStudentApi() {
   return "http://localhost:5000/api/add-student";
 }
@@ -8,6 +9,10 @@ function getStudentApi(id) {
 }
 function deleteStudentApi() {
   return "http://localhost:5000/api/delete-student";
+}
+
+export function receiveStudents(students) {
+  return { type: types.RECEIVE_STUDENTS, students: students };
 }
 
 export function addStudent(student, user) {
@@ -38,7 +43,7 @@ export function deleteStudent(student, user) {
         "x-access-token": user
       },
       body: JSON.stringify(student)
-    }).then(() => history.push("/students"));
+    }).then(() => dispatch(fetchStudents(user)));
   };
 }
 
@@ -57,7 +62,8 @@ export function fetchStudent(student, user) {
         "x-access-token": user
       }
     })
+      .then(fetchStudents(user))
       .then(response => response.json())
-      .then(student => dispatch(receiveStudent(student)));
+      .then(students => dispatch(receiveStudents(students)));
   };
 }
