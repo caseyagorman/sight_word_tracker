@@ -15,7 +15,7 @@ class DeleteLetter extends Component {
   }
 
   getOptions(letter) {
-    console.log("letter", letter);
+    console.log("delete letter", letter);
     if (!letter) {
       return <div>loading...</div>;
     }
@@ -51,11 +51,7 @@ class DeleteLetter extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <div className="container">{this.getOptions(this.props.letterAlt)}</div>
-      </div>
-    );
+    return <b>{this.getOptions(this.props.letterAlt)}</b>;
   }
 }
 

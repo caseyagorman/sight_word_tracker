@@ -3,18 +3,20 @@ import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 // import "../../static/LetterStyle.css";
 import DeleteLetter from "../LetterComponents/Forms/DeleteLetter";
-// Display table head of words students are learning
+import { Glyphicon } from "react-bootstrap";
+// Display table head of words letters are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
 
 const LettersTableComponent = (letters, onSort, token) => (
-  <div id="letter-table">
+  // console.log("LETTERS", letters);
+  <div className="letter-table">
     <Table bordered hover>
       <thead>
         <tr>
-          <th>Letter</th>
+          <th onClick={e => onSort(e, "letter")}>Letter</th>
           <th onClick={e => onSort(e, "count")}>Learned</th>
-          <th onClick={e => onSort(e, "unlearned_count")}>Learning</th>
+          <th onClick={e => onSort(e, "unlearned_count")}>Unlearned</th>
         </tr>
       </thead>
       <tbody>
@@ -26,7 +28,7 @@ const LettersTableComponent = (letters, onSort, token) => (
                   to={`/letter-detail/${letter.letter_id}`}
                   className="link"
                 >
-                  {letter.letter}
+                  <h2 id="letter-name-table-header">{letter.letter}</h2>
                 </Link>
                 <DeleteLetter token={token} letterAlt={letter} />
               </td>
@@ -43,6 +45,13 @@ const LettersTableComponent = (letters, onSort, token) => (
             </tr>
           );
         })}
+        <tr>
+          <td colspan="8">
+            <a href="/add-letter" className="link">
+              + Click to add new letter
+            </a>
+          </td>
+        </tr>
       </tbody>
     </Table>
   </div>

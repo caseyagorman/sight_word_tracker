@@ -3,6 +3,7 @@
   font-size: 100px;
   color: black;
   margin-bottom: 2%;
+  display: inline-block;
 }
 #add-letter-button {
   font-family: "Niramit", sans-serif;

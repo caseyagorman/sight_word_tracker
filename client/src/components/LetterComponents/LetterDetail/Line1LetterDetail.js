@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import "../../../static/LetterStyle.css";
+import DeleteLetter from "../Forms/DeleteLetter";
 class Line1 extends React.Component {
   displayLetter(letter) {
     if (!letter) {
@@ -8,7 +9,8 @@ class Line1 extends React.Component {
     }
     return (
       <div>
-        <h1 id="display-letter">{letter.letter}</h1>
+        <b id="display-letter">{letter.letter}</b>
+        <DeleteLetter letterAlt={letter} token={this.props.token} />
       </div>
     );
   }

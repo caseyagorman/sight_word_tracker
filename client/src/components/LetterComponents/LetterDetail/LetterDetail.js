@@ -37,20 +37,12 @@ class LetterDetail extends React.Component {
     return <Line3 students={students[1]} letter={students[0]} />;
   }
 
-  displayDeleteButton(letter) {
-    if (!letter) {
-      return <div>loading...</div>;
-    }
-    return <DeleteLetter letter={letter} />;
-  }
-
   render() {
     return (
       <div>
         <div>{this.displayLine1(this.props.letter)}</div>
         <div>{this.displayLine2(this.props.letter)}</div>
         <div>{this.displayLine3(this.props.letter)}</div>
-        <div>{this.displayDeleteButton(this.props.letter)}</div>
       </div>
     );
   }
