@@ -78,3 +78,11 @@
   font-size: 24px;
   height: 250px;
 }
+#trash-can {
+  margin: 5px;
+  font-size: 22px;
+  display: inline-block;
+}
+#student-name-table-header {
+  display: inline-block;
+}

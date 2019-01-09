@@ -30,7 +30,7 @@ class ViewStudents extends React.Component {
     if (!students) {
       return <p>Loading...</p>;
     }
-    return <Line1 students={students} />;
+    return <Line1 students={students} token={this.props.token} />;
   }
 
   displayAddStudentButton() {

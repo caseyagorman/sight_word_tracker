@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
-// import "../../../static/StudentStyle.css";
+import "../../static/StudentStyle.css";
 import { Glyphicon } from "react-bootstrap";
+import DeleteStudent from "../StudentComponents/Forms/StudentForms/DeleteStudent";
+
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
 
-const StudentTableComponent = (students, onSort) => (
+const StudentTableComponent = (students, onSort, token) => (
   <div className="student-table">
     <Table bordered hover>
       <thead>
@@ -43,10 +45,11 @@ const StudentTableComponent = (students, onSort) => (
               <td>
                 <th>
                   <Link to={`/details/${student.student_id}`} className="link">
-                    <h2>
+                    <h2 id="student-name-table-header">
                       {student.fname} {student.lname}
                     </h2>
                   </Link>
+                  <DeleteStudent token={token} studentAlt={student} />
                 </th>
                 <tr>
                   <td>
@@ -116,7 +119,9 @@ const StudentTableComponent = (students, onSort) => (
         })}
         <tr>
           <td colspan="8">
-            <a>+ Click to add new student</a>
+            <a href="/add-student" className="link">
+              + Click to add new student
+            </a>
           </td>
         </tr>
       </tbody>

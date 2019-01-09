@@ -21,8 +21,6 @@ class TableContainer extends Component {
   }
 
   sortArray(array, sortKey, reverseSort) {
-    console.log("sorting array;", array);
-
     array = array.slice();
     if (sortKey) {
       array.sort(function(a, b) {
@@ -50,13 +48,14 @@ class TableContainer extends Component {
   }
 
   render() {
+    let token = this.props.token;
     let tableElements = this.sortArray(
       this.props.tableElements,
       this.state.sortKey,
       this.state.reverseSort
     );
 
-    return this.props.renderTable(tableElements, this.onSort);
+    return this.props.renderTable(tableElements, this.onSort, token);
   }
 }
 

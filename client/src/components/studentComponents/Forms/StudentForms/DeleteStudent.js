@@ -6,10 +6,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as studentActions from "../../../../redux/actions/studentActions";
 import { Glyphicon } from "react-bootstrap";
+import "../../../../static/StudentStyle.css";
 
-const glyphStyle = {
-  fontSize: "40px"
-};
 class DeleteStudent extends Component {
   constructor(props) {
     super(props);
@@ -21,25 +19,15 @@ class DeleteStudent extends Component {
       return <div>loading...</div>;
     }
     return (
-      <div>
-        <form>
-          <h3>
-            <Glyphicon
-              style={glyphStyle}
-              glyph="glyphicon glyphicon-trash"
-              onClick={this.submit}
-            />
-            <span> </span>
-            Delete {student[0].fname}
-          </h3>
-        </form>
-      </div>
+      <form id="trash-can">
+        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
+      </form>
     );
   }
 
   handleSubmit() {
     const user = this.props.token;
-    const student = this.props.student[0].student_id;
+    const student = this.props.student;
     this.props.studentActions.deleteStudent(student, user);
   }
 
@@ -62,9 +50,7 @@ class DeleteStudent extends Component {
   };
 
   render() {
-    return (
-      <div className="container">{this.getOptions(this.props.student)}</div>
-    );
+    return <b>{this.getOptions(this.props.studentAlt)}</b>;
   }
 }
 

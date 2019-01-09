@@ -10,6 +10,7 @@ class Line1 extends React.Component {
     }
     return (
       <TableContainer
+        token={this.props.token}
         renderTable={StudentTableComponent}
         tableElements={students}
       />
