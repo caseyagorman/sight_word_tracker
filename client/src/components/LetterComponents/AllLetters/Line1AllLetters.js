@@ -6,7 +6,7 @@ import LettersTableComponent from "../../TableContainer/LettersTableComponent";
 
 class Line1 extends React.Component {
   displayLowercaseLettersTable(letters) {
-    console.log("letters", letters);
+    console.log("props1", this.props);
     if (!letters) {
       return <p>Loading...</p>;
     }
@@ -14,6 +14,7 @@ class Line1 extends React.Component {
       <TableContainer
         renderTable={LettersTableComponent}
         tableElements={letters}
+        token={this.props.token}
       />
     );
     // return <AllSoundsTableHead sounds={sounds.sounds} />;
@@ -27,6 +28,7 @@ class Line1 extends React.Component {
       <TableContainer
         renderTable={LettersTableComponent}
         tableElements={letters}
+        token={this.props.token}
       />
     );
   }
@@ -35,12 +37,12 @@ class Line1 extends React.Component {
     return (
       <div className="container">
         <Row>
-          <Col lg="10">
+          <Col lg="8">
             {this.displayCapitalLettersTable(this.props.letters.letters[1])}
           </Col>
         </Row>
         <Row>
-          <Col lg="10">
+          <Col lg="8">
             {this.displayLowercaseLettersTable(this.props.letters.letters[0])}
           </Col>
         </Row>

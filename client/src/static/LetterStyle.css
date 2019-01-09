@@ -32,9 +32,7 @@
   font-size: 40px;
   display: inline-block;
 }
-#trash-can {
-  margin-right: 5px;
-}
+
 .add-students-to-letter {
   font-family: "Niramit", sans-serif;
 }
@@ -46,4 +44,12 @@
 #test-letter {
   font-size: "300px";
   font-family: "Niramit", sans-serif;
+}
+#trash-can {
+  margin: 5px;
+  font-size: 22px;
+  display: inline-block;
+}
+#letter-name-table-header {
+  display: inline-block;
 }

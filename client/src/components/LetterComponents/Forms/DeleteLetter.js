@@ -15,29 +15,20 @@ class DeleteLetter extends Component {
   }
 
   getOptions(letter) {
+    console.log("letter", letter);
     if (!letter) {
       return <div>loading...</div>;
     }
     return (
-      <div>
-        <form>
-          <div className="delete-div">
-            <Glyphicon
-              glyph="glyphicon glyphicon-trash"
-              onClick={this.submit}
-              id="trash-can"
-            />
-            <span> </span>
-            <b id="delete-letter">Delete {letter[0].letter}</b>
-          </div>
-        </form>
-      </div>
+      <form id="trash-can">
+        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
+      </form>
     );
   }
 
   handleSubmit() {
-    const user = this.props.auth.user.token;
-    const letter = this.props.letter[0].letter_id;
+    const user = this.props.token;
+    const letter = this.props.letterAlt.letter_id;
     this.props.letterActions.deleteLetter(letter, user);
   }
 
@@ -62,7 +53,7 @@ class DeleteLetter extends Component {
   render() {
     return (
       <div>
-        <div className="container">{this.getOptions(this.props.letter)}</div>
+        <div className="container">{this.getOptions(this.props.letterAlt)}</div>
       </div>
     );
   }

@@ -866,7 +866,9 @@ def letter_detail(current_user, letter):
 @app.route("/api/delete-letter", methods=['POST'])
 @token_required
 def delete_letter(current_user):
+    print("deleting letter")
     letter_id = request.get_json()
+    print("letter", letter_id)
     user_id = current_user.public_id
     letter_to_delete = Letter.query.filter_by(
         letter_id=letter_id, user_id=user_id).first()

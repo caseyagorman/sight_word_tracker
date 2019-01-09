@@ -31,7 +31,31 @@ export function fetchLetter(id, user) {
       .then(letter => dispatch(receiveLetter(letter)));
   };
 }
+
+function api(user) {
+  return "http://localhost:5000/api/letters";
+}
+
+export function receiveLetters(letters) {
+  return { type: types.RECEIVE_LETTERS, letters: letters };
+}
+export function fetchLetters(user) {
+  return dispatch => {
+    return fetch(api(user), {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
+    })
+      .then(response => response.json())
+      .then(letters => dispatch(receiveLetters(letters)));
+  };
+}
 export function deleteLetter(letter, user) {
+  console.log("delete letter", letter, user);
   return dispatch => {
     return fetch(deleteLetterApi(), {
       method: "POST",
@@ -42,7 +66,7 @@ export function deleteLetter(letter, user) {
         "x-access-token": user
       },
       body: JSON.stringify(letter)
-    }).then(() => history.push("/letters"));
+    }).then(() => dispatch(fetchLetters(user)));
   };
 }
 

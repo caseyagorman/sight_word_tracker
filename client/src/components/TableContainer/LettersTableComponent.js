@@ -1,12 +1,13 @@
 import React from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
-// import "../../../static/StudentStyle.css";
+// import "../../static/LetterStyle.css";
+import DeleteLetter from "../LetterComponents/Forms/DeleteLetter";
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
 
-const LettersTableComponent = (letters, onSort) => (
+const LettersTableComponent = (letters, onSort, token) => (
   <div id="letter-table">
     <Table bordered hover>
       <thead>
@@ -21,27 +22,13 @@ const LettersTableComponent = (letters, onSort) => (
           return (
             <tr>
               <td>
-                <th>
-                  <h1>
-                    <Link
-                      to={`/letter-detail/${letter.letter_id}`}
-                      className="link"
-                    >
-                      {letter.letter}
-                    </Link>
-                  </h1>
-                </th>
-                <tr>
-                  <td>
-                    <h5>Learned |</h5> <span />
-                    {letter.count}
-                  </td>
-
-                  <td>
-                    <h5> Unlearned</h5>
-                    {letter.unlearned_count}
-                  </td>
-                </tr>
+                <Link
+                  to={`/letter-detail/${letter.letter_id}`}
+                  className="link"
+                >
+                  {letter.letter}
+                </Link>
+                <DeleteLetter token={token} letterAlt={letter} />
               </td>
               <td>
                 <ul style={noBulletList}>

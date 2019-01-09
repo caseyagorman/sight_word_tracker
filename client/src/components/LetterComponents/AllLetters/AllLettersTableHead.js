@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../../static/LetterStyle.css";
+import DeleteLetter from "../Forms/DeleteLetter";
 // Display table head of letters letters are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
@@ -40,14 +41,13 @@ class AllLettersTableHead extends Component {
                 <tr>
                   <td>
                     <th>
-                      <h1>
-                        <Link
-                          to={`/letter-detail/${letter.letter_id}`}
-                          className="link"
-                        >
-                          {letter.letter}
-                        </Link>
-                      </h1>
+                      <Link
+                        to={`/letter-detail/${letter.letter_id}`}
+                        className="link"
+                      >
+                        <h1>{letter.letter}</h1>
+                      </Link>
+                      <DeleteLetter token={token} letterAlt={letter} />
                     </th>
                     <tr>
                       <td>

@@ -62,7 +62,6 @@ export function fetchStudent(student, user) {
         "x-access-token": user
       }
     })
-      .then(fetchStudents(user))
       .then(response => response.json())
       .then(students => dispatch(receiveStudents(students)));
   };

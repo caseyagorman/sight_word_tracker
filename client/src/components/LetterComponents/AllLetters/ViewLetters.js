@@ -27,7 +27,7 @@ class ViewLetters extends React.Component {
     if (!letters) {
       return <p>loading...</p>;
     }
-    return <Line1 letters={letters} />;
+    return <Line1 token={this.props.token} letters={letters} />;
   }
 
   displayAddLetterButton() {
