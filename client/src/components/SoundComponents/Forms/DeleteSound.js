@@ -28,7 +28,7 @@ class DeleteSound extends Component {
 
   handleSubmit() {
     const user = this.props.auth.user.token;
-    const sound = this.props.soundAlt[0].sound_id;
+    const sound = this.props.soundAlt.sound_id;
     console.log("user", user, "sound", sound);
     this.props.soundActions.deleteSound(sound, user);
   }
