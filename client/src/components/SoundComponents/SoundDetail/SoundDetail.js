@@ -14,7 +14,7 @@ class SoundDetail extends React.Component {
     }
     const id = this.props.id;
     const user = this.props.token;
-    this.props.soundActions.fetchsound(id, user);
+    this.props.soundActions.fetchSound(id, user);
   }
 
   displayLine1(sound) {
@@ -42,7 +42,7 @@ class SoundDetail extends React.Component {
     if (!sound) {
       return <div>loading...</div>;
     }
-    return <DeleteSound sound={sound} />;
+    return <DeleteSound soundAlt={sound} />;
   }
 
   render() {

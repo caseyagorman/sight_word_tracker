@@ -29,7 +29,7 @@ class ViewSounds extends React.Component {
     if (!sounds) {
       return <p>sploading...</p>;
     }
-    return <Line1 sounds={sounds} />;
+    return <Line1 sounds={sounds} token={this.props.token} />;
   }
   displayAddSoundButton() {
     return <AddSoundButton />;

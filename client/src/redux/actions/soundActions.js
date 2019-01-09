@@ -16,7 +16,11 @@ export function receiveSound(sound) {
   return { type: types.RECEIVE_SOUND, sound: sound };
 }
 
-export function fetchsound(id, user) {
+export function receiveSounds(sounds) {
+  return { type: types.RECEIVE_SOUNDS, sounds: sounds };
+}
+
+export function fetchSound(id, user) {
   return dispatch => {
     return fetch(getSoundApi(id), {
       method: "GET",
@@ -31,6 +35,26 @@ export function fetchsound(id, user) {
       .then(sound => dispatch(receiveSound(sound)));
   };
 }
+function fetchStudentsApi(user) {
+  return "http://localhost:5000/api/sounds";
+}
+
+export function fetchSounds(user) {
+  return dispatch => {
+    return fetch(fetchStudentsApi(user), {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "x-access-token": user
+      }
+    })
+      .then(response => response.json())
+
+      .then(sounds => dispatch(receiveSounds(sounds)));
+  };
+}
 export function deleteSound(sound, user) {
   return dispatch => {
     return fetch(deleteSoundApi(), {
@@ -42,7 +66,9 @@ export function deleteSound(sound, user) {
         "x-access-token": user
       },
       body: JSON.stringify(sound)
-    }).then(() => history.push("/sounds"));
+    })
+      .then(() => dispatch(fetchSounds(user)))
+      .then(() => history.push("/sounds"));
   };
 }
 
@@ -58,6 +84,8 @@ export function addSound(sound, user) {
         "x-access-token": user
       },
       body: JSON.stringify(sound)
-    }).then(() => history.push("/sounds"));
+    })
+      .then(() => dispatch(fetchSounds(user)))
+      .then(() => history.push("/sounds"));
   };
 }

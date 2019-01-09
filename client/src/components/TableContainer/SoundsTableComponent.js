@@ -1,12 +1,13 @@
 import React from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
-// import "../../../static/StudentStyle.css";
+import DeleteSound from "../SoundComponents/Forms/DeleteSound";
+import "../../static/SoundStyle.css";
 // Display table head of words students are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
 
-const SoundsTableComponent = (sounds, onSort) => (
+const SoundsTableComponent = (sounds, onSort, token) => (
   <div id="sound-table">
     <Table bordered hover>
       <thead>
@@ -21,27 +22,10 @@ const SoundsTableComponent = (sounds, onSort) => (
           return (
             <tr>
               <td>
-                <th>
-                  <h1>
-                    <Link
-                      to={`/sound-detail/${sound.sound_id}`}
-                      className="link"
-                    >
-                      {sound.sound}
-                    </Link>
-                  </h1>
-                </th>
-                <tr>
-                  <td>
-                    <h5>Learned |</h5> <span />
-                    {sound.count}
-                  </td>
-
-                  <td>
-                    <h5> Unlearned</h5>
-                    {sound.unlearned_count}
-                  </td>
-                </tr>
+                <Link to={`/sound-detail/${sound.sound_id}`} className="link">
+                  <h2 id="sound-table-head">{sound.sound}</h2>
+                </Link>
+                <DeleteSound token={token} soundAlt={sound} />
               </td>
               <td>
                 <ul style={noBulletList}>{sound.students.map(listElements)}</ul>
@@ -54,6 +38,13 @@ const SoundsTableComponent = (sounds, onSort) => (
             </tr>
           );
         })}
+        <tr>
+          <td colspan="8">
+            <a href="/add-sound" className="link">
+              + Click to add new sound
+            </a>
+          </td>
+        </tr>
       </tbody>
     </Table>
   </div>

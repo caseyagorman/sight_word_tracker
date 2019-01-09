@@ -52,4 +52,15 @@
 }
 #name-table {
   font-size: 24px;
+  display: "inline-block";
+}
+#trash-can {
+  margin: 5px;
+  font-size: 22px;
+  display: inline-block;
+}
+
+#sound-table-head {
+  font-size: 36px;
+  display: "inline-block";
 }

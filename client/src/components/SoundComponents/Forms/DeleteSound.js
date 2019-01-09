@@ -15,29 +15,21 @@ class DeleteSound extends Component {
   }
 
   getOptions(sound) {
+    console.log("sound", sound);
     if (!sound) {
       return <div>loading...</div>;
     }
     return (
-      <div>
-        <form>
-          <div className="delete-div">
-            <Glyphicon
-              glyph="glyphicon glyphicon-trash"
-              onClick={this.submit}
-              id="trash-can"
-            />
-
-            <b id="delete-sound">Delete "{sound[0].sound}"</b>
-          </div>
-        </form>
-      </div>
+      <form id="trash-can">
+        <Glyphicon glyph="glyphicon glyphicon-trash" onClick={this.submit} />
+      </form>
     );
   }
 
   handleSubmit() {
     const user = this.props.auth.user.token;
-    const sound = this.props.sound[0].sound_id;
+    const sound = this.props.soundAlt[0].sound_id;
+    console.log("user", user, "sound", sound);
     this.props.soundActions.deleteSound(sound, user);
   }
 
@@ -62,7 +54,9 @@ class DeleteSound extends Component {
   render() {
     return (
       <div>
-        <div className="container">{this.getOptions(this.props.sound)}</div>
+        <div className="container">
+          {this.getOptions(this.props.soundAlt, this.props.auth)}
+        </div>
       </div>
     );
   }

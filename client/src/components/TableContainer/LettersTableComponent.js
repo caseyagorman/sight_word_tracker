@@ -1,15 +1,13 @@
 import React from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
-// import "../../static/LetterStyle.css";
+import "../../static/LetterStyle.css";
 import DeleteLetter from "../LetterComponents/Forms/DeleteLetter";
-import { Glyphicon } from "react-bootstrap";
 // Display table head of words letters are learning
 const noBulletList = { listStyleType: "none" };
 const listElements = el => <li>{el}</li>;
 
 const LettersTableComponent = (letters, onSort, token) => (
-  // console.log("LETTERS", letters);
   <div className="letter-table">
     <Table bordered hover>
       <thead>
