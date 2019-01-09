@@ -49,7 +49,7 @@ const StudentTableComponent = (students, onSort, token) => (
                       {student.fname} {student.lname}
                     </h2>
                   </Link>
-                  <DeleteStudent token={token} studentId={student} />
+                  <DeleteStudent token={token} studentId={student.student_id} />
                 </th>
                 <tr>
                   <td>
