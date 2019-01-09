@@ -27,7 +27,7 @@ export function addStudent(student, user) {
       },
       body: JSON.stringify(student)
     })
-      .then(response => console.log(response))
+      .then(() => dispatch(fetchStudents(user)))
       .then(() => history.push("/students"));
   };
 }
@@ -43,7 +43,9 @@ export function deleteStudent(student, user) {
         "x-access-token": user
       },
       body: JSON.stringify(student)
-    }).then(() => dispatch(fetchStudents(user)));
+    })
+      .then(() => dispatch(fetchStudents(user)))
+      .then(() => history.push("/students"));
   };
 }
 

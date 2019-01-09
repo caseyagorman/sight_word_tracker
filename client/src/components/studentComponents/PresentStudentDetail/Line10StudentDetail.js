@@ -4,6 +4,7 @@ import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormCon
 
 class Line10 extends Component {
   deleteStudentForm(student) {
+    console.log("student delete", student);
     if (!student) {
       return <p>loading...</p>;
     }

@@ -21,7 +21,7 @@ class DeleteStudentFormContainer extends Component {
       <DeleteStudent
         token={this.props.auth.user.token}
         username={this.props.auth.user.username}
-        studentId={this.props.studentId}
+        studentId={this.props.student.student_id}
       />
     );
   }
