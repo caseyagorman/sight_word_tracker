@@ -1,4 +1,5 @@
 import datetime
+import time
 from operator import itemgetter
 import os
 import uuid
@@ -92,6 +93,7 @@ def add_user():
 @app.route("/api/students")
 @token_required
 def get_students(current_user):
+    start = time.time()
     public_id = current_user.public_id
     students = Student.query.filter_by(user_id=public_id).options(
         db.joinedload('studentwords')).all()
@@ -136,6 +138,9 @@ def get_students(current_user):
         student_list.append(student)
 
     student_list = sorted(student_list, key=itemgetter('fname', 'lname'),  reverse=False) 
+    end = time.time()
+    elapsed_time = end - start
+    print('getting all students took', elapsed_time)
     return jsonify(student_list)
 
 
@@ -240,6 +245,7 @@ def add_word_to_student(current_user):
 @token_required
 def student_detail(current_user, student):
     """Show student detail"""
+    start = time.time()
     user_id = current_user.public_id
     student_object = Student.query.filter_by(
         student_id=student, user_id=user_id).first()
@@ -287,7 +293,9 @@ def student_detail(current_user, student):
             sound_list.append(sound)
         else:
             pass
-
+    end = time.time()
+    elapsed_time = end - start
+    print('getting student detail took', elapsed_time)
     return jsonify([student_object, word_list, letter_list, sound_list])
 
 
