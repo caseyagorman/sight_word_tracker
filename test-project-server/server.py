@@ -341,17 +341,7 @@ def get_words(current_user):
     word_list = sorted(word_list, key=itemgetter('word'))
     return jsonify(word_list)
 
-def get_word_student_counts(word):
-    word_id = word.word_id
-    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
-        StudentWord.Learned == True).all()
-    return len(words)
 
-def get_unlearned_word_student_counts(word):
-    word_id = word.word_id
-    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
-        StudentWord.Learned == False).all()
-    return len(words)
 
 
 @app.route("/api/unknown-words/<student>")
@@ -525,27 +515,7 @@ def word_detail(current_user, word):
 
 
 
-def get_word_counts(student_words):
-    """is called by get student test, returns word, times read correctly,times read incorrectly """
-    word_counts = []
-    for student_word in student_words:
-        count = {
-            "word": student_word.words.word,
-            "correct_count": student_word.correct_count,
-            "incorrect_count": student_word.incorrect_count
-        }
-        word_counts.append(count)
 
-    return word_counts
-
-
-def get_learned_words_list(student_words):
-    """is called by get student test, returns list of learned words"""
-    learned_words = []
-    for student_word in student_words:
-        if student_word.Learned == True:
-            learned_words.append(student_word.words.word)
-    return learned_words
 
 @app.route("/api/unknown-words-chart/<student>")
 @token_required
@@ -654,17 +624,6 @@ def calculate_score(known_items, unknown_items):
 
 # Begin letter functions
 
-def get_unlearned_letter_student_counts(letter):
-    letter_id = letter.letter_id
-    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
-        StudentLetter.Learned == False).all()
-    return len(letters)
-
-def get_letter_student_counts(letter):
-    letter_id = letter.letter_id
-    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
-        StudentLetter.Learned == True).all()
-    return len(letters)
 
 
 @app.route("/api/letters")
@@ -937,6 +896,55 @@ def get_sound_counts(student_sounds):
 
     return sound_counts
 
+def get_word_counts(student_words):
+    """is called by get student test, returns word, times read correctly,times read incorrectly """
+    word_counts = []
+    for student_word in student_words:
+        count = {
+            "word": student_word.words.word,
+            "correct_count": student_word.correct_count,
+            "incorrect_count": student_word.incorrect_count
+        }
+        word_counts.append(count)
+
+    return word_counts
+
+def get_word_student_counts(word):
+    word_id = word.word_id
+    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
+        StudentWord.Learned == True).all()
+    return len(words)
+
+def get_unlearned_word_student_counts(word):
+    word_id = word.word_id
+    words = StudentWord.query.filter(StudentWord.word_id == word_id).filter(
+        StudentWord.Learned == False).all()
+    return len(words)
+
+def get_unlearned_letter_student_counts(letter):
+    letter_id = letter.letter_id
+    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
+        StudentLetter.Learned == False).all()
+    return len(letters)
+
+def get_letter_student_counts(letter):
+    letter_id = letter.letter_id
+    letters = StudentLetter.query.filter(StudentLetter.letter_id == letter_id).filter(
+        StudentLetter.Learned == True).all()
+    return len(letters)
+
+
+def get_sound_student_counts(sound):
+    sound_id = sound.sound_id
+    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
+        StudentSound.Learned == True).all()
+    return len(sounds)
+
+def get_unlearned_sound_student_counts(sound):
+    sound_id = sound.sound_id
+    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
+        StudentSound.Learned == False).all()
+    return len(sounds)
 
 def get_learned_sounds_list(student_sounds):
     """is called by get student test, returns list of learned sounds"""
@@ -953,6 +961,17 @@ def get_learned_letters_list(student_letters):
         if student_letter.Learned == True:
             learned_letters.append(student_letter.letters.letter)
     return learned_letters
+
+
+def get_learned_words_list(student_words):
+    """is called by get student test, returns list of learned words"""
+    learned_words = []
+    for student_word in student_words:
+        if student_word.Learned == True:
+            learned_words.append(student_word.words.word)
+    return learned_words
+
+
 
 
 def get_student_letter_chart_data(student_letters, student):
@@ -1074,6 +1093,7 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
             pass
 
     if test_type == "letter":
+        print("letter")
         student_letter_list = StudentLetter.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('letters')).filter(
         Letter.letter.in_(correct_items)).all()
         for letter in student_letter_list:
@@ -1093,11 +1113,24 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
             if sound.sounds.sound in correct_items:
                 if sound.correct_count >= 2:
                     sound.Learned = True
-                Sound.correct_count = StudentSound.correct_count + 1
-                print(Sound.correct_count)
+                sound.correct_count = StudentSound.correct_count + 1
+
                 db.session.commit()
     return "correct items"
+# <StudentWord student_word_id=55>
+# <StudentWord student_word_id=46>
+# studentwords.correct_count + :correct_count_1
+# <StudentWord student_word_id=47>
+# studentwords.correct_count + :correct_count_1
+# <StudentWord student_word_id=50>
 
+# sound
+# <StudentSound student_sound_id=22>
+# studentsounds.correct_count + :correct_count_1
+# <StudentSound student_sound_id=23>
+# studentsounds.correct_count + :correct_count_1
+# <StudentSound student_sound_id=24>
+# studentsounds.correct_count + :correct_count_1
 
 def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
     """updates incorrect letters in db, called by create_student_test"""
@@ -1174,20 +1207,6 @@ def get_sounds(current_user):
     sound_list = sorted(sound_list, key=itemgetter('sound'))
     return jsonify(sound_list)
 
-
-
-
-def get_sound_student_counts(sound):
-    sound_id = sound.sound_id
-    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
-        StudentSound.Learned == True).all()
-    return len(sounds)
-
-def get_unlearned_sound_student_counts(sound):
-    sound_id = sound.sound_id
-    sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
-        StudentSound.Learned == False).all()
-    return len(sounds)
 
 @app.route("/api/sound-unknown-students/<sound>")
 @token_required
