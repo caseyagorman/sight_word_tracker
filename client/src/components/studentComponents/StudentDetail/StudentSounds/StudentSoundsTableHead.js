@@ -8,12 +8,8 @@ class StudentSoundsTableHead extends Component {
   displaySoundsTableHead(data) {
     return (
       <div>
-        <Table striped bordered condensed hover>
-          <thead>
-            <th>
-              <h4>Sounds</h4>
-            </th>
-          </thead>
+        <Table bordered hover>
+          <thead id="student-sound-table-head">Sounds</thead>
           {this.displaySoundsTableRows(data)}
         </Table>
       </div>

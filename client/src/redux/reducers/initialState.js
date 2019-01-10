@@ -17,6 +17,11 @@ export default {
   studentWordTestResults: "",
   studentLetterTestResults: "",
   studentSoundTestResults: "",
+  studentTest: {
+    testType: "",
+    testItems: [],
+    submittingTest: false
+  },
   auth: {
     user: "",
     isAuthenticated: false,

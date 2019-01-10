@@ -50,7 +50,6 @@ export function deleteStudent(student, user) {
 }
 
 export function receiveStudent(student) {
-  console.log("receive student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 

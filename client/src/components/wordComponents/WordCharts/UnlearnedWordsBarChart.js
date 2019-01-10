@@ -9,7 +9,6 @@ class UnlearnedWordsBarChart extends Component {
   }
 
   turnIntoArray(obj) {
-    console.log("obj", obj);
     if (!obj) {
       return <p>Loading...</p>;
     }
@@ -17,7 +16,6 @@ class UnlearnedWordsBarChart extends Component {
     let wordCounts = [];
     let studentList = [];
     for (let item in obj) {
-      console.log(obj[item]);
       wordCounts.push(obj[item].unlearned_count);
       wordList.push(obj[item].word);
       studentList.push(obj[item].unlearned_students);

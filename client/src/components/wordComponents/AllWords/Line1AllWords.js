@@ -5,7 +5,6 @@ import WordsTableComponent from "../../TableContainer/WordsTableComponent";
 // import "../../../static/WordStyle.css";
 class Line1 extends React.Component {
   displayTableHead(words) {
-    console.log("words", words);
     if (!words) {
       return <p>Loading...</p>;
     }

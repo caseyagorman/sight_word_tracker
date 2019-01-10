@@ -5,7 +5,7 @@ const WordTestStudentLink = props => {
   return (
     <div className="container">
       <Link to={`/test-student-words/${props[0].student_id}`}>
-        <button id="test-student-button">Test {props[0].fname}' words</button>
+        <button id="test-student-button">Test {props[0].fname}'s words</button>
       </Link>
     </div>
   );

@@ -15,7 +15,6 @@ class DeleteLetter extends Component {
   }
 
   getOptions(letter) {
-    console.log("delete letter", letter);
     if (!letter) {
       return <div>loading...</div>;
     }

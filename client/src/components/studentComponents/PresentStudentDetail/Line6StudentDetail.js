@@ -14,7 +14,6 @@ class Line6 extends Component {
   }
 
   displayLetterDoughnutChart(studentTest) {
-    console.log("student letter test", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }
@@ -23,7 +22,6 @@ class Line6 extends Component {
   }
 
   displayTotalSoundDoughnutChart(studentTest) {
-    console.log("sound test", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }

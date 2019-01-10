@@ -39,7 +39,6 @@ class SoundDetail extends React.Component {
   }
 
   displayDeleteButton(sound) {
-    console.log("delete sound", sound);
     if (!sound) {
       return <div>loading...</div>;
     }

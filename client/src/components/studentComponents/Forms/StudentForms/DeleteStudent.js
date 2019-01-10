@@ -15,7 +15,6 @@ class DeleteStudent extends Component {
   }
 
   getOptions(student) {
-    console.log("delete student", student);
     if (!student) {
       return <div>loading...</div>;
     }
@@ -29,7 +28,6 @@ class DeleteStudent extends Component {
   handleSubmit() {
     const user = this.props.token;
     const student = this.props.studentId;
-    console.log("user", user, "student", student);
     this.props.studentActions.deleteStudent(student, user);
   }
 

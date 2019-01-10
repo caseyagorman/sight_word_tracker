@@ -6,7 +6,6 @@ import LettersTableComponent from "../../TableContainer/LettersTableComponent";
 
 class Line1 extends React.Component {
   displayLowercaseLettersTable(letters) {
-    console.log("props1", this.props);
     if (!letters) {
       return <p>Loading...</p>;
     }

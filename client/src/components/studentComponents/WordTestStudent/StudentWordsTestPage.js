@@ -71,6 +71,7 @@ class StudentWordsTestPage extends React.Component {
             No
           </button>
         </Row>
+        <div />
       </div>
     );
   }

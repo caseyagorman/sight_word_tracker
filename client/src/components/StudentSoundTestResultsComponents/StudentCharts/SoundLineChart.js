@@ -81,7 +81,7 @@ class SoundLineChart extends Component {
 
     return (
       <div>
-        <h3>Student word tests over time</h3>
+        <h3>Student sound tests over time</h3>
         <Line options={options} data={data} />
       </div>
     );

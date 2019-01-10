@@ -1,5 +1,4 @@
 import React from "react";
-import AllStudentsTable from "./AllStudentsTable";
 import TableContainer from "../../TableContainer/TableContainer";
 import StudentTableComponent from "../../TableContainer/StudentTableComponent";
 
@@ -15,7 +14,6 @@ class Line1 extends React.Component {
         tableElements={students}
       />
     );
-    // return <AllStudentsTable students={students} />;
   }
 
   render() {

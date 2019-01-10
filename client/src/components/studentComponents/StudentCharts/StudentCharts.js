@@ -21,7 +21,6 @@ class StudentCharts extends React.Component {
   }
 
   displayStudentLearnedWordBarChart(students) {
-    console.log("students", students);
     if (!students) {
       return <p>Loading...</p>;
     }
@@ -42,21 +41,18 @@ class StudentCharts extends React.Component {
     return <StudentLearnedSoundBarChart data={students} />;
   }
   displayStudentUnlearnedWordBarChart(students) {
-    console.log("students", students);
     if (!students) {
       return <p>Loading...</p>;
     }
     return <StudentUnlearnedWordBarChart data={students} />;
   }
   displayStudentUnlearnedLetterBarChart(students) {
-    console.log("students", students);
     if (!students) {
       return <p>Loading...</p>;
     }
     return <StudentUnlearnedLetterBarChart data={students} />;
   }
   displayStudentUnlearnedSoundBarChart(students) {
-    console.log("students", students);
     if (!students) {
       return <p>Loading...</p>;
     }

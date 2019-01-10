@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Table } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Component } from "react";
+// import { Table } from "reactstrap";
+// import { Link } from "react-router-dom";
 import "../../static/SoundStyle.css";
 // Display table head of sounds sounds are learning
-const noBulletList = { listStyleType: "none" };
-const listElements = el => <li>{el}</li>;
+// const noBulletList = { listStyleType: "none" };
+// const listElements = el => <li>{el}</li>;
 
 // Expected props:
 // tableData: [{}]

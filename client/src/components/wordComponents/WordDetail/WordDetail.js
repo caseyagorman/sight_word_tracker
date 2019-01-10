@@ -37,7 +37,6 @@ class WordDetail extends React.Component {
   }
 
   displayDeleteButton(word) {
-    console.log("delete button", word);
     if (!word) {
       return <div>loading...</div>;
     }

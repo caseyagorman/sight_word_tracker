@@ -6,7 +6,6 @@ class TotalLettersDoughnutChart extends Component {
     return " " + tooltipItem;
   }
   displayChart(dataResults) {
-    console.log("dataResults", dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }

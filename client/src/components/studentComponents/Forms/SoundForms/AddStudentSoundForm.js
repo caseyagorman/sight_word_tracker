@@ -64,7 +64,7 @@ class AddStudentsoundForm extends Component {
       <form onSubmit={this.handleSubmit} id="add-to-student-form">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
-            <h3>Add sound to {this.props.student[0].fname}</h3>
+            <h3>Add Sound to {this.props.student[0].fname}</h3>
           </ControlLabel>
           <strong>
             <FormControl

@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-import history from "../../history";
+// import history from "../../history";
 
 function addStudentLettersApi() {
   return "http://localhost:5000/api/add-letters-to-student";
@@ -28,7 +28,6 @@ export function receivestudentLetters(studentLetters) {
   return { type: types.RECEIVE_STUDENT_WORDS, studentLetters: studentLetters };
 }
 export function receiveStudent(student) {
-  console.log("receive student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 

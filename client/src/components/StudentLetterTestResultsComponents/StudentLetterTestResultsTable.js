@@ -11,7 +11,7 @@ class StudentLetterTestResultsTable extends Component {
             <tr>
               <th>Test taken</th>
               <th>Score</th>
-              <th>Correct words</th>
+              <th>Correct letters</th>
               <th>Incorrect words</th>
             </tr>
           </thead>

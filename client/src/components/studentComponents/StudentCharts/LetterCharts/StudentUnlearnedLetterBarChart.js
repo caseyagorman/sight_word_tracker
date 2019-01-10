@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
 import "../../../../static/ChartStyle.css";
 class StudentUnlearnedWordBarChart extends Component {
-  componentDidMount() {
-    console.log("prop", this.props);
-  }
   turnIntoArray(obj) {
     if (!obj) {
       return <p>Loading...</p>;
@@ -21,7 +18,6 @@ class StudentUnlearnedWordBarChart extends Component {
   }
 
   displayChart(dataResults) {
-    console.log(dataResults);
     if (!dataResults) {
       return <div> loading...</div>;
     }

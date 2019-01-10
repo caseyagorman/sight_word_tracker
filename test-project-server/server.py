@@ -1080,18 +1080,19 @@ def create_student_letter_test(current_user):
     and update_incorrect_letters functions"""
 
     data = request.get_json()
+    print("student letter test data", data)
  
-    student_id = data.get('student')
-    user_id = current_user.public_id
-    correct_letters = data.get('correct_letters')
-    incorrect_letters = data.get('incorrect_letters')
-    score = calculate_score(correct_letters, incorrect_letters)
-    update_correct_letters(student_id, correct_letters)
-    update_incorrect_letters(student_id, incorrect_letters)
-    db.session.add(
-        StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
-                              correct_letters=correct_letters, incorrect_letters=incorrect_letters))
-    db.session.commit()
+    # student_id = data.get('student')
+    # user_id = current_user.public_id
+    # correct_letters = data.get('correct_letters')
+    # incorrect_letters = data.get('incorrect_letters')
+    # score = calculate_score(correct_letters, incorrect_letters)
+    # update_correct_letters(student_id, correct_letters)
+    # update_incorrect_letters(student_id, incorrect_letters)
+    # db.session.add(
+    #     StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
+    #                           correct_letters=correct_letters, incorrect_letters=incorrect_letters))
+    # db.session.commit()
     return 'letter test added'
 
 

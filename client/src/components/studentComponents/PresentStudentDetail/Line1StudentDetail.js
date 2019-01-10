@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
+// import { Row, Col } from "react-bootstrap";
 import StudentNamePage from "../StudentDetail/StudentNamePage";
 import DeleteStudentFormContainer from "../../../containers/DeleteStudentFormContainer";
 import "../../../static/StudentStyle.css";
@@ -12,7 +12,6 @@ class Line1 extends Component {
   }
 
   deleteStudentForm(student) {
-    console.log("student delete", student);
     if (!student) {
       return <p>loading...</p>;
     }

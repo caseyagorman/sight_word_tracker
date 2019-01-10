@@ -13,6 +13,7 @@ import letter from "./letterReducer";
 import unknownLetters from "./unknownLettersReducer";
 import studentLetters from "./studentLettersReducer";
 import studentLetterTestResults from "./studentLetterTestResultsReducer";
+import studentTest from "./studentTestReducer";
 import unknownSounds from "./unknownSoundsReducer";
 import studentSounds from "./studentSoundsReducer";
 import studentSoundTestResults from "./studentSoundTestResultsReducer";
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   unknownLetters,
   studentLetters,
   studentLetterTestResults,
+  studentTest,
   unknownSounds,
   sounds,
   sound,

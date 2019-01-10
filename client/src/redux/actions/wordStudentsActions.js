@@ -8,7 +8,6 @@ function getWordApi(id) {
   return `http://localhost:5000/api/word-detail/${id}`;
 }
 export function addWordStudents(wordStudents, user) {
-  console.log("wordStudents", wordStudents);
   return dispatch => {
     return fetch(addWordStudentsApi(), {
       method: "POST",
@@ -46,7 +45,6 @@ export function receiveWord(word) {
 }
 
 export function fetchUnknownWordStudents(word, user) {
-  console.log("fetcUnknownWord students", word);
   return dispatch => {
     return fetch(getUnknownWordStudentsApi(word), {
       method: "GET",

@@ -15,7 +15,6 @@ class DeleteSound extends Component {
   }
 
   getOptions(sound) {
-    console.log("sound", sound);
     if (!sound) {
       return <div>loading...</div>;
     }
@@ -29,7 +28,6 @@ class DeleteSound extends Component {
   handleSubmit() {
     const user = this.props.auth.user.token;
     const sound = this.props.soundAlt.sound_id;
-    console.log("user", user, "sound", sound);
     this.props.soundActions.deleteSound(sound, user);
   }
 

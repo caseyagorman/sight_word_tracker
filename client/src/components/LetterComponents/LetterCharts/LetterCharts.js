@@ -18,7 +18,6 @@ class LetterCharts extends React.Component {
     }
   }
   displayUnlearnedCapitalLetterBarChart(letters) {
-    console.log(letters);
     if (!letters) {
       return <p>Loading...</p>;
     }
@@ -35,7 +34,6 @@ class LetterCharts extends React.Component {
   }
 
   displayUnlearnedLowercaseLetterBarChart(letters) {
-    console.log(letters);
     if (!letters) {
       return <p>Loading...</p>;
     }
@@ -43,7 +41,6 @@ class LetterCharts extends React.Component {
     return <UnlearnedLowercaseLetterBarChart data={letters} />;
   }
   displayLearnedLowercaseLetterBarChart(letters) {
-    console.log(letters);
     if (!letters) {
       return <p>Loading...</p>;
     }

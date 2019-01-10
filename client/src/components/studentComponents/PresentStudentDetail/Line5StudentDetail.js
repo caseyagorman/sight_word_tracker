@@ -6,7 +6,6 @@ import StudentSoundDoughnutChart from "../../StudentSoundTestResultsComponents/S
 import "../../../static/StudentStyle.css";
 class Line5 extends Component {
   displayWordDoughnutChart(studentTest) {
-    console.log("studentTest", studentTest);
     if (!studentTest) {
       return <p>loading...</p>;
     }

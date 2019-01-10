@@ -93,7 +93,6 @@ class StudentDetail extends React.Component {
     studentLetterTestResults,
     studentSoundTestResults
   ) {
-    console.log("studentSoundTest", studentSoundTestResults);
     if (
       !studentWordTestResults &&
       !studentLetterTestResults &&

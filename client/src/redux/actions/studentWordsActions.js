@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-import history from "../../history";
+// import history from "../../history";
 
 function getStudentApi(id) {
   return `http://localhost:5000/api/details/${id}`;
@@ -9,7 +9,6 @@ function addStudentWordsApi() {
 }
 
 export function addStudentWords(studentWords, user) {
-  console.log("studentWords", studentWords);
   return dispatch => {
     return fetch(addStudentWordsApi(), {
       method: "POST",
@@ -27,7 +26,6 @@ export function addStudentWords(studentWords, user) {
 }
 
 export function receiveStudent(student) {
-  console.log("receive student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 

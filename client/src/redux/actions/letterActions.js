@@ -55,7 +55,6 @@ export function fetchLetters(user) {
   };
 }
 export function deleteLetter(letter, user) {
-  console.log("delete letter", letter, user);
   return dispatch => {
     return fetch(deleteLetterApi(), {
       method: "POST",

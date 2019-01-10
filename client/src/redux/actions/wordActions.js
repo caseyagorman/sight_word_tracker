@@ -35,7 +35,6 @@ export function fetchWord(id, user) {
   };
 }
 export function deleteWord(word, user) {
-  console.log("deleteWord", word, user);
   return dispatch => {
     return fetch(deleteWordApi(), {
       method: "POST",
