@@ -15,18 +15,13 @@ class TestStudent extends React.Component {
     if (!student) {
       return <p> Loading... </p>;
     }
-    let wordList = [];
-    let wordObj = student[1];
-    for (let key in wordObj) {
-      console.log(wordObj[key]);
-      let word = wordObj[key];
-      wordList.push(word.word);
-    }
-
+    console.log("second item", student[1]);
+    let words = this.turnIntoArray(student[1]);
+    console.log("words", words);
     return (
       <TestStudentPage
         user={this.props.token}
-        studentTestItems={wordList}
+        studentTestItems={words}
         student={student}
       />
     );
@@ -50,7 +45,7 @@ class TestStudent extends React.Component {
     if (!student) {
       return <p> Loading... </p>;
     }
-    let sounds = this.turnIntoArray(student[2]);
+    let sounds = this.turnIntoArray(student[3]);
 
     return (
       <TestStudentPage
@@ -62,15 +57,17 @@ class TestStudent extends React.Component {
   }
 
   turnIntoArray(obj) {
+    console.log(obj);
     if (!obj) {
       return <p>Loading...</p>;
     }
-    let letterList = [];
+    let list = [];
     for (let key in obj) {
-      let letterObj = obj[key];
-      letterList.push(letterObj.letter);
+      let newObj = obj[key];
+      newObj = newObj[Object.keys(newObj)[0]];
+      list.push(newObj);
     }
-    return letterList;
+    return list;
   }
 
   renderTestFunction(student) {
