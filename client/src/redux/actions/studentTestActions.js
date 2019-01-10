@@ -1,27 +1,26 @@
 import * as types from "./actionTypes";
-
+import history from "../../history";
 import {
   STUDENT_TEST_ANSWER_QUESTION,
-  STUDENT_TEST_BEGIN_TEST
+  STUDENT_TEST_BEGIN_TEST,
+  STUDENT_TEST_CLEAR_TEST
 } from "./actionTypes";
 
-// import history from "../../history";
-
 export function beginTest(testType) {
-  console.log("Begin student test action", testType);
   return {
     type: STUDENT_TEST_BEGIN_TEST,
     payload: { testType }
   };
 }
 
+export function receiveStudentTest() {
+  "receive student test";
+  return {
+    type: STUDENT_TEST_CLEAR_TEST
+  };
+}
+
 export function answerQuestion(questionItem, answeredCorrectly) {
-  console.log(
-    "question Item",
-    questionItem,
-    "answered correctly",
-    answeredCorrectly
-  );
   return {
     type: STUDENT_TEST_ANSWER_QUESTION,
     payload: {
@@ -31,10 +30,6 @@ export function answerQuestion(questionItem, answeredCorrectly) {
   };
 }
 
-// export function submitStudentTest(testType, testItems){
-//   return true
-// }
-
 function addLetterTestApi() {
   return "http://localhost:5000/api/create-student-letter-test";
 }
@@ -42,8 +37,7 @@ function addLetterTestApi() {
 function getStudentApi(id) {
   return `http://localhost:5000/api/details/${id}`;
 }
-// ===== This is what you're going to turn into
-// submitStudentTest
+
 export function submitStudentTest(studentTest, testType, studentId, user) {
   console.log("StudentTest", studentTest, "test type", testType);
   return dispatch => {
@@ -56,16 +50,19 @@ export function submitStudentTest(studentTest, testType, studentId, user) {
         "x-access-token": user
       },
       body: JSON.stringify({ studentTest, testType, studentId })
-    });
-    // .then(() => dispatch(fetchStudent(result.student, user)))
-    // .then(() => history.push(`/details/${result.student}`));
+    })
+      .then(response => response.json())
+      .then(() => history.push(`/details/${studentId}`))
+      .then(() => dispatch(receiveStudentTest()));
   };
 }
 export function receiveStudent(student) {
+  console.log("student", student);
   return { type: types.RECEIVE_STUDENT, student: student };
 }
 
 export function fetchStudent(student, user) {
+  console.log("fetching student", student, user);
   return dispatch => {
     return fetch(getStudentApi(student), {
       method: "GET",

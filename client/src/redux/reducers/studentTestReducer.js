@@ -2,7 +2,6 @@ import initialState from "./initialState";
 import {
   STUDENT_TEST_ANSWER_QUESTION,
   STUDENT_TEST_SUBMIT_TEST,
-  STUDENT_TEST_SUBMIT_TEST_SUCCESS,
   STUDENT_TEST_CLEAR_TEST,
   STUDENT_TEST_BEGIN_TEST
 } from "../actions/actionTypes";
@@ -28,28 +27,12 @@ export default function studentTest(state = initialState.studentTest, action) {
       });
 
     case STUDENT_TEST_SUBMIT_TEST:
-      // First, we figure out what kind of test we're dealing with
-      // const testType = state.testType;
-      // fetch(getUnknownWordStudentsApi(word), {
-      //   method: "GET",
-      //   mode: "cors",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //     "x-access-token": user
-      //   }
-      // });
       return Object.assign({}, state, {
         submittingTest: true
       });
-    case STUDENT_TEST_SUBMIT_TEST_SUCCESS:
-      return Object.assign({}, state, {
-        submittingTest: true
-      });
+
     case STUDENT_TEST_CLEAR_TEST:
-      return Object.assign({}, state, {
-        test: []
-      });
+      return Object.assign({}, state, initialState.studentTest);
     default:
       return state;
   }

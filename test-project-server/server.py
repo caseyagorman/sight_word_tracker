@@ -1099,17 +1099,17 @@ def create_student_letter_test(current_user):
         db.session.add(StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
         correct_letters=correct_items, incorrect_letters=incorrect_items))
         db.session.commit()
-        return "student test added!"
+        return jsonify({'response': 'letter test added!'})
     elif test_type == 'word':
         db.session.add(StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
         correct_words=correct_items, incorrect_words=incorrect_items))
         db.session.commit()
-        return "student test added!"
+        return jsonify({'response': 'word test added!'})
     elif test_type == 'sound':
         db.session.add(StudentSoundTestResult(student_id=student_id, user_id=user_id, score=score,
         correct_words=correct_items, incorrect_words=incorrect_items))
         db.session.commit()
-        return "student test added!"
+        return jsonify({'response': 'sound test added!'})
     return jsonify({'error': 'test not added'})
 
     

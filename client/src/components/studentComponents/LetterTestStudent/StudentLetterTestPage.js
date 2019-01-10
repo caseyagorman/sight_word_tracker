@@ -13,17 +13,13 @@ class StudentLetterTestPage extends React.Component {
     this.state = {
       letters: this.props.letters,
       idx: 0
-      // known_letters: [],
-      // unknown_letters: []
     };
   }
 
   displayLetter(letters) {
     if (!letters) {
-      // this.createTestObject();
       return <div className="test-complete-message">test complete</div>;
     }
-    // this.history.push(`/details/${this.props.student[0].student_id}`);
 
     return <div className="display-test-letter">{letters}</div>;
   }
