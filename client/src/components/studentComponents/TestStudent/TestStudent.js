@@ -15,9 +15,8 @@ class TestStudent extends React.Component {
     if (!student) {
       return <p> Loading... </p>;
     }
-    console.log("second item", student[1]);
+
     let words = this.turnIntoArray(student[1]);
-    console.log("words", words);
     return (
       <TestStudentPage
         user={this.props.token}
@@ -57,7 +56,6 @@ class TestStudent extends React.Component {
   }
 
   turnIntoArray(obj) {
-    console.log(obj);
     if (!obj) {
       return <p>Loading...</p>;
     }

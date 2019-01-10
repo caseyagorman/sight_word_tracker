@@ -29,8 +29,8 @@ export function answerQuestion(questionItem, answeredCorrectly) {
   };
 }
 
-function addLetterTestApi() {
-  return "http://localhost:5000/api/create-student-letter-test";
+function addTestApi() {
+  return "http://localhost:5000/api/create-student-test";
 }
 
 function getStudentApi(id) {
@@ -40,7 +40,7 @@ function getStudentApi(id) {
 export function submitStudentTest(studentTest, testType, studentId, user) {
   console.log("StudentTest", studentTest, "test type", testType);
   return dispatch => {
-    return fetch(addLetterTestApi(), {
+    return fetch(addTestApi(), {
       method: "POST",
       mode: "cors",
       headers: {
