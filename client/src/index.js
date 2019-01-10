@@ -18,19 +18,18 @@ import StudentsContainer from "./containers/StudentsContainer";
 import StudentChartsContainer from "./containers/StudentChartsContainer";
 import StudentDetailContainer from "./containers/StudentDetailContainer";
 import AddStudentFormContainer from "./containers/AddStudentFormContainer";
+import TestStudentContainer from "./containers/TestStudentContainer";
 
 // Words
 import WordDetailContainer from "./containers/WordDetailContainer";
 import WordChartsContainer from "./containers/WordChartsContainer";
 import WordsContainer from "./containers/WordsContainer";
 import AddWordFormContainer from "./containers/AddWordFormContainer";
-import WordTestStudentContainer from "./containers/WordTestStudentContainer";
 
 // Letters
 import LettersContainer from "./containers/LettersContainer";
 import LetterChartsContainer from "./containers/LetterChartsContainer";
 import LetterDetailContainer from "./containers/LetterDetailContainer";
-import LetterTestStudentContainer from "./containers/LetterTestStudentContainer";
 import AddLetterFormContainer from "./containers/AddLetterFormContainer";
 
 // Sounds
@@ -38,7 +37,6 @@ import SoundDetailContainer from "./containers/SoundDetailContainer";
 import SoundChartsContainer from "./containers/SoundChartsContainer";
 import SoundsContainer from "./containers/SoundsContainer";
 import AddSoundFormContainer from "./containers/AddSoundFormContainer";
-import SoundTestStudentContainer from "./containers/SoundTestStudentContainer";
 
 import history from "./history";
 // redux imports
@@ -63,10 +61,6 @@ const AppRouter = () => (
       <Route path="/add-word/" component={AddWordFormContainer} />
       <Route path="/add-letter/" component={AddLetterFormContainer} />
       <Route path="/add-sound/" component={AddSoundFormContainer} />
-      <Route
-        path="/test-student-words/:id"
-        component={WordTestStudentContainer}
-      />
       <Route path="/words/" component={WordsContainer} />
       <Route path="/word-charts/" component={WordChartsContainer} />
       <Route path="/details/:id" component={StudentDetailContainer} />
@@ -74,17 +68,10 @@ const AppRouter = () => (
       <Route path="/letter-detail/:id" component={LetterDetailContainer} />
       <Route path="/letters/" component={LettersContainer} />
       <Route path="/letter-charts/" component={LetterChartsContainer} />
-      <Route
-        path="/test-student-letters/:id"
-        component={LetterTestStudentContainer}
-      />
       <Route path="/sound-detail/:id" component={SoundDetailContainer} />
       <Route path="/sounds/" component={SoundsContainer} />
       <Route path="/sound-charts/" component={SoundChartsContainer} />
-      <Route
-        path="/test-student-sounds/:id"
-        component={SoundTestStudentContainer}
-      />
+      <Route path="/test-student/:id" component={TestStudentContainer} />
     </div>
   </Router>
 );

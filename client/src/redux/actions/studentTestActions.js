@@ -14,7 +14,6 @@ export function beginTest(testType) {
 }
 
 export function receiveStudentTest() {
-  "receive student test";
   return {
     type: STUDENT_TEST_CLEAR_TEST
   };

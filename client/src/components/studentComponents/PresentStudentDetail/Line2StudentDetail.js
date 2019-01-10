@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import WordTestStudentLink from "../WordTestStudent/WordTestStudentLink";
-import LetterTestStudentLink from "../LetterTestStudent/LetterTestStudentLink";
-import SoundTestStudentLink from "../SoundTestStudent/SoundTestStudentLink";
+import WordTestStudentLink from "../TestStudent/Links/WordTestStudentLink";
+import LetterTestStudentLink from "../TestStudent/Links/LetterTestStudentLink";
+import SoundTestStudentLink from "../TestStudent/Links/SoundTestStudentLink";
 // import * as studentTestActions from "../../../redux/actions/studentTestActions";
 // import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
@@ -11,7 +11,7 @@ class Line2 extends Component {
     if (!student) {
       return <p>Loading test...</p>;
     }
-    return WordTestStudentLink(student);
+    return <WordTestStudentLink student={student} />;
   }
 
   displayLetterTestStudentLink(student) {
@@ -26,7 +26,7 @@ class Line2 extends Component {
     if (!student) {
       return <p>Loading test...</p>;
     }
-    return SoundTestStudentLink(student);
+    return <SoundTestStudentLink student={student} />;
   }
 
   render() {
