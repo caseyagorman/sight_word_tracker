@@ -1051,7 +1051,7 @@ def create_student_test(current_user):
         return jsonify({'response': 'word test added!'})
     elif test_type == 'sound':
         db.session.add(StudentSoundTestResult(student_id=student_id, user_id=user_id, score=score,
-        correct_words=correct_items, incorrect_words=incorrect_items))
+        correct_sounds=correct_items, incorrect_sounds=incorrect_items))
         db.session.commit()
         return jsonify({'response': 'sound test added!'})
     return jsonify({'error': 'test not added'})
@@ -1059,9 +1059,11 @@ def create_student_test(current_user):
 def update_correct_items(student_id, correct_items, test_type, user_id):
     """updates correct letters in db, called by create_student_test"""
     if test_type == "word":
+        print("word")
         student_word_list = StudentWord.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('words')).filter(
         Word.word.in_(correct_items)).all()
         for word in student_word_list:
+            print(word)
             if word.words.word in correct_items:
                 if word.correct_count >= 2:
                     word.Learned = True
@@ -1083,13 +1085,16 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
         else:
             pass
     elif test_type == "sound":
+        print("sound")
         student_sound_list = StudentSound.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('sounds')).filter(
         Sound.sound.in_(correct_items)).all()
         for sound in student_sound_list:
+            print(sound)
             if sound.sounds.sound in correct_items:
                 if sound.correct_count >= 2:
                     sound.Learned = True
                 Sound.correct_count = StudentSound.correct_count + 1
+                print(Sound.correct_count)
                 db.session.commit()
     return "correct items"
 
