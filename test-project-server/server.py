@@ -627,9 +627,9 @@ def get_student_word_test(current_user, student):
     return jsonify([student_test_list, word_counts, chart_data, learned_words_list, total_chart_data])
 
 
-def calculate_score(known_words, unknown_words):
+def calculate_score(known_items, unknown_items):
     """calculates student test score, called by create_student_test"""
-    score = len(known_words) / (len(known_words) + len(unknown_words))
+    score = len(known_items) / (len(known_items) + len(unknown_items))
     score = score * 100
     score = int(round(score))
     return score
@@ -1080,20 +1080,58 @@ def create_student_letter_test(current_user):
     and update_incorrect_letters functions"""
 
     data = request.get_json()
-    print("student letter test data", data)
- 
+    student_test = data.get('studentTest')
+    test_type = data.get('testType')
+    student_id = data.get('studentId')
+    user_id = current_user.public_id
+    correct_items = []
+    incorrect_items = []
+
+
+    for entry in student_test:
+        if entry['answeredCorrectly']:
+            correct_items.append(entry['testItems'])
+        else:
+            incorrect_items.append(entry['testItems'])
+    print("correct", correct_items, "incorrect", incorrect_items)
+    score = calculate_score(correct_items, incorrect_items)
+    if test_type == 'letter':
+        db.session.add(StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
+        correct_letters=correct_items, incorrect_letters=incorrect_items))
+        db.session.commit()
+        return "student test added!"
+    elif test_type == 'word':
+        db.session.add(StudentWordTestResult(student_id=student_id, user_id=user_id, score=score,
+        correct_words=correct_items, incorrect_words=incorrect_items))
+        db.session.commit()
+        return "student test added!"
+    elif test_type == 'sound':
+        db.session.add(StudentSoundTestResult(student_id=student_id, user_id=user_id, score=score,
+        correct_words=correct_items, incorrect_words=incorrect_items))
+        db.session.commit()
+        return "student test added!"
+    return jsonify({'error': 'test not added'})
+
+    
+    
+#  [{'testItems': 't', 'answeredCorrectly': True},
+#   {'testItems': 'T', 'answeredCorrectly': True}, 
+#   {'testItems': 'a', 'answeredCorrectly': True}, 
+#   {'testItems': 'S', 'answeredCorrectly': True}, 
+#   {'testItems': 'G', 'answeredCorrectly': True}]
+
     # student_id = data.get('student')
     # user_id = current_user.public_id
-    # correct_letters = data.get('correct_letters')
-    # incorrect_letters = data.get('incorrect_letters')
-    # score = calculate_score(correct_letters, incorrect_letters)
-    # update_correct_letters(student_id, correct_letters)
-    # update_incorrect_letters(student_id, incorrect_letters)
-    # db.session.add(
-    #     StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
-    #                           correct_letters=correct_letters, incorrect_letters=incorrect_letters))
-    # db.session.commit()
-    return 'letter test added'
+    # # correct_letters = data.get('correct_letters')
+    # # incorrect_letters = data.get('incorrect_letters')
+    # score = calculate_score(correct_items, incorrect_items)
+    # # update_correct_letters(student_id, correct_letters)
+    # # update_incorrect_letters(student_id, incorrect_letters)
+    # # db.session.add(
+    # #     StudentLetterTestResult(student_id=student_id, user_id=user_id, score=score,
+    # #                           correct_letters=correct_letters, incorrect_letters=incorrect_letters))
+    # # db.session.commit()
+    # return 'letter test added'
 
 
 # Begin Sound Components

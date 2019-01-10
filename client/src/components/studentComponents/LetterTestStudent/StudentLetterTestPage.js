@@ -44,13 +44,11 @@ class StudentLetterTestPage extends React.Component {
 
   endTest(e) {
     e.preventDefault();
-    console.log(
-      "submitting student test",
-      this.props.studentTest.testItems,
-      this.props.user
-    );
+
     this.props.studentTestActions.submitStudentTest(
       this.props.studentTest.testItems,
+      this.props.studentTest.testType,
+      this.props.student[0].student_id,
       this.props.user
     );
   }
@@ -58,17 +56,6 @@ class StudentLetterTestPage extends React.Component {
   handleTestClick(e, letter, idx) {
     e.preventDefault();
     this.incrementIdx(idx);
-    // if (e.target.value === "yes") {
-    // this.setState({
-    //   known_letters: this.state.known_letters.concat([letter])
-    // });
-    // console.log("known letters state", this.state.known_letters);
-    // } else if (e.target.value === "no") {
-    // this.setState({
-    //   unknown_letters: this.state.unknown_letters.concat([letter])
-    // });
-    // console.log("unknown letters state", this.state.unknown_letters);
-    // }
 
     const answeredCorrectly = e.target.value === "yes";
     this.props.studentTestActions.answerQuestion(letter, answeredCorrectly);

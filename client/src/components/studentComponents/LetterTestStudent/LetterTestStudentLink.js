@@ -1,25 +1,56 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../../../static/StudentStyle.css";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as studentTestActions from "../../../redux/actions/studentTestActions";
 
-// const LetterTestStudentLink = props => {
-const LetterTestStudentLink = ({ student, beginTestHandler }) => {
-  // console.log("LetterTestStudent", props);
-  console.log("begin handler", beginTestHandler);
-  console.log("student as prop", student);
+class LetterTestStudentLink extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div className="container">
-      <Link to={`/test-student-letters/${student[0].student_id}`}>
-        <button
-          id="test-student-button"
-          // onClick={() => beginTestHandler("letter")}
-        >
-          Test {student[0].fname}'s Letters
-        </button>
-      </Link>
-    </div>
-  );
-};
+  componentDidMount() {
+    console.log("begin handler", this.props.studentTestActions.beginTest);
+    console.log("student as prop", this.props.student);
+  }
 
-export default LetterTestStudentLink;
+  displayLetterTestLink(student) {
+    if (!student) {
+      return <div>loading...</div>;
+    }
+    return (
+      <div className="container">
+        <Link to={`/test-student-letters/${this.props.student[0].student_id}`}>
+          <button
+            id="test-student-button"
+            onClick={() => this.props.studentTestActions.beginTest("letter")}
+          >
+            Test {this.props.student[0].fname}'s Letters
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
+  render() {
+    return <div>{this.displayLetterTestLink(this.props.student)}</div>;
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    studentTest: state.studentTest
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    studentTestActions: bindActionCreators(studentTestActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LetterTestStudentLink);

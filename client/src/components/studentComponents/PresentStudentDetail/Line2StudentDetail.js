@@ -3,16 +3,10 @@ import { Row, Col } from "react-bootstrap";
 import WordTestStudentLink from "../WordTestStudent/WordTestStudentLink";
 import LetterTestStudentLink from "../LetterTestStudent/LetterTestStudentLink";
 import SoundTestStudentLink from "../SoundTestStudent/SoundTestStudentLink";
-import * as studentTestActions from "../../../redux/actions/studentTestActions";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+// import * as studentTestActions from "../../../redux/actions/studentTestActions";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
 class Line2 extends Component {
-  constructor(props) {
-    super(props);
-    this.displayLetterTestStudentLink = this.displayLetterTestStudentLink.bind(
-      this
-    );
-  }
   displayWordTestStudentLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
@@ -20,15 +14,12 @@ class Line2 extends Component {
     return WordTestStudentLink(student);
   }
 
-  displayLetterTestStudentLink(student, beginTest) {
+  displayLetterTestStudentLink(student) {
     if (!student) {
       return <p>Loading test...</p>;
     }
 
-    const beginTestHandler = this.props.studentTestActions.beginTest;
-    // console.log("beginTestFn", beginTestFn);
-    return LetterTestStudentLink({ student, beginTestHandler });
-    // return LetterTestStudentLink(student, beginTest);
+    return <LetterTestStudentLink student={student} />;
   }
 
   displaySoundTestStudentLink(student) {
@@ -63,13 +54,11 @@ class Line2 extends Component {
 //   };
 // }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    studentTestActions: bindActionCreators(studentTestActions, dispatch)
-  };
-}
+// function mapDispatchToProps(dispatch) {
 
-export default connect(
-  // mapStateToProps,
-  mapDispatchToProps
-)(Line2);
+//   return {
+//     studentTestActions: bindActionCreators(studentTestActions, dispatch)
+//   };
+// }
+
+export default Line2;
