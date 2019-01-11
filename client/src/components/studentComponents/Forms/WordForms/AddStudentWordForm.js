@@ -58,11 +58,17 @@ class AddStudentWordForm extends Component {
       return <div>Loading!</div>;
     }
     let wordList = this.turnIntoArray(this.props.unknownWords);
+    if (wordList.length === 0) {
+      wordList = ["No words to display"];
+    }
     return (
       <form onSubmit={this.handleSubmit} id="add-to-student-form">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
-            <h3>Add Word to {this.props.student[0].fname}</h3>
+            <h3 id="add-to-student-form">
+              Assign words to {this.props.student[0].fname}
+            </h3>
+            <p>Press shift and click to add multiple words </p>
           </ControlLabel>
           <strong>
             <FormControl

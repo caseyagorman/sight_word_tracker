@@ -14,7 +14,7 @@ import Line6 from "./Line6StudentDetail";
 import Line7 from "./Line7StudentDetail";
 import Line8 from "./Line8StudentDetail";
 import Line9 from "./Line9StudentDetail";
-
+import Line10 from "./Line10StudentDetail";
 class StudentDetail extends React.Component {
   componentDidMount() {
     if (!this.props.id) {
@@ -178,6 +178,9 @@ class StudentDetail extends React.Component {
         <b>{this.displayLine1(this.props.student)}</b>
         <div className="container">{this.displayLine2(this.props.student)}</div>
         <br />
+        <div className="container">
+          <Line10 />
+        </div>
         <div className="container">{this.displayLine3(this.props.student)}</div>
         <div className="container">{this.displayLine4(this.props.student)}</div>
         <div className="container">

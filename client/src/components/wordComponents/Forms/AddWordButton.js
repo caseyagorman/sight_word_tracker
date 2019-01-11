@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AddWordButton = props => {
   return (
     <Link to={`/add-word`}>
-      <button id="add-word-button">Add Word</button>
+      <button className="add-word-button">Add Words</button>
     </Link>
   );
 };

@@ -67,6 +67,7 @@ def index(current_user):
 @cross_origin()
 def add_user():
     data = request.get_json()
+    print("user data", data)
  
     username = data.get('username')
     email = data.get('email')
@@ -84,6 +85,16 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'newUser': 'user added'})
+
+def load_word_list(file_name):
+    f = open(file_name)
+    lines = list(f)
+    new_lines = []
+    for line in lines:
+        new_lines.append(line.strip())
+    return new_lines
+
+
 
 
 """Student functions"""
@@ -142,48 +153,6 @@ def get_students(current_user):
     elapsed_time = end - start
     print('getting all students took', elapsed_time)
     return jsonify(student_list)
-
-
-def get_student_word_list(student):
-    student_id = student.student_id
-    words = StudentWord.query.filter(StudentWord.student_id == student_id).options(db.joinedload('words')).all()
-    word_list = []
-    unlearned_word_list =[]
-    for word in words:
-        if word.Learned == True:
-            word_list.append(word.words.word)
-        else:
-            unlearned_word_list.append(word.words.word)
-
-    return [word_list, unlearned_word_list]
-
-
-def get_student_letter_list(student):
-    student_id = student.student_id
-    letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).options(db.joinedload('letters')).all()
-    letter_list = []
-    unlearned_letter_list = []
-    for letter in letters:
-        if letter.Learned == True:
-            letter_list.append(letter.letters.letter)
-        else:
-            unlearned_letter_list.append(letter.letters.letter)
-
-    return [letter_list, unlearned_letter_list]
-
-
-def get_student_sound_list(student):
-    student_id = student.student_id
-    sounds = StudentSound.query.filter(StudentSound.student_id == student_id).options(db.joinedload('sounds')).all()
-    sound_list = []
-    unleared_sound_list = []
-    for sound in sounds:
-        if sound.Learned == True:
-            sound_list.append(sound.sounds.sound)
-        else: 
-            unleared_sound_list.append(sound.sounds.sound)
-
-    return [sound_list, unleared_sound_list]
 
 
 # Student forms
@@ -340,8 +309,6 @@ def get_words(current_user):
         word_list.append(word)
     word_list = sorted(word_list, key=itemgetter('word'))
     return jsonify(word_list)
-
-
 
 
 @app.route("/api/unknown-words/<student>")
@@ -935,6 +902,7 @@ def get_letter_student_counts(letter):
 
 
 def get_sound_student_counts(sound):
+    # sound is an object
     sound_id = sound.sound_id
     sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
         StudentSound.Learned == True).all()
@@ -945,6 +913,79 @@ def get_unlearned_sound_student_counts(sound):
     sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).filter(
         StudentSound.Learned == False).all()
     return len(sounds)
+
+
+def get_student_word_list(student):
+    student_id = student.student_id
+    words = StudentWord.query.filter(StudentWord.student_id == student_id).options(db.joinedload('words')).all()
+    word_list = []
+    unlearned_word_list =[]
+    for word in words:
+        if word.Learned == True:
+            word_list.append(word.words.word)
+        else:
+            unlearned_word_list.append(word.words.word)
+
+    return [word_list, unlearned_word_list]
+
+
+def get_student_letter_list(student):
+    student_id = student.student_id
+    letters = StudentLetter.query.filter(StudentLetter.student_id == student_id).options(db.joinedload('letters')).all()
+    letter_list = []
+    unlearned_letter_list = []
+    for letter in letters:
+        if letter.Learned == True:
+            letter_list.append(letter.letters.letter)
+        else:
+            unlearned_letter_list.append(letter.letters.letter)
+
+    return [letter_list, unlearned_letter_list]
+
+
+def get_student_sound_list(student):
+    student_id = student.student_id
+    sounds = StudentSound.query.filter(StudentSound.student_id == student_id).options(db.joinedload('sounds')).all()
+    sound_list = []
+    unleared_sound_list = []
+    for sound in sounds:
+        if sound.Learned == True:
+            sound_list.append(sound.sounds.sound)
+        else: 
+            unleared_sound_list.append(sound.sounds.sound)
+
+    return [sound_list, unleared_sound_list]
+
+
+# Possible refactoring of above functions
+# def get_counts(item_object, item_type):
+#     learned_list = []
+#     unlearned_list = []
+#     if item_type == "sound":
+#         print("item", item_object)
+#         sound_id = item_object.sound_id
+#         sounds = StudentSound.query.filter(StudentSound.sound_id == sound_id).all()
+#         for sound in sounds:
+#             if sound.Learned:
+#                 learned_list.append(sound)
+#     elif item_type == "letter":
+#         print("item", item_object)
+#         letter_id = item_object.letter_id
+#         letters = StudentLetter.query.filter(StudentSound.sound_id == sound_id).all()
+#         for sound in sounds:
+#             if sound.Learned:
+#                 learned_list.append(sound)
+#     elif item_type == "word":
+#         print("item", item_object.studentwords)
+#         word_id = item_object.studentwords.word_id
+#         words = StudentWord.query.filter(StudentWord.word_id == word_id).all()
+#         for word in words:
+#             if word.Learned:
+#                 learned_list.append(word)
+#         learned_count = len(learned_list)
+#         unlearned_count = len(unlearned_list)
+#         return [learned_count, learned_list, unlearned_count, unlearned_list]
+             
 
 def get_learned_sounds_list(student_sounds):
     """is called by get student test, returns list of learned sounds"""
@@ -1078,7 +1119,6 @@ def create_student_test(current_user):
 def update_correct_items(student_id, correct_items, test_type, user_id):
     """updates correct letters in db, called by create_student_test"""
     if test_type == "word":
-        print("word")
         student_word_list = StudentWord.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('words')).filter(
         Word.word.in_(correct_items)).all()
         for word in student_word_list:
@@ -1093,7 +1133,6 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
             pass
 
     if test_type == "letter":
-        print("letter")
         student_letter_list = StudentLetter.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('letters')).filter(
         Letter.letter.in_(correct_items)).all()
         for letter in student_letter_list:
@@ -1105,11 +1144,9 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
         else:
             pass
     elif test_type == "sound":
-        print("sound")
         student_sound_list = StudentSound.query.filter_by(student_id=student_id).filter_by(user_id=user_id).options(db.joinedload('sounds')).filter(
         Sound.sound.in_(correct_items)).all()
         for sound in student_sound_list:
-            print(sound)
             if sound.sounds.sound in correct_items:
                 if sound.correct_count >= 2:
                     sound.Learned = True
@@ -1117,20 +1154,6 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
 
                 db.session.commit()
     return "correct items"
-# <StudentWord student_word_id=55>
-# <StudentWord student_word_id=46>
-# studentwords.correct_count + :correct_count_1
-# <StudentWord student_word_id=47>
-# studentwords.correct_count + :correct_count_1
-# <StudentWord student_word_id=50>
-
-# sound
-# <StudentSound student_sound_id=22>
-# studentsounds.correct_count + :correct_count_1
-# <StudentSound student_sound_id=23>
-# studentsounds.correct_count + :correct_count_1
-# <StudentSound student_sound_id=24>
-# studentsounds.correct_count + :correct_count_1
 
 def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
     """updates incorrect letters in db, called by create_student_test"""
@@ -1171,7 +1194,6 @@ def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
 @app.route("/api/sounds")
 @token_required
 def get_sounds(current_user):
-
     user_id = current_user.public_id
     sounds = Sound.query.filter_by(user_id=user_id).options(
         db.joinedload('studentsounds')).all()

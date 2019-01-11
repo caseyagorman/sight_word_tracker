@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AddLetterButton = props => {
   return (
     <Link to={`/add-letter`}>
-      <button id="add-letter-button">Add Letter</button>
+      <button className="add-letter-button">Add Letters</button>
     </Link>
   );
 };

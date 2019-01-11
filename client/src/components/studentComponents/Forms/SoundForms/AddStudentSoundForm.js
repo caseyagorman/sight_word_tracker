@@ -60,11 +60,15 @@ class AddStudentsoundForm extends Component {
       return <div>Loading!</div>;
     }
     let soundList = this.turnIntoArray(this.props.unknownSounds);
+    if (soundList.length === 0) {
+      soundList = ["No sounds to display"];
+    }
     return (
       <form onSubmit={this.handleSubmit} id="add-to-student-form">
         <FormGroup controlId="formControlsSelectMultiple">
           <ControlLabel>
-            <h3>Add Sound to {this.props.student[0].fname}</h3>
+            <h3>Assign sounds to {this.props.student[0].fname}</h3>
+            <p>Press shift and click to add multiple letters </p>
           </ControlLabel>
           <strong>
             <FormControl

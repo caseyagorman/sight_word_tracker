@@ -4,7 +4,7 @@
   color: black;
   margin-bottom: 2%;
 }
-#add-sound-button {
+.add-sound-button {
   font-family: "Niramit", sans-serif;
   border-radius: 10px;
   color: white;

@@ -5,7 +5,7 @@ import * as studentLettersActions from "../../../../redux/actions/studentLetters
 import * as unknownLettersActions from "../../../../redux/actions/unknownLettersActions";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "../../../../static/StudentStyle.css";
-class AddStudentLetterForm extends Component {
+class AddDolchListWordsForm extends Component {
   constructor(props) {
     super(props);
     this.state = { value: [] };
