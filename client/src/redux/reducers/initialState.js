@@ -29,5 +29,6 @@ export default {
   },
   register: { newUser: "", registerError: "" },
   unknownLetterStudents: "",
-  unknownSoundStudents: ""
+  unknownSoundStudents: "",
+  dolchWords: ""
 };

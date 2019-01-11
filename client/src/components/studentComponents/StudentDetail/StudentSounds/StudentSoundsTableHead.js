@@ -21,7 +21,10 @@ class StudentSoundsTableHead extends Component {
       return <p>loading...</p>;
     }
     data = data[3];
-    return data.map(data => StudentSoundsTableRows(data));
+    console.log("DATA", data[3]);
+    return data.map(data => (
+      <StudentSoundsTableRows key={data.sound_id} data={data} />
+    ));
   }
 
   render() {
