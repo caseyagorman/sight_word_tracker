@@ -33,6 +33,7 @@ export function addStudent(student, user) {
 }
 
 export function deleteStudent(student, user) {
+  console.log("DELETE STUDENT", student, user);
   return dispatch => {
     return fetch(deleteStudentApi(), {
       method: "POST",

@@ -174,10 +174,11 @@ def add_student(current_user):
 @token_required
 def delete_student(current_user):
     student_id = request.get_json()
-
     user_id = current_user.public_id
+    print("student_id", student_id, "user_id", user_id)
     student = Student.query.filter_by(
         student_id=student_id, user_id=user_id).first()
+    print(student)
     db.session.delete(student)
     db.session.commit()
     return 'student deleted!'

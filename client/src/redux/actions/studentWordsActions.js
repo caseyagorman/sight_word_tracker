@@ -68,9 +68,6 @@ export function fetchStudent(student, user) {
 function getUnknownWordsApi(id) {
   return `http://localhost:5000/api/unknown-words/${id}`;
 }
-function getDolchWordsApi(id) {
-  return `http://localhost:5000/api/dolch-words/${id}`;
-}
 
 export function receiveUnknownWords(unknownWords) {
   return { type: types.RECEIVE_UNKNOWN_WORDS, unknownWords: unknownWords };

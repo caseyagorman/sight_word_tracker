@@ -15,6 +15,7 @@ class DeleteStudent extends Component {
   }
 
   getOptions(student) {
+    console.log("student to delete", student);
     if (!student) {
       return <div>loading...</div>;
     }

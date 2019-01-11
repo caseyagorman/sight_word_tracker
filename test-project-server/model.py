@@ -248,7 +248,7 @@ class StudentWordTestResult(db.Model):
         db.ARRAY(db.String(25)))
 
     students = db.relationship(
-        'Student', cascade="save-update, merge, delete")
+        'Student')
     users = db.relationship(
         'User')
 
@@ -276,7 +276,7 @@ class StudentLetterTestResult(db.Model):
         db.ARRAY(db.String(25)))
 
     students = db.relationship(
-        'Student', cascade="save-update, merge, delete")
+        'Student')
     users = db.relationship(
         'User')
 
@@ -304,7 +304,7 @@ class StudentSoundTestResult(db.Model):
         db.ARRAY(db.String(25)))
 
     students = db.relationship(
-        'Student', cascade="save-update, merge, delete")
+        'Student')
     users = db.relationship(
         'User')
 
