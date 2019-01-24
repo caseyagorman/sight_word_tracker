@@ -7,9 +7,9 @@ dropdb words
 dropdb studentwords
 dropdb studenttestresults
 
-createdb users
+createdb users1
 createdb words
-createdb students
+createdb students1
 createdb studenttestresults
 createdb studentwords
 

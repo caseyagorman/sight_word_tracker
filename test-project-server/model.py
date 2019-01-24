@@ -8,10 +8,10 @@ from werkzeug.security import safe_str_cmp
 db = SQLAlchemy()
 
 
-class User(db.Model):
+class User1(db.Model):
     """User of literacy website."""
 
-    __tablename__ = "users"
+    __tablename__ = "users1"
 
     id = db.Column(db.Integer,
                    autoincrement=True,
@@ -21,8 +21,8 @@ class User(db.Model):
     email = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128))
 
-    students = db.relationship(
-        'Student', cascade="save-update, merge, delete")
+    students1 = db.relationship(
+        'Student1', cascade="save-update, merge, delete")
     words = db.relationship('Word', cascade="save-update, merge, delete")
     letters = db.relationship('Letter', cascade="save-update, merge, delete")
     sounds = db.relationship('Letter', cascade="save-update, merge, delete")
@@ -43,21 +43,21 @@ class User(db.Model):
         return f"<User id={self.public_id} email={self.email}>"
 
 
-class Student(db.Model):
+class Student1(db.Model):
     """table of students"""
 
-    __tablename__ = "students"
+    __tablename__ = "students1"
 
     student_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     fname = db.Column(db.String(64), nullable=False)
     lname = db.Column(db.String(64), nullable=False)
     grade = db.Column(db.String(64), nullable=False)
 
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
     studentletters = db.relationship(
@@ -85,12 +85,12 @@ class Word(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
 
     studentwords = db.relationship(
         'StudentWord', cascade="save-update, merge, delete")
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<Word word_id={self.word_id} word={self.word}>"
@@ -106,12 +106,12 @@ class Letter(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
 
     studentletters = db.relationship(
         'StudentLetter', cascade="save-update, merge, delete")
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<letter letter_id={self.letter_id} letter={self.letter}>"
@@ -127,12 +127,12 @@ class Sound(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.today)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
 
     studentsounds = db.relationship(
         'StudentSound', cascade="save-update, merge, delete")
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<sound sound_id={self.sound_id} letter={self.sound}>"
@@ -148,21 +148,21 @@ class StudentWord(db.Model):
     word_id = db.Column(db.Integer, db.ForeignKey(
         'words.word_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
     correct_count = db.Column(db.Integer, default=0, nullable=True)
     incorrect_count = db.Column(db.Integer, default=0, nullable=True)
     Learned = db.Column(db.Boolean, unique=False, default=False)
 
-    students = db.relationship(
-        'Student')
+    students1 = db.relationship(
+        'Student1')
     words = db.relationship(
         'Word')
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentWord student_word_id={self.student_word_id}>"
@@ -178,21 +178,21 @@ class StudentLetter(db.Model):
     letter_id = db.Column(db.Integer, db.ForeignKey(
         'letters.letter_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
     correct_count = db.Column(db.Integer, default=0, nullable=True)
     incorrect_count = db.Column(db.Integer, default=0, nullable=True)
     Learned = db.Column(db.Boolean, unique=False, default=False)
 
-    students = db.relationship(
-        'Student')
+    students1 = db.relationship(
+        'Student1')
     letters = db.relationship(
         'Letter')
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentLetter student_letter_id={self.student_letter_id}>"
@@ -208,21 +208,21 @@ class StudentSound(db.Model):
     sound_id = db.Column(db.Integer, db.ForeignKey(
         'sounds.sound_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     added_to_student = db.Column(
         db.DateTime, nullable=False, default=datetime.today)
     correct_count = db.Column(db.Integer, default=0, nullable=True)
     incorrect_count = db.Column(db.Integer, default=0, nullable=True)
     Learned = db.Column(db.Boolean, unique=False, default=False)
 
-    students = db.relationship(
-        'Student')
+    students1 = db.relationship(
+        'Student1')
     sounds = db.relationship(
         'Sound')
-    users = db.relationship(
-        'User')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentSound student_sound_id={self.student_sound_id}>"
@@ -236,9 +236,9 @@ class StudentWordTestResult(db.Model):
     student_word_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     score = db.Column(db.Float)
     test_date = db.Column(db.DateTime, nullable=True,
                           default=datetime.today)
@@ -247,10 +247,10 @@ class StudentWordTestResult(db.Model):
     incorrect_words = db.Column(
         db.ARRAY(db.String(25)))
 
-    students = db.relationship(
-        'Student')
-    users = db.relationship(
-        'User')
+    students1 = db.relationship(
+        'Student1')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentWordTestResults student_word_test_id={self.student_word_test_id}>"
@@ -264,9 +264,9 @@ class StudentLetterTestResult(db.Model):
     student_letter_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     score = db.Column(db.Float)
     test_date = db.Column(db.DateTime, nullable=True,
                           default=datetime.today)
@@ -275,10 +275,10 @@ class StudentLetterTestResult(db.Model):
     incorrect_letters = db.Column(
         db.ARRAY(db.String(25)))
 
-    students = db.relationship(
-        'Student')
-    users = db.relationship(
-        'User')
+    students1 = db.relationship(
+        'Student1')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentLetterTest student_letter_test_id={self.student_letter_test_id}>"
@@ -292,9 +292,9 @@ class StudentSoundTestResult(db.Model):
     student_sound_test_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(
-        'students.student_id'), nullable=False)
+        'students1.student_id'), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey(
-        'users.public_id'), nullable=False)
+        'users1.public_id'), nullable=False)
     score = db.Column(db.Float)
     test_date = db.Column(db.DateTime, nullable=True,
                           default=datetime.today)
@@ -303,10 +303,10 @@ class StudentSoundTestResult(db.Model):
     incorrect_sounds = db.Column(
         db.ARRAY(db.String(25)))
 
-    students = db.relationship(
-        'Student')
-    users = db.relationship(
-        'User')
+    students1 = db.relationship(
+        'Student1')
+    users1 = db.relationship(
+        'User1')
 
     def __repr__(self):
         return f"<StudentSoundTest student_sound_test_id={self.student_sound_test_id}>"

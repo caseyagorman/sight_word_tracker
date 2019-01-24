@@ -22,7 +22,7 @@ import sound from "./soundReducer";
 import unknownWordStudents from "./unknownWordStudentsReducer";
 import unknownLetterStudents from "./unknownLetterStudentsReducer";
 import unknownSoundStudents from "./unknownSoundStudentsReducer";
-
+// import dolchWords from "./dolchWordsReducer"
 const rootReducer = combineReducers({
   students,
   words,

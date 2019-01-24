@@ -39,7 +39,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-
+    console.log("user", user);
     this.props.authActions.loginUser(user);
   }
 

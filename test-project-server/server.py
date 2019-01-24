@@ -1,17 +1,16 @@
 import datetime
 import time
 from operator import itemgetter
-import os
 import uuid
 from jinja2 import StrictUndefined
 from flask import (Flask, jsonify, render_template, make_response,
                    redirect, request, flash, abort, session)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource, Api, reqparse
-from model import Student, Word, Sound, StudentWord, StudentWordTestResult, StudentLetterTestResult, StudentSoundTestResult, Letter, StudentLetter, StudentSound, connect_to_db, db, User
+from model import Student1, Word, Sound, StudentWord, StudentWordTestResult, StudentLetterTestResult, StudentSoundTestResult, Letter, StudentLetter, StudentSound, connect_to_db, db, User1
 import jwt
 from flask_cors import CORS, cross_origin
-from werkzeug.security import safe_str_cmp
+
 from functools import wraps
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -31,7 +30,7 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'])
-            current_user = User.query.filter_by(
+            current_user = User1.query.filter_by(
                 public_id=data['public_id']).first()
         except:
             return jsonify({'message': 'Token is invalid'})
@@ -46,7 +45,7 @@ def login():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    auth_user = User.query.filter_by(username=username).first()
+    auth_user = User1.query.filter_by(username=username).first()
     if not auth_user:
         return jsonify({'error': 'user does not exist'})
     if auth_user and check_password_hash(auth_user.password, password.encode('utf-8')):
@@ -73,13 +72,13 @@ def add_user():
     email = data.get('email')
     password = data.get('password')
     hashed_password = generate_password_hash(password)
-    existing_user = User.query.filter_by(username=username).first()
+    existing_user = User1.query.filter_by(username=username).first()
     # Check later for or condition statement on email. Email or user exists, return error
     if existing_user:
      
         return jsonify({'error': 'user already exists'})
 
-    new_user = User(public_id=str(uuid.uuid4()), username=username, email=email,
+    new_user = User1(public_id=str(uuid.uuid4()), username=username, email=email,
                     password=hashed_password)
   
     db.session.add(new_user)
@@ -106,10 +105,11 @@ def load_word_list(file_name):
 def get_students(current_user):
     start = time.time()
     public_id = current_user.public_id
-    students = Student.query.filter_by(user_id=public_id).options(
+    students = Student1.query.filter_by(user_id=public_id).options(
         db.joinedload('studentwords')).all()
     student_list = []
     for student in students:
+        print(student)
     
 
         word_list = sorted(get_student_word_list(student)[0])
@@ -164,7 +164,7 @@ def add_student(current_user):
     fname = data.get('fname')
     lname = data.get('lname')
     user_id = current_user.public_id
-    new_student = Student(user_id=user_id, fname=fname, lname=lname, grade="K")
+    new_student = Student1(user_id=user_id, fname=fname, lname=lname, grade="K")
     db.session.add(new_student)
     db.session.commit()
     return 'student added!'
@@ -176,7 +176,7 @@ def delete_student(current_user):
     student_id = request.get_json()
     user_id = current_user.public_id
     print("student_id", student_id, "user_id", user_id)
-    student = Student.query.filter_by(
+    student = Student1.query.filter_by(
         student_id=student_id, user_id=user_id).first()
     print(student)
     db.session.delete(student)
@@ -217,7 +217,7 @@ def student_detail(current_user, student):
     """Show student detail"""
     start = time.time()
     user_id = current_user.public_id
-    student_object = Student.query.filter_by(
+    student_object = Student1.query.filter_by(
         student_id=student, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
         student_id=student).options(db.joinedload('words')).all()
@@ -286,11 +286,11 @@ def get_words(current_user):
         unlearned_student_list =[]
         for item in word.studentwords:
             if item.Learned == True:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
             else:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 unlearned_student_list.append(student.fname + " " + student.lname)
 
@@ -342,13 +342,13 @@ def get_unknown_students_word(current_user, word):
     user_id = current_user.public_id
   
     students = StudentWord.query.filter_by(
-        word_id=word, user_id=user_id).options(db.joinedload('students')).all()
+        word_id=word, user_id=user_id).options(db.joinedload('students1')).all()
   
     student_ids = []
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student1.query.filter_by(user_id=user_id).filter(Student1.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
@@ -450,15 +450,15 @@ def word_detail(current_user, word):
     user_id = current_user.public_id
     word_object = Word.query.filter_by(word_id=word, user_id=user_id).first()
     student_words = StudentWord.query.filter_by(
-        word_id=word).options(db.joinedload('students')).all()
+        word_id=word).options(db.joinedload('students1')).all()
 
     student_list = []
     for student in student_words:
         if student.Learned == False:
             student = {
-                'student_id': student.students.student_id,
-                'fname': student.students.fname,
-                'lname': student.students.lname,
+                'student_id': student.students1.student_id,
+                'fname': student.students1.fname,
+                'lname': student.students1.lname,
                 'learned': "no"
 
             }
@@ -466,9 +466,9 @@ def word_detail(current_user, word):
 
         else:
              student = {
-                'student_id': student.students.student_id,
-                'fname': student.students.fname,
-                'lname': student.students.lname,
+                'student_id': student.students1.student_id,
+                'fname': student.students1.fname,
+                'lname': student.students1.lname,
                 'learned': "yes"
             }
 
@@ -554,7 +554,7 @@ def get_student_word_test(current_user, student):
     user_id = current_user.public_id
     student_id = student
     student_words = StudentWord.query.filter_by(
-        user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students')).all()
+        user_id=user_id, student_id=student_id).options(db.joinedload('words')).options(db.joinedload('students1')).all()
     student_tests = StudentWordTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     word_counts = get_word_counts(student_words)
@@ -609,11 +609,11 @@ def get_letters(current_user):
         unlearned_student_list =[]
         for item in letter.studentletters:
             if item.Learned == True:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
             else:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 unlearned_student_list.append(student.fname + " " + student.lname)
 
@@ -688,12 +688,12 @@ def get_unknown_students_letter(current_user, letter):
     """gets students are not assigned to letter"""
     user_id = current_user.public_id
     students = StudentLetter.query.filter_by(
-        letter_id=letter, user_id=user_id).options(db.joinedload('students')).all()
+        letter_id=letter, user_id=user_id).options(db.joinedload('students1')).all()
     student_ids = []
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student1.query.filter_by(user_id=user_id).filter(Student1.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
@@ -732,15 +732,15 @@ def letter_detail(current_user, letter):
     letter_object = Letter.query.filter_by(
         letter_id=letter, user_id=user_id).first()
     student_letters = StudentLetter.query.filter_by(
-        letter_id=letter).options(db.joinedload('students')).all()
+        letter_id=letter).options(db.joinedload('students1')).all()
 
     student_list = []
     for student in student_letters:
         if student.Learned == False:
             student = {
-                'student_id': student.students.student_id,
-                'fname': student.students.fname,
-                'lname': student.students.lname
+                'student_id': student.students1.student_id,
+                'fname': student.students1.fname,
+                'lname': student.students1.lname
 
             }
             student_list.append(student)
@@ -827,7 +827,7 @@ def get_student_letter_test(current_user, student):
     user_id = current_user.public_id
     student_id = student
     student_letters = StudentLetter.query.filter_by(
-        user_id=user_id, student_id=student_id).options(db.joinedload('letters')).options(db.joinedload('students')).all()
+        user_id=user_id, student_id=student_id).options(db.joinedload('letters')).options(db.joinedload('students1')).all()
     student_tests = StudentLetterTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     letter_counts = get_letter_counts(student_letters)
@@ -1125,7 +1125,7 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
         for word in student_word_list:
             print(word)
             if word.words.word in correct_items:
-                if word.correct_count >= 2:
+                if word.correct_count >= 1:
                     word.Learned = True
                 word.correct_count = StudentWord.correct_count + 1
                 print(word.correct_count)
@@ -1138,7 +1138,7 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
         Letter.letter.in_(correct_items)).all()
         for letter in student_letter_list:
             if letter.letters.letter in correct_items:
-                if letter.correct_count >= 2:
+                if letter.correct_count >= 1:
                     letter.Learned = True
                 letter.correct_count = StudentLetter.correct_count + 1
                 db.session.commit()
@@ -1149,7 +1149,7 @@ def update_correct_items(student_id, correct_items, test_type, user_id):
         Sound.sound.in_(correct_items)).all()
         for sound in student_sound_list:
             if sound.sounds.sound in correct_items:
-                if sound.correct_count >= 2:
+                if sound.correct_count >= 1:
                     sound.Learned = True
                 sound.correct_count = StudentSound.correct_count + 1
 
@@ -1163,8 +1163,6 @@ def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
         Word.word.in_(incorrect_items)).all()
         for word in student_word_list:
             if word.words.word in incorrect_items:
-                if word.incorrect_count >= 2:
-                    word.Learned = True
                 word.incorrect_count = StudentWord.incorrect_count + 1
                 db.session.commit()
         else:
@@ -1175,8 +1173,6 @@ def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
         Letter.letter.in_(incorrect_items)).all()
         for letter in student_letter_list:
             if letter.letters.letter in incorrect_items:
-                if letter.incorrect_count >= 2:
-                    letter.Learned = True
                 letter.incorrect_count = StudentLetter.incorrect_count + 1
                 db.session.commit()
         else:
@@ -1186,8 +1182,6 @@ def update_incorrect_items(student_id, incorrect_items, test_type, user_id):
         Sound.sound.in_(incorrect_items)).all()
         for sound in student_sound_list:
             if sound.sounds.sound in incorrect_items:
-                if sound.incorrect_count >= 2:
-                    sound.Learned = True
                 Sound.incorrect_count = StudentSound.incorrect_count + 1
                 db.session.commit()
     return "incorrect items"
@@ -1205,11 +1199,11 @@ def get_sounds(current_user):
         unlearned_student_list =[]
         for item in sound.studentsounds:
             if item.Learned == True:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 student_list.append(student.fname + " " + student.lname)
             else:
-                student = Student.query.filter_by(
+                student = Student1.query.filter_by(
                     student_id=item.student_id).first()
                 unlearned_student_list.append(student.fname + " " + student.lname)
 
@@ -1240,12 +1234,12 @@ def get_unknown_students_sound(current_user, sound):
     user_id = current_user.public_id
     sound_id = sound
     students = StudentSound.query.filter_by(
-        sound_id=sound_id, user_id=user_id).options(db.joinedload('students')).all()
+        sound_id=sound_id, user_id=user_id).options(db.joinedload('students1')).all()
     student_ids = []
     for student in students:
         student_ids.append(student.student_id)
 
-    unknown_students = Student.query.filter_by(user_id=user_id).filter(Student.student_id.notin_(student_ids)).all()
+    unknown_students = Student1.query.filter_by(user_id=user_id).filter(Student1.student_id.notin_(student_ids)).all()
     student_list = []
 
     for student in unknown_students:
@@ -1312,15 +1306,15 @@ def sound_detail(current_user, sound):
     sound_object = Sound.query.filter_by(
         sound_id=sound, user_id=user_id).first()
     student_sounds = StudentSound.query.filter_by(
-        sound_id=sound).options(db.joinedload('students')).all()
+        sound_id=sound).options(db.joinedload('students1')).all()
 
     student_list = []
     for student in student_sounds:
         if student.Learned == False:
             student = {
-                'student_id': student.students.student_id,
-                'fname': student.students.fname,
-                'lname': student.students.lname
+                'student_id': student.students1.student_id,
+                'fname': student.students1.fname,
+                'lname': student.students1.lname
 
             }
             student_list.append(student)
@@ -1427,7 +1421,7 @@ def get_student_sound_test(current_user, student):
     user_id = current_user.public_id
     student_id = student
     student_sounds = StudentSound.query.filter_by(
-        user_id=user_id, student_id=student_id).options(db.joinedload('sounds')).options(db.joinedload('students')).all()
+        user_id=user_id, student_id=student_id).options(db.joinedload('sounds')).options(db.joinedload('students1')).all()
     student_tests = StudentSoundTestResult.query.filter_by(
         student_id=student_id, user_id=user_id).all()
     sound_counts = get_sound_counts(student_sounds)
